@@ -4,6 +4,10 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { rhZak, plexArabic, inter } from "@/app/fonts";
+import { RegionProvider } from "@/components/providers/RegionProvider";
+import { Header } from "@/components/chrome/Header";
+import { Footer } from "@/components/chrome/Footer";
+import { WhatsAppFab } from "@/components/chrome/WhatsAppFab";
 import "@/app/globals.css";
 
 export const metadata: Metadata = {
@@ -36,7 +40,14 @@ export default async function LocaleLayout({
       className={`${rhZak.variable} ${plexArabic.variable} ${inter.variable}`}
     >
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <RegionProvider>
+            <Header />
+            {children}
+            <Footer />
+            <WhatsAppFab />
+          </RegionProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

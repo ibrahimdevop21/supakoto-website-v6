@@ -36,7 +36,7 @@ export default async function KitchenSinkPage({
   const mirrorDir = locale === "ar" ? "ltr" : "rtl";
 
   return (
-    <main>
+    <main className="pt-18">
       <Section>
         <Container className="space-y-16">
           <header>

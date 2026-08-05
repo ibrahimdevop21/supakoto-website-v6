@@ -2,6 +2,60 @@
   "home": {
     "title": "SupaKoto"
   },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "aboutPage": "About SupaKoto",
+    "faq": "FAQ",
+    "ourWork": "Our Work",
+    "gallery": "Gallery",
+    "book": "Book",
+    "warranty": "Warranty",
+    "warrantyPolicy": "Warranty Policy",
+    "warrantyClaim": "Warranty Claim",
+    "business": "Business",
+    "franchise": "Franchise",
+    "b2b": "B2B & Fleet",
+    "branches": "Branches",
+    "contact": "Contact",
+    "contactPage": "Contact Us",
+    "careers": "Careers",
+    "cta": "Book now",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "logoAlt": "SupaKoto"
+  },
+  "chrome": {
+    "region": {
+      "title": "Choose your region",
+      "note": "Branches and phone numbers change with the region.",
+      "egypt": "Egypt",
+      "uae": "UAE",
+      "trigger": "Region",
+      "close": "Close"
+    },
+    "locale": {
+      "label": "ع",
+      "aria": "التبديل إلى العربية"
+    },
+    "whatsapp": "Message us on WhatsApp"
+  },
+  "footer": {
+    "tagline": "Exclusive agent for Japanese protection films in Egypt & UAE",
+    "contactHeading": "Contact us",
+    "call": "Call us",
+    "whatsapp": "WhatsApp",
+    "privacy": "Privacy Policy",
+    "terms": "Terms",
+    "rights": "© SupaKoto {year}. All rights reserved.",
+    "social": {
+      "instagram": "Instagram",
+      "tiktok": "TikTok",
+      "facebook": "Facebook",
+      "youtube": "YouTube",
+      "linkedin": "LinkedIn"
+    }
+  },
   "dev": {
     "kitchenSink": {
       "title": "Kitchen sink",

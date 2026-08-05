@@ -2,6 +2,60 @@
   "home": {
     "title": "سوباكوتو"
   },
+  "nav": {
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "aboutPage": "عن سوباكوتو",
+    "faq": "الأسئلة الشائعة",
+    "ourWork": "أعمالنا",
+    "gallery": "المعرض",
+    "book": "احجز",
+    "warranty": "الضمان",
+    "warrantyPolicy": "سياسة الضمان",
+    "warrantyClaim": "طلب ضمان",
+    "business": "قطاع الأعمال",
+    "franchise": "الامتياز التجاري",
+    "b2b": "الشركات والأساطيل",
+    "branches": "فروعنا",
+    "contact": "تواصل",
+    "contactPage": "تواصل معنا",
+    "careers": "التوظيف",
+    "cta": "احجز دلوقتي",
+    "openMenu": "افتح القايمة",
+    "closeMenu": "اقفل القايمة",
+    "logoAlt": "سوباكوتو"
+  },
+  "chrome": {
+    "region": {
+      "title": "اختار منطقتك",
+      "note": "الفروع وأرقام التليفونات بتتغير حسب المنطقة.",
+      "egypt": "مصر",
+      "uae": "الإمارات",
+      "trigger": "المنطقة",
+      "close": "اقفل"
+    },
+    "locale": {
+      "label": "EN",
+      "aria": "Switch to English"
+    },
+    "whatsapp": "كلمنا على واتساب"
+  },
+  "footer": {
+    "tagline": "الوكيل الحصري في مصر والإمارات لأفلام الحماية اليابانية",
+    "contactHeading": "تواصل معنا",
+    "call": "اتصل بينا",
+    "whatsapp": "واتساب",
+    "privacy": "سياسة الخصوصية",
+    "terms": "الشروط والأحكام",
+    "rights": "© سوباكوتو {year}. كل الحقوق محفوظة.",
+    "social": {
+      "instagram": "إنستجرام",
+      "tiktok": "تيك توك",
+      "facebook": "فيسبوك",
+      "youtube": "يوتيوب",
+      "linkedin": "لينكد إن"
+    }
+  },
   "dev": {
     "kitchenSink": {
       "title": "مطبخ المكوّنات",
