@@ -1,0 +1,21 @@
+/**
+ * Site-level FAQ (the /faq page). Strings: faq.items.<id>.{q,a}.
+ * Service-detail FAQs live under services.items.<id>.faq.*
+ */
+
+export type FaqCategory = "general" | "warranty" | "booking" | "aftercare";
+
+export type FaqEntry = { id: string; category: FaqCategory };
+
+export const faqEntries: FaqEntry[] = [
+  { id: "whatIsPpf", category: "general" },
+  { id: "whyJapanese", category: "general" },
+  { id: "howLongInstall", category: "booking" },
+  { id: "bookingDeposit", category: "booking" },
+  { id: "whichBranch", category: "booking" },
+  { id: "warrantyTiers", category: "warranty" },
+  { id: "warrantyVoid", category: "warranty" },
+  { id: "warrantyTransfer", category: "warranty" },
+  { id: "washAfter", category: "aftercare" },
+  { id: "selfHealing", category: "aftercare" },
+];

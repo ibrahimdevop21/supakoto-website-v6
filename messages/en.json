@@ -1,6 +1,75 @@
 {
   "home": {
-    "title": "SupaKoto"
+    "title": "SupaKoto — Japanese protection for your car",
+    "hero": {
+      "slides": {
+        "s1": {
+          "title": "Your car deserves genuine Japanese protection",
+          "sub": "TAKAI films, made in Japan. Total clarity. Protection that lasts years."
+        },
+        "s2": {
+          "title": "The sun won't hold back. We will",
+          "sub": "Heat isolation that protects cabin and paint from Egyptian and Gulf summers."
+        },
+        "s3": {
+          "title": "Showroom shine — without going back to the showroom",
+          "sub": "Nano ceramic seals the paint surface and makes cleaning effortless."
+        },
+        "s4": {
+          "title": "Change your colour. Keep your options",
+          "sub": "Full colour change with materials that remove cleanly, original paint untouched."
+        },
+        "s5": {
+          "title": "A long-term investment in your car",
+          "sub": "The right protection holds your resale value."
+        }
+      },
+      "cta": "Book an appointment",
+      "placeholderNote": "Placeholder image — campaign photography pending"
+    },
+    "services": {
+      "eyebrow": "Services",
+      "title": "Five ways we protect your car",
+      "viewAll": "All services"
+    },
+    "knowMore": {
+      "title": "Not sure what your car needs?",
+      "sub": "Every service has a full page with details and packages",
+      "cta": "Learn more"
+    },
+    "ourWork": {
+      "eyebrow": "Our Work",
+      "title": "The work speaks",
+      "sub": "Real cars from our workshops in Egypt and the UAE",
+      "cta": "View the full gallery"
+    },
+    "features": {
+      "branches": {
+        "title": "Our branches",
+        "sub": "6 branches across Egypt and the UAE"
+      },
+      "takai": {
+        "title": "Japanese engineering",
+        "sub": "The TAKAI story — film made in Japan, exclusively for us"
+      },
+      "warranty": {
+        "title": "Warranty",
+        "sub": "Every protection tier carries its own documented warranty"
+      },
+      "book": {
+        "title": "Book your slot",
+        "sub": "Pick the branch and time that suit you"
+      }
+    },
+    "business": {
+      "eyebrow": "Business",
+      "franchiseTitle": "Open a SupaKoto branch",
+      "franchiseSub": "A franchise with full operational backing",
+      "franchiseCta": "About the franchise",
+      "b2bTitle": "Fleets & companies",
+      "b2bSub": "Fleet protection, dealerships, and SK-BLD building film",
+      "b2bCta": "Request a quote"
+    }
   },
   "nav": {
     "home": "Home",
@@ -55,6 +124,548 @@
       "youtube": "YouTube",
       "linkedin": "LinkedIn"
     }
+  },
+  "services": {
+    "index": {
+      "eyebrow": "Services",
+      "title": "Protection, matched to your car",
+      "sub": "Japanese materials. Factory-grade installation. Choose what fits.",
+      "detailsCta": "Details & packages"
+    },
+    "detail": {
+      "problemHeading": "The problem",
+      "solutionHeading": "The solution",
+      "specHeading": "Specifications",
+      "beforeAfterHeading": "Before & after",
+      "beforeLabel": "Before",
+      "afterLabel": "After",
+      "packagesHeading": "Packages",
+      "faqHeading": "Common questions",
+      "bookCta": "Book this service",
+      "placeholderNote": "Placeholder image — workshop photography pending"
+    },
+    "items": {
+      "ppf": {
+        "name": "Paint Protection Film",
+        "benefit": "A clear shield that takes the hit instead of your paint",
+        "problem": "Road gravel, sand, keys, and half-centimetre accidents all mark the original paint — and every scratch takes money off your resale price.",
+        "solutionIntro": "Japanese TAKAI film sits over the paint and absorbs the damage instead:",
+        "solutions": {
+          "b1": "Self-healing material — light scratches disappear with heat",
+          "b2": "Full clarity, zero change to the original colour",
+          "b3": "Protection against sun yellowing and chemical rain",
+          "b4": "Removes cleanly whenever you choose, paint untouched"
+        },
+        "spec": {
+          "material": { "label": "Material", "value": "Japanese TPU — TAKAI" },
+          "thickness": { "label": "Thickness", "value": "[To be confirmed]" },
+          "warranty": {
+            "label": "Warranty",
+            "value": "Standard tiers: up to 15 years · Premium Plus: lifetime*"
+          },
+          "coverage": { "label": "Coverage", "value": "Front / partial / full body" },
+          "selfHealing": { "label": "Self-healing", "value": "[To be confirmed]" }
+        },
+        "packages": {
+          "front": { "name": "Front end", "coverage": "Bonnet + fenders + mirrors + sills" },
+          "partial": { "name": "Partial", "coverage": "Front end + high-impact zones" },
+          "full": { "name": "Full body", "coverage": "Every painted surface" }
+        },
+        "premiumPlusCard": {
+          "name": "Premium Plus",
+          "term": "Lifetime warranty*"
+        },
+        "faq": {
+          "1": { "q": "Will the film show on the car?", "a": "No. TAKAI film is fully transparent and follows the paint's own surface. What shows is the gloss." },
+          "2": { "q": "How long does installation take?", "a": "One to three days depending on coverage. Full body takes its time — done properly." },
+          "3": { "q": "Can I wash the car normally?", "a": "A week after installation, wash as usual. Steam and foam are both fine." },
+          "4": { "q": "What separates the tiers?", "a": "Thickness, warranty years, and self-healing level. Each tier has its warranty in writing, under its own name." },
+          "5": { "q": "Do deep scratches heal too?", "a": "Self-healing handles surface scratches. Deep cuts are fixed by replacing that panel's film only." },
+          "6": { "q": "What if I sell the car?", "a": "Warranty transfer terms differ by tier — see the warranty page or ask at any branch." }
+        }
+      },
+      "heat-isolation": {
+        "name": "Heat Isolation",
+        "benefit": "A cooler cabin and paint shielded from the sun",
+        "problem": "Summer sun turns the cabin into an oven, works the AC to death, and slowly cooks the upholstery and dashboard.",
+        "solutionIntro": "Japanese heat isolation that works without darkening your view:",
+        "solutions": {
+          "b1": "High heat and UV rejection",
+          "b2": "Legal shades that stay comfortable for night driving",
+          "b3": "Protects upholstery and dashboard from cracking and fading",
+          "b4": "Real savings on AC load"
+        },
+        "spec": {
+          "material": { "label": "Material", "value": "Japanese nano-ceramic" },
+          "heatRejection": { "label": "Heat rejection", "value": "[To be confirmed]" },
+          "uvRejection": { "label": "UV rejection", "value": "[To be confirmed]" },
+          "warranty": { "label": "Warranty", "value": "Per tier — confirmed at booking" },
+          "shades": { "label": "Shades", "value": "Multiple — per local law" }
+        },
+        "packages": {
+          "windshield": { "name": "Windshield", "coverage": "Front glass only" },
+          "sides": { "name": "Sides & rear", "coverage": "Side and rear glass" },
+          "full": { "name": "Full", "coverage": "All glass" }
+        },
+        "faq": {
+          "1": { "q": "Is this tint legal?", "a": "We install shades compliant with local law in Egypt and the UAE — reviewed with you before installation." },
+          "2": { "q": "Does it actually make a difference?", "a": "Yes — you feel it from day one, especially parked in the sun." },
+          "3": { "q": "Does it hurt night vision?", "a": "The shades we recommend are balanced: high rejection without driving in a tunnel." },
+          "4": { "q": "How long does it take?", "a": "Half a day to a day, depending on surfaces." },
+          "5": { "q": "What's the warranty?", "a": "It follows the isolation tier you choose — documented in writing at installation." }
+        }
+      },
+      "colour-change": {
+        "name": "Colour Change",
+        "benefit": "A whole new colour — original paint safe underneath",
+        "problem": "Bored of the colour? Traditional respray cuts your resale value and closes the road back.",
+        "solutionIntro": "A full wrap in world-class materials gives you the colour you want:",
+        "solutions": {
+          "b1": "Finishes: gloss, matte, satin, metallic",
+          "b2": "Removes any time — original paint exactly as it was",
+          "b3": "Extra paint protection under the wrap",
+          "b4": "Patient detailing: tucked edges, clean cuts"
+        },
+        "spec": {
+          "material": { "label": "Material", "value": "Certified premium wrap vinyl" },
+          "finish": { "label": "Finish", "value": "Gloss / matte / satin / metallic" },
+          "warranty": { "label": "Warranty", "value": "Per wrap material — confirmed at booking" },
+          "removal": { "label": "Removal", "value": "Safe on original paint" }
+        },
+        "packages": {
+          "accents": { "name": "Accents", "coverage": "Roof / mirrors / details" },
+          "full": { "name": "Full change", "coverage": "Entire body" }
+        },
+        "faq": {
+          "1": { "q": "How long does a wrap last?", "a": "Years, with the right care — and we show you exactly how." },
+          "2": { "q": "What if the wrap gets scratched?", "a": "Only the damaged panel is redone — no need to rewrap the car." },
+          "3": { "q": "Does it affect registration?", "a": "Colour change involves traffic paperwork — we walk you through it before starting." },
+          "4": { "q": "Can I go back to the original colour?", "a": "Any time. Our removal is safe; the paint comes out as it went in." },
+          "5": { "q": "Respray or wrap?", "a": "A wrap protects value and reverses. A respray doesn't." }
+        }
+      },
+      "nano-ceramic": {
+        "name": "Nano Ceramic",
+        "benefit": "Deep gloss and a surface that repels water and dust",
+        "problem": "Washing, sun, rain — the paint surface tires and dulls, and swirl marks build up over time.",
+        "solutionIntro": "A ceramic layer bonds chemically with the paint and gives you:",
+        "solutions": {
+          "b1": "Deep gloss that lasts months, not weeks",
+          "b2": "Hydrophobic surface — dust and mud don't stick",
+          "b3": "Protection from UV and salt",
+          "b4": "Faster, streak-free washing"
+        },
+        "spec": {
+          "layers": { "label": "Layers", "value": "One or more, per package" },
+          "hardness": { "label": "Hardness", "value": "[To be confirmed]" },
+          "warranty": { "label": "Warranty", "value": "Per package — confirmed at booking" },
+          "maintenance": { "label": "Maintenance", "value": "Routine washing + optional annual refresh" }
+        },
+        "packages": {
+          "single": { "name": "Single layer", "coverage": "Core protection and gloss" },
+          "multi": { "name": "Multi-layer", "coverage": "Deeper protection, stronger gloss" },
+          "withPpf": { "name": "Over PPF", "coverage": "Ceramic on top of protection film" }
+        },
+        "faq": {
+          "1": { "q": "How is it different from wax?", "a": "Wax sits for weeks. Ceramic bonds with the paint itself and stays for months and years." },
+          "2": { "q": "Does it stop scratches?", "a": "It reduces light marks. Real impact protection comes from PPF." },
+          "3": { "q": "How do I wash the car after?", "a": "Hand wash or steam — and stay away from harsh brushes." },
+          "4": { "q": "How long does it take?", "a": "One to two days depending on paint condition — the prep and polish before coating matter most." },
+          "5": { "q": "Can it go over PPF?", "a": "Yes — the strongest combination: film takes the impact, ceramic makes cleaning easy." }
+        }
+      },
+      "polishing": {
+        "name": "Polishing",
+        "benefit": "We bring back the paint's original depth and gloss",
+        "problem": "Wash lines, holograms, and oxidation drain the colour's depth — especially on dark cars.",
+        "solutionIntro": "Staged polishing with professional compounds and tooling:",
+        "solutions": {
+          "b1": "Removes wash lines and holograms",
+          "b2": "Restores colour depth and gloss",
+          "b3": "The ideal prep before ceramic or film",
+          "b4": "Paint-depth measured before any work — no gambling"
+        },
+        "spec": {
+          "stages": { "label": "Stages", "value": "One to three, per condition" },
+          "duration": { "label": "Duration", "value": "Half a day to a full day" },
+          "finish": { "label": "Result", "value": "A surface ready for protection or delivery" }
+        },
+        "packages": {
+          "exterior": { "name": "Exterior polish", "coverage": "Full body" },
+          "showroom": { "name": "Showroom prep", "coverage": "Polish + complete detail" }
+        },
+        "faq": {
+          "1": { "q": "Doesn't polishing eat the paint?", "a": "We measure paint depth first and remove the least material that achieves the result." },
+          "2": { "q": "How often should I polish?", "a": "Rarely — protected and coated, once every few years is enough." },
+          "3": { "q": "Does it remove all scratches?", "a": "Surface scratches, yes; deeper ones are reduced. Anything through to the base coat needs touch-up." },
+          "4": { "q": "Why here?", "a": "The same Japanese standards we install film with — measurement, patience, proper inspection lighting." }
+        }
+      }
+    }
+  },
+  "about": {
+    "eyebrow": "SupaKoto",
+    "title": "Japanese protection, expertly installed",
+    "sub": "Exclusive agent for TAKAI films in Egypt and the UAE",
+    "whoWeAre": {
+      "eyebrow": "Who we are",
+      "title": "Our story",
+      "body": "We started from a genuine love of cars and a conviction that this market deserved a different level of protection. We secured a Japanese film manufactured exclusively for us — TAKAI — and built workshops around it to the factory's own standards: measurement before any work, installation in a controlled environment, documentation at every step. Today we run 6 branches across Egypt and the UAE, and every car leaves with a written warranty carrying the name of its protection tier."
+    },
+    "stats": {
+      "branches": { "value": "6", "label": "Branches in Egypt & UAE" },
+      "japanese": { "value": "100%", "label": "Genuine Japanese TAKAI film" },
+      "exclusive": { "value": "🇯🇵", "label": "Exclusive agent in Egypt & UAE" },
+      "todo": {
+        "value": "—",
+        "label": "[TODO — Ibrahim picks: years in market / cars protected / TAKAI partnership year]"
+      }
+    },
+    "vmv": {
+      "vision": {
+        "title": "Vision",
+        "body": "To be the Middle East's reference in car protection — the first name that comes to mind when you think of protecting your investment."
+      },
+      "mission": {
+        "title": "Mission",
+        "body": "Deliver the finest Japanese material with the finest installation, and keep the experience transparent: clear pricing, written warranty, visible results."
+      },
+      "values": {
+        "title": "Values",
+        "body": "Precision before speed. Honesty before the sale. Every car in our workshop is treated like our own."
+      }
+    },
+    "cta": {
+      "title": "Ready to protect your car?",
+      "button": "Book your slot"
+    }
+  },
+  "branches": {
+    "title": "Our branches",
+    "sub": "6 branches across Egypt and the UAE — pick the nearest",
+    "call": "Call",
+    "whatsapp": "WhatsApp",
+    "directions": "Directions",
+    "franchiseBadge": "Franchise location",
+    "hoursUnverified": "Working hours: contact the branch",
+    "photoPlaceholder": "Branch photo — coming soon",
+    "items": {
+      "tagamoa": {
+        "name": "Fifth Settlement",
+        "address": "New Cairo — Fifth Settlement"
+      },
+      "zayed": {
+        "name": "Sheikh Zayed",
+        "address": "Giza — Sheikh Zayed"
+      },
+      "maadi": {
+        "name": "Zahraa El Maadi",
+        "address": "Cairo — Zahraa El Maadi"
+      },
+      "alexandria": {
+        "name": "Alexandria",
+        "address": "Desert Road — inside Mansour Chevrolet"
+      },
+      "damietta": {
+        "name": "New Damietta",
+        "address": "RB Garage — opposite the Faculty of Arts"
+      },
+      "dubai": {
+        "name": "Dubai",
+        "address": "Al Quoz 3 — Industrial Area"
+      }
+    }
+  },
+  "warranty": {
+    "title": "A warranty in writing, not in words",
+    "sub": "Every protection tier carries its own documented warranty — this is the full policy",
+    "tiersHeading": "Tier comparison",
+    "tierStandard": "Standard TAKAI tiers",
+    "tierPremiumPlus": "Premium Plus",
+    "termStandard": "Up to 15 years",
+    "termLifetime": "Lifetime*",
+    "todoCell": "[To be confirmed]",
+    "rows": {
+      "term": { "label": "Warranty term" },
+      "scope": { "label": "Coverage scope" },
+      "transferable": { "label": "Transferable on sale" },
+      "yellowing": { "label": "Yellowing / discolouration" },
+      "cracking": { "label": "Cracking / peeling / lifting" },
+      "selfHealing": { "label": "Self-healing performance" },
+      "exclusions": { "label": "Exclusions" }
+    },
+    "qualifier": {
+      "todo": "* [TODO — Ibrahim's call: lifetime of the film / of original ownership / of the vehicle. Do not publish before this is scoped.]"
+    },
+    "registration": {
+      "heading": "How to register your warranty",
+      "steps": {
+        "1": "After installation, the branch registers your car and protection tier",
+        "2": "You receive the warranty booklet stating tier and term",
+        "3": "Keep the invoice — it anchors any claim",
+        "4": "Notice anything on the film? Call us first, before any outside work"
+      }
+    },
+    "claimCta": {
+      "title": "Have an issue covered by warranty?",
+      "button": "File a warranty claim"
+    },
+    "faqHeading": "Warranty questions",
+    "faq": {
+      "1": {
+        "q": "What voids the warranty?",
+        "a": "Outside work on the film (installation or repair beyond our branches), accidents, and clear misuse. Full details are in your tier's warranty booklet."
+      },
+      "2": {
+        "q": "Is coverage identical across tiers?",
+        "a": "No — each tier has its own term and conditions, in its own name. That's why there is no single number across this site."
+      },
+      "3": {
+        "q": "How do I file a claim?",
+        "a": "From the claim page: plate number, branch, invoice date, issue description, and photos. We reply with inspection steps."
+      }
+    }
+  },
+  "warrantyClaim": {
+    "title": "Warranty claim",
+    "sub": "Fill this in and we'll come back with inspection steps",
+    "fields": {
+      "plate": "Plate number",
+      "branch": "Installing branch",
+      "invoiceDate": "Invoice date",
+      "issue": "Issue description",
+      "issuePlaceholder": "Describe the issue — where it is and when you noticed it",
+      "photos": "Photos",
+      "photosHint": "Upload clear photos of the affected area",
+      "submit": "Submit claim"
+    },
+    "success": "Received. We'll contact you within two working days.",
+    "stub": "[Claim submission activates with system integration — this form is temporary]"
+  },
+  "booking": {
+    "title": "Book your appointment",
+    "sub": "One question per step — two minutes and you're done",
+    "progress": "Step {current} of {total}",
+    "next": "Next",
+    "back": "Back",
+    "steps": {
+      "region": { "title": "Where is your car?", "hint": "Choose the country" },
+      "branch": { "title": "Nearest branch?", "hint": "Branches for your region" },
+      "service": { "title": "What do you need?", "hint": "Pick the main service" },
+      "car": { "title": "What's your car?", "makeLabel": "Make", "modelLabel": "Model", "hint": "Helps us prepare the right patterns" },
+      "date": { "title": "Which day suits you?", "hint": "Availability follows branch capacity" },
+      "time": { "title": "What time?", "hint": "Choose from available slots" },
+      "contact": { "title": "Your details", "nameLabel": "Name", "phoneLabel": "Phone number", "hint": "We confirm the booking on this number" },
+      "confirm": { "title": "Review & confirm", "hint": "Check the details before confirming", "confirmButton": "Confirm booking" }
+    },
+    "summary": {
+      "region": "Region",
+      "branch": "Branch",
+      "service": "Service",
+      "car": "Car",
+      "datetime": "Slot"
+    },
+    "success": "Done! Your booking is in — we'll call to confirm.",
+    "stub": "[Booking activates with the bdm-flow integration — final confirmation reaches your phone]"
+  },
+  "franchise": {
+    "title": "Become a SupaKoto partner",
+    "sub": "A franchise for a Japanese brand growing across Egypt and the Gulf",
+    "whyHeading": "Why this brand",
+    "why": {
+      "1": { "title": "Exclusive material", "body": "TAKAI is made in Japan for us alone — no competitor sells the same product" },
+      "2": { "title": "A built brand", "body": "An established name with customers who return and refer" },
+      "3": { "title": "Proven operations", "body": "Booking, pricing, and training systems ready from day one" },
+      "4": { "title": "A growing market", "body": "Awareness of protection is rising — demand outruns professional supply" }
+    },
+    "getHeading": "What you get",
+    "get": {
+      "1": "Workshop fit-out and equipment to our spec",
+      "2": "Branch identity and finishing",
+      "3": "Team training in our workshops",
+      "4": "Ongoing operational supervision",
+      "5": "Central marketing and launch support",
+      "6": "Direct material supply chain"
+    },
+    "investmentHeading": "Investment",
+    "investmentTodo": "[Investment ranges and terms — to be supplied by Ibrahim]",
+    "processHeading": "The path to opening",
+    "process": {
+      "1": "Apply",
+      "2": "Intro call and site assessment",
+      "3": "Agreement and contract",
+      "4": "Fit-out and training",
+      "5": "Opening with full support"
+    },
+    "formHeading": "Apply for the franchise",
+    "fields": {
+      "name": "Name",
+      "phone": "Phone number",
+      "email": "Email",
+      "city": "Proposed city",
+      "budget": "Available budget",
+      "message": "Tell us about your background",
+      "submit": "Submit application"
+    },
+    "faqHeading": "Franchise questions",
+    "faq": {
+      "1": { "q": "Do I need automotive experience?", "a": "Not required — training and operations are on us. What's required is commitment and serious management." },
+      "2": { "q": "How long from contract to opening?", "a": "It depends on site readiness — we set a clear schedule after assessing the location." },
+      "3": { "q": "Do you offer financing?", "a": "No, but we help you build a realistic feasibility study before you commit." }
+    }
+  },
+  "business": {
+    "title": "Solutions for companies and fleets",
+    "sub": "One standard of protection across many cars — with clear service contracts",
+    "segments": {
+      "fleet": { "title": "Fleets", "body": "Uniform protection for company cars with flexible scheduling and consolidated billing" },
+      "dealers": { "title": "Dealerships", "body": "Zero-km preparation before delivery — added value for your customers" },
+      "building": { "title": "SK-BLD building film", "body": "Heat isolation for glass facades — offices and commercial buildings" }
+    },
+    "formHeading": "Request a quote",
+    "fields": {
+      "company": "Company name",
+      "name": "Contact person",
+      "phone": "Phone number",
+      "email": "Email",
+      "type": "Request type",
+      "typeFleet": "Fleet",
+      "typeDealer": "Dealership",
+      "typeBuilding": "Building film",
+      "size": "Number of cars or glass area",
+      "message": "Additional details",
+      "submit": "Send request"
+    }
+  },
+  "gallery": {
+    "title": "Our work",
+    "sub": "Straight from our workshops — no stock photos",
+    "filters": {
+      "all": "All",
+      "video": "Video"
+    },
+    "placeholderNote": "Placeholder media — real work photos pending",
+    "lightbox": {
+      "close": "Close",
+      "prev": "Previous",
+      "next": "Next"
+    }
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "sub": "What gets asked most — answered straight",
+    "categories": {
+      "general": "General",
+      "warranty": "Warranty",
+      "booking": "Booking & installation",
+      "aftercare": "Aftercare"
+    },
+    "items": {
+      "whatIsPpf": { "q": "What is paint protection film?", "a": "A transparent TPU layer installed over the paint that takes scratches and gravel instead — and removes without a trace." },
+      "whyJapanese": { "q": "What's different about Japanese film?", "a": "Colour stability, adhesive quality, and self-healing. TAKAI is made in Japan to specifications we set." },
+      "howLongInstall": { "q": "How long does installation take?", "a": "By service: isolation half a day to a day, film one to three days, ceramic one to two days." },
+      "bookingDeposit": { "q": "Does booking need a deposit?", "a": "We confirm those details in the booking confirmation call — it varies by service and branch." },
+      "whichBranch": { "q": "Which branch should I visit?", "a": "The nearest — every branch runs the same standards and the same material. See the branches page." },
+      "warrantyTiers": { "q": "Why isn't there one warranty number?", "a": "Because warranty follows the protection tier. Each tier has its term and conditions in writing, under its own name — cleaner than a vague blanket promise." },
+      "warrantyVoid": { "q": "What voids the warranty?", "a": "Outside work on the film, accidents, or clear misuse. Details are in your tier's booklet." },
+      "warrantyTransfer": { "q": "Does warranty transfer if I sell?", "a": "It differs by tier — see the comparison table on the warranty page." },
+      "washAfter": { "q": "When can I wash after installation?", "a": "Wait a week, then wash normally — hand or steam beats automatic brushes." },
+      "selfHealing": { "q": "How does self-healing work?", "a": "Sun heat or warm water makes surface scratches in the film disappear on their own." }
+    }
+  },
+  "contact": {
+    "title": "Contact us",
+    "sub": "Ask, suggest, or complain — we answer all of it",
+    "info": {
+      "phone": "Phone",
+      "whatsapp": "WhatsApp",
+      "hours": "Office hours",
+      "hoursValue": "Saturday–Thursday, 10:00–18:00"
+    },
+    "formHeading": "Write to us",
+    "fields": {
+      "name": "Name",
+      "phone": "Phone number",
+      "email": "Email",
+      "subject": "Subject",
+      "subjectGeneral": "General enquiry",
+      "subjectBooking": "Booking question",
+      "subjectComplaint": "Complaint",
+      "subjectOther": "Something else",
+      "message": "Your message",
+      "submit": "Send"
+    },
+    "complaintNote": "Complaints go directly to management; we reply within two working days.",
+    "success": "Message received — we'll get back to you soon."
+  },
+  "careers": {
+    "title": "Work with us",
+    "sub": "We're always looking for people who love work done right",
+    "openingsHeading": "Open roles",
+    "noOpenings": "No roles are posted right now — but if you'd add something, write to us and we'll keep your details.",
+    "formHeading": "Apply now",
+    "fields": {
+      "name": "Name",
+      "phone": "Phone number",
+      "email": "Email",
+      "role": "Role you're applying for",
+      "roleInstaller": "Installation technician",
+      "roleSales": "Sales & customer service",
+      "roleAdmin": "Administration & operations",
+      "roleOther": "Other",
+      "cv": "CV or portfolio link",
+      "message": "Tell us why you",
+      "submit": "Submit application"
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "updated": "Last updated: {date}",
+    "sections": {
+      "collect": {
+        "title": "What we collect",
+        "body": "The contact details you enter in booking and contact forms: name, phone number, email, and the car details you share with us."
+      },
+      "use": {
+        "title": "How we use it",
+        "body": "Confirming bookings, answering enquiries, warranty follow-up, and improving our service. We do not sell your data to any third party."
+      },
+      "cookies": {
+        "title": "Cookies",
+        "body": "We use a single cookie to remember your region choice (Egypt / UAE). No advertising trackers."
+      },
+      "contact": {
+        "title": "Privacy questions",
+        "body": "Any question about your data? Reach us through the contact page and we'll answer."
+      }
+    }
+  },
+  "terms": {
+    "title": "Terms & Conditions",
+    "updated": "Last updated: {date}",
+    "sections": {
+      "scope": {
+        "title": "Scope",
+        "body": "These terms govern use of the SupaKoto website and booking of our services in Egypt and the UAE."
+      },
+      "booking": {
+        "title": "Booking & appointments",
+        "body": "Bookings are confirmed after we contact you. Need to move a slot? Tell us at least a day ahead."
+      },
+      "warranty": {
+        "title": "Warranty",
+        "body": "Warranty terms follow the installed protection tier and are documented in the warranty booklet — see the warranty page for the full comparison."
+      },
+      "liability": {
+        "title": "Liability",
+        "body": "We stand by our documented installation standards. Any service concern is reviewed by management and handled under the warranty policy."
+      }
+    }
+  },
+  "notFound": {
+    "title": "This page doesn't exist",
+    "sub": "The link may have changed — head home and you'll find your way",
+    "cta": "Home"
   },
   "dev": {
     "kitchenSink": {
