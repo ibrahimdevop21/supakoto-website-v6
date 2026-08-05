@@ -1,0 +1,11 @@
+{
+  "name": "supakoto-website-v6",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.20.0",
+  "scripts": {},
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}

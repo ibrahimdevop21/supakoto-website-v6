@@ -104,7 +104,10 @@ async function run() {
     for (const route of ROUTES) {
       const name = slug(route);
       try {
-        await page.goto(BASE + route, { waitUntil: "networkidle", timeout: 45000 });
+        // "networkidle" never fires on this Nuxt site (persistent analytics
+        // traffic) — wait for load, then let hydration settle.
+        await page.goto(BASE + route, { waitUntil: "load", timeout: 45000 });
+        await page.waitForTimeout(1500);
         // let lazy sections and entrance animations settle
         await page.evaluate(async () => {
           await new Promise((res) => {
