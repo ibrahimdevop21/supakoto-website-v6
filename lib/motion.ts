@@ -8,9 +8,10 @@ export const DURATION_ENTRANCE = 0.6;
 export const DURATION_LIFT = 0.25;
 export const STAGGER_CHILDREN = 0.08;
 
-/** Counter: count up over 1.6s, trigger at 40% viewport. */
+/** Counter: count up over 1.6s, trigger at 40% viewport (design token). */
 export const COUNTER_DURATION = 1.6;
 export const VIEWPORT_AMOUNT = 0.4;
+
 
 export const entranceVariants: Variants = {
   hidden: { opacity: 0, y: 24 },

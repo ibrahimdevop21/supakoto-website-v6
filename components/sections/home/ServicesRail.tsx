@@ -1,10 +1,11 @@
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { services } from "@/content/services";
+import { serviceImage } from "@/content/gallery";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Heading } from "@/components/ui/Heading";
-import { Placeholder } from "@/components/ui/Placeholder";
 import { Reveal } from "@/components/ui/Reveal";
 import { Link } from "@/i18n/navigation";
 
@@ -12,7 +13,6 @@ import { Link } from "@/i18n/navigation";
 export async function ServicesRail() {
   const t = await getTranslations("home.services");
   const tItems = await getTranslations("services.items");
-  const tDetail = await getTranslations("services.detail");
 
   return (
     <Section>
@@ -30,10 +30,15 @@ export async function ServicesRail() {
                 href={`/services/${s.slug}`}
                 className="group block rounded-card border border-ink-700 bg-ink-800 transition-colors hover:border-fg-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
               >
-                <Placeholder
-                  note={tDetail("placeholderNote")}
-                  className="aspect-4/3 rounded-b-none border-x-0 border-t-0"
-                />
+                <div className="relative aspect-4/3 overflow-hidden">
+                  <Image
+                    src={serviceImage(s.id)}
+                    alt={tItems(`${s.id}.imageAlt`)}
+                    fill
+                    sizes="288px"
+                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  />
+                </div>
                 <div className="p-5">
                   <h3 className="text-h3 font-medium text-fg group-hover:text-sk-red transition-colors">
                     {tItems(`${s.id}.name`)}

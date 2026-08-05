@@ -6,3 +6,4 @@ node_modules/
 tsconfig.tsbuildinfo
 .claude/
 .spec-workflow/
+assets/source/

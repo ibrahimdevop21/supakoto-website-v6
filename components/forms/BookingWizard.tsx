@@ -5,8 +5,9 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { branchesForRegion } from "@/content/branches";
 import { services } from "@/content/services";
-import type { RegionId } from "@/content/regions";
+import { regions, type RegionId } from "@/content/regions";
 import { useRegion } from "@/components/providers/RegionProvider";
+import arMessages from "@/messages/ar.json";
 import { Button } from "@/components/ui/Button";
 import { Label, Input, PhoneInput } from "@/components/ui/Field";
 import { cn } from "@/lib/cn";
@@ -42,12 +43,57 @@ type Draft = {
 /**
  * One question per screen, per spec.
  *
- * SUBMIT IS STUBBED — documented bdm-flow contract mismatch:
- * create_booking(p_payload) is SECURITY DEFINER for authenticated CRM
- * agents (anon access revoked) and carries appointment_date only (no time
- * slot). A public write path (anon RPC or API route) must exist before this
- * posts for real. See docs/progress/05-pages.md.
+ * Submit opens a prefilled wa.me deeplink to the chosen region's line with
+ * the answers as an ARABIC message body (always Arabic — labels read from
+ * messages/ar.json directly so the body stays Arabic in the /en locale
+ * too). Intent is logged client-side.
+ *
+ * TODO(post-launch): replace the WhatsApp handoff with the real bdm-flow
+ * write path — the RPC contract and its mismatches (auth-only, date-only,
+ * UUID branch ids) are documented in docs/progress/05-pages.md.
  */
+const AR = arMessages.booking;
+const AR_BRANCHES = arMessages.branches.items as Record<
+  string,
+  { name: string }
+>;
+const AR_SERVICES = arMessages.services.items as Record<
+  string,
+  { name: string }
+>;
+
+function buildWhatsAppUrl(draft: Draft): string {
+  const arRegion =
+    draft.region === "egypt"
+      ? arMessages.chrome.region.egypt
+      : arMessages.chrome.region.uae;
+  const lines = [
+    "حجز جديد من الموقع:",
+    `${AR.summary.region}: ${arRegion}`,
+    `${AR.summary.branch}: ${AR_BRANCHES[draft.branchId]?.name ?? ""}`,
+    `${AR.summary.service}: ${AR_SERVICES[draft.serviceId]?.name ?? ""}`,
+    `${AR.summary.car}: ${draft.make} ${draft.model}`.trim(),
+    `${AR.summary.datetime}: ${draft.date} - ${draft.time}`,
+    `${AR.steps.contact.nameLabel}: ${draft.name}`,
+    `${AR.steps.contact.phoneLabel}: ${draft.phone}`,
+  ];
+  const text = encodeURIComponent(lines.join("\n"));
+  return `https://wa.me/${regions[draft.region].whatsapp}?text=${text}`;
+}
+
+function logIntent(draft: Draft) {
+  const entry = { ...draft, at: new Date().toISOString() };
+  console.info("[booking] submit intent", entry);
+  try {
+    const key = "sk-booking-intents";
+    const log = JSON.parse(localStorage.getItem(key) ?? "[]") as unknown[];
+    log.push(entry);
+    localStorage.setItem(key, JSON.stringify(log.slice(-20)));
+  } catch {
+    // storage unavailable (private mode) — console log above still fired
+  }
+}
+
 export function BookingWizard() {
   const t = useTranslations("booking");
   const tChrome = useTranslations("chrome.region");
@@ -99,11 +145,19 @@ export function BookingWizard() {
 
   if (submitted) {
     return (
-      <div className="max-w-xl space-y-3">
+      <div className="max-w-xl space-y-4">
         <p role="status" className="rounded-card border border-sk-red bg-sk-red-muted px-4 py-4">
           {t("success")}
         </p>
-        <p className="text-eyebrow text-fg-subtle">{t("stub")}</p>
+        <a
+          href={buildWhatsAppUrl(draft)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 rounded-card border border-ink-700 px-6 py-3 text-body font-medium text-fg transition-colors hover:border-fg-subtle hover:bg-ink-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
+        >
+          {t("reopenWhatsApp")}
+        </a>
+        <p className="text-small text-fg-subtle">{t("stub")}</p>
       </div>
     );
   }
@@ -292,7 +346,17 @@ export function BookingWizard() {
               </Button>
             )}
             {step === "confirm" ? (
-              <Button onClick={() => setSubmitted(true)}>
+              <Button
+                onClick={() => {
+                  logIntent(draft);
+                  window.open(
+                    buildWhatsAppUrl(draft),
+                    "_blank",
+                    "noopener,noreferrer",
+                  );
+                  setSubmitted(true);
+                }}
+              >
                 {t("steps.confirm.confirmButton")}
               </Button>
             ) : (

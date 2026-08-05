@@ -5,23 +5,28 @@
       "slides": {
         "s1": {
           "title": "Your car deserves genuine Japanese protection",
-          "sub": "TAKAI films, made in Japan. Total clarity. Protection that lasts years."
+          "sub": "TAKAI films, made in Japan. Total clarity. Protection that lasts years.",
+          "alt": "Black luxury SUV inside the SupaKoto workshop"
         },
         "s2": {
           "title": "The sun won't hold back. We will",
-          "sub": "Heat isolation that protects cabin and paint from Egyptian and Gulf summers."
+          "sub": "Heat isolation that protects cabin and paint from Egyptian and Gulf summers.",
+          "alt": "Land Cruiser Prado in the desert sun"
         },
         "s3": {
           "title": "Showroom shine — without going back to the showroom",
-          "sub": "Nano ceramic seals the paint surface and makes cleaning effortless."
+          "sub": "Nano ceramic seals the paint surface and makes cleaning effortless.",
+          "alt": "Green sports car with deep gloss"
         },
         "s4": {
           "title": "Change your colour. Keep your options",
-          "sub": "Full colour change with materials that remove cleanly, original paint untouched."
+          "sub": "Full colour change with materials that remove cleanly, original paint untouched.",
+          "alt": "Two red cars outside the SupaKoto centre"
         },
         "s5": {
           "title": "A long-term investment in your car",
-          "sub": "The right protection holds your resale value."
+          "sub": "The right protection holds your resale value.",
+          "alt": "Flagship sedan with deep gloss after protection"
         }
       },
       "cta": "Book an appointment",
@@ -157,32 +162,72 @@
           "b4": "Removes cleanly whenever you choose, paint untouched"
         },
         "spec": {
-          "material": { "label": "Material", "value": "Japanese TPU — TAKAI" },
-          "thickness": { "label": "Thickness", "value": "[To be confirmed]" },
+          "material": {
+            "label": "Material",
+            "value": "Japanese TPU — TAKAI"
+          },
+          "thickness": {
+            "label": "Thickness",
+            "value": "[To be confirmed]"
+          },
           "warranty": {
             "label": "Warranty",
             "value": "Standard tiers: up to 15 years · Premium Plus: lifetime*"
           },
-          "coverage": { "label": "Coverage", "value": "Front / partial / full body" },
-          "selfHealing": { "label": "Self-healing", "value": "[To be confirmed]" }
+          "coverage": {
+            "label": "Coverage",
+            "value": "Front / partial / full body"
+          },
+          "selfHealing": {
+            "label": "Self-healing",
+            "value": "[To be confirmed]"
+          }
         },
         "packages": {
-          "front": { "name": "Front end", "coverage": "Bonnet + fenders + mirrors + sills" },
-          "partial": { "name": "Partial", "coverage": "Front end + high-impact zones" },
-          "full": { "name": "Full body", "coverage": "Every painted surface" }
+          "front": {
+            "name": "Front end",
+            "coverage": "Bonnet + fenders + mirrors + sills"
+          },
+          "partial": {
+            "name": "Partial",
+            "coverage": "Front end + high-impact zones"
+          },
+          "full": {
+            "name": "Full body",
+            "coverage": "Every painted surface"
+          }
         },
         "premiumPlusCard": {
           "name": "Premium Plus",
           "term": "Lifetime warranty*"
         },
         "faq": {
-          "1": { "q": "Will the film show on the car?", "a": "No. TAKAI film is fully transparent and follows the paint's own surface. What shows is the gloss." },
-          "2": { "q": "How long does installation take?", "a": "One to three days depending on coverage. Full body takes its time — done properly." },
-          "3": { "q": "Can I wash the car normally?", "a": "A week after installation, wash as usual. Steam and foam are both fine." },
-          "4": { "q": "What separates the tiers?", "a": "Thickness, warranty years, and self-healing level. Each tier has its warranty in writing, under its own name." },
-          "5": { "q": "Do deep scratches heal too?", "a": "Self-healing handles surface scratches. Deep cuts are fixed by replacing that panel's film only." },
-          "6": { "q": "What if I sell the car?", "a": "Warranty transfer terms differ by tier — see the warranty page or ask at any branch." }
-        }
+          "1": {
+            "q": "Will the film show on the car?",
+            "a": "No. TAKAI film is fully transparent and follows the paint's own surface. What shows is the gloss."
+          },
+          "2": {
+            "q": "How long does installation take?",
+            "a": "One to three days depending on coverage. Full body takes its time — done properly."
+          },
+          "3": {
+            "q": "Can I wash the car normally?",
+            "a": "A week after installation, wash as usual. Steam and foam are both fine."
+          },
+          "4": {
+            "q": "What separates the tiers?",
+            "a": "Thickness, warranty years, and self-healing level. Each tier has its warranty in writing, under its own name."
+          },
+          "5": {
+            "q": "Do deep scratches heal too?",
+            "a": "Self-healing handles surface scratches. Deep cuts are fixed by replacing that panel's film only."
+          },
+          "6": {
+            "q": "What if I sell the car?",
+            "a": "Warranty transfer terms differ by tier — see the warranty page or ask at any branch."
+          }
+        },
+        "imageAlt": "Gloss protection film on a dark car"
       },
       "heat-isolation": {
         "name": "Heat Isolation",
@@ -196,24 +241,64 @@
           "b4": "Real savings on AC load"
         },
         "spec": {
-          "material": { "label": "Material", "value": "Japanese nano-ceramic" },
-          "heatRejection": { "label": "Heat rejection", "value": "[To be confirmed]" },
-          "uvRejection": { "label": "UV rejection", "value": "[To be confirmed]" },
-          "warranty": { "label": "Warranty", "value": "Per tier — confirmed at booking" },
-          "shades": { "label": "Shades", "value": "Multiple — per local law" }
+          "material": {
+            "label": "Material",
+            "value": "Japanese nano-ceramic"
+          },
+          "heatRejection": {
+            "label": "Heat rejection",
+            "value": "[To be confirmed]"
+          },
+          "uvRejection": {
+            "label": "UV rejection",
+            "value": "[To be confirmed]"
+          },
+          "warranty": {
+            "label": "Warranty",
+            "value": "Per tier — confirmed at booking"
+          },
+          "shades": {
+            "label": "Shades",
+            "value": "Multiple — per local law"
+          }
         },
         "packages": {
-          "windshield": { "name": "Windshield", "coverage": "Front glass only" },
-          "sides": { "name": "Sides & rear", "coverage": "Side and rear glass" },
-          "full": { "name": "Full", "coverage": "All glass" }
+          "windshield": {
+            "name": "Windshield",
+            "coverage": "Front glass only"
+          },
+          "sides": {
+            "name": "Sides & rear",
+            "coverage": "Side and rear glass"
+          },
+          "full": {
+            "name": "Full",
+            "coverage": "All glass"
+          }
         },
         "faq": {
-          "1": { "q": "Is this tint legal?", "a": "We install shades compliant with local law in Egypt and the UAE — reviewed with you before installation." },
-          "2": { "q": "Does it actually make a difference?", "a": "Yes — you feel it from day one, especially parked in the sun." },
-          "3": { "q": "Does it hurt night vision?", "a": "The shades we recommend are balanced: high rejection without driving in a tunnel." },
-          "4": { "q": "How long does it take?", "a": "Half a day to a day, depending on surfaces." },
-          "5": { "q": "What's the warranty?", "a": "It follows the isolation tier you choose — documented in writing at installation." }
-        }
+          "1": {
+            "q": "Is this tint legal?",
+            "a": "We install shades compliant with local law in Egypt and the UAE — reviewed with you before installation."
+          },
+          "2": {
+            "q": "Does it actually make a difference?",
+            "a": "Yes — you feel it from day one, especially parked in the sun."
+          },
+          "3": {
+            "q": "Does it hurt night vision?",
+            "a": "The shades we recommend are balanced: high rejection without driving in a tunnel."
+          },
+          "4": {
+            "q": "How long does it take?",
+            "a": "Half a day to a day, depending on surfaces."
+          },
+          "5": {
+            "q": "What's the warranty?",
+            "a": "It follows the isolation tier you choose — documented in writing at installation."
+          }
+        },
+        "imageAlt": "Car in direct sun with isolated glass"
       },
       "colour-change": {
         "name": "Colour Change",
@@ -227,22 +312,56 @@
           "b4": "Patient detailing: tucked edges, clean cuts"
         },
         "spec": {
-          "material": { "label": "Material", "value": "Certified premium wrap vinyl" },
-          "finish": { "label": "Finish", "value": "Gloss / matte / satin / metallic" },
-          "warranty": { "label": "Warranty", "value": "Per wrap material — confirmed at booking" },
-          "removal": { "label": "Removal", "value": "Safe on original paint" }
+          "material": {
+            "label": "Material",
+            "value": "Certified premium wrap vinyl"
+          },
+          "finish": {
+            "label": "Finish",
+            "value": "Gloss / matte / satin / metallic"
+          },
+          "warranty": {
+            "label": "Warranty",
+            "value": "Per wrap material — confirmed at booking"
+          },
+          "removal": {
+            "label": "Removal",
+            "value": "Safe on original paint"
+          }
         },
         "packages": {
-          "accents": { "name": "Accents", "coverage": "Roof / mirrors / details" },
-          "full": { "name": "Full change", "coverage": "Entire body" }
+          "accents": {
+            "name": "Accents",
+            "coverage": "Roof / mirrors / details"
+          },
+          "full": {
+            "name": "Full change",
+            "coverage": "Entire body"
+          }
         },
         "faq": {
-          "1": { "q": "How long does a wrap last?", "a": "Years, with the right care — and we show you exactly how." },
-          "2": { "q": "What if the wrap gets scratched?", "a": "Only the damaged panel is redone — no need to rewrap the car." },
-          "3": { "q": "Does it affect registration?", "a": "Colour change involves traffic paperwork — we walk you through it before starting." },
-          "4": { "q": "Can I go back to the original colour?", "a": "Any time. Our removal is safe; the paint comes out as it went in." },
-          "5": { "q": "Respray or wrap?", "a": "A wrap protects value and reverses. A respray doesn't." }
-        }
+          "1": {
+            "q": "How long does a wrap last?",
+            "a": "Years, with the right care — and we show you exactly how."
+          },
+          "2": {
+            "q": "What if the wrap gets scratched?",
+            "a": "Only the damaged panel is redone — no need to rewrap the car."
+          },
+          "3": {
+            "q": "Does it affect registration?",
+            "a": "Colour change involves traffic paperwork — we walk you through it before starting."
+          },
+          "4": {
+            "q": "Can I go back to the original colour?",
+            "a": "Any time. Our removal is safe; the paint comes out as it went in."
+          },
+          "5": {
+            "q": "Respray or wrap?",
+            "a": "A wrap protects value and reverses. A respray doesn't."
+          }
+        },
+        "imageAlt": "Glossy red car after preparation"
       },
       "nano-ceramic": {
         "name": "Nano Ceramic",
@@ -256,23 +375,60 @@
           "b4": "Faster, streak-free washing"
         },
         "spec": {
-          "layers": { "label": "Layers", "value": "One or more, per package" },
-          "hardness": { "label": "Hardness", "value": "[To be confirmed]" },
-          "warranty": { "label": "Warranty", "value": "Per package — confirmed at booking" },
-          "maintenance": { "label": "Maintenance", "value": "Routine washing + optional annual refresh" }
+          "layers": {
+            "label": "Layers",
+            "value": "One or more, per package"
+          },
+          "hardness": {
+            "label": "Hardness",
+            "value": "[To be confirmed]"
+          },
+          "warranty": {
+            "label": "Warranty",
+            "value": "Per package — confirmed at booking"
+          },
+          "maintenance": {
+            "label": "Maintenance",
+            "value": "Routine washing + optional annual refresh"
+          }
         },
         "packages": {
-          "single": { "name": "Single layer", "coverage": "Core protection and gloss" },
-          "multi": { "name": "Multi-layer", "coverage": "Deeper protection, stronger gloss" },
-          "withPpf": { "name": "Over PPF", "coverage": "Ceramic on top of protection film" }
+          "single": {
+            "name": "Single layer",
+            "coverage": "Core protection and gloss"
+          },
+          "multi": {
+            "name": "Multi-layer",
+            "coverage": "Deeper protection, stronger gloss"
+          },
+          "withPpf": {
+            "name": "Over PPF",
+            "coverage": "Ceramic on top of protection film"
+          }
         },
         "faq": {
-          "1": { "q": "How is it different from wax?", "a": "Wax sits for weeks. Ceramic bonds with the paint itself and stays for months and years." },
-          "2": { "q": "Does it stop scratches?", "a": "It reduces light marks. Real impact protection comes from PPF." },
-          "3": { "q": "How do I wash the car after?", "a": "Hand wash or steam — and stay away from harsh brushes." },
-          "4": { "q": "How long does it take?", "a": "One to two days depending on paint condition — the prep and polish before coating matter most." },
-          "5": { "q": "Can it go over PPF?", "a": "Yes — the strongest combination: film takes the impact, ceramic makes cleaning easy." }
-        }
+          "1": {
+            "q": "How is it different from wax?",
+            "a": "Wax sits for weeks. Ceramic bonds with the paint itself and stays for months and years."
+          },
+          "2": {
+            "q": "Does it stop scratches?",
+            "a": "It reduces light marks. Real impact protection comes from PPF."
+          },
+          "3": {
+            "q": "How do I wash the car after?",
+            "a": "Hand wash or steam — and stay away from harsh brushes."
+          },
+          "4": {
+            "q": "How long does it take?",
+            "a": "One to two days depending on paint condition — the prep and polish before coating matter most."
+          },
+          "5": {
+            "q": "Can it go over PPF?",
+            "a": "Yes — the strongest combination: film takes the impact, ceramic makes cleaning easy."
+          }
+        },
+        "imageAlt": "Close-up of deep paint gloss"
       },
       "polishing": {
         "name": "Polishing",
@@ -286,20 +442,48 @@
           "b4": "Paint-depth measured before any work — no gambling"
         },
         "spec": {
-          "stages": { "label": "Stages", "value": "One to three, per condition" },
-          "duration": { "label": "Duration", "value": "Half a day to a full day" },
-          "finish": { "label": "Result", "value": "A surface ready for protection or delivery" }
+          "stages": {
+            "label": "Stages",
+            "value": "One to three, per condition"
+          },
+          "duration": {
+            "label": "Duration",
+            "value": "Half a day to a full day"
+          },
+          "finish": {
+            "label": "Result",
+            "value": "A surface ready for protection or delivery"
+          }
         },
         "packages": {
-          "exterior": { "name": "Exterior polish", "coverage": "Full body" },
-          "showroom": { "name": "Showroom prep", "coverage": "Polish + complete detail" }
+          "exterior": {
+            "name": "Exterior polish",
+            "coverage": "Full body"
+          },
+          "showroom": {
+            "name": "Showroom prep",
+            "coverage": "Polish + complete detail"
+          }
         },
         "faq": {
-          "1": { "q": "Doesn't polishing eat the paint?", "a": "We measure paint depth first and remove the least material that achieves the result." },
-          "2": { "q": "How often should I polish?", "a": "Rarely — protected and coated, once every few years is enough." },
-          "3": { "q": "Does it remove all scratches?", "a": "Surface scratches, yes; deeper ones are reduced. Anything through to the base coat needs touch-up." },
-          "4": { "q": "Why here?", "a": "The same Japanese standards we install film with — measurement, patience, proper inspection lighting." }
-        }
+          "1": {
+            "q": "Doesn't polishing eat the paint?",
+            "a": "We measure paint depth first and remove the least material that achieves the result."
+          },
+          "2": {
+            "q": "How often should I polish?",
+            "a": "Rarely — protected and coated, once every few years is enough."
+          },
+          "3": {
+            "q": "Does it remove all scratches?",
+            "a": "Surface scratches, yes; deeper ones are reduced. Anything through to the base coat needs touch-up."
+          },
+          "4": {
+            "q": "Why here?",
+            "a": "The same Japanese standards we install film with — measurement, patience, proper inspection lighting."
+          }
+        },
+        "imageAlt": "Hand-finishing the paint surface"
       }
     }
   },
@@ -313,9 +497,18 @@
       "body": "We started from a genuine love of cars and a conviction that this market deserved a different level of protection. We secured a Japanese film manufactured exclusively for us — TAKAI — and built workshops around it to the factory's own standards: measurement before any work, installation in a controlled environment, documentation at every step. Today we run 6 branches across Egypt and the UAE, and every car leaves with a written warranty carrying the name of its protection tier."
     },
     "stats": {
-      "branches": { "value": "6", "label": "Branches in Egypt & UAE" },
-      "japanese": { "value": "100%", "label": "Genuine Japanese TAKAI film" },
-      "exclusive": { "value": "🇯🇵", "label": "Exclusive agent in Egypt & UAE" },
+      "branches": {
+        "value": "6",
+        "label": "Branches in Egypt & UAE"
+      },
+      "japanese": {
+        "value": "100%",
+        "label": "Genuine Japanese TAKAI film"
+      },
+      "exclusive": {
+        "value": "🇯🇵",
+        "label": "Exclusive agent in Egypt & UAE"
+      },
       "todo": {
         "value": "—",
         "label": "[TODO — Ibrahim picks: years in market / cars protected / TAKAI partnership year]"
@@ -386,13 +579,27 @@
     "termLifetime": "Lifetime*",
     "todoCell": "[To be confirmed]",
     "rows": {
-      "term": { "label": "Warranty term" },
-      "scope": { "label": "Coverage scope" },
-      "transferable": { "label": "Transferable on sale" },
-      "yellowing": { "label": "Yellowing / discolouration" },
-      "cracking": { "label": "Cracking / peeling / lifting" },
-      "selfHealing": { "label": "Self-healing performance" },
-      "exclusions": { "label": "Exclusions" }
+      "term": {
+        "label": "Warranty term"
+      },
+      "scope": {
+        "label": "Coverage scope"
+      },
+      "transferable": {
+        "label": "Transferable on sale"
+      },
+      "yellowing": {
+        "label": "Yellowing / discolouration"
+      },
+      "cracking": {
+        "label": "Cracking / peeling / lifting"
+      },
+      "selfHealing": {
+        "label": "Self-healing performance"
+      },
+      "exclusions": {
+        "label": "Exclusions"
+      }
     },
     "qualifier": {
       "todo": "* [TODO — Ibrahim's call: lifetime of the film / of original ownership / of the vehicle. Do not publish before this is scoped.]"
@@ -449,14 +656,43 @@
     "next": "Next",
     "back": "Back",
     "steps": {
-      "region": { "title": "Where is your car?", "hint": "Choose the country" },
-      "branch": { "title": "Nearest branch?", "hint": "Branches for your region" },
-      "service": { "title": "What do you need?", "hint": "Pick the main service" },
-      "car": { "title": "What's your car?", "makeLabel": "Make", "modelLabel": "Model", "hint": "Helps us prepare the right patterns" },
-      "date": { "title": "Which day suits you?", "hint": "Availability follows branch capacity" },
-      "time": { "title": "What time?", "hint": "Choose from available slots" },
-      "contact": { "title": "Your details", "nameLabel": "Name", "phoneLabel": "Phone number", "hint": "We confirm the booking on this number" },
-      "confirm": { "title": "Review & confirm", "hint": "Check the details before confirming", "confirmButton": "Confirm booking" }
+      "region": {
+        "title": "Where is your car?",
+        "hint": "Choose the country"
+      },
+      "branch": {
+        "title": "Nearest branch?",
+        "hint": "Branches for your region"
+      },
+      "service": {
+        "title": "What do you need?",
+        "hint": "Pick the main service"
+      },
+      "car": {
+        "title": "What's your car?",
+        "makeLabel": "Make",
+        "modelLabel": "Model",
+        "hint": "Helps us prepare the right patterns"
+      },
+      "date": {
+        "title": "Which day suits you?",
+        "hint": "Availability follows branch capacity"
+      },
+      "time": {
+        "title": "What time?",
+        "hint": "Choose from available slots"
+      },
+      "contact": {
+        "title": "Your details",
+        "nameLabel": "Name",
+        "phoneLabel": "Phone number",
+        "hint": "We confirm the booking on this number"
+      },
+      "confirm": {
+        "title": "Review & confirm",
+        "hint": "Check the details before confirming",
+        "confirmButton": "Confirm booking"
+      }
     },
     "summary": {
       "region": "Region",
@@ -465,18 +701,31 @@
       "car": "Car",
       "datetime": "Slot"
     },
-    "success": "Done! Your booking is in — we'll call to confirm.",
-    "stub": "[Booking activates with the bdm-flow integration — final confirmation reaches your phone]"
+    "success": "We've prepared a WhatsApp message with your booking details — send it and we'll confirm your slot.",
+    "reopenWhatsApp": "Open WhatsApp again",
+    "stub": "Direct online booking is coming soon — for now confirmation happens over WhatsApp."
   },
   "franchise": {
     "title": "Become a SupaKoto partner",
     "sub": "A franchise for a Japanese brand growing across Egypt and the Gulf",
     "whyHeading": "Why this brand",
     "why": {
-      "1": { "title": "Exclusive material", "body": "TAKAI is made in Japan for us alone — no competitor sells the same product" },
-      "2": { "title": "A built brand", "body": "An established name with customers who return and refer" },
-      "3": { "title": "Proven operations", "body": "Booking, pricing, and training systems ready from day one" },
-      "4": { "title": "A growing market", "body": "Awareness of protection is rising — demand outruns professional supply" }
+      "1": {
+        "title": "Exclusive material",
+        "body": "TAKAI is made in Japan for us alone — no competitor sells the same product"
+      },
+      "2": {
+        "title": "A built brand",
+        "body": "An established name with customers who return and refer"
+      },
+      "3": {
+        "title": "Proven operations",
+        "body": "Booking, pricing, and training systems ready from day one"
+      },
+      "4": {
+        "title": "A growing market",
+        "body": "Awareness of protection is rising — demand outruns professional supply"
+      }
     },
     "getHeading": "What you get",
     "get": {
@@ -510,18 +759,36 @@
     "success": "Application received — if there's a fit, we'll contact you within days.",
     "faqHeading": "Franchise questions",
     "faq": {
-      "1": { "q": "Do I need automotive experience?", "a": "Not required — training and operations are on us. What's required is commitment and serious management." },
-      "2": { "q": "How long from contract to opening?", "a": "It depends on site readiness — we set a clear schedule after assessing the location." },
-      "3": { "q": "Do you offer financing?", "a": "No, but we help you build a realistic feasibility study before you commit." }
+      "1": {
+        "q": "Do I need automotive experience?",
+        "a": "Not required — training and operations are on us. What's required is commitment and serious management."
+      },
+      "2": {
+        "q": "How long from contract to opening?",
+        "a": "It depends on site readiness — we set a clear schedule after assessing the location."
+      },
+      "3": {
+        "q": "Do you offer financing?",
+        "a": "No, but we help you build a realistic feasibility study before you commit."
+      }
     }
   },
   "business": {
     "title": "Solutions for companies and fleets",
     "sub": "One standard of protection across many cars — with clear service contracts",
     "segments": {
-      "fleet": { "title": "Fleets", "body": "Uniform protection for company cars with flexible scheduling and consolidated billing" },
-      "dealers": { "title": "Dealerships", "body": "Zero-km preparation before delivery — added value for your customers" },
-      "building": { "title": "SK-BLD building film", "body": "Heat isolation for glass facades — offices and commercial buildings" }
+      "fleet": {
+        "title": "Fleets",
+        "body": "Uniform protection for company cars with flexible scheduling and consolidated billing"
+      },
+      "dealers": {
+        "title": "Dealerships",
+        "body": "Zero-km preparation before delivery — added value for your customers"
+      },
+      "building": {
+        "title": "SK-BLD building film",
+        "body": "Heat isolation for glass facades — offices and commercial buildings"
+      }
     },
     "formHeading": "Request a quote",
     "fields": {
@@ -551,6 +818,119 @@
       "close": "Close",
       "prev": "Previous",
       "next": "Next"
+    },
+    "items": {
+      "sk-001": {
+        "alt": "Black luxury SUV after protection film installation in the SupaKoto workshop"
+      },
+      "sk-005": {
+        "alt": "German luxury sedan after protection film installation"
+      },
+      "sk-013": {
+        "alt": "Deep gloss on a black sedan after polishing"
+      },
+      "sk-021": {
+        "alt": "White SUV protected with TAKAI film"
+      },
+      "sk-034": {
+        "alt": "Flagship sedan paint gloss after treatment"
+      },
+      "sk-041": {
+        "alt": "Compact car in the workshop during installation"
+      },
+      "sk-050": {
+        "alt": "Sedan with isolated glass at sunset"
+      },
+      "sk-059": {
+        "alt": "Full matte black wrap"
+      },
+      "sk-065": {
+        "alt": "White Lamborghini Urus in the SupaKoto workshop"
+      },
+      "sk-072": {
+        "alt": "Two red cars outside the SupaKoto centre"
+      },
+      "sk-088": {
+        "alt": "Modern SUV after protection work"
+      },
+      "sk-095": {
+        "alt": "White off-road SUV after preparation"
+      },
+      "sk-100": {
+        "alt": "White Land Cruiser after protection installation"
+      },
+      "sk-105": {
+        "alt": "Hand application of coating on the bonnet"
+      },
+      "sk-107": {
+        "alt": "Close-up of paint gloss after nano ceramic"
+      },
+      "sk-116": {
+        "alt": "Grey coupe in the workshop"
+      },
+      "sk-123": {
+        "alt": "White luxury car outside the workshop"
+      },
+      "sk-128": {
+        "alt": "White SUV with isolated glass"
+      },
+      "sk-131": {
+        "alt": "Dark sedan after protection work"
+      },
+      "sk-141": {
+        "alt": "Land Cruiser Prado in the desert after full protection"
+      },
+      "sk-148": {
+        "alt": "Dark Mercedes with gloss protection film"
+      },
+      "sk-154": {
+        "alt": "Dark blue SUV outside the centre"
+      },
+      "sk-158": {
+        "alt": "German car after installation outside the workshop"
+      },
+      "sk-165": {
+        "alt": "Glossy red car after preparation"
+      },
+      "sk-173": {
+        "alt": "Red car in the workshop at night"
+      },
+      "sk-176": {
+        "alt": "Matte green wrap on an SUV"
+      },
+      "sk-182": {
+        "alt": "Black SUV inside the workshop hall"
+      },
+      "sk-187": {
+        "alt": "White performance car during preparation"
+      },
+      "sk-196": {
+        "alt": "White sedan in the workshop"
+      },
+      "sk-200": {
+        "alt": "Japanese luxury SUV in the workshop"
+      },
+      "sk-213": {
+        "alt": "White 4x4 in the workshop"
+      },
+      "sk-221": {
+        "alt": "Row of cars in preparation inside the workshop"
+      },
+      "sk-225": {
+        "alt": "White G-Class in the workshop"
+      },
+      "sk-230": {
+        "alt": "Glossy green sports car after treatment"
+      },
+      "sk-232": {
+        "alt": "Gloss green wrap on a sports car"
+      },
+      "sk-234": {
+        "alt": "White luxury car in the workshop"
+      },
+      "showreel": {
+        "alt": "Video from inside the SupaKoto workshops"
+      }
     }
   },
   "faq": {
@@ -563,16 +943,46 @@
       "aftercare": "Aftercare"
     },
     "items": {
-      "whatIsPpf": { "q": "What is paint protection film?", "a": "A transparent TPU layer installed over the paint that takes scratches and gravel instead — and removes without a trace." },
-      "whyJapanese": { "q": "What's different about Japanese film?", "a": "Colour stability, adhesive quality, and self-healing. TAKAI is made in Japan to specifications we set." },
-      "howLongInstall": { "q": "How long does installation take?", "a": "By service: isolation half a day to a day, film one to three days, ceramic one to two days." },
-      "bookingDeposit": { "q": "Does booking need a deposit?", "a": "We confirm those details in the booking confirmation call — it varies by service and branch." },
-      "whichBranch": { "q": "Which branch should I visit?", "a": "The nearest — every branch runs the same standards and the same material. See the branches page." },
-      "warrantyTiers": { "q": "Why isn't there one warranty number?", "a": "Because warranty follows the protection tier. Each tier has its term and conditions in writing, under its own name — cleaner than a vague blanket promise." },
-      "warrantyVoid": { "q": "What voids the warranty?", "a": "Outside work on the film, accidents, or clear misuse. Details are in your tier's booklet." },
-      "warrantyTransfer": { "q": "Does warranty transfer if I sell?", "a": "It differs by tier — see the comparison table on the warranty page." },
-      "washAfter": { "q": "When can I wash after installation?", "a": "Wait a week, then wash normally — hand or steam beats automatic brushes." },
-      "selfHealing": { "q": "How does self-healing work?", "a": "Sun heat or warm water makes surface scratches in the film disappear on their own." }
+      "whatIsPpf": {
+        "q": "What is paint protection film?",
+        "a": "A transparent TPU layer installed over the paint that takes scratches and gravel instead — and removes without a trace."
+      },
+      "whyJapanese": {
+        "q": "What's different about Japanese film?",
+        "a": "Colour stability, adhesive quality, and self-healing. TAKAI is made in Japan to specifications we set."
+      },
+      "howLongInstall": {
+        "q": "How long does installation take?",
+        "a": "By service: isolation half a day to a day, film one to three days, ceramic one to two days."
+      },
+      "bookingDeposit": {
+        "q": "Does booking need a deposit?",
+        "a": "We confirm those details in the booking confirmation call — it varies by service and branch."
+      },
+      "whichBranch": {
+        "q": "Which branch should I visit?",
+        "a": "The nearest — every branch runs the same standards and the same material. See the branches page."
+      },
+      "warrantyTiers": {
+        "q": "Why isn't there one warranty number?",
+        "a": "Because warranty follows the protection tier. Each tier has its term and conditions in writing, under its own name — cleaner than a vague blanket promise."
+      },
+      "warrantyVoid": {
+        "q": "What voids the warranty?",
+        "a": "Outside work on the film, accidents, or clear misuse. Details are in your tier's booklet."
+      },
+      "warrantyTransfer": {
+        "q": "Does warranty transfer if I sell?",
+        "a": "It differs by tier — see the comparison table on the warranty page."
+      },
+      "washAfter": {
+        "q": "When can I wash after installation?",
+        "a": "Wait a week, then wash normally — hand or steam beats automatic brushes."
+      },
+      "selfHealing": {
+        "q": "How does self-healing work?",
+        "a": "Sun heat or warm water makes surface scratches in the film disappear on their own."
+      }
     }
   },
   "contact": {

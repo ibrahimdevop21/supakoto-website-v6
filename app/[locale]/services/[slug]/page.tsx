@@ -1,6 +1,8 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getService, services } from "@/content/services";
+import { serviceImage } from "@/content/gallery";
 import { routing } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
@@ -9,7 +11,6 @@ import { BeforeAfter } from "@/components/sections/services/BeforeAfter";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Heading } from "@/components/ui/Heading";
-import { Placeholder } from "@/components/ui/Placeholder";
 import { Reveal, RevealStagger, RevealItem } from "@/components/ui/Reveal";
 import { Accordion } from "@/components/ui/Accordion";
 import { JsonLd } from "@/components/JsonLd";
@@ -82,7 +83,16 @@ export default async function ServiceDetailPage({
       <section className="py-(--spacing-section)">
         <Container>
           <Reveal>
-            <Placeholder note={t("placeholderNote")} className="aspect-21/9" />
+            <div className="relative aspect-video overflow-hidden rounded-card border border-ink-700 sm:aspect-21/9">
+              <Image
+                src={serviceImage(service.id)}
+                alt={tItem("imageAlt")}
+                fill
+                priority
+                sizes="(min-width: 1280px) 1280px, 100vw"
+                className="object-cover"
+              />
+            </div>
           </Reveal>
         </Container>
       </section>

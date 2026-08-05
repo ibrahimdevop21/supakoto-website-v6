@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
   galleryCategories,
   galleryItems,
   type GalleryCategory,
+  type GalleryItem,
 } from "@/content/gallery";
-import { Placeholder } from "@/components/ui/Placeholder";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { RevealStagger, RevealItem } from "@/components/ui/Reveal";
 import { cn } from "@/lib/cn";
@@ -39,6 +40,8 @@ export function GalleryGrid() {
     });
   };
 
+  const open = openIndex !== null ? filtered[openIndex] : null;
+
   return (
     <div>
       {/* Filters */}
@@ -47,7 +50,10 @@ export function GalleryGrid() {
           <button
             key={c}
             type="button"
-            onClick={() => setFilter(c)}
+            onClick={() => {
+              setFilter(c);
+              setOpenIndex(null);
+            }}
             aria-pressed={filter === c}
             className={cn(
               "rounded-card border px-4 py-2 text-small font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red",
@@ -71,17 +77,23 @@ export function GalleryGrid() {
             <button
               type="button"
               onClick={() => setOpenIndex(i)}
-              className="block w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
-              aria-label={`${filterLabel(item.category)} ${i + 1}`}
+              aria-label={t(`items.${item.id}.alt`)}
+              className={cn(
+                "relative block w-full overflow-hidden rounded-card border border-ink-700 transition-colors hover:border-fg-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red",
+                item.kind === "video" ? "aspect-video" : ASPECTS[item.aspect],
+              )}
             >
-              <Placeholder
-                note={t("placeholderNote")}
-                className={cn(ASPECTS[item.aspect], "w-full transition-colors hover:border-fg-subtle")}
-              >
-                <span className="text-eyebrow uppercase text-fg-subtle">
-                  {filterLabel(item.category)}
-                </span>
-              </Placeholder>
+              {item.kind === "image" ? (
+                <Image
+                  src={item.src}
+                  alt={t(`items.${item.id}.alt`)}
+                  fill
+                  sizes="(min-width: 768px) 33vw, 50vw"
+                  className="object-cover"
+                />
+              ) : (
+                <VideoTile item={item} label={t(`filters.video`)} />
+              )}
             </button>
           </RevealItem>
         ))}
@@ -89,7 +101,7 @@ export function GalleryGrid() {
 
       {/* Lightbox */}
       <Lightbox
-        open={openIndex !== null}
+        open={open !== null}
         onClose={() => setOpenIndex(null)}
         onPrev={() => step(-1)}
         onNext={() => step(1)}
@@ -99,22 +111,63 @@ export function GalleryGrid() {
           next: t("lightbox.next"),
         }}
       >
-        {openIndex !== null && filtered[openIndex] && (
+        {open && (
           <figure className="rounded-card border border-ink-700 bg-ink-900 p-2">
-            <Placeholder
-              note={t("placeholderNote")}
-              className="flex aspect-video w-[70vw] max-w-3xl"
-            >
-              <span className="text-h3 text-fg-subtle">
-                {filterLabel(filtered[openIndex].category)}
+            {open.kind === "image" ? (
+              <Image
+                src={open.src}
+                alt={t(`items.${open.id}.alt`)}
+                width={open.width}
+                height={open.height}
+                sizes="(min-width: 1024px) 70vw, 95vw"
+                className="max-h-[80svh] w-auto max-w-[90vw] rounded-[2px] object-contain"
+              />
+            ) : (
+              <video
+                src={open.src}
+                controls
+                autoPlay
+                muted
+                playsInline
+                className="max-h-[80svh] w-auto max-w-[90vw] rounded-[2px]"
+              />
+            )}
+            <figcaption className="p-3 text-small text-fg-muted">
+              {t(`items.${open.id}.alt`)}
+              <span dir="ltr" className="ms-2 text-fg-subtle">
+                {(openIndex ?? 0) + 1}/{filtered.length}
               </span>
-            </Placeholder>
-            <figcaption className="p-3 text-small text-fg-muted" dir="ltr">
-              {openIndex + 1}/{filtered.length}
             </figcaption>
           </figure>
         )}
       </Lightbox>
     </div>
+  );
+}
+
+function VideoTile({
+  item,
+  label,
+}: {
+  item: Extract<GalleryItem, { kind: "video" }>;
+  label: string;
+}) {
+  return (
+    <span className="absolute inset-0">
+      <video
+        src={item.srcMobile ?? item.src}
+        muted
+        loop
+        playsInline
+        autoPlay
+        className="absolute inset-0 size-full object-cover"
+      />
+      <span className="absolute bottom-2 start-2 flex items-center gap-1.5 rounded-card bg-ink-950/80 px-2 py-1 text-eyebrow text-fg">
+        <svg aria-hidden viewBox="0 0 16 16" className="size-3 fill-current">
+          <path d="M5 3l8 5-8 5V3z" />
+        </svg>
+        {label}
+      </span>
+    </span>
   );
 }

@@ -15,13 +15,17 @@ working rules the exact commands are drafted below for Ibrahim to run.
 
 ## Ibrahim's runbook (fish-compatible, run each with `!`)
 
+**Preview first — do not run `--prod` yet (Ibrahim's directive, 2026-08-05).**
+
 ```
 npm i -g vercel
 vercel login
 vercel link        # create/link the project, accept defaults (Next.js)
-vercel env add NEXT_PUBLIC_SITE_URL production   # value: https://<final-domain>
-vercel --prod
+vercel             # PREVIEW deploy — production comes later, explicitly
 ```
+
+When production is a go (later): set `NEXT_PUBLIC_SITE_URL` for the
+Production environment to the final domain, then `vercel --prod`.
 
 ## After deploy — do not skip
 

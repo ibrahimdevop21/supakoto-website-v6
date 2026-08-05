@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { heroImages } from "@/content/gallery";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/cn";
@@ -50,12 +52,12 @@ export function HeroCarousel() {
             exit={reduce ? undefined : { opacity: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <Backdrop reduce={reduce} note={t("placeholderNote")} />
+            <Backdrop slideKey={key} reduce={reduce} alt={t(`slides.${key}.alt`)} />
           </motion.div>
         </AnimatePresence>
       ) : (
         <div className="absolute inset-0">
-          <Backdrop reduce={reduce} note={t("placeholderNote")} />
+          <Backdrop slideKey={key} reduce={reduce} alt={t(`slides.${key}.alt`)} />
         </div>
       )}
 
@@ -106,18 +108,34 @@ export function HeroCarousel() {
   );
 }
 
-function Backdrop({ reduce, note }: { reduce: boolean | null; note: string }) {
+function Backdrop({
+  slideKey,
+  reduce,
+  alt,
+}: {
+  slideKey: keyof typeof heroImages;
+  reduce: boolean | null;
+  alt: string;
+}) {
   return (
     <>
       <motion.div
-        className="absolute inset-0 bg-[linear-gradient(160deg,var(--color-ink-800),var(--color-ink-950)_60%,#1c0d0f)]"
+        className="absolute inset-0"
         initial={reduce ? undefined : { scale: 1 }}
         animate={reduce ? undefined : { scale: 1.06 }}
         transition={{ duration: 12, ease: "linear" }}
-      />
-      <span className="absolute bottom-3 start-3 z-10 rounded-card bg-ink-950/80 px-2 py-1 text-eyebrow text-fg-subtle">
-        {note}
-      </span>
+      >
+        <Image
+          src={heroImages[slideKey].src}
+          alt={alt}
+          fill
+          priority={slideKey === "s1"}
+          sizes="100vw"
+          className="object-cover"
+        />
+      </motion.div>
+      {/* Legibility scrim over the photo */}
+      <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(10,10,11,0.78),rgba(10,10,11,0.35)_55%,rgba(10,10,11,0.85))]" />
     </>
   );
 }

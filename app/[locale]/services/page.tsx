@@ -1,12 +1,13 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import Image from "next/image";
 import { services } from "@/content/services";
+import { serviceImage } from "@/content/gallery";
 import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { Container } from "@/components/ui/Container";
 import { Heading } from "@/components/ui/Heading";
 import { Button } from "@/components/ui/Button";
-import { Placeholder } from "@/components/ui/Placeholder";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/cn";
 
@@ -34,7 +35,6 @@ export default async function ServicesPage({
   setRequestLocale(locale);
   const t = await getTranslations("services.index");
   const tItems = await getTranslations("services.items");
-  const tDetail = await getTranslations("services.detail");
   const tAbout = await getTranslations("about.cta");
 
   return (
@@ -50,13 +50,20 @@ export default async function ServicesPage({
                 "grid items-center gap-8 md:grid-cols-2",
               )}
             >
-              <Placeholder
-                note={tDetail("placeholderNote")}
+              <div
                 className={cn(
-                  "aspect-4/3",
+                  "relative aspect-4/3 overflow-hidden rounded-card border border-ink-700",
                   i % 2 === 1 && "md:order-last",
                 )}
-              />
+              >
+                <Image
+                  src={serviceImage(s.id)}
+                  alt={tItems(`${s.id}.imageAlt`)}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
               <div>
                 <Heading level={2}>{tItems(`${s.id}.name`)}</Heading>
                 <p className="mt-3 max-w-prose text-fg-muted">
