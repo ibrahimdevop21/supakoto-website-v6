@@ -1,7 +1,23 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
 import { BookingWizard } from "@/components/forms/BookingWizard";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "booking" });
+  return pageMetadata({
+    locale,
+    path: "/booking",
+    title: t("title"),
+    description: t("sub"),
+  });
+}
 
 export default async function BookingPage({
   params,

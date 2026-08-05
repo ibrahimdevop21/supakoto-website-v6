@@ -1,11 +1,13 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { faqEntries, type FaqCategory } from "@/content/faq";
+import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Heading } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Accordion } from "@/components/ui/Accordion";
+import { JsonLd } from "@/components/JsonLd";
 
 const CATEGORY_ORDER: FaqCategory[] = [
   "general",
@@ -13,6 +15,21 @@ const CATEGORY_ORDER: FaqCategory[] = [
   "warranty",
   "aftercare",
 ];
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "faq" });
+  return pageMetadata({
+    locale,
+    path: "/faq",
+    title: t("title"),
+    description: t("sub"),
+  });
+}
 
 export default async function FaqPage({
   params,
@@ -25,6 +42,20 @@ export default async function FaqPage({
 
   return (
     <main>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqEntries.map((e) => ({
+            "@type": "Question",
+            name: t(`items.${e.id}.q`),
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: t(`items.${e.id}.a`),
+            },
+          })),
+        }}
+      />
       <PageHero title={t("title")} sub={t("sub")} />
       <Section>
         <Container className="max-w-3xl space-y-14">

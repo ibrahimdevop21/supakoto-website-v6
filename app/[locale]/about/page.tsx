@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { Container } from "@/components/ui/Container";
@@ -11,6 +12,21 @@ import { Card } from "@/components/ui/Card";
 import { Reveal, RevealStagger, RevealItem } from "@/components/ui/Reveal";
 import logoFull from "@/public/brand/logo-full.png";
 import logoWhite from "@/public/brand/logo-white.png";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "about" });
+  return pageMetadata({
+    locale,
+    path: "/about",
+    title: t("title"),
+    description: t("sub"),
+  });
+}
 
 export default async function AboutPage({
   params,

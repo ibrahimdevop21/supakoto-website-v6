@@ -1,10 +1,26 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Heading } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { CareersForm } from "@/components/forms/CareersForm";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "careers" });
+  return pageMetadata({
+    locale,
+    path: "/careers",
+    title: t("title"),
+    description: t("sub"),
+  });
+}
 
 export default async function CareersPage({
   params,

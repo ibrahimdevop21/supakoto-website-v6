@@ -19,64 +19,67 @@ export function HeroCarousel() {
   const t = useTranslations("home.hero");
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
+  // First slide must be visible in SSR HTML (it is the LCP element) —
+  // entrance animations only run once the carousel has cycled.
+  const [cycled, setCycled] = useState(false);
 
   useEffect(() => {
-    const id = setInterval(
-      () => setIndex((i) => (i + 1) % SLIDE_KEYS.length),
-      AUTOPLAY_MS,
-    );
+    const id = setInterval(() => {
+      setCycled(true);
+      setIndex((i) => (i + 1) % SLIDE_KEYS.length);
+    }, AUTOPLAY_MS);
     return () => clearInterval(id);
   }, []);
+
+  const animateIn = cycled && !reduce;
 
   const key = SLIDE_KEYS[index];
 
   return (
     <section className="relative flex min-h-[80svh] items-end overflow-hidden border-b border-ink-700">
-      {/* Slide backdrop */}
-      <AnimatePresence mode="popLayout">
-        <motion.div
-          key={key}
-          className="absolute inset-0"
-          initial={reduce ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={reduce ? undefined : { opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
+      {/* Slide backdrop. The static branch (pre-cycle) keeps the SSR DOM
+          untouched through hydration — an AnimatePresence remount would
+          register a late LCP entry for the hero. */}
+      {cycled ? (
+        <AnimatePresence mode="popLayout">
           <motion.div
-            className="absolute inset-0 bg-[linear-gradient(160deg,var(--color-ink-800),var(--color-ink-950)_60%,#1c0d0f)]"
-            initial={reduce ? undefined : { scale: 1 }}
-            animate={reduce ? undefined : { scale: 1.06 }}
-            transition={{ duration: 12, ease: "linear" }}
-          />
-          <span className="absolute bottom-3 start-3 z-10 rounded-card bg-ink-950/80 px-2 py-1 text-eyebrow text-fg-subtle">
-            {t("placeholderNote")}
-          </span>
-        </motion.div>
-      </AnimatePresence>
+            key={key}
+            className="absolute inset-0"
+            initial={animateIn ? { opacity: 0 } : false}
+            animate={{ opacity: 1 }}
+            exit={reduce ? undefined : { opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <Backdrop reduce={reduce} note={t("placeholderNote")} />
+          </motion.div>
+        </AnimatePresence>
+      ) : (
+        <div className="absolute inset-0">
+          <Backdrop reduce={reduce} note={t("placeholderNote")} />
+        </div>
+      )}
 
       {/* Copy overlay */}
       <div className="relative z-10 w-full pb-20 pt-40">
         <Container>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={key}
-              initial={reduce ? false : { opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduce ? undefined : { opacity: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-2xl"
-            >
-              <h1 className="font-display text-display font-bold text-balance">
-                {t(`slides.${key}.title`)}
-              </h1>
-              <p className="mt-4 max-w-xl text-h3 text-fg-muted">
-                {t(`slides.${key}.sub`)}
-              </p>
-              <Button href="/booking" className="mt-8">
-                {t("cta")}
-              </Button>
-            </motion.div>
-          </AnimatePresence>
+          {cycled ? (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={key}
+                initial={animateIn ? { opacity: 0, y: 24 } : false}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reduce ? undefined : { opacity: 0 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="max-w-2xl"
+              >
+                <SlideCopy slideKey={key} />
+              </motion.div>
+            </AnimatePresence>
+          ) : (
+            <div className="max-w-2xl">
+              <SlideCopy slideKey={key} />
+            </div>
+          )}
 
           {/* Dots */}
           <div className="mt-10 flex gap-2">
@@ -84,7 +87,10 @@ export function HeroCarousel() {
               <button
                 key={k}
                 type="button"
-                onClick={() => setIndex(i)}
+                onClick={() => {
+                  setCycled(true);
+                  setIndex(i);
+                }}
                 aria-label={t(`slides.${k}.title`)}
                 aria-current={i === index}
                 className={cn(
@@ -97,5 +103,38 @@ export function HeroCarousel() {
         </Container>
       </div>
     </section>
+  );
+}
+
+function Backdrop({ reduce, note }: { reduce: boolean | null; note: string }) {
+  return (
+    <>
+      <motion.div
+        className="absolute inset-0 bg-[linear-gradient(160deg,var(--color-ink-800),var(--color-ink-950)_60%,#1c0d0f)]"
+        initial={reduce ? undefined : { scale: 1 }}
+        animate={reduce ? undefined : { scale: 1.06 }}
+        transition={{ duration: 12, ease: "linear" }}
+      />
+      <span className="absolute bottom-3 start-3 z-10 rounded-card bg-ink-950/80 px-2 py-1 text-eyebrow text-fg-subtle">
+        {note}
+      </span>
+    </>
+  );
+}
+
+function SlideCopy({ slideKey }: { slideKey: (typeof SLIDE_KEYS)[number] }) {
+  const t = useTranslations("home.hero");
+  return (
+    <>
+      <h1 className="font-display text-display font-bold text-balance">
+        {t(`slides.${slideKey}.title`)}
+      </h1>
+      <p className="mt-4 max-w-xl text-h3 text-fg-muted">
+        {t(`slides.${slideKey}.sub`)}
+      </p>
+      <Button href="/booking" className="mt-8">
+        {t("cta")}
+      </Button>
+    </>
   );
 }

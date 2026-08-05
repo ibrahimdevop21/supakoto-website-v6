@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getService, services } from "@/content/services";
 import { routing } from "@/i18n/routing";
+import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { BeforeAfter } from "@/components/sections/services/BeforeAfter";
@@ -11,12 +12,33 @@ import { Heading } from "@/components/ui/Heading";
 import { Placeholder } from "@/components/ui/Placeholder";
 import { Reveal, RevealStagger, RevealItem } from "@/components/ui/Reveal";
 import { Accordion } from "@/components/ui/Accordion";
+import { JsonLd } from "@/components/JsonLd";
 import { cn } from "@/lib/cn";
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
     services.map((s) => ({ locale, slug: s.slug })),
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  const service = getService(slug);
+  if (!service) return {};
+  const t = await getTranslations({
+    locale,
+    namespace: `services.items.${service.id}`,
+  });
+  return pageMetadata({
+    locale,
+    path: `/services/${slug}`,
+    title: t("name"),
+    description: t("benefit"),
+  });
 }
 
 export default async function ServiceDetailPage({
@@ -44,6 +66,16 @@ export default async function ServiceDetailPage({
 
   return (
     <main>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: tItem("name"),
+          description: tItem("benefit"),
+          provider: { "@type": "Organization", name: "SupaKoto" },
+          areaServed: ["EG", "AE"],
+        }}
+      />
       <PageHero title={tItem("name")} sub={tItem("benefit")} />
 
       {/* Hero visual */}

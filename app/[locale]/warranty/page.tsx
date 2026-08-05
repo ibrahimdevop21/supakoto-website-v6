@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { warrantyRows } from "@/content/warranty";
+import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -7,6 +8,22 @@ import { Heading } from "@/components/ui/Heading";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { Accordion } from "@/components/ui/Accordion";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "warranty" });
+  // Tier-neutral by construction: title/sub carry no figures, no "lifetime".
+  return pageMetadata({
+    locale,
+    path: "/warranty",
+    title: t("title"),
+    description: t("sub"),
+  });
+}
 
 export default async function WarrantyPage({
   params,

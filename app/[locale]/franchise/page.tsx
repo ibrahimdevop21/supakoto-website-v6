@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -7,6 +8,21 @@ import { Card } from "@/components/ui/Card";
 import { Reveal, RevealStagger, RevealItem } from "@/components/ui/Reveal";
 import { Accordion } from "@/components/ui/Accordion";
 import { FranchiseForm } from "@/components/forms/FranchiseForm";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "franchise" });
+  return pageMetadata({
+    locale,
+    path: "/franchise",
+    title: t("title"),
+    description: t("sub"),
+  });
+}
 
 export default async function FranchisePage({
   params,

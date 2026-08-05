@@ -46,7 +46,7 @@ export function Footer() {
 
         {/* Zone 3 — region-aware contact */}
         <div className="mt-10 flex flex-col items-center gap-3">
-          <h2 className="text-small font-medium text-fg-subtle">
+          <h2 className="text-small font-medium text-fg-muted">
             {t("contactHeading")}
           </h2>
           <div className="flex flex-wrap items-center justify-center gap-4">
@@ -72,7 +72,7 @@ export function Footer() {
         <TrustBadges />
 
         {/* Zone 4 — legal */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-ink-700 pt-6 text-small text-fg-subtle sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-ink-700 pt-6 text-small text-fg-muted sm:flex-row">
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="transition-colors hover:text-fg">
               {t("privacy")}

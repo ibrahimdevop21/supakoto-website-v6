@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -7,6 +8,21 @@ import { Reveal } from "@/components/ui/Reveal";
 
 const SECTIONS = ["scope", "booking", "warranty", "liability"] as const;
 const LAST_UPDATED = "2026-08-05";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "terms" });
+  return pageMetadata({
+    locale,
+    path: "/terms",
+    title: t("title"),
+    description: t("sections.scope.body"),
+  });
+}
 
 export default async function TermsPage({
   params,

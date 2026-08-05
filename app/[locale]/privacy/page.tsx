@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -7,6 +8,21 @@ import { Reveal } from "@/components/ui/Reveal";
 
 const SECTIONS = ["collect", "use", "cookies", "contact"] as const;
 const LAST_UPDATED = "2026-08-05";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "privacy" });
+  return pageMetadata({
+    locale,
+    path: "/privacy",
+    title: t("title"),
+    description: t("sections.collect.body"),
+  });
+}
 
 export default async function PrivacyPage({
   params,
