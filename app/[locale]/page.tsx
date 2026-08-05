@@ -1,4 +1,10 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { HeroCarousel } from "@/components/sections/home/HeroCarousel";
+import { ServicesRail } from "@/components/sections/home/ServicesRail";
+import { WorkPreview } from "@/components/sections/home/WorkPreview";
+import { FeatureGrid } from "@/components/sections/home/FeatureGrid";
+import { BusinessBand } from "@/components/sections/home/BusinessBand";
+import { CtaBand } from "@/components/sections/CtaBand";
 
 export default async function HomePage({
   params,
@@ -7,11 +13,21 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("home");
+  const t = await getTranslations("home.knowMore");
 
   return (
-    <main className="flex min-h-dvh items-center justify-center">
-      <h1 className="font-display text-h1">{t("title")}</h1>
+    <main>
+      <HeroCarousel />
+      <ServicesRail />
+      <CtaBand
+        title={t("title")}
+        sub={t("sub")}
+        buttonLabel={t("cta")}
+        href="/services"
+      />
+      <WorkPreview />
+      <FeatureGrid />
+      <BusinessBand />
     </main>
   );
 }

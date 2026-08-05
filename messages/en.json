@@ -507,6 +507,7 @@
       "message": "Tell us about your background",
       "submit": "Submit application"
     },
+    "success": "Application received — if there's a fit, we'll contact you within days.",
     "faqHeading": "Franchise questions",
     "faq": {
       "1": { "q": "Do I need automotive experience?", "a": "Not required — training and operations are on us. What's required is commitment and serious management." },
@@ -535,7 +536,8 @@
       "size": "Number of cars or glass area",
       "message": "Additional details",
       "submit": "Send request"
-    }
+    },
+    "success": "Request received — the business team will reply soon."
   },
   "gallery": {
     "title": "Our work",
@@ -616,7 +618,8 @@
       "cv": "CV or portfolio link",
       "message": "Tell us why you",
       "submit": "Submit application"
-    }
+    },
+    "success": "Application received — we'll review and reach out on a match."
   },
   "privacy": {
     "title": "Privacy Policy",
@@ -661,6 +664,9 @@
         "body": "We stand by our documented installation standards. Any service concern is reviewed by management and handled under the warranty policy."
       }
     }
+  },
+  "common": {
+    "formStub": "[Submission activates with system integration — this form is a stub for now]"
   },
   "notFound": {
     "title": "This page doesn't exist",
