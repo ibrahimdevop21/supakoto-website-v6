@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   SupaKoto design tokens — docs/DESIGN-TOKENS.md is the source of truth.
+   Dark is the default mode, not an option. Red is an accent, not a surface.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* Brand */
+  --color-sk-red: #bf1e2e;
+  --color-sk-red-hover: #a51828;
+  --color-sk-red-muted: #bf1e2e1a;
+
+  /* Surfaces */
+  --color-ink-950: #0a0a0b;
+  --color-ink-900: #111113;
+  --color-ink-800: #1a1a1d;
+  --color-ink-700: #26262b;
+
+  /* Text */
+  --color-fg: #f5f5f4;
+  --color-fg-muted: #a1a1a5;
+  --color-fg-subtle: #6b6b70;
+
+  /* Light sections (sparingly — spec pages, forms) */
+  --color-paper: #fafaf9;
+  --color-paper-ink: #0a0a0b;
+
+  /* Type scale — fluid 390 → 1440 */
+  --text-display: clamp(2.75rem, 6vw, 5rem);
+  --text-display--line-height: 1.05;
+  --text-h1: clamp(2.25rem, 4.5vw, 3.5rem);
+  --text-h1--line-height: 1.1;
+  --text-h2: clamp(1.75rem, 3vw, 2.5rem);
+  --text-h2--line-height: 1.15;
+  --text-h3: clamp(1.25rem, 2vw, 1.5rem);
+  --text-h3--line-height: 1.3;
+  --text-body: 1rem;
+  --text-body--line-height: 1.7;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.6;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.18em;
+
+  /* Layout */
+  --radius-card: 4px;
+  --spacing-section: clamp(5rem, 10vw, 9rem);
+  --spacing-gutter: clamp(1.25rem, 4vw, 3rem);
+  --container-content: 1280px;
+}
+
+/* Font families resolve through next/font CSS variables at runtime. */
+@theme inline {
+  --font-display: var(--font-rh-zak), system-ui, sans-serif;
+  --font-body-ar: var(--font-plex-ar), sans-serif;
+  --font-body-en: var(--font-inter), system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-ink-950);
+    color: var(--color-fg);
+  }
+
+  body {
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html[lang="ar"] body {
+    font-family: var(--font-body-ar);
+  }
+
+  html[lang="en"] body {
+    font-family: var(--font-body-en);
+  }
+
+  /* Arabic never gets letter-spacing or text-transform — both break glyph
+     joining. Guarded here so no utility class can reintroduce them. */
+  [dir="rtl"] * {
+    letter-spacing: normal !important;
+    text-transform: none !important;
+  }
+}
