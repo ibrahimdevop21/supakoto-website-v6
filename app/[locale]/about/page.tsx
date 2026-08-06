@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/metadata";
 import { DOCUMENTARY_YOUTUBE_ID } from "@/lib/site";
-import { PageHero } from "@/components/sections/PageHero";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -36,17 +35,20 @@ export default async function AboutPage({
   const t = await getTranslations("about");
 
   return (
-    <main>
-      <PageHero eyebrow={t("eyebrow")} title={t("title")} sub={t("sub")} />
-
-      {/* Documentary — first thing after the title (Ibrahim's call) */}
+    <main className="pt-18">
+      {/* Documentary opens the page (Ibrahim's call — hero removed, the
+          film IS the hero). Full container width, same as nav/footer. */}
       {DOCUMENTARY_YOUTUBE_ID && (
         <Section>
-          <Container className="max-w-4xl">
+          <Container>
             <Reveal>
               <Eyebrow>{t("documentary.eyebrow")}</Eyebrow>
-              <Heading level={2}>{t("documentary.title")}</Heading>
-              <p className="mt-2 text-fg-muted">{t("documentary.sub")}</p>
+              <h1 className="font-display text-h1 font-bold text-balance">
+                {t("documentary.title")}
+              </h1>
+              <p className="mt-3 max-w-2xl text-fg-muted">
+                {t("documentary.sub")}
+              </p>
               <div className="relative mt-8 aspect-video overflow-hidden rounded-card border border-ink-700">
                 <iframe
                   src={`https://www.youtube-nocookie.com/embed/${DOCUMENTARY_YOUTUBE_ID}`}
