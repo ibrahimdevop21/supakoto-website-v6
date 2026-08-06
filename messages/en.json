@@ -168,7 +168,7 @@
           },
           "thickness": {
             "label": "Thickness",
-            "value": "[To be confirmed]"
+            "value": "170–270 μm by tier"
           },
           "warranty": {
             "label": "Warranty",
@@ -180,7 +180,7 @@
           },
           "selfHealing": {
             "label": "Self-healing",
-            "value": "[To be confirmed]"
+            "value": "15 μm self-healing coating on every tier"
           }
         },
         "packages": {
@@ -486,6 +486,33 @@
         "imageAlt": "Hand-finishing the paint surface"
       }
     }
+  },
+  "takai": {
+    "heading": "TAKAI film tiers",
+    "regionNote": "Showing the tiers available in your region — switch region in the header to see the other line.",
+    "lines": {
+      "signature": {
+        "name": "TAKAI Signature",
+        "tagline": "Advanced finishes & flagship performance"
+      },
+      "performance": {
+        "name": "TAKAI Performance",
+        "tagline": "High-strength protection — built for high-heat markets like the Middle East"
+      }
+    },
+    "columns": {
+      "product": "Product",
+      "totalThickness": "Total thickness",
+      "tpuFilm": "TPU film",
+      "gloss": "Gloss",
+      "selfHealingCoating": "Self-healing coating",
+      "adhesiveLayer": "Adhesive layer",
+      "elongationAtBreak": "Elongation at break",
+      "tensileStrength": "Tensile strength",
+      "antiYellowing": "Anti-yellowing",
+      "hydrophobic": "Hydrophobic"
+    },
+    "matte": "Matte"
   },
   "about": {
     "eyebrow": "SupaKoto",

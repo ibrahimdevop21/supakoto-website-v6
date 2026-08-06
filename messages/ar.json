@@ -168,7 +168,7 @@
           },
           "thickness": {
             "label": "السُمك",
-            "value": "[قيد التأكيد]"
+            "value": "من 170 لـ 270 μm حسب الدرجة"
           },
           "warranty": {
             "label": "الضمان",
@@ -180,7 +180,7 @@
           },
           "selfHealing": {
             "label": "الالتئام الذاتي",
-            "value": "[قيد التأكيد]"
+            "value": "طبقة التئام ذاتي 15 μm في كل الدرجات"
           }
         },
         "packages": {
@@ -486,6 +486,33 @@
         "imageAlt": "تشطيب يدوي لسطح الطلاء"
       }
     }
+  },
+  "takai": {
+    "heading": "درجات فيلم TAKAI",
+    "regionNote": "الدرجات المعروضة هي المتاحة في منطقتك — غيّر المنطقة من أعلى الصفحة لو عايز تشوف التانية.",
+    "lines": {
+      "signature": {
+        "name": "TAKAI Signature",
+        "tagline": "تشطيبات متقدمة وأداء رائد"
+      },
+      "performance": {
+        "name": "TAKAI Performance",
+        "tagline": "حماية فائقة القوة — مصممة للأسواق العالية الحرارة زي الشرق الأوسط"
+      }
+    },
+    "columns": {
+      "product": "المنتج",
+      "totalThickness": "السُمك الكلي",
+      "tpuFilm": "طبقة TPU",
+      "gloss": "اللمعان",
+      "selfHealingCoating": "طبقة الالتئام الذاتي",
+      "adhesiveLayer": "طبقة اللاصق",
+      "elongationAtBreak": "الاستطالة حتى القطع",
+      "tensileStrength": "مقاومة الشد",
+      "antiYellowing": "مقاومة الاصفرار",
+      "hydrophobic": "طرد الماء"
+    },
+    "matte": "مطفي"
   },
   "about": {
     "eyebrow": "SupaKoto",

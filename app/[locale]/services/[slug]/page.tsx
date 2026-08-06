@@ -8,6 +8,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { BeforeAfter } from "@/components/sections/services/BeforeAfter";
+import { TakaiLineup } from "@/components/sections/services/TakaiLineup";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Heading } from "@/components/ui/Heading";
@@ -152,6 +153,11 @@ export default async function ServiceDetailPage({
               <p className="mt-4 max-w-prose text-small text-paper-ink/60">
                 {tWarranty("qualifier.todo")}
               </p>
+            )}
+            {service.premiumPlus && (
+              <div className="mt-14">
+                <TakaiLineup />
+              </div>
             )}
           </Reveal>
         </Container>
