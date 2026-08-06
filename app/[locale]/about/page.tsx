@@ -43,6 +43,29 @@ export default async function AboutPage({
     <main>
       <PageHero eyebrow={t("eyebrow")} title={t("title")} sub={t("sub")} />
 
+      {/* Documentary — first thing after the title (Ibrahim's call) */}
+      {DOCUMENTARY_YOUTUBE_ID && (
+        <Section>
+          <Container className="max-w-4xl">
+            <Reveal>
+              <Eyebrow>{t("documentary.eyebrow")}</Eyebrow>
+              <Heading level={2}>{t("documentary.title")}</Heading>
+              <p className="mt-2 text-fg-muted">{t("documentary.sub")}</p>
+              <div className="relative mt-8 aspect-video overflow-hidden rounded-card border border-ink-700">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${DOCUMENTARY_YOUTUBE_ID}`}
+                  title={t("documentary.title")}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  loading="lazy"
+                  className="absolute inset-0 size-full"
+                />
+              </div>
+            </Reveal>
+          </Container>
+        </Section>
+      )}
+
       {/* Logo lockup band — light/dark pair */}
       <section className="grid sm:grid-cols-2">
         <div className="flex items-center justify-center bg-paper p-14">
@@ -124,29 +147,6 @@ export default async function AboutPage({
           </RevealStagger>
         </Container>
       </Section>
-
-      {/* Documentary — renders once the YouTube id lands in lib/site.ts */}
-      {DOCUMENTARY_YOUTUBE_ID && (
-        <Section tone="raised">
-          <Container className="max-w-4xl">
-            <Reveal>
-              <Eyebrow>{t("documentary.eyebrow")}</Eyebrow>
-              <Heading level={2}>{t("documentary.title")}</Heading>
-              <p className="mt-2 text-fg-muted">{t("documentary.sub")}</p>
-              <div className="relative mt-8 aspect-video overflow-hidden rounded-card border border-ink-700">
-                <iframe
-                  src={`https://www.youtube-nocookie.com/embed/${DOCUMENTARY_YOUTUBE_ID}`}
-                  title={t("documentary.title")}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  loading="lazy"
-                  className="absolute inset-0 size-full"
-                />
-              </div>
-            </Reveal>
-          </Container>
-        </Section>
-      )}
 
       {/* Vision / Mission / Values */}
       <Section>
