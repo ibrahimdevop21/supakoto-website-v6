@@ -2,6 +2,13 @@
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://supakoto.com";
 
+/**
+ * The 18-minute SupaKoto documentary (YouTube video id, not full URL).
+ * TODO(Ibrahim): supply the id — the about-page section renders only
+ * once this is set.
+ */
+export const DOCUMENTARY_YOUTUBE_ID: string | null = null;
+
 export const ROUTES = [
   "/",
   "/about",

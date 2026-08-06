@@ -546,9 +546,8 @@
         "value": "🇯🇵",
         "label": "Exclusive agent in Egypt & UAE"
       },
-      "todo": {
-        "value": "—",
-        "label": "[TODO — Ibrahim picks: years in market / cars protected / TAKAI partnership year]"
+      "cars": {
+        "label": "Cars protected"
       }
     },
     "vmv": {
@@ -568,6 +567,62 @@
     "cta": {
       "title": "Ready to protect your car?",
       "button": "Book your slot"
+    },
+    "journey": {
+      "eyebrow": "Since 2016",
+      "title": "Our journey",
+      "events": {
+        "1": {
+          "year": "2016",
+          "title": "The beginning",
+          "desc": "Founded in Egypt to raise the standard of protective films for cars and architectural facades."
+        },
+        "2": {
+          "year": "2020",
+          "title": "Škoda partnership & Maadi branch",
+          "desc": "Partnered with Škoda and opened our Maadi branch inside the Škoda Maadi Center."
+        },
+        "3": {
+          "year": "2021",
+          "title": "AstraZeneca contract",
+          "desc": "Delivered Egypt's largest heat and UV protection project for a commercial building."
+        },
+        "4": {
+          "year": "2022",
+          "title": "Alliance with Kasrawy Group",
+          "desc": "A strategic alliance that expanded our reach and capabilities."
+        },
+        "5": {
+          "year": "2023",
+          "title": "Dubai branch opened",
+          "desc": "Launched operations in Al Quoz — our first firm step into the GCC."
+        },
+        "6": {
+          "year": "2024",
+          "title": "Sheikh Zayed branch",
+          "desc": "Brought our service to West Cairo."
+        },
+        "7": {
+          "year": "2024",
+          "title": "TAKAI Steel Plus",
+          "desc": "Received the first TAKAI Steel Plus shipment, raising our material standard."
+        },
+        "8": {
+          "year": "2025",
+          "title": "Fifth Settlement branch",
+          "desc": "Opened in New Cairo to meet growing demand."
+        },
+        "9": {
+          "year": "2025",
+          "title": "Mansour Group partnership",
+          "desc": "A pivotal agreement accelerating our growth and market presence."
+        }
+      }
+    },
+    "documentary": {
+      "eyebrow": "The documentary",
+      "title": "18 minutes inside SupaKoto",
+      "sub": "The whole story from day one — the workshops, the people, the Japanese film."
     }
   },
   "branches": {
