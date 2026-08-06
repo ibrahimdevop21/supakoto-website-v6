@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import type { Map as LeafletMap } from "leaflet";
-import { branches } from "@/content/branches";
+import { branches, directionsUrl } from "@/content/branches";
 import { useRegion } from "@/components/providers/RegionProvider";
 import "leaflet/dist/leaflet.css";
 
@@ -53,7 +53,7 @@ export function BranchMap() {
         const name = t(`items.${b.id}.name`);
         const address = t(`items.${b.id}.address`);
         const dir = locale === "ar" ? "rtl" : "ltr";
-        const maps = `https://www.google.com/maps/search/?api=1&query=${b.coords.lat},${b.coords.lng}`;
+        const maps = directionsUrl(b);
         const approx = b.coords.approximate
           ? `<div class="sk-popup-note">${t("map.approx")}</div>`
           : "";

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { branchesForRegion } from "@/content/branches";
+import { branchesForRegion, directionsUrl } from "@/content/branches";
 import { useRegion } from "@/components/providers/RegionProvider";
 import { Placeholder } from "@/components/ui/Placeholder";
 import { RevealStagger, RevealItem } from "@/components/ui/Reveal";
@@ -72,7 +72,7 @@ export function BranchGrid() {
                     {t("whatsapp")}
                   </a>
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`SupaKoto ${name} ${address}`)}`}
+                    href={directionsUrl(branch)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="rounded-card border border-ink-700 px-3 py-2 text-small transition-colors hover:border-fg-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"

@@ -69,3 +69,11 @@ export const branches: Branch[] = [
 export function branchesForRegion(region: RegionId): Branch[] {
   return branches.filter((b) => b.region === region);
 }
+
+/**
+ * Google Maps navigation deep link to the exact ops-confirmed pin —
+ * opens turn-by-turn directions from the user's location on any platform.
+ */
+export function directionsUrl(branch: Branch): string {
+  return `https://www.google.com/maps/dir/?api=1&destination=${branch.coords.lat},${branch.coords.lng}`;
+}
