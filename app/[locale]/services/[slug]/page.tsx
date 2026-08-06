@@ -151,7 +151,7 @@ export default async function ServiceDetailPage({
             </div>
             {service.premiumPlus && (
               <p className="mt-4 max-w-prose text-small text-paper-ink/60">
-                {tWarranty("qualifier.todo")}
+                {tWarranty("qualifier.text")}
               </p>
             )}
             {service.premiumPlus && (
@@ -212,7 +212,7 @@ export default async function ServiceDetailPage({
                     {tItem("premiumPlusCard.term")}
                   </p>
                   <p className="mt-3 text-eyebrow text-fg-muted">
-                    {tWarranty("qualifier.todo")}
+                    {tWarranty("qualifier.text")}
                   </p>
                 </div>
               </RevealItem>

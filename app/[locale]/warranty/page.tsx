@@ -47,7 +47,8 @@ export default async function WarrantyPage({
       <PageHero title={t("title")} sub={t("sub")} />
 
       {/* Tier comparison — the core of the page. Source: content/warranty.ts.
-          TODO cells stay honest; the lifetime qualifier shares the block. */}
+          Filled per Ibrahim's 2026-08-06 decisions (vehicle-lifetime,
+          all tiers transferable); the lifetime qualifier shares the block. */}
       <Section tone="paper">
         <Container>
           <Reveal>
@@ -83,13 +84,24 @@ export default async function WarrantyPage({
                             {t("termLifetime")}
                           </td>
                         </>
-                      ) : (
+                      ) : row.todo ? (
                         <>
                           <td className="py-4 pe-6 text-paper-ink/50">
                             {t("todoCell")}
                           </td>
                           <td className="py-4 text-paper-ink/50">
                             {t("todoCell")}
+                          </td>
+                        </>
+                      ) : (
+                        /* Terms apply equally to both tiers (only the term
+                           length differs) — one value spans both columns. */
+                        <>
+                          <td className="py-4 pe-6 text-paper-ink/70">
+                            {t(`rows.${row.key}.value`)}
+                          </td>
+                          <td className="py-4 text-paper-ink/70">
+                            {t(`rows.${row.key}.value`)}
                           </td>
                         </>
                       )}
@@ -134,7 +146,7 @@ export default async function WarrantyPage({
 
             {/* Qualifier block — must sit adjacent to the lifetime cell. */}
             <p className="mt-6 max-w-prose rounded-card border border-paper-ink/20 bg-paper-ink/5 px-4 py-3 text-small text-paper-ink/70">
-              {t("qualifier.todo")}
+              {t("qualifier.text")}
             </p>
           </Reveal>
         </Container>

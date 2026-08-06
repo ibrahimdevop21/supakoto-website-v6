@@ -9,12 +9,12 @@
  *   the Premium Plus tier card, and every render MUST place the qualifier
  *   (LIFETIME_QUALIFIER message key) in the same visual block.
  *
- * TODO (Ibrahim — stop-and-ask item #5, unresolved by design):
- * - Whose lifetime? film / original ownership / vehicle. Materially
- *   different promises. The message key warranty.qualifier.todo renders a
- *   clearly-labelled placeholder until decided.
- * - Row values marked `todo: true` render as honest "to be confirmed"
- *   cells, not invented coverage.
+ * RESOLVED (Ibrahim, 2026-08-06):
+ * - Lifetime scope: LIFETIME OF THE VEHICLE — the warranty transfers with
+ *   the car on resale (all tiers transfer). Qualifier text lives at
+ *   warranty.qualifier.text and still must render beside every "lifetime".
+ * - Coverage rows filled per the same decision + the TAKAI spec sheet;
+ *   exclusions mirror the long-approved FAQ wording.
  */
 
 export type WarrantyTierId = "standard" | "premiumPlus";
@@ -39,20 +39,20 @@ export const warrantyTiers: Record<
 
 export const warrantyRows: WarrantyRow[] = [
   { key: "term", todo: false },
-  { key: "scope", todo: true },
-  { key: "transferable", todo: true },
-  { key: "yellowing", todo: true },
-  { key: "cracking", todo: true },
-  { key: "selfHealing", todo: true },
-  { key: "exclusions", todo: true },
+  { key: "scope", todo: false },
+  { key: "transferable", todo: false },
+  { key: "yellowing", todo: false },
+  { key: "cracking", todo: false },
+  { key: "selfHealing", todo: false },
+  { key: "exclusions", todo: false },
 ];
 
 /**
  * Message key for the mandatory lifetime qualifier. Renders adjacent to
  * EVERY "lifetime" mention, same visual block, no exceptions.
- * Currently a labelled TODO — do not launch with it unresolved.
+ * Resolved 2026-08-06: lifetime of the vehicle, transfers on resale.
  */
-export const LIFETIME_QUALIFIER_KEY = "warranty.qualifier.todo";
+export const LIFETIME_QUALIFIER_KEY = "warranty.qualifier.text";
 
 /** Routes allowed to render the word "lifetime" at all. */
 export const LIFETIME_ALLOWED_ROUTES = [

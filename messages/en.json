@@ -224,7 +224,7 @@
           },
           "6": {
             "q": "What if I sell the car?",
-            "a": "Warranty transfer terms differ by tier — see the warranty page or ask at any branch."
+            "a": "The warranty transfers with the car to the new owner for its remaining term — it follows the car, not the owner."
           }
         },
         "imageAlt": "Gloss protection film on a dark car"
@@ -620,26 +620,32 @@
         "label": "Warranty term"
       },
       "scope": {
-        "label": "Coverage scope"
+        "label": "Coverage scope",
+        "value": "Material and installation defects: yellowing, cracking, peeling, bubbling, adhesive residue"
       },
       "transferable": {
-        "label": "Transferable on sale"
+        "label": "Transferable on sale",
+        "value": "Yes — the warranty follows the car, not the owner, for its remaining term"
       },
       "yellowing": {
-        "label": "Yellowing / discolouration"
+        "label": "Yellowing / discolouration",
+        "value": "Covered for the full warranty term"
       },
       "cracking": {
-        "label": "Cracking / peeling / lifting"
+        "label": "Cracking / peeling / lifting",
+        "value": "Covered for the full warranty term"
       },
       "selfHealing": {
-        "label": "Self-healing performance"
+        "label": "Self-healing performance",
+        "value": "Guaranteed for the warranty term — surface scratches heal with heat"
       },
       "exclusions": {
-        "label": "Exclusions"
+        "label": "Exclusions",
+        "value": "Accidents, outside work on the film beyond our branches, and clear misuse"
       }
     },
     "qualifier": {
-      "todo": "* [TODO — Ibrahim's call: lifetime of the film / of original ownership / of the vehicle. Do not publish before this is scoped.]"
+      "text": "* Lifetime means the lifetime of the vehicle itself — the warranty transfers with the car to the new owner on resale."
     },
     "breakdown": {
       "heading": "Terms by tier — Performance line (Egypt)",
@@ -1014,7 +1020,7 @@
       },
       "warrantyTransfer": {
         "q": "Does warranty transfer if I sell?",
-        "a": "It differs by tier — see the comparison table on the warranty page."
+        "a": "Yes — the warranty follows the car, not the owner, and passes to the buyer for its remaining term."
       },
       "washAfter": {
         "q": "When can I wash after installation?",

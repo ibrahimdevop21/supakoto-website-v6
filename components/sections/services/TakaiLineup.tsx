@@ -90,7 +90,7 @@ export function TakaiLineup() {
       {/* Mandatory: lifetime never renders without its qualifier in the
           same block (Premium Plus is in every line). */}
       <p className="mt-4 max-w-prose text-small text-paper-ink/60">
-        {tWarranty("qualifier.todo")}
+        {tWarranty("qualifier.text")}
       </p>
       <p className="mt-2 text-small text-paper-ink/50">{t("regionNote")}</p>
     </div>
