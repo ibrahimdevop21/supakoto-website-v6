@@ -64,25 +64,16 @@ export default async function AboutPage({
         </Section>
       )}
 
-      {/* Who we are */}
-      <Section>
-        <Container className="max-w-3xl">
-          <Reveal>
-            <Eyebrow>{t("whoWeAre.eyebrow")}</Eyebrow>
-            <Heading level={2}>{t("whoWeAre.title")}</Heading>
-            <p className="mt-6 text-fg-muted">{t("whoWeAre.body")}</p>
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* The journey, 2016 → today — the chronology carries the story */}
+      {/* Our story — one section: the narrative paragraph flows straight
+          into the 2016 → 2026 timeline that details it */}
       <Section tone="raised">
         <Container className="max-w-3xl">
           <Reveal>
             <Eyebrow>{t("journey.eyebrow")}</Eyebrow>
-            <Heading level={2}>{t("journey.title")}</Heading>
+            <Heading level={2}>{t("whoWeAre.title")}</Heading>
+            <p className="mt-6 text-fg-muted">{t("whoWeAre.body")}</p>
           </Reveal>
-          <RevealStagger className="mt-10 space-y-0">
+          <RevealStagger className="mt-12 space-y-0">
             {Array.from({ length: 11 }, (_, i) => i + 1).map((n) => (
               <RevealItem key={n}>
                 <div className="relative flex gap-6 border-s border-ink-700 pb-10 ps-8 last:pb-0">
