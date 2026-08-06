@@ -13,16 +13,16 @@ const SLIDE_KEYS = ["s1", "s2", "s3", "s4", "s5"] as const;
 const AUTOPLAY_MS = 6000;
 
 /**
- * Full-bleed hero. The only thing on the site allowed to loop.
- * Ken Burns drift: 12s linear, scale 1 → 1.06 (design token).
- * Slide media are labelled placeholders until campaign photography lands.
+ * Full-bleed hero: the V2 showreel plays as a silent full-screen backdrop
+ * (desktop + mobile cuts, webm with mp4 fallback for Safari) beneath the
+ * rotating headlines. The s1 photo is the base layer until the video is
+ * ready — and the permanent backdrop under reduced motion or playback
+ * failure. The only thing on the site allowed to loop.
  */
 export function HeroCarousel() {
   const t = useTranslations("home.hero");
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
-  // First slide must be visible in SSR HTML (it is the LCP element) —
-  // entrance animations only run once the carousel has cycled.
   const [cycled, setCycled] = useState(false);
 
   useEffect(() => {
@@ -33,33 +33,28 @@ export function HeroCarousel() {
     return () => clearInterval(id);
   }, []);
 
-  const animateIn = cycled && !reduce;
-
   const key = SLIDE_KEYS[index];
+  const animateIn = cycled && !reduce;
 
   return (
     <section className="relative flex min-h-[80svh] items-end overflow-hidden border-b border-ink-700">
-      {/* Slide backdrop. The static branch (pre-cycle) keeps the SSR DOM
-          untouched through hydration — an AnimatePresence remount would
-          register a late LCP entry for the hero. */}
-      {cycled ? (
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            key={key}
-            className="absolute inset-0"
-            initial={animateIn ? { opacity: 0 } : false}
-            animate={{ opacity: 1 }}
-            exit={reduce ? undefined : { opacity: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <Backdrop slideKey={key} reduce={reduce} alt={t(`slides.${key}.alt`)} />
-          </motion.div>
-        </AnimatePresence>
-      ) : (
-        <div className="absolute inset-0">
-          <Backdrop slideKey={key} reduce={reduce} alt={t(`slides.${key}.alt`)} />
-        </div>
-      )}
+      {/* Base photo — SSR-visible (LCP), stays if video can't play */}
+      <div className="absolute inset-0">
+        <Image
+          src={heroImages.s1.src}
+          alt={t("slides.s1.alt")}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+      </div>
+
+      {/* Showreel backdrop (client-only, skipped under reduced motion) */}
+      {!reduce && <HeroVideo />}
+
+      {/* Legibility scrim */}
+      <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(10,10,11,0.78),rgba(10,10,11,0.35)_55%,rgba(10,10,11,0.85))]" />
 
       {/* Copy overlay */}
       <div className="relative z-10 w-full pb-20 pt-40">
@@ -108,35 +103,37 @@ export function HeroCarousel() {
   );
 }
 
-function Backdrop({
-  slideKey,
-  reduce,
-  alt,
-}: {
-  slideKey: keyof typeof heroImages;
-  reduce: boolean | null;
-  alt: string;
-}) {
+function HeroVideo() {
+  // Pick the cut after mount so only one file downloads.
+  const [variant, setVariant] = useState<"desktop" | "mobile" | null>(null);
+  const [ready, setReady] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    setVariant(window.matchMedia("(max-width: 767px)").matches ? "mobile" : "desktop");
+  }, []);
+
+  if (!variant || failed) return null;
+  const base = variant === "mobile" ? "/videos/showreel-mobile" : "/videos/showreel";
+
   return (
-    <>
-      <motion.div
-        className="absolute inset-0"
-        initial={reduce ? undefined : { scale: 1 }}
-        animate={reduce ? undefined : { scale: 1.06 }}
-        transition={{ duration: 12, ease: "linear" }}
-      >
-        <Image
-          src={heroImages[slideKey].src}
-          alt={alt}
-          fill
-          priority={slideKey === "s1"}
-          sizes="100vw"
-          className="object-cover"
-        />
-      </motion.div>
-      {/* Legibility scrim over the photo */}
-      <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(10,10,11,0.78),rgba(10,10,11,0.35)_55%,rgba(10,10,11,0.85))]" />
-    </>
+    <video
+      aria-hidden
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="auto"
+      onCanPlay={() => setReady(true)}
+      onError={() => setFailed(true)}
+      className={cn(
+        "absolute inset-0 size-full object-cover transition-opacity duration-700",
+        ready ? "opacity-100" : "opacity-0",
+      )}
+    >
+      <source src={`${base}.webm`} type="video/webm" />
+      <source src={`${base}.mp4`} type="video/mp4" />
+    </video>
   );
 }
 
