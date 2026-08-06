@@ -20,6 +20,7 @@ export type Branch = {
 export const branches: Branch[] = [
   {
     id: "tagamoa",
+    photo: "/images/branches/tagamoa.webp",
     coords: { lat: 30.019004, lng: 31.432151 },
     region: "egypt",
     phone: "01220080189",
@@ -28,6 +29,7 @@ export const branches: Branch[] = [
   },
   {
     id: "zayed",
+    photo: "/images/branches/zayed.webp",
     coords: { lat: 30.019908, lng: 30.977818 },
     region: "egypt",
     phone: "01156608134",
@@ -36,6 +38,7 @@ export const branches: Branch[] = [
   },
   {
     id: "maadi",
+    photo: "/images/branches/maadi.webp",
     coords: { lat: 29.959924, lng: 31.320286 },
     region: "egypt",
     phone: "01127232340",
@@ -44,6 +47,7 @@ export const branches: Branch[] = [
   },
   {
     id: "alexandria",
+    photo: "/images/branches/alexandria.webp",
     coords: { lat: 31.048005, lng: 29.785749 },
     region: "egypt",
     phone: "01103402446",
@@ -51,6 +55,7 @@ export const branches: Branch[] = [
   },
   {
     id: "damietta",
+    photo: "/images/branches/damietta.webp",
     coords: { lat: 31.443499, lng: 31.675357 },
     region: "egypt",
     phone: "01126978186",
@@ -59,6 +64,7 @@ export const branches: Branch[] = [
   },
   {
     id: "dubai",
+    photo: "/images/branches/dubai.webp",
     coords: { lat: 25.117529, lng: 55.236156 },
     region: "uae",
     phone: "+971 55 205 4478",

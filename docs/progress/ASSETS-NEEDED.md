@@ -3,6 +3,12 @@
 Updated after the V2_Prod photography harvest (2026-08-05). Everything
 below either has a clearly-labelled placeholder or is a verification task.
 
+## Resolved
+
+- **Branch photos** — all six delivered by Ibrahim 2026-08-06, converted
+  to webp under `public/images/branches/`. No placeholders left on
+  /branches.
+
 ## Resolved by the harvest
 
 - **Hero carousel slides** — 5 real workshop photos live (`public/images/hero/`).
@@ -15,7 +21,6 @@ below either has a clearly-labelled placeholder or is a verification task.
 
 | Asset | Placeholder in use | Needed from |
 |---|---|---|
-| Branch photos (6 branches) | Labelled placeholder block on branch cards | **Ibrahim collecting now** — drop-in ready: put files at `public/images/branches/<id>.webp` and set `photo` in `content/branches.ts` |
 | Before/after pairs | Labelled placeholder slider on service pages | Marketing — no true before/after pairs exist in the V2 archive |
 | TikTok, YouTube, LinkedIn profile URLs | Footer icons render with `#` + TODO | Marketing |
 | Egypt trust badges / registry equivalents | `<TrustBadges />` renders nothing | Ibrahim |
