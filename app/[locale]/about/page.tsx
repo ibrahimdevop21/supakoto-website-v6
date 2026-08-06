@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/metadata";
 import { DOCUMENTARY_YOUTUBE_ID } from "@/lib/site";
@@ -11,8 +10,6 @@ import { Heading } from "@/components/ui/Heading";
 import { Counter } from "@/components/ui/Counter";
 import { Card } from "@/components/ui/Card";
 import { Reveal, RevealStagger, RevealItem } from "@/components/ui/Reveal";
-import logoFull from "@/public/brand/logo-full.png";
-import logoWhite from "@/public/brand/logo-white.png";
 
 export async function generateMetadata({
   params,
@@ -37,7 +34,6 @@ export default async function AboutPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("about");
-  const tNav = await getTranslations("nav");
 
   return (
     <main>
@@ -65,16 +61,6 @@ export default async function AboutPage({
           </Container>
         </Section>
       )}
-
-      {/* Logo lockup band — light/dark pair */}
-      <section className="grid sm:grid-cols-2">
-        <div className="flex items-center justify-center bg-paper p-14">
-          <Image src={logoFull} alt={tNav("logoAlt")} className="h-20 w-auto" />
-        </div>
-        <div className="flex items-center justify-center border-t border-ink-700 bg-ink-900 p-14 sm:border-s sm:border-t-0">
-          <Image src={logoWhite} alt={tNav("logoAlt")} className="h-20 w-auto" />
-        </div>
-      </section>
 
       {/* Who we are */}
       <Section>
