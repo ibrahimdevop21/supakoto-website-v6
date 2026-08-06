@@ -1,5 +1,10 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { warrantyRows, egyptTierBreakdown } from "@/content/warranty";
+import {
+  warrantyRows,
+  egyptTierBreakdown,
+  uaeTierBreakdown,
+  type TierBreakdownGroup,
+} from "@/content/warranty";
 import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
@@ -110,35 +115,35 @@ export default async function WarrantyPage({
                 </tbody>
               </table>
             </div>
-            {/* Per-tier terms — Egypt / Performance line, ops-confirmed
-                2026-08-06. UAE terms pending (note in copy). */}
+            {/* Per-tier terms, both regions — ops-confirmed 2026-08-06. */}
             <div className="mt-10">
               <Heading level={3} className="text-paper-ink">
                 {t("breakdown.heading")}
               </Heading>
-              <dl className="mt-4 divide-y divide-paper-ink/10 border-y border-paper-ink/10">
-                {egyptTierBreakdown.map((group) => (
-                  <div
-                    key={group.products.join("/")}
-                    className="flex items-center justify-between gap-4 py-3"
-                  >
-                    <dt className="font-medium" dir="ltr">
-                      {group.products.join(" / ")}
-                    </dt>
-                    <dd
-                      className={
-                        group.term.kind === "lifetime"
-                          ? "font-bold"
-                          : "text-paper-ink/70"
-                      }
-                    >
-                      {group.term.kind === "lifetime"
-                        ? tTakai("terms.lifetime")
-                        : tTakai(`terms.y${group.term.kind === "years" ? group.term.years : 15}`)}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
+              <div className="mt-4 grid gap-8 lg:grid-cols-2">
+                <TierBreakdownList
+                  title={t("breakdown.egypt")}
+                  groups={egyptTierBreakdown}
+                  termLabel={(term) =>
+                    term.kind === "lifetime"
+                      ? tTakai("terms.lifetime")
+                      : term.kind === "years"
+                        ? tTakai(`terms.y${term.years}`)
+                        : tTakai("terms.tbc")
+                  }
+                />
+                <TierBreakdownList
+                  title={t("breakdown.uae")}
+                  groups={uaeTierBreakdown}
+                  termLabel={(term) =>
+                    term.kind === "lifetime"
+                      ? tTakai("terms.lifetime")
+                      : term.kind === "years"
+                        ? tTakai(`terms.y${term.years}`)
+                        : tTakai("terms.tbc")
+                  }
+                />
+              </div>
               <p className="mt-3 max-w-prose text-small text-paper-ink/60">
                 {t("breakdown.note")}
               </p>
@@ -195,5 +200,42 @@ export default async function WarrantyPage({
         </Container>
       </Section>
     </main>
+  );
+}
+
+function TierBreakdownList({
+  title,
+  groups,
+  termLabel,
+}: {
+  title: string;
+  groups: TierBreakdownGroup[];
+  termLabel: (term: TierBreakdownGroup["term"]) => string;
+}) {
+  return (
+    <div>
+      <p className="text-small font-medium text-paper-ink/60">{title}</p>
+      <dl className="mt-2 divide-y divide-paper-ink/10 border-y border-paper-ink/10">
+        {groups.map((group) => (
+          <div
+            key={group.products.join("/")}
+            className="flex items-center justify-between gap-4 py-3"
+          >
+            <dt className="font-medium" dir="ltr">
+              {group.products.join(" / ")}
+            </dt>
+            <dd
+              className={
+                group.term.kind === "lifetime"
+                  ? "font-bold"
+                  : "text-paper-ink/70"
+              }
+            >
+              {termLabel(group.term)}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
   );
 }

@@ -61,12 +61,12 @@ export const LIFETIME_ALLOWED_ROUTES = [
 ] as const;
 
 /**
- * Per-product warranty terms — OPS-CONFIRMED for EGYPT (Performance line),
- * Ibrahim 2026-08-06: TAKAI 5 → 5y, GOLD/GOLD PLUS → 10y,
- * STEEL/STEEL PLUS → 15y, PREMIUM PLUS → lifetime (qualifier still TODO).
- * UAE (Signature line): only PREMIUM PLUS confirmed (lifetime, both
- * regions); all other Signature products unconfirmed — render the honest
- * TBC cell, do not guess.
+ * Per-product warranty terms — OPS-CONFIRMED, Ibrahim 2026-08-06.
+ * EGYPT (Performance line): TAKAI 5 → 5y, GOLD/GOLD PLUS → 10y,
+ * STEEL/STEEL PLUS → 15y, PREMIUM PLUS → lifetime.
+ * UAE (Signature line): SILVER (=TAKAI 5) → 5y; MATT / MATT PLUS /
+ * Colours / ULTIMATE GLOSS → 10y; STEELPLUS → 15y; PREMIUM PLUS →
+ * lifetime. Lifetime = vehicle lifetime, transfers on resale.
  */
 export type ProductWarrantyTerm =
   | { kind: "years"; years: 5 | 10 | 15 }
@@ -82,14 +82,36 @@ const egyptTerms: Record<string, ProductWarrantyTerm> = {
   "TAKAI PREMIUM PLUS": { kind: "lifetime" },
 };
 
-/** Display grouping for the /warranty page (Egypt / Performance line). */
-export const egyptTierBreakdown: Array<{
+const uaeTerms: Record<string, ProductWarrantyTerm> = {
+  "TAKAI SILVER": { kind: "years", years: 5 },
+  "TAKAI MATT": { kind: "years", years: 10 },
+  "TAKAI MATT PLUS": { kind: "years", years: 10 },
+  "TAKAI Colours": { kind: "years", years: 10 },
+  "TAKAI ULTIMATE GLOSS": { kind: "years", years: 10 },
+  "TAKAI STEELPLUS": { kind: "years", years: 15 },
+  "TAKAI PREMIUM PLUS": { kind: "lifetime" },
+};
+
+export type TierBreakdownGroup = {
   products: string[];
   term: ProductWarrantyTerm;
-}> = [
+};
+
+/** Display groupings for the /warranty page. */
+export const egyptTierBreakdown: TierBreakdownGroup[] = [
   { products: ["TAKAI 5"], term: { kind: "years", years: 5 } },
   { products: ["TAKAI GOLD", "TAKAI GOLD PLUS"], term: { kind: "years", years: 10 } },
   { products: ["TAKAI STEEL", "TAKAI STEEL PLUS"], term: { kind: "years", years: 15 } },
+  { products: ["TAKAI PREMIUM PLUS"], term: { kind: "lifetime" } },
+];
+
+export const uaeTierBreakdown: TierBreakdownGroup[] = [
+  { products: ["TAKAI SILVER (TAKAI 5)"], term: { kind: "years", years: 5 } },
+  {
+    products: ["TAKAI MATT", "TAKAI MATT PLUS", "TAKAI Colours", "TAKAI ULTIMATE GLOSS"],
+    term: { kind: "years", years: 10 },
+  },
+  { products: ["TAKAI STEELPLUS"], term: { kind: "years", years: 15 } },
   { products: ["TAKAI PREMIUM PLUS"], term: { kind: "lifetime" } },
 ];
 
@@ -98,6 +120,6 @@ export function warrantyTermForProduct(
   productName: string,
 ): ProductWarrantyTerm {
   if (productName === "TAKAI PREMIUM PLUS") return { kind: "lifetime" };
-  if (region === "egypt") return egyptTerms[productName] ?? { kind: "tbc" };
-  return { kind: "tbc" };
+  const terms = region === "egypt" ? egyptTerms : uaeTerms;
+  return terms[productName] ?? { kind: "tbc" };
 }

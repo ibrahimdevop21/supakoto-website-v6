@@ -648,8 +648,10 @@
       "text": "* Lifetime means the lifetime of the vehicle itself — the warranty transfers with the car to the new owner on resale."
     },
     "breakdown": {
-      "heading": "Terms by tier — Performance line (Egypt)",
-      "note": "Signature line (UAE) tier terms are confirmed at booking until documented here — except Premium Plus, whose warranty is the same in both regions."
+      "heading": "Terms by tier",
+      "egypt": "Performance line — Egypt",
+      "uae": "Signature line — UAE",
+      "note": "TAKAI SILVER is the UAE market name for TAKAI 5 — the exact same film."
     },
     "registration": {
       "heading": "How to register your warranty",

@@ -55,7 +55,12 @@ export function TakaiLineup() {
             {line.products.map((p) => (
               <tr key={p.name} className="border-b border-paper-ink/10">
                 <th scope="row" className="py-3 pe-4 text-start font-medium">
-                  <span dir="ltr">{p.name}</span>
+                  <span dir="ltr">
+                    {p.name}
+                    {p.altName && (
+                      <span className="text-paper-ink/50"> ({p.altName})</span>
+                    )}
+                  </span>
                   {p.matteAvailable && (
                     <span className="ms-2 inline-block rounded-card border border-paper-ink/20 px-1.5 py-0.5 text-eyebrow font-normal text-paper-ink/60">
                       {t("matteBadge")}
