@@ -28,9 +28,8 @@ below either has a clearly-labelled placeholder or is a verification task.
   `content/regions.ts` is the single source. Branch numbers confirmed
   available as seeded.
 - Branch working hours — ops.
-- Maps coordinates: Tagamoa/Maadi/Zayed/Dubai pinned from V2's data file
-  (geography cross-checked); **Alexandria and Damietta pins are
-  approximate** (flagged on the map) — ops to confirm exact locations.
+- ~~Maps coordinates~~ **RESOLVED 2026-08-06** — all six pins
+  ops-confirmed by Ibrahim on-site.
 - RH-Zak web-embedding licence — Ibrahim.
 
 ## Quality flags from the harvest
