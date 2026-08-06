@@ -85,21 +85,21 @@
   }
 }
 
-/* Branch map (Leaflet) — brand pin + dark popup matching the surface set */
+/* Branch map (Leaflet) — light tiles, brand pin, paper-toned popup */
 .sk-map-pin {
   display: block;
   width: 18px;
   height: 18px;
   border-radius: 9999px;
   background: var(--color-sk-red);
-  border: 3px solid var(--color-fg);
-  box-shadow: 0 0 0 2px var(--color-ink-950);
+  border: 3px solid var(--color-paper);
+  box-shadow: 0 0 0 1px var(--color-ink-700);
 }
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: var(--color-ink-900);
-  color: var(--color-fg);
+  background: var(--color-paper);
+  color: var(--color-paper-ink);
   border: 1px solid var(--color-ink-700);
   border-radius: var(--radius-card);
   box-shadow: none;
@@ -111,13 +111,13 @@
 }
 
 .sk-popup div {
-  color: var(--color-fg-muted);
+  color: color-mix(in srgb, var(--color-paper-ink) 70%, transparent);
   margin-top: 2px;
 }
 
 .sk-popup-note {
   font-size: 0.75rem;
-  color: var(--color-fg-subtle);
+  color: color-mix(in srgb, var(--color-paper-ink) 50%, transparent);
 }
 
 .sk-popup-links {
@@ -133,5 +133,5 @@
 }
 
 .leaflet-container a.leaflet-popup-close-button {
-  color: var(--color-fg-muted);
+  color: color-mix(in srgb, var(--color-paper-ink) 60%, transparent);
 }
