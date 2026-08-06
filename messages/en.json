@@ -548,7 +548,8 @@
       },
       "cars": {
         "label": "Cars protected"
-      }
+      },
+      "heading": "Today, in numbers"
     },
     "vmv": {
       "vision": {
@@ -562,7 +563,8 @@
       "values": {
         "title": "Values",
         "body": "Precision before speed. Honesty before the sale. Every car in our workshop is treated like our own."
-      }
+      },
+      "heading": "What we stand for"
     },
     "cta": {
       "title": "Ready to protect your car?",
@@ -616,6 +618,16 @@
           "year": "2025",
           "title": "Mansour Group partnership",
           "desc": "A pivotal agreement accelerating our growth and market presence."
+        },
+        "10": {
+          "year": "2026",
+          "title": "Alexandria branch",
+          "desc": "Opened inside Mansour Chevrolet on the Desert Road — our first presence in Alexandria."
+        },
+        "11": {
+          "year": "2026",
+          "title": "TAKAI Premium Plus in Egypt",
+          "desc": "Received the first TAKAI Premium Plus shipment for the Egyptian market — the highest protection tier we've carried yet."
         }
       }
     },

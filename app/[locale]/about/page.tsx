@@ -73,43 +73,15 @@ export default async function AboutPage({
         </Container>
       </Section>
 
-      {/* Stat counters — 4 up. Fourth stat is a deliberate TODO (no warranty
-          figure allowed here; Ibrahim picks the metric). */}
+      {/* The journey, 2016 → today — the chronology carries the story */}
       <Section tone="raised">
-        <Container>
-          <RevealStagger className="grid grid-cols-2 gap-8 lg:grid-cols-4">
-            <RevealItem className="text-center">
-              <Counter value={6} className="text-display" />
-              <p className="mt-2 text-fg-muted">{t("stats.branches.label")}</p>
-            </RevealItem>
-            <RevealItem className="text-center">
-              <Counter value={100} suffix="%" className="text-display" />
-              <p className="mt-2 text-fg-muted">{t("stats.japanese.label")}</p>
-            </RevealItem>
-            <RevealItem className="text-center">
-              <span className="font-display text-display font-bold">
-                {t("stats.exclusive.value")}
-              </span>
-              <p className="mt-2 text-fg-muted">{t("stats.exclusive.label")}</p>
-            </RevealItem>
-            <RevealItem className="text-center">
-              <Counter value={25000} suffix="+" className="text-display" />
-              <p className="mt-2 text-fg-muted">{t("stats.cars.label")}</p>
-            </RevealItem>
-          </RevealStagger>
-        </Container>
-      </Section>
-
-      {/* Journey timeline — milestones ported from V2 (content is
-          sanctioned); founding year 2016 per Ibrahim, overriding V2's 2018. */}
-      <Section>
         <Container className="max-w-3xl">
           <Reveal>
             <Eyebrow>{t("journey.eyebrow")}</Eyebrow>
             <Heading level={2}>{t("journey.title")}</Heading>
           </Reveal>
           <RevealStagger className="mt-10 space-y-0">
-            {Array.from({ length: 9 }, (_, i) => i + 1).map((n) => (
+            {Array.from({ length: 11 }, (_, i) => i + 1).map((n) => (
               <RevealItem key={n}>
                 <div className="relative flex gap-6 border-s border-ink-700 pb-10 ps-8 last:pb-0">
                   <span
@@ -134,10 +106,42 @@ export default async function AboutPage({
         </Container>
       </Section>
 
-      {/* Vision / Mission / Values */}
+      {/* Where the journey landed — today's numbers */}
       <Section>
         <Container>
-          <RevealStagger className="grid gap-6 md:grid-cols-3">
+          <Reveal className="text-center">
+            <Heading level={2}>{t("stats.heading")}</Heading>
+          </Reveal>
+          <RevealStagger className="mt-12 grid grid-cols-2 gap-8 lg:grid-cols-4">
+            <RevealItem className="text-center">
+              <Counter value={6} className="text-display" />
+              <p className="mt-2 text-fg-muted">{t("stats.branches.label")}</p>
+            </RevealItem>
+            <RevealItem className="text-center">
+              <Counter value={100} suffix="%" className="text-display" />
+              <p className="mt-2 text-fg-muted">{t("stats.japanese.label")}</p>
+            </RevealItem>
+            <RevealItem className="text-center">
+              <span className="font-display text-display font-bold">
+                {t("stats.exclusive.value")}
+              </span>
+              <p className="mt-2 text-fg-muted">{t("stats.exclusive.label")}</p>
+            </RevealItem>
+            <RevealItem className="text-center">
+              <Counter value={25000} suffix="+" className="text-display" />
+              <p className="mt-2 text-fg-muted">{t("stats.cars.label")}</p>
+            </RevealItem>
+          </RevealStagger>
+        </Container>
+      </Section>
+
+      {/* Vision / Mission / Values — what the story is in service of */}
+      <Section tone="raised">
+        <Container>
+          <Reveal className="text-center">
+            <Heading level={2}>{t("vmv.heading")}</Heading>
+          </Reveal>
+          <RevealStagger className="mt-12 grid gap-6 md:grid-cols-3">
             {(["vision", "mission", "values"] as const).map((key) => (
               <RevealItem key={key}>
                 <Card className="h-full">
