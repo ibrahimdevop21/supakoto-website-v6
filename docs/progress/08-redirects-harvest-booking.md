@@ -47,8 +47,9 @@ Message body is ALWAYS Arabic (labels read straight from
 `messages/ar.json`, so the /en locale still sends Arabic — small bundle
 cost, noted). Multi-step UI untouched. TODO in code points at the
 bdm-flow contract notes in 05-pages.md; edge function stays post-launch.
-Note: this makes the Egypt WhatsApp line ops-verification a launch
-blocker — flagged in ASSETS-NEEDED.md.
+Note: the deeplink target was ops-confirmed on 2026-08-06 — regional
+lines fixed in content/regions.ts, unowned V2-derived numbers purged
+repo-wide, and a build guard now blocks phone literals outside content/.
 
 ## 4. Deploy posture
 

@@ -22,9 +22,12 @@ below either has a clearly-labelled placeholder or is a verification task.
 
 ## Verification tasks (not assets)
 
-- Egypt WhatsApp main line `wa.me/201128859849` (from V2) — verify with ops.
-  **Now also the booking-confirmation channel**, so verify before launch.
-- Branch phone numbers (STRUCTURE-SPEC seed) + working hours — ops.
+- ~~Regional phone/WhatsApp lines~~ **RESOLVED 2026-08-06** — ops decision
+  applied: Egypt call+WhatsApp share one line, UAE call and WhatsApp are
+  separate lines; all V2-derived numbers of unknown ownership purged.
+  `content/regions.ts` is the single source. Branch numbers confirmed
+  available as seeded.
+- Branch working hours — ops.
 - Maps coordinates per branch (Directions links in place; embeds once
   verified).
 - RH-Zak web-embedding licence — Ibrahim.

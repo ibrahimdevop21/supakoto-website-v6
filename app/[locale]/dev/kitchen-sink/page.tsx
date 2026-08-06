@@ -152,7 +152,9 @@ export default async function KitchenSinkPage({
             </div>
             <div>
               <Label htmlFor="ks-phone">{t("formPhone")}</Label>
-              <PhoneInput id="ks-phone" placeholder="01000000000" />
+              {/* Placeholder is deliberately non-numeric — the build guard
+                  bans phone literals outside content/. */}
+              <PhoneInput id="ks-phone" placeholder="01x xxxx xxxx" />
             </div>
             <div>
               <Label htmlFor="ks-email">{t("formEmail")}</Label>
