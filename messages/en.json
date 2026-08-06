@@ -502,6 +502,7 @@
     },
     "columns": {
       "product": "Product",
+      "warranty": "Warranty",
       "totalThickness": "Total thickness",
       "tpuFilm": "TPU film",
       "gloss": "Gloss",
@@ -512,7 +513,16 @@
       "antiYellowing": "Anti-yellowing",
       "hydrophobic": "Hydrophobic"
     },
-    "matte": "Matte"
+    "matte": "Matte",
+    "matteBadge": "Matte available",
+    "matteNote": "GOLD PLUS and STEEL PLUS are offered in a matte finish in Egypt — same protection, no gloss.",
+    "terms": {
+      "y5": "5 years",
+      "y10": "10 years",
+      "y15": "15 years",
+      "lifetime": "Lifetime*",
+      "tbc": "Confirmed at booking"
+    }
   },
   "about": {
     "eyebrow": "SupaKoto",
@@ -630,6 +640,10 @@
     },
     "qualifier": {
       "todo": "* [TODO — Ibrahim's call: lifetime of the film / of original ownership / of the vehicle. Do not publish before this is scoped.]"
+    },
+    "breakdown": {
+      "heading": "Terms by tier — Performance line (Egypt)",
+      "note": "Signature line (UAE) tier terms are confirmed at booking until documented here — except Premium Plus, whose warranty is the same in both regions."
     },
     "registration": {
       "heading": "How to register your warranty",

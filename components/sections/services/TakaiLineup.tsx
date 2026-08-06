@@ -2,18 +2,29 @@
 
 import { useTranslations } from "next-intl";
 import { takaiLineForRegion, TAKAI_COLUMNS } from "@/content/takai";
+import { warrantyTermForProduct } from "@/content/warranty";
 import { useRegion } from "@/components/providers/RegionProvider";
 import { Heading } from "@/components/ui/Heading";
 
 /**
  * Region-aware TAKAI product lineup: Signature line for UAE, Performance
- * line for Egypt (Premium Plus exists in both). Spec values only — warranty
- * terms never render from this table (content/warranty.ts owns those).
+ * line for Egypt (Premium Plus exists in both). Warranty terms resolve
+ * from content/warranty.ts ONLY (Egypt terms ops-confirmed 2026-08-06;
+ * UAE non-Premium-Plus terms honest-TBC). The lifetime qualifier renders
+ * in the same block — mandatory, see content/warranty.ts.
  */
 export function TakaiLineup() {
   const t = useTranslations("takai");
+  const tWarranty = useTranslations("warranty");
   const { region } = useRegion();
   const line = takaiLineForRegion(region.id);
+
+  const termLabel = (productName: string) => {
+    const term = warrantyTermForProduct(region.id, productName);
+    if (term.kind === "lifetime") return t("terms.lifetime");
+    if (term.kind === "years") return t(`terms.y${term.years}`);
+    return t("terms.tbc");
+  };
 
   return (
     <div>
@@ -30,6 +41,9 @@ export function TakaiLineup() {
               <th className="py-3 pe-4 text-start font-medium">
                 {t("columns.product")}
               </th>
+              <th className="py-3 pe-4 text-start font-bold">
+                {t("columns.warranty")}
+              </th>
               {TAKAI_COLUMNS.map((col) => (
                 <th key={col} className="py-3 pe-4 text-start font-medium">
                   {t(`columns.${col}`)}
@@ -40,13 +54,15 @@ export function TakaiLineup() {
           <tbody>
             {line.products.map((p) => (
               <tr key={p.name} className="border-b border-paper-ink/10">
-                <th
-                  scope="row"
-                  className="py-3 pe-4 text-start font-medium"
-                  dir="ltr"
-                >
-                  {p.name}
+                <th scope="row" className="py-3 pe-4 text-start font-medium">
+                  <span dir="ltr">{p.name}</span>
+                  {p.matteAvailable && (
+                    <span className="ms-2 inline-block rounded-card border border-paper-ink/20 px-1.5 py-0.5 text-eyebrow font-normal text-paper-ink/60">
+                      {t("matteBadge")}
+                    </span>
+                  )}
                 </th>
+                <td className="py-3 pe-4 font-medium">{termLabel(p.name)}</td>
                 {TAKAI_COLUMNS.map((col) => {
                   const value = col === "gloss" && p.gloss === null
                     ? t("matte")
@@ -66,7 +82,17 @@ export function TakaiLineup() {
           </tbody>
         </table>
       </div>
-      <p className="mt-3 text-small text-paper-ink/50">{t("regionNote")}</p>
+      {line.products.some((p) => p.matteAvailable) && (
+        <p className="mt-3 max-w-prose text-small text-paper-ink/60">
+          {t("matteNote")}
+        </p>
+      )}
+      {/* Mandatory: lifetime never renders without its qualifier in the
+          same block (Premium Plus is in every line). */}
+      <p className="mt-4 max-w-prose text-small text-paper-ink/60">
+        {tWarranty("qualifier.todo")}
+      </p>
+      <p className="mt-2 text-small text-paper-ink/50">{t("regionNote")}</p>
     </div>
   );
 }

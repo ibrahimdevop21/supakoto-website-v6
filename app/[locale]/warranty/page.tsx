@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { warrantyRows } from "@/content/warranty";
+import { warrantyRows, egyptTierBreakdown } from "@/content/warranty";
 import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
@@ -33,6 +33,7 @@ export default async function WarrantyPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("warranty");
+  const tTakai = await getTranslations("takai");
 
   const faqItems = [1, 2, 3].map((n) => ({
     id: `wf-${n}`,
@@ -97,6 +98,40 @@ export default async function WarrantyPage({
                 </tbody>
               </table>
             </div>
+            {/* Per-tier terms — Egypt / Performance line, ops-confirmed
+                2026-08-06. UAE terms pending (note in copy). */}
+            <div className="mt-10">
+              <Heading level={3} className="text-paper-ink">
+                {t("breakdown.heading")}
+              </Heading>
+              <dl className="mt-4 divide-y divide-paper-ink/10 border-y border-paper-ink/10">
+                {egyptTierBreakdown.map((group) => (
+                  <div
+                    key={group.products.join("/")}
+                    className="flex items-center justify-between gap-4 py-3"
+                  >
+                    <dt className="font-medium" dir="ltr">
+                      {group.products.join(" / ")}
+                    </dt>
+                    <dd
+                      className={
+                        group.term.kind === "lifetime"
+                          ? "font-bold"
+                          : "text-paper-ink/70"
+                      }
+                    >
+                      {group.term.kind === "lifetime"
+                        ? tTakai("terms.lifetime")
+                        : tTakai(`terms.y${group.term.kind === "years" ? group.term.years : 15}`)}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="mt-3 max-w-prose text-small text-paper-ink/60">
+                {t("breakdown.note")}
+              </p>
+            </div>
+
             {/* Qualifier block — must sit adjacent to the lifetime cell. */}
             <p className="mt-6 max-w-prose rounded-card border border-paper-ink/20 bg-paper-ink/5 px-4 py-3 text-small text-paper-ink/70">
               {t("qualifier.todo")}

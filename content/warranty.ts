@@ -59,3 +59,45 @@ export const LIFETIME_ALLOWED_ROUTES = [
   "/warranty",
   "/services/ppf",
 ] as const;
+
+/**
+ * Per-product warranty terms — OPS-CONFIRMED for EGYPT (Performance line),
+ * Ibrahim 2026-08-06: TAKAI 5 → 5y, GOLD/GOLD PLUS → 10y,
+ * STEEL/STEEL PLUS → 15y, PREMIUM PLUS → lifetime (qualifier still TODO).
+ * UAE (Signature line): only PREMIUM PLUS confirmed (lifetime, both
+ * regions); all other Signature products unconfirmed — render the honest
+ * TBC cell, do not guess.
+ */
+export type ProductWarrantyTerm =
+  | { kind: "years"; years: 5 | 10 | 15 }
+  | { kind: "lifetime" }
+  | { kind: "tbc" };
+
+const egyptTerms: Record<string, ProductWarrantyTerm> = {
+  "TAKAI 5": { kind: "years", years: 5 },
+  "TAKAI GOLD": { kind: "years", years: 10 },
+  "TAKAI GOLD PLUS": { kind: "years", years: 10 },
+  "TAKAI STEEL": { kind: "years", years: 15 },
+  "TAKAI STEEL PLUS": { kind: "years", years: 15 },
+  "TAKAI PREMIUM PLUS": { kind: "lifetime" },
+};
+
+/** Display grouping for the /warranty page (Egypt / Performance line). */
+export const egyptTierBreakdown: Array<{
+  products: string[];
+  term: ProductWarrantyTerm;
+}> = [
+  { products: ["TAKAI 5"], term: { kind: "years", years: 5 } },
+  { products: ["TAKAI GOLD", "TAKAI GOLD PLUS"], term: { kind: "years", years: 10 } },
+  { products: ["TAKAI STEEL", "TAKAI STEEL PLUS"], term: { kind: "years", years: 15 } },
+  { products: ["TAKAI PREMIUM PLUS"], term: { kind: "lifetime" } },
+];
+
+export function warrantyTermForProduct(
+  region: "egypt" | "uae",
+  productName: string,
+): ProductWarrantyTerm {
+  if (productName === "TAKAI PREMIUM PLUS") return { kind: "lifetime" };
+  if (region === "egypt") return egyptTerms[productName] ?? { kind: "tbc" };
+  return { kind: "tbc" };
+}

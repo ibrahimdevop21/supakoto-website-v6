@@ -18,6 +18,8 @@ export type TakaiProduct = {
   tpuFilm: string;
   /** null = matte (no gloss value). */
   gloss: string | null;
+  /** Egypt: matte finish offered at this level (Ibrahim, 2026-08-06). */
+  matteAvailable?: boolean;
   selfHealingCoating: string;
   adhesiveLayer: string;
   elongationAtBreak: string;
@@ -59,9 +61,9 @@ export const takaiLines: TakaiLine[] = [
     products: [
       { name: "TAKAI 5", totalThickness: "170 μm", tpuFilm: "130 μm", gloss: "92", elongationAtBreak: "≥ 350%", tensileStrength: "30 MPa", ...common },
       { name: "TAKAI GOLD", totalThickness: "210 μm", tpuFilm: "180 μm", gloss: "92.4", elongationAtBreak: "≥ 400%", tensileStrength: "32 MPa", ...common },
-      { name: "TAKAI GOLD PLUS", totalThickness: "250 μm", tpuFilm: "220 μm", gloss: "93.8", elongationAtBreak: "≥ 400%", tensileStrength: "35 MPa", ...common },
+      { name: "TAKAI GOLD PLUS", totalThickness: "250 μm", tpuFilm: "220 μm", gloss: "93.8", elongationAtBreak: "≥ 400%", tensileStrength: "35 MPa", matteAvailable: true, ...common },
       { name: "TAKAI STEEL", totalThickness: "270 μm", tpuFilm: "240 μm", gloss: "95.2", elongationAtBreak: "≥ 400%", tensileStrength: "40 MPa", ...common },
-      { name: "TAKAI STEEL PLUS", totalThickness: "270 μm", tpuFilm: "240 μm", gloss: "96.2", elongationAtBreak: "≥ 350%", tensileStrength: "45 MPa", ...common },
+      { name: "TAKAI STEEL PLUS", totalThickness: "270 μm", tpuFilm: "240 μm", gloss: "96.2", elongationAtBreak: "≥ 350%", tensileStrength: "45 MPa", matteAvailable: true, ...common },
       // Premium Plus is sold in both regions (Ibrahim, 2026-08-06).
       { name: "TAKAI PREMIUM PLUS", totalThickness: "240 μm", tpuFilm: "200 μm", gloss: "95.4", elongationAtBreak: "≥ 450%", tensileStrength: "40 MPa", ...common },
     ],
