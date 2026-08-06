@@ -65,16 +65,16 @@ export default async function AboutPage({
         </Section>
       )}
 
-      {/* Our story — one section: the narrative paragraph flows straight
-          into the 2016 → 2026 timeline that details it */}
+      {/* Our story — full container width like the video: the narrative
+          paragraph sits (sticky) beside the 2016 → 2026 timeline */}
       <Section tone="raised">
-        <Container className="max-w-3xl">
-          <Reveal>
+        <Container className="grid gap-12 lg:grid-cols-[5fr_6fr] lg:gap-20">
+          <Reveal className="lg:sticky lg:top-28 lg:self-start">
             <Eyebrow>{t("journey.eyebrow")}</Eyebrow>
             <Heading level={2}>{t("whoWeAre.title")}</Heading>
             <p className="mt-6 text-fg-muted">{t("whoWeAre.body")}</p>
           </Reveal>
-          <RevealStagger className="mt-12 space-y-0">
+          <RevealStagger className="space-y-0">
             {Array.from({ length: 11 }, (_, i) => i + 1).map((n) => (
               <RevealItem key={n}>
                 <div className="relative flex gap-6 border-s border-ink-700 pb-10 ps-8 last:pb-0">
