@@ -50,12 +50,13 @@ export default async function AboutPage({
                 {t("documentary.sub")}
               </p>
               <div className="relative mt-8 aspect-video overflow-hidden rounded-card border border-ink-700">
+                {/* Autoplay requires mute (browser policy) — viewers
+                    unmute in the player. */}
                 <iframe
-                  src={`https://www.youtube-nocookie.com/embed/${DOCUMENTARY_YOUTUBE_ID}`}
+                  src={`https://www.youtube-nocookie.com/embed/${DOCUMENTARY_YOUTUBE_ID}?autoplay=1&mute=1&playsinline=1`}
                   title={t("documentary.title")}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
-                  loading="lazy"
                   className="absolute inset-0 size-full"
                 />
               </div>
