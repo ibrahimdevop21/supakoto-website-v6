@@ -632,7 +632,8 @@
     "documentary": {
       "eyebrow": "The documentary",
       "title": "18 minutes inside SupaKoto",
-      "sub": "The whole story from day one — the workshops, the people, the Japanese film."
+      "sub": "The whole story from day one — the workshops, the people, the Japanese film.",
+      "unmute": "Turn sound on"
     }
   },
   "branches": {

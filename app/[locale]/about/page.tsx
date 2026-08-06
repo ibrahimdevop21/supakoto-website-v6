@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/metadata";
 import { DOCUMENTARY_YOUTUBE_ID } from "@/lib/site";
 import { CtaBand } from "@/components/sections/CtaBand";
+import { DocumentaryPlayer } from "@/components/sections/DocumentaryPlayer";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -49,17 +50,7 @@ export default async function AboutPage({
               <p className="mt-3 max-w-2xl text-fg-muted">
                 {t("documentary.sub")}
               </p>
-              <div className="relative mt-8 aspect-video overflow-hidden rounded-card border border-ink-700">
-                {/* Autoplay requires mute (browser policy) — viewers
-                    unmute in the player. */}
-                <iframe
-                  src={`https://www.youtube-nocookie.com/embed/${DOCUMENTARY_YOUTUBE_ID}?autoplay=1&mute=1&playsinline=1`}
-                  title={t("documentary.title")}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="absolute inset-0 size-full"
-                />
-              </div>
+              <DocumentaryPlayer videoId={DOCUMENTARY_YOUTUBE_ID} />
             </Reveal>
           </Container>
         </Section>
