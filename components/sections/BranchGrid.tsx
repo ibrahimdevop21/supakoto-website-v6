@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { branchesForRegion } from "@/content/branches";
 import { useRegion } from "@/components/providers/RegionProvider";
@@ -24,10 +25,22 @@ export function BranchGrid() {
         return (
           <RevealItem key={branch.id}>
             <article className="flex h-full flex-col overflow-hidden rounded-card border border-ink-700 bg-ink-800">
-              <Placeholder
-                note={t("photoPlaceholder")}
-                className="aspect-video rounded-none border-x-0 border-t-0"
-              />
+              {branch.photo ? (
+                <div className="relative aspect-video">
+                  <Image
+                    src={branch.photo}
+                    alt={name}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              ) : (
+                <Placeholder
+                  note={t("photoPlaceholder")}
+                  className="aspect-video rounded-none border-x-0 border-t-0"
+                />
+              )}
               <div className="flex flex-1 flex-col gap-3 p-6">
                 <div className="flex items-start justify-between gap-3">
                   <h2 className="text-h3 font-medium">{name}</h2>

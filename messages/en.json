@@ -604,6 +604,11 @@
         "name": "Dubai",
         "address": "Al Quoz 3 — Industrial Area"
       }
+    },
+    "map": {
+      "title": "Branch map",
+      "ariaLabel": "Interactive map of all SupaKoto branches in Egypt and the UAE",
+      "approx": "Approximate location — being confirmed"
     }
   },
   "warranty": {

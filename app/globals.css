@@ -84,3 +84,54 @@
     text-transform: none !important;
   }
 }
+
+/* Branch map (Leaflet) — brand pin + dark popup matching the surface set */
+.sk-map-pin {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: var(--color-sk-red);
+  border: 3px solid var(--color-fg);
+  box-shadow: 0 0 0 2px var(--color-ink-950);
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--color-ink-900);
+  color: var(--color-fg);
+  border: 1px solid var(--color-ink-700);
+  border-radius: var(--radius-card);
+  box-shadow: none;
+}
+
+.sk-popup {
+  font-family: inherit;
+  min-width: 180px;
+}
+
+.sk-popup div {
+  color: var(--color-fg-muted);
+  margin-top: 2px;
+}
+
+.sk-popup-note {
+  font-size: 0.75rem;
+  color: var(--color-fg-subtle);
+}
+
+.sk-popup-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.sk-popup-links a {
+  color: var(--color-sk-red);
+  text-decoration: none;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  color: var(--color-fg-muted);
+}

@@ -15,7 +15,7 @@ below either has a clearly-labelled placeholder or is a verification task.
 
 | Asset | Placeholder in use | Needed from |
 |---|---|---|
-| Branch photos (6 branches) | Labelled placeholder block on branch cards | Ops — the V2 archive has workshop shots but none attributable to a specific branch |
+| Branch photos (6 branches) | Labelled placeholder block on branch cards | **Ibrahim collecting now** — drop-in ready: put files at `public/images/branches/<id>.webp` and set `photo` in `content/branches.ts` |
 | Before/after pairs | Labelled placeholder slider on service pages | Marketing — no true before/after pairs exist in the V2 archive |
 | TikTok, YouTube, LinkedIn profile URLs | Footer icons render with `#` + TODO | Marketing |
 | Egypt trust badges / registry equivalents | `<TrustBadges />` renders nothing | Ibrahim |
@@ -28,8 +28,9 @@ below either has a clearly-labelled placeholder or is a verification task.
   `content/regions.ts` is the single source. Branch numbers confirmed
   available as seeded.
 - Branch working hours — ops.
-- Maps coordinates per branch (Directions links in place; embeds once
-  verified).
+- Maps coordinates: Tagamoa/Maadi/Zayed/Dubai pinned from V2's data file
+  (geography cross-checked); **Alexandria and Damietta pins are
+  approximate** (flagged on the map) — ops to confirm exact locations.
 - RH-Zak web-embedding licence — Ibrahim.
 
 ## Quality flags from the harvest
