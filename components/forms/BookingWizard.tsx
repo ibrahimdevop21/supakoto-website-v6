@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { branchesForRegion } from "@/content/branches";
-import { services } from "@/content/services";
+import { vehicleServices } from "@/content/services";
 import { regions, type RegionId } from "@/content/regions";
 import { useRegion } from "@/components/providers/RegionProvider";
 import arMessages from "@/messages/ar.json";
@@ -230,7 +230,7 @@ export function BookingWizard() {
 
             {step === "service" && (
               <div className="grid gap-3 sm:grid-cols-2">
-                {services.map((s) => (
+                {vehicleServices.map((s) => (
                   <button
                     key={s.id}
                     type="button"

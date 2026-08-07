@@ -109,6 +109,7 @@ export const galleryCategories: Array<GalleryCategory | "all"> = [
   "colour-change",
   "nano-ceramic",
   "polishing",
+  "building-heat-isolation",
   "video",
 ];
 

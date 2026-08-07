@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { services } from "@/content/services";
+import { vehicleServices } from "@/content/services";
 import { serviceImage } from "@/content/gallery";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -24,7 +24,7 @@ export async function ServicesRail() {
       </Container>
       <div className="mt-10 overflow-x-auto pb-4 [scrollbar-width:thin]">
         <ul className="flex snap-x snap-mandatory gap-6 px-(--spacing-gutter) after:block after:w-px after:shrink-0">
-          {services.map((s) => (
+          {vehicleServices.map((s) => (
             <li key={s.id} className="w-72 shrink-0 snap-start">
               <Link
                 href={`/services/${s.slug}`}

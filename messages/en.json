@@ -35,7 +35,9 @@
     "services": {
       "eyebrow": "Services",
       "title": "Five ways we protect your car",
-      "viewAll": "All services"
+      "viewAll": "All services",
+      "forCars": "For cars",
+      "forBuildings": "For buildings"
     },
     "knowMore": {
       "title": "Not sure what your car needs?",
@@ -97,7 +99,15 @@
     "cta": "Book now",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "logoAlt": "SupaKoto"
+    "logoAlt": "SupaKoto",
+    "services": "Services",
+    "servicesAll": "All services",
+    "servicesPpf": "Paint Protection Film",
+    "servicesHeatCars": "Heat isolation — cars",
+    "servicesBuildings": "Building heat isolation",
+    "servicesColour": "Colour change",
+    "servicesNano": "Nano ceramic",
+    "servicesPolishing": "Polishing"
   },
   "chrome": {
     "region": {
@@ -484,6 +494,79 @@
           }
         },
         "imageAlt": "Hand-finishing the paint surface"
+      },
+      "building-heat-isolation": {
+        "name": "Building heat isolation",
+        "benefit": "Less sun, lower bills — without darkening the glass",
+        "imageAlt": "Placeholder — building installation photography is being documented",
+        "seoTitle": "Building Window Film & Heat Isolation | SupaKoto",
+        "seoDescription": "TAKAI TK-7099-IR Japanese window film for buildings and glass facades in Egypt and the UAE. 99% infrared rejection at 70% clarity — offices, apartments and villas. Send your measurements for a quote, no site visit needed.",
+        "problem": "Sun pours through the glass all day. The AC fights it and loses, the bill climbs, screens catch the glare, and furniture and floors fade a little more every month. The usual fixes — closed curtains or dark glass — cost you the light and the view.",
+        "solutionIntro": "One film, applied to the glass, that solves it without changing how the building looks:",
+        "solutions": {
+          "b1": "Rejects 99% of infrared — the main heat carrier — so the AC works less and the bill drops",
+          "b2": "Blocks 99.5% of the UV that fades furniture, curtains and flooring",
+          "b3": "Cuts screen glare while the glass stays 70% clear — daylight and view intact",
+          "b4": "Holds shattered glass together so fragments don't scatter — safer for everyone inside"
+        },
+        "positioning": "Darker films score higher total heat rejection — we fit those on cars. For buildings we chose the TK-7099-IR for one reason: the highest heat rejection you can get while the glass still looks untouched. If you want a cooler space without giving up light and view, this is it.",
+        "spec": {
+          "product": {
+            "label": "Product",
+            "value": "TAKAI TK-7099-IR — UV nano ceramic, Premium IR series"
+          },
+          "thickness": {
+            "label": "Thickness",
+            "value": "3.5 mil"
+          },
+          "vlt": {
+            "label": "Visible light transmission",
+            "value": "70% — the glass stays clear"
+          },
+          "irRejection": {
+            "label": "Infrared rejection",
+            "value": "99% at 950 and 1400 nm"
+          },
+          "uvRejection": {
+            "label": "UV rejection",
+            "value": "99.5%"
+          },
+          "tser": {
+            "label": "Total solar energy rejected",
+            "value": "54%"
+          },
+          "warranty": {
+            "label": "Warranty",
+            "value": "10 years — TAKAI buildings warranty"
+          }
+        },
+        "funnel": {
+          "title": "How it works",
+          "s1": "Call us or send a quote request from the site",
+          "s2": "Send your own measurements — approximate is fine, no visit needed first",
+          "s3": "We reply with a quote and a proposed installation date",
+          "s4": "A confirmation call before the appointment",
+          "s5": "Technicians arrive, re-check the measurements on site, and install"
+        },
+        "faq": {
+          "1": {
+            "q": "How do I measure if I'm not a professional?",
+            "a": "Measure each window or glass wall (width × height, in metres), or estimate the total area in square metres. It doesn't need to be exact — the technician re-checks every measurement on site before installation."
+          },
+          "2": {
+            "q": "Do you need to visit before I get a price?",
+            "a": "No. We quote on the measurements you send; the actual check happens on installation day."
+          },
+          "3": {
+            "q": "How long does installation take?",
+            "a": "A typical apartment or office is done in a day. Large facades can take longer — the expected duration is stated in your quote."
+          },
+          "4": {
+            "q": "What if the on-site measurements differ from what I sent?",
+            "a": "The final price is adjusted to the actual measurement before any work starts — no surprises after installation."
+          }
+        },
+        "quoteCta": "Request a quote"
       }
     }
   },
@@ -675,7 +758,8 @@
       "title": "Branch map",
       "ariaLabel": "Interactive map of all SupaKoto branches in Egypt and the UAE",
       "approx": "Approximate location — being confirmed"
-    }
+    },
+    "buildingNote": "Building heat isolation is installed at your property, not at a branch."
   },
   "warranty": {
     "title": "A warranty in writing, not in words",
@@ -1051,7 +1135,8 @@
       "showreel": {
         "alt": "Video from inside the SupaKoto workshops"
       }
-    }
+    },
+    "buildingsEmpty": "Building installation photos are coming soon — our first documented projects are underway."
   },
   "faq": {
     "title": "Frequently asked questions",
@@ -1060,7 +1145,8 @@
       "general": "General",
       "warranty": "Warranty",
       "booking": "Booking & installation",
-      "aftercare": "Aftercare"
+      "aftercare": "Aftercare",
+      "buildings": "Buildings"
     },
     "items": {
       "whatIsPpf": {
@@ -1102,6 +1188,22 @@
       "selfHealing": {
         "q": "How does self-healing work?",
         "a": "Sun heat or warm water makes surface scratches in the film disappear on their own."
+      },
+      "bhiMeasure": {
+        "q": "How do I measure if I'm not a professional?",
+        "a": "Measure each window or glass wall (width × height, in metres), or estimate the total area in square metres. It doesn't need to be exact — the technician re-checks every measurement on site before installation."
+      },
+      "bhiVisit": {
+        "q": "Do you need to visit before I get a price?",
+        "a": "No. We quote on the measurements you send; the actual check happens on installation day."
+      },
+      "bhiDuration": {
+        "q": "How long does installation take?",
+        "a": "A typical apartment or office is done in a day. Large facades can take longer — the expected duration is stated in your quote."
+      },
+      "bhiMismatch": {
+        "q": "What if the on-site measurements differ from what I sent?",
+        "a": "The final price is adjusted to the actual measurement before any work starts — no surprises after installation."
       }
     }
   },
@@ -1125,7 +1227,8 @@
       "subjectComplaint": "Complaint",
       "subjectOther": "Something else",
       "message": "Your message",
-      "submit": "Send"
+      "submit": "Send",
+      "subjectBuildings": "Building heat isolation"
     },
     "complaintNote": "Complaints go directly to management; we reply within two working days.",
     "success": "Message received — we'll get back to you soon."
@@ -1258,6 +1361,95 @@
       "formSubmit": "Send",
       "mirrorHeading": "Opposite direction",
       "mirrorNote": "The same primitives inside an opposite-direction container — proves the logical properties hold."
+    }
+  },
+  "buildingQuote": {
+    "title": "Request a quote — building heat isolation",
+    "sub": "Send your measurements and we'll reply with a quote and a proposed installation date — no site visit needed first.",
+    "disclaimer": "Approximate measurements are fine. Our technician re-checks everything on site on installation day, and the final price is confirmed before work starts.",
+    "fields": {
+      "propertyType": "Property type",
+      "propertyResidential": "Residential",
+      "propertyCommercial": "Commercial",
+      "region": "Country",
+      "governorate": "Governorate",
+      "emirate": "Emirate",
+      "measure": "Measurements",
+      "modeArea": "Glazing area in m²",
+      "modeWindows": "Window count and sizes",
+      "areaLabel": "Approximate area (m²)",
+      "windowsCountLabel": "Number of windows",
+      "windowsDimsLabel": "Approximate sizes",
+      "windowsDimsHint": "e.g. 3 windows 1.2×1.5 m and a balcony door 2×2.2",
+      "floorsLabel": "Number of floors",
+      "glassTypeLabel": "Glass type (if known)",
+      "glassClear": "Clear",
+      "glassTinted": "Tinted or dark",
+      "glassDouble": "Double glazed",
+      "glassUnknown": "Not sure",
+      "problemLabel": "What bothers you most?",
+      "problemHeat": "Heat",
+      "problemGlare": "Glare on screens",
+      "problemBills": "Electricity bills",
+      "problemFading": "Furniture and floor fading",
+      "nameLabel": "Name",
+      "phoneLabel": "Phone number",
+      "whatsappLabel": "WhatsApp number"
+    },
+    "submit": "Send via WhatsApp",
+    "success": "Done — WhatsApp should open with your details. If it didn't, use the button below.",
+    "reopenWhatsApp": "Reopen WhatsApp",
+    "wa": {
+      "title": "Quotation request — building heat isolation",
+      "area": "Area",
+      "windows": "Windows",
+      "dims": "Sizes",
+      "floors": "Floors",
+      "glass": "Glass type",
+      "property": "Property type",
+      "location": "Location",
+      "problem": "Main problem",
+      "name": "Name",
+      "phone": "Phone",
+      "whatsapp": "WhatsApp"
+    },
+    "governorates": {
+      "cairo": "Cairo",
+      "giza": "Giza",
+      "alexandria": "Alexandria",
+      "qalyubia": "Qalyubia",
+      "dakahlia": "Dakahlia",
+      "sharqia": "Sharqia",
+      "gharbia": "Gharbia",
+      "monufia": "Monufia",
+      "beheira": "Beheira",
+      "kafr-el-sheikh": "Kafr El Sheikh",
+      "damietta": "Damietta",
+      "port-said": "Port Said",
+      "ismailia": "Ismailia",
+      "suez": "Suez",
+      "north-sinai": "North Sinai",
+      "south-sinai": "South Sinai",
+      "red-sea": "Red Sea",
+      "faiyum": "Faiyum",
+      "beni-suef": "Beni Suef",
+      "minya": "Minya",
+      "asyut": "Asyut",
+      "sohag": "Sohag",
+      "qena": "Qena",
+      "luxor": "Luxor",
+      "aswan": "Aswan",
+      "new-valley": "New Valley",
+      "matrouh": "Matrouh"
+    },
+    "emirates": {
+      "abu-dhabi": "Abu Dhabi",
+      "dubai": "Dubai",
+      "sharjah": "Sharjah",
+      "ajman": "Ajman",
+      "umm-al-quwain": "Umm Al Quwain",
+      "ras-al-khaimah": "Ras Al Khaimah",
+      "fujairah": "Fujairah"
     }
   }
 }
