@@ -43,4 +43,28 @@ line (substrate: building), NOT a separate vertical. Spec source of truth:
 
 ## Shipped
 
-(updated as phases land)
+- **P1** (`fd5256c`) — spec amended (routes, TK-7099-IR, funnel, nav
+  dropdown, per-surface deltas, locale-language wa.me rule); SK-BLD
+  purged repo-wide (5 occurrences).
+- **P2** (`5b537db`) — `substrate` field + sixth catalogue entry;
+  automotive surfaces filter to vehicle (booking can never show
+  buildings); static routes `/services/building-heat-isolation`
+  (+`/quote`) both locales; single-SKU spec table + honest positioning
+  + 5-step funnel + buildings FAQ; quote form (both regions, selection
+  routes the wa.me line, quote-marker first line, measurements next,
+  no privacy option); own SEO metadata + JSON-LD Service; labelled
+  placeholder image; ~400 fresh i18n lines (EG dialect + EN).
+- **P3** (`e646fb1`) — nav خدماتنا dropdown (7 entries); rail
+  dual-destination heat card; distinct sixth index card; FAQ buildings
+  category; contact subject; branches property-install note; warranty
+  buildings block (10y, separate from vehicle tiers); gallery
+  Buildings filter + empty state; /business direct link; BookingWizard
+  locale-language body (Correction B).
+- **P4** — BUILDINGS PHOTOGRAPHY section in ASSETS-NEEDED.md; full
+  verification green (build 52 pages, lint, phone guard).
+
+## Remaining
+
+- Building photography (see ASSETS-NEEDED.md) — placeholders live
+  until then.
+- Merge to main + deploy: Ibrahim's call.

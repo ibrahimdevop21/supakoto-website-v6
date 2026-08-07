@@ -25,6 +25,25 @@ below either has a clearly-labelled placeholder or is a verification task.
 | TikTok, YouTube, LinkedIn profile URLs | Footer icons render with `#` + TODO | Marketing |
 | Egypt trust badges / registry equivalents | `<TrustBadges />` renders nothing | Ibrahim |
 
+## BUILDINGS PHOTOGRAPHY (added 2026-08-07)
+
+No building photography exists anywhere in the repo — all 238 harvested
+images are automotive, and car images must NEVER appear on building
+surfaces. Until real installs are shot, a generated placeholder
+(`public/images/services/building-heat-isolation.webp`, labelled
+"PLACEHOLDER — NOT A PROJECT PHOTO") covers every slot.
+
+| Slot | Currently | Needed |
+|---|---|---|
+| Service page hero (`/services/building-heat-isolation`) | Labelled placeholder | Wide shot of a finished install — glass facade or villa glazing, film invisible (that IS the product) |
+| Services index + home rail card | Same placeholder | One representative install photo |
+| Gallery "Buildings" category | Empty state with "coming soon" copy | 4–6 install photos: during-application shot, finished office, finished residential |
+| OG image | Brand-text card (fine as-is) | Optional: real photo variant |
+
+Shot brief for whoever shoots: interiors showing daylight staying bright
+through filmed glass sell the 70% VLT story better than exteriors;
+one thermometer/AC-display shot would support the bills claim.
+
 ## Verification tasks (not assets)
 
 - ~~Regional phone/WhatsApp lines~~ **RESOLVED 2026-08-06** — ops decision
