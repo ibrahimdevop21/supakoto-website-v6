@@ -48,6 +48,10 @@ export default async function ServicesPage({
               key={s.id}
               className={cn(
                 "grid items-center gap-8 md:grid-cols-2",
+                // Buildings is a different substrate — visually distinct
+                // from the five automotive treatments, never just card six.
+                s.substrate === "building" &&
+                  "rounded-card border border-sk-red/40 bg-ink-900 p-6 md:p-8",
               )}
             >
               <div
@@ -65,6 +69,11 @@ export default async function ServicesPage({
                 />
               </div>
               <div>
+                {s.substrate === "building" && (
+                  <p className="mb-4 inline-block rounded-card border border-sk-red bg-sk-red-muted px-3 py-1 text-eyebrow text-fg">
+                    {t("buildingBadge")}
+                  </p>
+                )}
                 <Heading level={2}>{tItems(`${s.id}.name`)}</Heading>
                 <p className="mt-3 max-w-prose text-fg-muted">
                   {tItems(`${s.id}.benefit`)}

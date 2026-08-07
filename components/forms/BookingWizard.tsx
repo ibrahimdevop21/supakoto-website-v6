@@ -7,7 +7,6 @@ import { branchesForRegion } from "@/content/branches";
 import { vehicleServices } from "@/content/services";
 import { regions, type RegionId } from "@/content/regions";
 import { useRegion } from "@/components/providers/RegionProvider";
-import arMessages from "@/messages/ar.json";
 import { Button } from "@/components/ui/Button";
 import { Label, Input, PhoneInput } from "@/components/ui/Field";
 import { cn } from "@/lib/cn";
@@ -43,43 +42,16 @@ type Draft = {
 /**
  * One question per screen, per spec.
  *
- * Submit opens a prefilled wa.me deeplink to the chosen region's line with
- * the answers as an ARABIC message body (always Arabic — labels read from
- * messages/ar.json directly so the body stays Arabic in the /en locale
- * too). Intent is logged client-side.
+ * Submit opens a prefilled wa.me deeplink to the chosen region's line.
+ * The message body is built from the ACTIVE locale's messages — /en sends
+ * English, / sends Arabic — same field order both ways (Ibrahim,
+ * 2026-08-07; same rule as the buildings quote form). Intent is logged
+ * client-side.
  *
  * TODO(post-launch): replace the WhatsApp handoff with the real bdm-flow
  * write path — the RPC contract and its mismatches (auth-only, date-only,
  * UUID branch ids) are documented in docs/progress/05-pages.md.
  */
-const AR = arMessages.booking;
-const AR_BRANCHES = arMessages.branches.items as Record<
-  string,
-  { name: string }
->;
-const AR_SERVICES = arMessages.services.items as Record<
-  string,
-  { name: string }
->;
-
-function buildWhatsAppUrl(draft: Draft): string {
-  const arRegion =
-    draft.region === "egypt"
-      ? arMessages.chrome.region.egypt
-      : arMessages.chrome.region.uae;
-  const lines = [
-    "حجز جديد من الموقع:",
-    `${AR.summary.region}: ${arRegion}`,
-    `${AR.summary.branch}: ${AR_BRANCHES[draft.branchId]?.name ?? ""}`,
-    `${AR.summary.service}: ${AR_SERVICES[draft.serviceId]?.name ?? ""}`,
-    `${AR.summary.car}: ${draft.make} ${draft.model}`.trim(),
-    `${AR.summary.datetime}: ${draft.date} - ${draft.time}`,
-    `${AR.steps.contact.nameLabel}: ${draft.name}`,
-    `${AR.steps.contact.phoneLabel}: ${draft.phone}`,
-  ];
-  const text = encodeURIComponent(lines.join("\n"));
-  return `https://wa.me/${regions[draft.region].whatsapp}?text=${text}`;
-}
 
 function logIntent(draft: Draft) {
   const entry = { ...draft, at: new Date().toISOString() };
@@ -119,6 +91,21 @@ export function BookingWizard() {
   const step: Step = STEPS[stepIndex];
   const patch = (p: Partial<Draft>) => setDraft((d) => ({ ...d, ...p }));
 
+  const buildWhatsAppUrl = (): string => {
+    const lines = [
+      t("waTitle"),
+      `${t("summary.region")}: ${tChrome(draft.region)}`,
+      `${t("summary.branch")}: ${draft.branchId ? tBranches(`items.${draft.branchId}.name`) : ""}`,
+      `${t("summary.service")}: ${draft.serviceId ? tServices(`${draft.serviceId}.name`) : ""}`,
+      `${t("summary.car")}: ${draft.make} ${draft.model}`.trim(),
+      `${t("summary.datetime")}: ${draft.date} - ${draft.time}`,
+      `${t("steps.contact.nameLabel")}: ${draft.name}`,
+      `${t("steps.contact.phoneLabel")}: ${draft.phone}`,
+    ];
+    const text = encodeURIComponent(lines.join("\n"));
+    return `https://wa.me/${regions[draft.region].whatsapp}?text=${text}`;
+  };
+
   const canContinue: Record<Step, boolean> = {
     region: !!draft.region,
     branch: !!draft.branchId,
@@ -150,7 +137,7 @@ export function BookingWizard() {
           {t("success")}
         </p>
         <a
-          href={buildWhatsAppUrl(draft)}
+          href={buildWhatsAppUrl()}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 rounded-card border border-ink-700 px-6 py-3 text-body font-medium text-fg transition-colors hover:border-fg-subtle hover:bg-ink-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
@@ -350,7 +337,7 @@ export function BookingWizard() {
                 onClick={() => {
                   logIntent(draft);
                   window.open(
-                    buildWhatsAppUrl(draft),
+                    buildWhatsAppUrl(),
                     "_blank",
                     "noopener,noreferrer",
                   );

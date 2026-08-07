@@ -13,6 +13,20 @@ export const NAV: NavItem[] = [
     ],
   },
   {
+    // Added 2026-08-07 — services were never nav-reachable (gap inherited
+    // from the reference IA). Buildings gets its own direct entry.
+    key: "services",
+    children: [
+      { key: "servicesAll", href: "/services" },
+      { key: "servicesPpf", href: "/services/ppf" },
+      { key: "servicesHeatCars", href: "/services/heat-isolation" },
+      { key: "servicesBuildings", href: "/services/building-heat-isolation" },
+      { key: "servicesColour", href: "/services/colour-change" },
+      { key: "servicesNano", href: "/services/nano-ceramic" },
+      { key: "servicesPolishing", href: "/services/polishing" },
+    ],
+  },
+  {
     key: "ourWork",
     children: [{ key: "gallery", href: "/gallery" }],
   },

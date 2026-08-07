@@ -14,6 +14,7 @@ const CATEGORY_ORDER: FaqCategory[] = [
   "booking",
   "warranty",
   "aftercare",
+  "buildings",
 ];
 
 export async function generateMetadata({

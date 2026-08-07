@@ -26,28 +26,48 @@ export async function ServicesRail() {
         <ul className="flex snap-x snap-mandatory gap-6 px-(--spacing-gutter) after:block after:w-px after:shrink-0">
           {vehicleServices.map((s) => (
             <li key={s.id} className="w-72 shrink-0 snap-start">
-              <Link
-                href={`/services/${s.slug}`}
-                className="group block rounded-card border border-ink-700 bg-ink-800 transition-colors hover:border-fg-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
-              >
-                <div className="relative aspect-4/3 overflow-hidden">
-                  <Image
-                    src={serviceImage(s.id)}
-                    alt={tItems(`${s.id}.imageAlt`)}
-                    fill
-                    sizes="288px"
-                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                  />
-                </div>
-                <div className="p-5">
-                  <h3 className="text-h3 font-medium text-fg group-hover:text-sk-red transition-colors">
-                    {tItems(`${s.id}.name`)}
-                  </h3>
-                  <p className="mt-1 text-small text-fg-muted">
-                    {tItems(`${s.id}.benefit`)}
-                  </p>
-                </div>
-              </Link>
+              <div className="group rounded-card border border-ink-700 bg-ink-800 transition-colors hover:border-fg-subtle">
+                <Link
+                  href={`/services/${s.slug}`}
+                  className="block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
+                >
+                  <div className="relative aspect-4/3 overflow-hidden">
+                    <Image
+                      src={serviceImage(s.id)}
+                      alt={tItems(`${s.id}.imageAlt`)}
+                      fill
+                      sizes="288px"
+                      className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <h3 className="text-h3 font-medium text-fg group-hover:text-sk-red transition-colors">
+                      {tItems(`${s.id}.name`)}
+                    </h3>
+                    <p className="mt-1 text-small text-fg-muted">
+                      {tItems(`${s.id}.benefit`)}
+                    </p>
+                  </div>
+                </Link>
+                {/* Dual-destination card: same film, two substrates. The
+                    buildings line must be reachable from the homepage. */}
+                {s.id === "heat-isolation" && (
+                  <div className="flex gap-2 p-5 pt-0">
+                    <Link
+                      href="/services/heat-isolation"
+                      className="rounded-card border border-ink-700 px-3 py-1.5 text-small font-medium text-fg-muted transition-colors hover:border-fg-subtle hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
+                    >
+                      {t("forCars")}
+                    </Link>
+                    <Link
+                      href="/services/building-heat-isolation"
+                      className="rounded-card border border-sk-red bg-sk-red-muted px-3 py-1.5 text-small font-medium text-fg transition-colors hover:border-fg-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
+                    >
+                      {t("forBuildings")}
+                    </Link>
+                  </div>
+                )}
+              </div>
             </li>
           ))}
         </ul>

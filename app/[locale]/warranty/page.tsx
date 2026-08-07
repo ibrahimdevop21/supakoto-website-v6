@@ -153,6 +153,25 @@ export default async function WarrantyPage({
             <p className="mt-6 max-w-prose rounded-card border border-paper-ink/20 bg-paper-ink/5 px-4 py-3 text-small text-paper-ink/70">
               {t("qualifier.text")}
             </p>
+
+            {/* Buildings — different substrate, own block, never a vehicle
+                tier. 10 years per TAKAI catalogue (TK-7099-IR). */}
+            <div className="mt-10">
+              <Heading level={3} className="text-paper-ink">
+                {t("buildings.heading")}
+              </Heading>
+              <dl className="mt-4 divide-y divide-paper-ink/10 border-y border-paper-ink/10">
+                <div className="flex items-center justify-between gap-4 py-3">
+                  <dt className="font-medium" dir="ltr">
+                    {t("buildings.product")}
+                  </dt>
+                  <dd className="text-paper-ink/70">{t("buildings.term")}</dd>
+                </div>
+              </dl>
+              <p className="mt-3 max-w-prose text-small text-paper-ink/60">
+                {t("buildings.note")}
+              </p>
+            </div>
           </Reveal>
         </Container>
       </Section>

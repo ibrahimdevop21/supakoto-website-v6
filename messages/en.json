@@ -145,7 +145,8 @@
       "eyebrow": "Services",
       "title": "Protection, matched to your car",
       "sub": "Japanese materials. Factory-grade installation. Choose what fits.",
-      "detailsCta": "Details & packages"
+      "detailsCta": "Details & packages",
+      "buildingBadge": "For buildings — installed at your property"
     },
     "detail": {
       "problemHeading": "The problem",
@@ -835,6 +836,12 @@
         "q": "How do I file a claim?",
         "a": "From the claim page: plate number, branch, invoice date, issue description, and photos. We reply with inspection steps."
       }
+    },
+    "buildings": {
+      "heading": "Buildings",
+      "product": "TAKAI TK-7099-IR",
+      "term": "10 years",
+      "note": "The TK-7099-IR buildings product carries a 10-year TAKAI warranty — entirely separate from the vehicle tiers above."
     }
   },
   "warrantyClaim": {
@@ -907,7 +914,8 @@
     },
     "success": "We've prepared a WhatsApp message with your booking details — send it and we'll confirm your slot.",
     "reopenWhatsApp": "Open WhatsApp again",
-    "stub": "Direct online booking is coming soon — for now confirmation happens over WhatsApp."
+    "stub": "Direct online booking is coming soon — for now confirmation happens over WhatsApp.",
+    "waTitle": "New booking from the website:"
   },
   "franchise": {
     "title": "Become a SupaKoto partner",
@@ -991,7 +999,8 @@
       },
       "building": {
         "title": "Building heat isolation",
-        "body": "Heat isolation for glass facades — offices and commercial buildings"
+        "body": "Heat isolation for glass facades — offices and commercial buildings",
+        "cta": "About building heat isolation"
       }
     },
     "formHeading": "Request a quote",

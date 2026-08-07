@@ -55,6 +55,10 @@ export default async function BranchesPage({
         <Container className="space-y-12">
           <BranchMap />
           <BranchGrid />
+          {/* Buildings install at the customer's property, not at a branch. */}
+          <p className="max-w-prose text-small text-fg-muted">
+            {t("buildingNote")}
+          </p>
         </Container>
       </section>
     </main>

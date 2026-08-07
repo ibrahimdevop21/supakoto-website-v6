@@ -81,6 +81,7 @@ export function ContactForm() {
           <option value="general">{t("fields.subjectGeneral")}</option>
           <option value="booking">{t("fields.subjectBooking")}</option>
           <option value="complaint">{t("fields.subjectComplaint")}</option>
+          <option value="buildings">{t("fields.subjectBuildings")}</option>
           <option value="other">{t("fields.subjectOther")}</option>
         </Select>
         <p className="mt-2 text-small text-fg-subtle">{t("complaintNote")}</p>

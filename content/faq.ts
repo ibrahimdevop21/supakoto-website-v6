@@ -3,7 +3,12 @@
  * Service-detail FAQs live under services.items.<id>.faq.*
  */
 
-export type FaqCategory = "general" | "warranty" | "booking" | "aftercare";
+export type FaqCategory =
+  | "general"
+  | "warranty"
+  | "booking"
+  | "aftercare"
+  | "buildings";
 
 export type FaqEntry = { id: string; category: FaqCategory };
 
@@ -18,4 +23,8 @@ export const faqEntries: FaqEntry[] = [
   { id: "warrantyTransfer", category: "warranty" },
   { id: "washAfter", category: "aftercare" },
   { id: "selfHealing", category: "aftercare" },
+  { id: "bhiMeasure", category: "buildings" },
+  { id: "bhiVisit", category: "buildings" },
+  { id: "bhiDuration", category: "buildings" },
+  { id: "bhiMismatch", category: "buildings" },
 ];
