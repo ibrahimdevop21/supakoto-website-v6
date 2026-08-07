@@ -63,6 +63,16 @@ line (substrate: building), NOT a separate vertical. Spec source of truth:
 - **P4** — BUILDINGS PHOTOGRAPHY section in ASSETS-NEEDED.md; full
   verification green (build 52 pages, lint, phone guard).
 
+## Session additions (2026-08-07 evening)
+
+- **Founding year CONFIRMED 2016** (Ibrahim) — site copy was already
+  all-2016; the 2018 reference exists only in V2 history, closed.
+- **Language register reversed: Egyptian dialect → MSA site-wide**
+  (Ibrahim; CLAUDE.md content rule updated first). Full ar.json rewrite,
+  410 of 854 values changed, en.json untouched, parity preserved.
+- Hero triptych is INTENTIONAL — earlier side-by-side "bug" report was
+  Ibrahim's error; hero layout must not be changed.
+
 ## Remaining
 
 - Building photography (see ASSETS-NEEDED.md) — placeholders live

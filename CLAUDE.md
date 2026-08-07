@@ -32,8 +32,10 @@ structure only**: `dettaglioauto.sa`. Visual identity is 100% SupaKoto.
 
 ## Content rules
 
-- Arabic copy: Egyptian dialect for Egypt-facing pages. Never MSA, never
-  corporate. Avoid `نقدم لكم`, `أفضل الأسعار`, `خدمة متميزة`.
+- Arabic copy is Modern Standard Arabic (فصحى). Professional and clear, not
+  stiff or bureaucratic. Avoid MSA clichés: `نقدم لكم`, `أفضل الأسعار`,
+  `خدمة متميزة`, `يسعدنا أن`. Short sentences. Same confident, minimal tone
+  as the English. (Reversed from Egyptian dialect — Ibrahim, 2026-08-07.)
 - English copy: confident, minimal, premium. Short sentences. No hype.
 - Brand framing: premium Japanese engineering, long-term investment in the car.
   Never cheap, discount, "best price", or rushed.
