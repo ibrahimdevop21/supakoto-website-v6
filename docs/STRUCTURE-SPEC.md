@@ -33,8 +33,10 @@ alternate.
 | `/information/products` | `/services` + `/services/[slug]` | Yes |
 | `/privacy-policy` | `/privacy` | Yes |
 | `/refund-return-policy` | `/terms` | Yes |
+| — (V6 addition, no reference equivalent) | `/services/building-heat-isolation` | Yes — buildings substrate service page |
+| — (V6 addition, no reference equivalent) | `/services/building-heat-isolation/quote` | Yes — quotation request form |
 
-**Total: 15 routes × 2 locales.**
+**Total: 17 routes × 2 locales.**
 
 ---
 
@@ -45,6 +47,12 @@ RTL / left in LTR. Two-level nav with dropdowns:
 
 - الرئيسية / Home
 - من نحن / About → [About, FAQ]
+- خدماتنا / Services → [كل الخدمات (index), PPF, العازل الحراري — سيارات,
+  عزل حراري للمباني, تغيير اللون, نانو سيراميك, التلميع]
+  — **added 2026-08-07**: services were never nav-reachable (gap inherited
+  from the reference IA — home rail and CTA band were the only entry points).
+  Buildings gets its own dropdown entry, direct, not nested under automotive
+  heat isolation.
 - أعمالنا / Our Work → [Gallery]
 - احجز / Book
 - الضمان / Warranty → [Warranty Policy, Warranty Claim]
@@ -80,7 +88,10 @@ Section order, top to bottom:
 2. **Services rail** — horizontal snap-scroll of cards, image top, H3, one-line
    benefit. Loops. Their five map to ours:
    - أفلام حماية الطلاء / Paint Protection Film → `/services/ppf`
-   - العازل الحراري / Heat Isolation → `/services/heat-isolation`
+   - العازل الحراري / Heat Isolation — **dual-destination card**: same tile,
+     two explicit CTAs — "للسيارات" → `/services/heat-isolation`, "للمباني" →
+     `/services/building-heat-isolation`. Buildings must be reachable from the
+     homepage; no second tile is added to the rail.
    - تغيير اللون / Colour Change → `/services/colour-change`
    - النانو سيراميك / Nano Ceramic → `/services/nano-ceramic`
    - التلميع / Polishing → `/services/polishing`
@@ -118,9 +129,17 @@ Section order, top to bottom:
 
 ## `/services` and `/services/[slug]`
 
-Index: hero + 5 service cards, full-bleed alternating rows.
+Index: hero + 6 service cards, full-bleed alternating rows. The sixth card is
+**building heat isolation** — visually distinct from the five automotive
+treatments (different substrate, different funnel), never styled as just
+another car service.
 
-Detail template (same for all 5):
+`content/services.ts` gains `substrate: "vehicle" | "building"`. Every
+automotive-only surface (BookingWizard service step, package tiers,
+before/after) filters on `substrate === "vehicle"` — buildings can never
+appear in the booking flow.
+
+Detail template (automotive five only):
 1. Hero image + H1 + benefit subline
 2. "المشكلة" — the pain (stone chips, swirl marks, heat, resale value)
 3. "الحل" — what the product does, 3–4 bullets
@@ -132,6 +151,89 @@ Detail template (same for all 5):
 
 ---
 
+## `/services/building-heat-isolation` (+ `/quote`)
+
+**A service in the existing line applied to a different substrate — not a
+second business, not a top-level vertical.** Same TAKAI material family,
+applied to commercial and residential buildings.
+
+**It serves B2C and B2B equally — it is NOT a B2B-only line.** A homeowner
+tinting villa or apartment glazing is as much the audience as an office
+facade. This page is the canonical destination for both; tone is
+consumer-facing. `/business` links into it for commercial clients, but that
+link is one entrance among several (nav, home rail, services index), not the
+primary framing.
+
+**Single SKU — TAKAI TK-7099-IR (UV Nano Ceramic, Premium IR series):**
+
+| Spec | Value |
+|---|---|
+| Thickness | 3.5 mil |
+| VLT | 70% — glass stays clear, daylight and view kept |
+| IR rejection @950nm | 99% |
+| IR rejection @1400nm | 99% |
+| UV rejection | 99.5% |
+| TSER | 54% |
+| Warranty | **10 years** |
+
+No shade selector, no product table, no VLT options. No other TK- codes
+anywhere on the site. **Positioning states the trade-off honestly**: 70% VLT
+means the glass looks essentially unchanged — claim clarity WITH heat
+rejection, never "maximum heat rejection" (darker TAKAI films score higher
+TSER).
+
+**Page template (diverges from the automotive template — no package tiers, no
+before/after slider, no booking CTA):**
+1. Hero + H1 + clarity-with-heat-rejection subline
+2. "المشكلة" — AC load and electricity bills, indoor comfort, glare on
+   screens, UV fade on furniture and flooring, shatter resistance and
+   occupant safety. NOT stone chips, NOT resale value, NOT self-healing,
+   NOT privacy (70% VLT cannot deliver it).
+3. "الحل" — TK-7099-IR, spec table above
+4. How it works — the quotation funnel, 5 steps (contact → customer sends own
+   measurements → quotation with proposed appointment → confirmation call →
+   technicians re-verify on site and install)
+5. Quote CTA → `/services/building-heat-isolation/quote`
+6. FAQ accordion (buildings-specific)
+
+Copy: fresh Arabic first in Egyptian dialect, then English. Do not adapt the
+automotive heat-isolation copy. No "lifetime" string anywhere on these routes
+(allowed-pages list unchanged). Warranty statements say **10 years (TAKAI,
+buildings)** — tier-scoped as always.
+
+**`/quote` — quotation request form.** It is not a booking, not a survey
+request; it never asks for car make or model. Captures enough to produce a
+quote without a site visit:
+
+- Property type (commercial / residential)
+- Governorate or emirate — **both regions** (locked 2026-08-07): governorate
+  (EG) and emirate (UAE) options; wa.me routes to the line matching the
+  selection, overriding the global RegionPicker.
+- Glazing area in m² OR window count with dimensions (toggle)
+- Number of floors
+- Glass type if known
+- Primary problem: heat / glare / electricity bills / UV fade (**no privacy
+  option** — near-clear film, offering it generates unfulfillable leads)
+- Name · phone · WhatsApp
+
+Form copy states measurements are approximate and the technician verifies on
+arrival. Submit → prefilled wa.me to the selected region's line (same lines
+as booking, from `content/regions.ts` — no phone literals). **First line of
+the body marks it unmistakably: "طلب عرض سعر — عزل حراري للمباني" (English
+equivalent on /en); measurements immediately after** — it must not read like
+a car booking to whoever triages the inbox.
+
+**SEO — standalone entry point.** Own keyword set (عزل حراري للمباني / عزل
+حراري للواجهات / building window film Egypt), own metadata, own JSON-LD
+`Service` schema. Do not inherit or clone automotive metadata. Internal links
+point at it directly, not only through `/services`.
+
+**Assets:** no building photography exists in the repo — clearly-labelled
+placeholders only, never car images. BUILDINGS PHOTOGRAPHY section tracked in
+`docs/progress/ASSETS-NEEDED.md`.
+
+---
+
 ## `/booking`
 
 Multi-step, one question per screen with a progress bar:
@@ -140,6 +242,10 @@ Region → Branch → Service → Car make/model → Date → Time → Contact �
 Branch capacity is enforced server-side. Known caps: التجمع 8, زايد 6,
 المعادي 3. Post to the bdm-flow Supabase project — do **not** rebuild booking
 logic here, this is a client for it.
+
+**wa.me message language (applies to BookingWizard and the buildings quote
+form):** the body is built from the ACTIVE LOCALE's messages — `/en` sends
+English, `/` sends Arabic. Same field order both ways.
 
 ---
 
@@ -161,6 +267,9 @@ Seed data (**verify all of these against ops before launch**):
 
 Damietta is a franchise location — flag whether it carries a franchise badge on
 the card before shipping.
+
+One line on the page notes that **building heat isolation is installed at the
+customer's property, not at a branch**.
 
 ---
 
@@ -200,6 +309,10 @@ says 15 years, customers will read it as a bait-and-switch. Either the footer
 gains a Premium Plus line or the site keeps "lifetime" scoped to the tier card
 only. Flag to Ibrahim if unresolved at Phase 6.
 
+**Buildings row**: TAKAI TK-7099-IR carries **10 years** per TAKAI's official
+catalogue. Rendered as its own row/block — it is a different substrate, not a
+vehicle tier. Never "lifetime".
+
 `/warranty/claim` is a form: plate number, branch, invoice date, issue
 description, photo upload.
 
@@ -218,17 +331,28 @@ Follows their structure closely, it's a good funnel:
 
 ## `/business`
 
-B2B: fleets, dealerships, and the building-film line (SK-BLD). Quote request
-form, not a booking form.
+B2B: fleets, dealerships, and — for commercial clients — building heat
+isolation. The building card links directly to
+`/services/building-heat-isolation`, which is the canonical destination for
+the buildings line and serves B2C (residential) and B2B (commercial) alike;
+this page only surfaces the commercial angle. Quote request form, not a
+booking form.
 
 ---
 
 ## `/gallery`
 
 Single filtered grid: All / PPF / Heat Isolation / Colour Change / Nano
-Ceramic / Video. Lightbox with keyboard nav. Uniform grid, port from V5.
+Ceramic / Buildings / Video. Lightbox with keyboard nav. Uniform grid, port
+from V5. The Buildings category ships with a clearly-labelled "photography
+coming soon" placeholder state — never car images.
 
 ## `/faq`, `/contact`, `/careers`, `/privacy`, `/terms`
 
 Standard. `/contact` form has a subject dropdown that includes **شكوى /
-Complaint** — this is how we absorb their `/complaints` route.
+Complaint** — this is how we absorb their `/complaints` route — and **عزل
+حراري للمباني / Building heat isolation**.
+
+`/faq` gains 3–4 buildings questions: how to measure, whether a visit is
+needed first, installation duration, what happens if the on-site measurement
+differs from what was sent.
