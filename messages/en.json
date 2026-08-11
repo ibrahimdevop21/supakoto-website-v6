@@ -536,19 +536,19 @@
       },
       "building-heat-isolation": {
         "name": "Building heat isolation",
-        "benefit": "Less sun, lower bills — without darkening the glass",
+        "benefit": "Less sun, lower bills",
         "imageAlt": "Placeholder — building installation photography is being documented",
         "seoTitle": "Building Window Film & Heat Isolation | SupaKoto",
-        "seoDescription": "TAKAI TK-7099-IR Japanese window film for buildings and glass facades in Egypt and the UAE. 99% infrared rejection at 70% clarity — offices, apartments and villas. Send your measurements for a quote, no site visit needed.",
+        "seoDescription": "TAKAI TK-7099-IR Japanese window film for buildings and glass facades in Egypt and the UAE. 99% infrared rejection at 70% visible light transmission — offices, apartments and villas. Send your measurements for a quote, no site visit needed.",
         "problem": "Sun pours through the glass all day. The AC fights it and loses, the bill climbs, screens catch the glare, and furniture and floors fade a little more every month. The usual fixes — closed curtains or dark glass — cost you the light and the view.",
         "solutionIntro": "One film, applied to the glass, that solves it without changing how the building looks:",
         "solutions": {
           "b1": "Rejects 99% of infrared — the main heat carrier — so the AC works less and the bill drops",
           "b2": "Blocks 99.5% of the UV that fades furniture, curtains and flooring",
-          "b3": "Cuts screen glare while the glass stays 70% clear — daylight and view intact",
+          "b3": "Cuts screen glare while keeping 70% visible light transmission",
           "b4": "Holds shattered glass together so fragments don't scatter — safer for everyone inside"
         },
-        "positioning": "Darker films score higher total heat rejection — we fit those on cars. For buildings we chose the TK-7099-IR for one reason: the highest heat rejection you can get while the glass still looks untouched. If you want a cooler space without giving up light and view, this is it.",
+        "positioning": "Darker films score higher total heat rejection — we fit those on cars. For buildings we chose the TK-7099-IR for its balance: strong heat rejection at 70% visible light transmission. If you want a cooler space that keeps most of its daylight, this is it.",
         "spec": {
           "product": {
             "label": "Product",
@@ -560,7 +560,7 @@
           },
           "vlt": {
             "label": "Visible light transmission",
-            "value": "70% — the glass stays clear"
+            "value": "70%"
           },
           "irRejection": {
             "label": "Infrared rejection",
