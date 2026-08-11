@@ -42,12 +42,6 @@
       "sub": "Every service has a full page with details and packages",
       "cta": "Explore our services"
     },
-    "ourWork": {
-      "eyebrow": "Our Work",
-      "title": "The work speaks",
-      "sub": "Real cars from our workshops in Egypt and the UAE",
-      "cta": "View the full gallery"
-    },
     "features": {
       "branches": {
         "title": "Our branches",
@@ -168,6 +162,12 @@
           "name": "Auto Samir Rayan"
         }
       }
+    },
+    "takai": {
+      "eyebrow": "TAKAI films",
+      "title": "Compare the TAKAI lineup",
+      "sub": "Full specifications for every film in your market. Warranty is tier-scoped — terms live on the PPF page.",
+      "cta": "PPF details & warranty"
     }
   },
   "nav": {

@@ -3,7 +3,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { HeroCarousel } from "@/components/sections/home/HeroCarousel";
 import { PartnersBand } from "@/components/sections/home/PartnersBand";
 import { ServicesSection } from "@/components/sections/home/ServicesSection";
-import { WorkPreview } from "@/components/sections/home/WorkPreview";
+import { TakaiComparison } from "@/components/sections/home/TakaiComparison";
 import { FeatureGrid } from "@/components/sections/home/FeatureGrid";
 import { BusinessBand } from "@/components/sections/home/BusinessBand";
 import { CtaBand } from "@/components/sections/CtaBand";
@@ -50,7 +50,7 @@ export default async function HomePage({
         buttonLabel={t("cta")}
         href="/services"
       />
-      <WorkPreview />
+      <TakaiComparison />
       <FeatureGrid />
       <BusinessBand />
     </main>

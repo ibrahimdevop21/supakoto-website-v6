@@ -100,3 +100,28 @@ checks that tested a now-changed surface):
    gallery buildings empty state) still applies unchanged — plus NEW:
    marine + surface pages show NO product/spec/warranty claims, only
    the labelled TODO, in both locales.
+
+## Same-day follow-up — Our Work → TAKAI comparison (2026-08-11)
+
+Ibrahim: replace the homepage "Our Work" gallery preview with the V2
+comparison table. Shipped as `TakaiComparison` (home section, raised
+tone): the V2 table ported by CONTENT, not design — data comes from
+the ops-verified `content/takai.ts` (newer than V2's dataset:
+region-split Signature/UAE / Performance/Egypt, Premium Plus in both,
+flagship-accented). All spec columns, overflow-x scroll, matte badges
+and notes reused from the existing `takai` i18n namespace.
+
+**NO warranty column** — V2 shipped the same call
+(`SHOW_WARRANTY_ROW = false`: an empty cell reads as "no warranty"),
+and the site law confines warranty figures/"lifetime" to /warranty,
+/services/ppf, and the Premium Plus tier card. The section CTA routes
+to /services/ppf where terms live. WorkPreview deleted; home.ourWork
+keys removed (nav.ourWork stays — it's the nav group label for
+Gallery, which remains reachable via nav + feature grid).
+
+Verified: 15/15 (table present both locales, 6 Egypt products → 7 on
+UAE region switch, 10 columns, flagship row, NO warranty column, NO
+visible lifetime string on the homepage — the earlier "leak" was the
+serialized i18n payload inside <script>, not rendered text — gallery
+preview gone, no page overflow); 70-check pixel-lock ALL PASS; build,
+lint (0 errors), typecheck green.
