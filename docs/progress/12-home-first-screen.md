@@ -273,7 +273,11 @@ to two lines at 390px and overflowed the new fixed h-9.
 Known pre-existing (NOT touched, out of scope): the nav CTA is
 visible on mobile despite `hidden md:inline-flex` — Button's base
 `inline-flex` wins over `hidden` in stylesheet order (same plain-join
-cn() class of bug as the old py conflict). Flag for a later pass.
+cn() class of bug as the old py conflict). **RESOLVED same day**: the
+CTA's visibility moved to a plain wrapper div (`hidden md:block`),
+and the burger + drawer close became 36×36 bordered chips matching
+the switcher controls (they were being clipped by the overflowing
+row at 390px). See the "mobile nav" fix commit.
 
 ## Next
 

@@ -66,17 +66,22 @@ export function Header() {
         <div className="flex items-center gap-2">
           <LocaleSwitcher />
           <RegionPicker className="hidden sm:block" />
-          <Button href="/booking" size="sm" className="hidden md:inline-flex">
-            {t("cta")}
-          </Button>
+          {/* Wrapper carries the responsive visibility: cn() is a plain
+              join, so a `hidden` on the Button itself loses to the
+              base `inline-flex` in stylesheet order. */}
+          <div className="hidden md:block">
+            <Button href="/booking" size="sm">
+              {t("cta")}
+            </Button>
+          </div>
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
             aria-label={t("openMenu")}
             aria-expanded={drawerOpen}
-            className="rounded-card p-2 text-fg lg:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-card border border-ink-700 text-fg transition-colors hover:border-fg-subtle hover:bg-ink-800 lg:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
           >
-            <MenuIcon className="size-6" />
+            <MenuIcon className="size-5" />
           </button>
         </div>
       </div>
@@ -213,9 +218,9 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
               type="button"
               onClick={onClose}
               aria-label={t("closeMenu")}
-              className="rounded-card p-2 text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
+              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-card border border-ink-700 text-fg transition-colors hover:border-fg-subtle hover:bg-ink-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
             >
-              <CloseIcon className="size-6" />
+              <CloseIcon className="size-5" />
             </button>
           </div>
 
