@@ -50,3 +50,9 @@ engines the correct language split going forward.
 
 Only `/locations`, `/offers`, `/thank-you` have free EN slots (V6 renamed
 or dropped those paths), so those three do redirect to `/en/*`.
+
+## 2026-08-11 — polishing removed
+
+`/services/polishing` and `/en/services/polishing` 301 to their
+locale's `/services`. The polishing service was dropped from the
+catalogue in the services restructure (7 services, 4 substrates).

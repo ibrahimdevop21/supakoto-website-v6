@@ -24,6 +24,10 @@ const nextConfig: NextConfig = {
       ["/ar/terms", "/terms"],
       ["/ar/offers", "/services"],
       ["/ar/thank-you", "/"],
+      // Dropped service (2026-08-11): polishing removed from the
+      // catalogue — both locales' URLs fold into the services index.
+      ["/services/polishing", "/services"],
+      ["/en/services/polishing", "/en/services"],
       // EN routes whose V6 path is free (renamed or dropped in V6):
       ["/locations", "/en/branches"],
       ["/offers", "/en/services"],

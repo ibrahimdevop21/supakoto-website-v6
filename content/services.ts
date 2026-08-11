@@ -8,15 +8,16 @@ export type ServiceId =
   | "heat-isolation"
   | "colour-change"
   | "nano-ceramic"
-  | "polishing"
-  | "building-heat-isolation";
+  | "building-heat-isolation"
+  | "marine-ppf"
+  | "surface-protection";
 
 /**
  * What the film goes on. Automotive-only surfaces (BookingWizard, package
- * tiers, before/after) must filter on "vehicle" — the buildings service can
- * never appear in the car booking flow.
+ * tiers, before/after) must filter on "vehicle" — non-vehicle substrates
+ * can never appear in the car booking flow.
  */
-export type Substrate = "vehicle" | "building";
+export type Substrate = "vehicle" | "building" | "marine" | "interior";
 
 export type Service = {
   id: ServiceId;
@@ -67,14 +68,6 @@ export const services: Service[] = [
     faqCount: 5,
   },
   {
-    id: "polishing",
-    slug: "polishing",
-    substrate: "vehicle",
-    specKeys: ["stages", "duration", "finish"],
-    packageKeys: ["exterior", "showroom"],
-    faqCount: 4,
-  },
-  {
     // Single SKU: TAKAI TK-7099-IR. No shade options, no packages — the
     // funnel is quotation-based (customer-sent measurements), not booking.
     id: "building-heat-isolation",
@@ -92,11 +85,34 @@ export const services: Service[] = [
     packageKeys: [],
     faqCount: 4,
   },
+  // ⚠️ Marine + surface: NO CONFIRMED TAKAI PRODUCT exists for either
+  // (automotive PPF is TPU for painted panels; hulls and marble may need
+  // different films entirely). Zero specKeys/packages/FAQ by design —
+  // every spec slot on their pages is a labelled TODO. Do not add
+  // product codes, figures, or names here before written TAKAI
+  // confirmation (inventing one is the SK-BLD error class). Launch of
+  // both is BLOCKED — see ASSETS-NEEDED.md.
+  {
+    id: "marine-ppf",
+    slug: "marine-ppf",
+    substrate: "marine",
+    specKeys: [],
+    packageKeys: [],
+    faqCount: 0,
+  },
+  {
+    id: "surface-protection",
+    slug: "surface-protection",
+    substrate: "interior",
+    specKeys: [],
+    packageKeys: [],
+    faqCount: 0,
+  },
 ];
 
 export const serviceIds = services.map((s) => s.id);
 
-/** The five automotive treatments — what the booking flow and car-only UI use. */
+/** The four automotive treatments — what the booking flow and car-only UI use. */
 export const vehicleServices = services.filter(
   (s) => s.substrate === "vehicle",
 );

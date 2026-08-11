@@ -23,7 +23,8 @@ export const NAV: NavItem[] = [
       { key: "servicesBuildings", href: "/services/building-heat-isolation" },
       { key: "servicesColour", href: "/services/colour-change" },
       { key: "servicesNano", href: "/services/nano-ceramic" },
-      { key: "servicesPolishing", href: "/services/polishing" },
+      { key: "servicesMarine", href: "/services/marine-ppf" },
+      { key: "servicesSurface", href: "/services/surface-protection" },
     ],
   },
   {

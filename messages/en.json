@@ -32,11 +32,10 @@
       "placeholderNote": "Placeholder image — campaign photography pending"
     },
     "services": {
-      "eyebrow": "Services",
-      "title": "Five ways we protect your car",
+      "eyebrow": "What we protect",
+      "title": "Everything worth protecting",
       "viewAll": "All services",
-      "forCars": "For cars",
-      "forBuildings": "For buildings"
+      "sub": "Cars, buildings, boats, interiors — the same Japanese TAKAI films."
     },
     "knowMore": {
       "title": "Not sure what your car needs?",
@@ -200,7 +199,8 @@
     "servicesBuildings": "Building heat isolation",
     "servicesColour": "Colour change",
     "servicesNano": "Nano ceramic",
-    "servicesPolishing": "Polishing"
+    "servicesMarine": "Marine PPF",
+    "servicesSurface": "Surface Protection"
   },
   "chrome": {
     "region": {
@@ -534,61 +534,6 @@
         },
         "imageAlt": "Close-up of deep paint gloss"
       },
-      "polishing": {
-        "name": "Polishing",
-        "benefit": "We bring back the paint's original depth and gloss",
-        "problem": "Wash lines, holograms, and oxidation drain the colour's depth — especially on dark cars.",
-        "solutionIntro": "Staged polishing with professional compounds and tooling:",
-        "solutions": {
-          "b1": "Removes wash lines and holograms",
-          "b2": "Restores colour depth and gloss",
-          "b3": "The ideal prep before ceramic or film",
-          "b4": "Paint-depth measured before any work — no gambling"
-        },
-        "spec": {
-          "stages": {
-            "label": "Stages",
-            "value": "One to three, per condition"
-          },
-          "duration": {
-            "label": "Duration",
-            "value": "Half a day to a full day"
-          },
-          "finish": {
-            "label": "Result",
-            "value": "A surface ready for protection or delivery"
-          }
-        },
-        "packages": {
-          "exterior": {
-            "name": "Exterior polish",
-            "coverage": "Full body"
-          },
-          "showroom": {
-            "name": "Showroom prep",
-            "coverage": "Polish + complete detail"
-          }
-        },
-        "faq": {
-          "1": {
-            "q": "Doesn't polishing eat the paint?",
-            "a": "We measure paint depth first and remove the least material that achieves the result."
-          },
-          "2": {
-            "q": "How often should I polish?",
-            "a": "Rarely — protected and coated, once every few years is enough."
-          },
-          "3": {
-            "q": "Does it remove all scratches?",
-            "a": "Surface scratches, yes; deeper ones are reduced. Anything through to the base coat needs touch-up."
-          },
-          "4": {
-            "q": "Why here?",
-            "a": "The same Japanese standards we install film with — measurement, patience, proper inspection lighting."
-          }
-        },
-        "imageAlt": "Hand-finishing the paint surface"
-      },
       "building-heat-isolation": {
         "name": "Building heat isolation",
         "benefit": "Less sun, lower bills — without darkening the glass",
@@ -661,6 +606,32 @@
           }
         },
         "quoteCta": "Request a quote"
+      },
+      "marine-ppf": {
+        "name": "Marine PPF",
+        "benefit": "For hulls and marine surfaces.",
+        "imageAlt": "Boat hull placeholder — awaiting marine photography",
+        "seoTitle": "Marine PPF — boat hull protection",
+        "seoDescription": "Protection film for boats, from the TAKAI distributor for Egypt and UAE. Product line pending confirmation.",
+        "problem": "Sun, salt water, and mooring abrasion work on a hull all season. Gelcoat fades and loses its depth long before the boat ages.",
+        "solutionIntro": "We are extending SupaKoto protection to boats. What we publish here will follow the same rule as everything else on this site: confirmed TAKAI products only.",
+        "pendingTitle": "Specifications",
+        "pendingBody": "Pending product confirmation from TAKAI. No film, spec, or warranty will be listed until the marine product line is confirmed in writing.",
+        "quoteCta": "Talk to us about your boat",
+        "waMessage": "Hello, I'd like to ask about Marine PPF."
+      },
+      "surface-protection": {
+        "name": "Surface Protection",
+        "benefit": "For marble and high-value interior surfaces.",
+        "imageAlt": "Interior surface placeholder — awaiting photography",
+        "seoTitle": "Surface Protection — marble and interior surfaces",
+        "seoDescription": "Protection film for marble and high-value interior surfaces, from the TAKAI distributor for Egypt and UAE. Product line pending confirmation.",
+        "problem": "Marble counters, reception desks, and high-value interior surfaces etch, stain, and scratch — and unlike paint, natural stone cannot be resprayed.",
+        "solutionIntro": "We are extending SupaKoto protection to interior surfaces. What we publish here will follow the same rule as everything else on this site: confirmed TAKAI products only.",
+        "pendingTitle": "Specifications",
+        "pendingBody": "Pending product confirmation from TAKAI. No film, spec, or warranty will be listed until the surface product line is confirmed in writing.",
+        "quoteCta": "Talk to us about your project",
+        "waMessage": "Hello, I'd like to ask about Surface Protection."
       }
     }
   },

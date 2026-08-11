@@ -23,7 +23,10 @@ export const ROUTES = [
   "/services/heat-isolation",
   "/services/colour-change",
   "/services/nano-ceramic",
-  "/services/polishing",
+  "/services/building-heat-isolation",
+  "/services/building-heat-isolation/quote",
+  "/services/marine-ppf",
+  "/services/surface-protection",
   "/privacy",
   "/terms",
 ] as const;

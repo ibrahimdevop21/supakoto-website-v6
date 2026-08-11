@@ -58,7 +58,7 @@ const img = (
 export const galleryItems: GalleryItem[] = [
   img("001", "ppf", 1600, 1200),
   img("005", "ppf"),
-  img("013", "polishing"),
+  img("013", "nano-ceramic"),
   img("021", "ppf"),
   img("034", "nano-ceramic"),
   img("041", "ppf"),
@@ -69,7 +69,7 @@ export const galleryItems: GalleryItem[] = [
   img("088", "ppf"),
   img("095", "ppf"),
   img("100", "ppf"),
-  img("105", "polishing"),
+  img("105", "nano-ceramic"),
   img("107", "nano-ceramic"),
   img("116", "ppf"),
   img("123", "ppf", 1536, 2048),
@@ -108,7 +108,6 @@ export const galleryCategories: Array<GalleryCategory | "all"> = [
   "heat-isolation",
   "colour-change",
   "nano-ceramic",
-  "polishing",
   "building-heat-isolation",
   "video",
 ];
