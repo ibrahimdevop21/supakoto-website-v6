@@ -37,7 +37,7 @@ export function HeroCarousel() {
   const animateIn = cycled && !reduce;
 
   return (
-    <section className="relative flex min-h-[80svh] items-end overflow-hidden border-b border-ink-700">
+    <section className="relative flex min-h-0 flex-1 items-end overflow-hidden border-b border-ink-700">
       {/* Base photo — SSR-visible (LCP), stays if video can't play */}
       <div className="absolute inset-0">
         <Image
@@ -56,8 +56,11 @@ export function HeroCarousel() {
       {/* Legibility scrim */}
       <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(10,10,11,0.78),rgba(10,10,11,0.35)_55%,rgba(10,10,11,0.85))]" />
 
-      {/* Copy overlay */}
-      <div className="relative z-10 w-full pb-20 pt-40">
+      {/* Copy overlay. Every row below has a RESERVED height (lh-unit
+          boxes for the text rows), so the block's total height is a
+          constant per breakpoint — slide/locale content changes cannot
+          move the layout. */}
+      <div className="relative z-10 w-full pb-10 pt-6">
         <Container>
           {cycled ? (
             <AnimatePresence mode="wait">
@@ -67,13 +70,13 @@ export function HeroCarousel() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={reduce ? undefined : { opacity: 0 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="max-w-2xl"
+                className="max-w-4xl"
               >
                 <SlideCopy slideKey={key} />
               </motion.div>
             </AnimatePresence>
           ) : (
-            <div className="max-w-2xl">
+            <div className="max-w-4xl">
               <SlideCopy slideKey={key} />
             </div>
           )}
@@ -137,18 +140,32 @@ function HeroVideo() {
   );
 }
 
+/**
+ * Every row here has a reserved, content-independent height: the title
+ * lives in a 4-line box (lh units resolve against text-display's own
+ * line-height), the sub in a 3-line box (2 on md+). Longer strings
+ * line-clamp inside their reserve instead of pushing the layout — the
+ * first screen's geometry must never depend on which slide is showing.
+ */
 function SlideCopy({ slideKey }: { slideKey: (typeof SLIDE_KEYS)[number] }) {
   const t = useTranslations("home.hero");
+  // The hero CTA and the header CTA are the same action and must stay
+  // identical in label and size — one key, one size (Ibrahim, 2026-08-11).
+  const tNav = useTranslations("nav");
   return (
     <>
-      <h1 className="font-display text-display font-bold text-balance">
-        {t(`slides.${slideKey}.title`)}
-      </h1>
-      <p className="mt-4 max-w-xl text-h3 text-fg-muted">
-        {t(`slides.${slideKey}.sub`)}
-      </p>
-      <Button href="/booking" className="mt-8">
-        {t("cta")}
+      <div className="flex h-[5lh] items-end font-display text-display font-bold sm:h-[4lh]">
+        <h1 className="line-clamp-5 text-balance sm:line-clamp-4">
+          {t(`slides.${slideKey}.title`)}
+        </h1>
+      </div>
+      <div className="mt-4 h-[3lh] max-w-xl text-h3 text-fg-muted md:h-[2lh]">
+        <p className="line-clamp-3 md:line-clamp-2">
+          {t(`slides.${slideKey}.sub`)}
+        </p>
+      </div>
+      <Button href="/booking" size="sm" className="mt-8">
+        {tNav("cta")}
       </Button>
     </>
   );

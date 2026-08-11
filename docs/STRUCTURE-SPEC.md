@@ -47,12 +47,13 @@ RTL / left in LTR. Two-level nav with dropdowns:
 
 - الرئيسية / Home
 - من نحن / About → [About, FAQ]
-- خدماتنا / Services → [كل الخدمات (index), PPF, العازل الحراري — سيارات,
-  عزل حراري للمباني, تغيير اللون, نانو سيراميك, التلميع]
-  — **added 2026-08-07**: services were never nav-reachable (gap inherited
-  from the reference IA — home rail and CTA band were the only entry points).
-  Buildings gets its own dropdown entry, direct, not nested under automotive
-  heat isolation.
+- خدماتنا / Services → [كل الخدمات (index), أفلام حماية الطلاء,
+  العازل الحراري — سيارات, عزل حراري للمباني, تغيير اللون,
+  النانو سيراميك, حماية القوارب, حماية الأسطح الداخلية]
+  — dropdown added 2026-08-07 (services were never nav-reachable in the
+  reference IA); the 2026-08-11 restructure REMOVES التلميع and ADDS
+  Marine PPF + Surface Protection. Buildings keeps its own direct
+  entry, not nested under automotive heat isolation.
 - أعمالنا / Our Work → [Gallery]
 - احجز / Book
 - الضمان / Warranty → [Warranty Policy, Warranty Claim]
@@ -83,18 +84,74 @@ have nothing verified to put there yet.
 
 Section order, top to bottom:
 
-1. **Hero carousel** — full-bleed, 5–6 slides, autoplay 6s, one CTA overlay
-   linking to `/booking`. Ken Burns drift on the image, Framer Motion.
-2. **Services rail** — horizontal snap-scroll of cards, image top, H3, one-line
-   benefit. Loops. Their five map to ours:
-   - أفلام حماية الطلاء / Paint Protection Film → `/services/ppf`
-   - العازل الحراري / Heat Isolation — **dual-destination card**: same tile,
-     two explicit CTAs — "للسيارات" → `/services/heat-isolation`, "للمباني" →
-     `/services/building-heat-isolation`. Buildings must be reachable from the
-     homepage; no second tile is added to the rail.
-   - تغيير اللون / Colour Change → `/services/colour-change`
-   - النانو سيراميك / Nano Ceramic → `/services/nano-ceramic`
-   - التلميع / Polishing → `/services/polishing`
+1. **First screen (2026-08-11)** — one `min-h-[100svh]` flex column
+   (svh, never vh, to avoid the mobile browser-chrome jump) holding the
+   hero and the partners strip, under the fixed transparent header.
+   Nothing from any section below is visible at initial scroll
+   position; the fold lands exactly on the column's bottom edge.
+   1. **Hero carousel** — full-bleed, 5–6 slides, autoplay 6s, one CTA
+      overlay linking to `/booking`. Ken Burns drift on the image,
+      Framer Motion. `flex-1`: it fills whatever the strip doesn't use —
+      and the whole viewport whenever the strip is empty.
+   2. **Partners strip** — `content/partners.ts` is structure-only (id,
+      name, logo path, `confirmed` flag, optional URL); display strings
+      in `home.partners.*`. Only `confirmed: true` entries render — zero
+      confirmed renders NOTHING (no empty state, no reserved space).
+      One confirmed → centred static lockup with its caption line, never
+      a one-item scroller. Two+ → Framer Motion marquee: drifts in
+      reading direction (RTL-aware), pauses on hover, static row under
+      `prefers-reduced-motion`, grayscale at rest → colour on hover,
+      copy count measured at runtime so the loop never shows a gap.
+      Logos render in **original colours — no filter overlay**
+      (Ibrahim, 2026-08-11; the earlier grayscale-at-rest spec is
+      dead). Roster: **all 27 unique marks from V2's
+      `public/partners/` ship visible** — 25 car brands (Avatr →
+      Volkswagen; Citroën was duplicated in the source) plus Mansour
+      Group and Auto Samir Rayan, re-rendered to trimmed transparent
+      WebPs (~360 KB total). Mansour Chevrolet (dealership entity) and
+      RB Garage keep `confirmed: false` placeholder entries pending
+      written permission + a real logo. **TAKAI is deliberately
+      excluded**: mother company (SupaKoto is its exclusive
+      distributor for Egypt and UAE), not a peer partner.
+      **Manufacturer-logo rule history:** the original spec banned car
+      manufacturer logos outright; Ibrahim declined to lift the ban
+      twice on 2026-08-11, then explicitly reversed it the same day
+      (informed choice, the reversal consequence was stated in the
+      question) and later that day named Mansour Group and Auto Samir
+      Rayan for inclusion as well. Only fabricated marks (SK-BLD class
+      error) remain forbidden.
+2. **Services grid (restructured 2026-08-11)** — SupaKoto is no longer
+   framed as car-only: protection film goes on vehicles, buildings,
+   boats, and high-value interior surfaces. "Five ways we protect your
+   car" / «خمس طرق نحمي بيها عربيتك» is DEAD — the new heading covers
+   everything we protect. APPROVED copy (Ibrahim, 2026-08-11):
+   «كل ما يستحق الحماية، نحميه» / "Everything worth protecting" —
+   with sub «سيارات ومبانٍ وقوارب وأسطح داخلية — أفلام تاكاي اليابانية
+   نفسها» / "Cars, buildings, boats, interiors — the same Japanese
+   TAKAI films."
+   Layout: the horizontal snap-rail is replaced by a responsive
+   wrapping flex grid, full container width, equal-height cards,
+   consistent gaps, max 4 per row: 1 column mobile / 2 tablet /
+   3 desktop / 4 wide. Cards wrap to the next row; NO horizontal
+   overflow at any breakpoint. Seven cards:
+   - أفلام حماية الطلاء / Paint Protection Film → `/services/ppf` (vehicle)
+   - العازل الحراري / Heat Isolation → `/services/heat-isolation` (vehicle)
+   - تغيير اللون / Colour Change → `/services/colour-change` (vehicle)
+   - النانو سيراميك / Nano Ceramic → `/services/nano-ceramic` (vehicle)
+   - عزل حراري للمباني / Building Heat Isolation →
+     `/services/building-heat-isolation` (building — built on
+     `feat/building-heat-isolation`; its dual-destination treatment on
+     the automotive heat-isolation card is RETIRED once it has its own
+     card here)
+   - حماية القوارب / Marine PPF → `/services/marine-ppf` (marine)
+   - حماية الأسطح / Surface Protection →
+     `/services/surface-protection` (interior substrate — slug decision
+     2026-08-11: NOT "interior-protection", which reads as car
+     interiors and collides in search)
+   - **التلميع / Polishing is REMOVED entirely** — every surface,
+     every route, all i18n keys. `/services/polishing` gets a 301 to
+     `/services` (record in docs/REDIRECTS.md, implement in
+     next.config).
 3. **"اعرف المزيد"** — single wide CTA band into `/services`.
 4. **أعمالنا / Our Work** — section header + subline, then a 3-across masonry
    preview pulling 9 items from `/gallery`. Reuse the V5 uniform-grid component.
@@ -129,17 +186,22 @@ Section order, top to bottom:
 
 ## `/services` and `/services/[slug]`
 
-Index: hero + 6 service cards, full-bleed alternating rows. The sixth card is
-**building heat isolation** — visually distinct from the five automotive
-treatments (different substrate, different funnel), never styled as just
-another car service.
+**Restructured 2026-08-11.** The catalogue is seven services across
+four substrates. `Service.substrate` extends from
+`"vehicle" | "building"` to
+`"vehicle" | "building" | "marine" | "interior"`.
+Only `substrate === "vehicle"` services appear in the booking wizard —
+non-vehicle substrates can never enter the booking flow.
+Polishing is deleted from the catalogue (route 301s to `/services`).
 
-`content/services.ts` gains `substrate: "vehicle" | "building"`. Every
-automotive-only surface (BookingWizard service step, package tiers,
-before/after) filters on `substrate === "vehicle"` — buildings can never
-appear in the booking flow.
+Index: hero + 7 service cards in the SAME responsive wrapping grid as
+the homepage services section (1/2/3/4 columns, max 4 per row, equal
+heights — Ibrahim 2026-08-11: "7 cards should behave the same in both
+places"; the old full-bleed alternating rows are replaced). Non-vehicle
+cards stay visually distinguished by substrate (pattern established by
+the buildings card) — never styled as just another car service.
 
-Detail template (automotive five only):
+Detail template for the four VEHICLE services (unchanged):
 1. Hero image + H1 + benefit subline
 2. "المشكلة" — the pain (stone chips, swirl marks, heat, resale value)
 3. "الحل" — what the product does, 3–4 bullets
@@ -148,6 +210,30 @@ Detail template (automotive five only):
 6. Package tiers (front-end / partial / full body)
 7. FAQ accordion, 4–6 items
 8. Booking CTA
+
+Building Heat Isolation keeps its own diverged template (built on
+`feat/building-heat-isolation`, TK-7099-IR, quote form).
+
+**Marine PPF (`/services/marine-ppf`, substrate "marine") and Interior
+Surface Protection (`/services/interior-protection`, substrate
+"interior") — ⚠️ NO CONFIRMED TAKAI PRODUCT EXISTS for either.**
+Automotive PPF is TPU engineered for painted panels; boat hulls
+(gelcoat, UV + salt water) and marble/interior surfaces may need a
+different film entirely, and TAKAI's catalogue mentions neither. Hard
+rules for both pages, spec-level law:
+- NO product codes, NO spec figures, NO warranty terms, NO material
+  claims. Every spec slot renders a labelled TODO
+  («بانتظار تأكيد المنتج من تاكاي» / "Pending product confirmation
+  from TAKAI").
+- Do NOT copy or adapt anything from the automotive PPF page.
+- Do NOT invent product names or numbers — inventing SK-BLD is
+  exactly how this class of error happened before.
+- Page structure: hero + problem/solution framing in general terms +
+  TODO spec block + contact/quote CTA (wa.me routing like buildings).
+  No package tiers, no before/after (no photography exists), no FAQ
+  until products are confirmed.
+- Both services are BLOCKED for launch on written product
+  confirmation from TAKAI (tracked in ASSETS-NEEDED as blocking).
 
 ---
 
@@ -238,6 +324,11 @@ placeholders only, never car images. BUILDINGS PHOTOGRAPHY section tracked in
 
 Multi-step, one question per screen with a progress bar:
 Region → Branch → Service → Car make/model → Date → Time → Contact → Confirm.
+
+Service step offers ONLY `substrate === "vehicle"` services (four
+after the 2026-08-11 restructure: PPF, Heat Isolation, Colour Change,
+Nano Ceramic). Building/marine/interior route to their own quote
+flows, never through the car booking wizard.
 
 Branch capacity is enforced server-side. Known caps: التجمع 8, زايد 6,
 المعادي 3. Post to the bdm-flow Supabase project — do **not** rebuild booking

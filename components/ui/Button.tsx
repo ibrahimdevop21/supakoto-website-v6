@@ -3,20 +3,29 @@ import { Link } from "@/i18n/navigation";
 import type { ComponentProps } from "react";
 
 type Variant = "primary" | "ghost" | "link";
+type Size = "md" | "sm";
 
 const base =
-  "inline-flex items-center justify-center gap-2 text-body font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red disabled:pointer-events-none disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "rounded-card bg-sk-red px-6 py-3 text-fg hover:bg-sk-red-hover",
+  primary: "rounded-card bg-sk-red text-fg hover:bg-sk-red-hover",
   ghost:
-    "rounded-card border border-ink-700 px-6 py-3 text-fg hover:border-fg-subtle hover:bg-ink-800",
-  link: "text-sk-red underline-offset-4 hover:underline",
+    "rounded-card border border-ink-700 text-fg hover:border-fg-subtle hover:bg-ink-800",
+  link: "text-body text-sk-red underline-offset-4 hover:underline",
+};
+
+// cn() is a plain join — no tailwind-merge — so padding must live in
+// exactly one place. The link variant carries no box, so it takes no
+// size classes.
+const sizes: Record<Size, string> = {
+  md: "px-6 py-3 text-body",
+  sm: "h-9 px-4 text-small",
 };
 
 type CommonProps = {
   variant?: Variant;
+  size?: Size;
   className?: string;
   children: React.ReactNode;
 };
@@ -27,18 +36,21 @@ type AsButton = CommonProps &
 
 export function Button(props: AsLink | AsButton) {
   if ("href" in props) {
-    const { variant = "primary", className, children, href } = props;
+    const { variant = "primary", size = "md", className, children, href } = props;
     return (
-      <Link href={href} className={cn(base, variants[variant], className)}>
+      <Link
+        href={href}
+        className={cn(base, variants[variant], variant !== "link" && sizes[size], className)}
+      >
         {children}
       </Link>
     );
   }
-  const { variant = "primary", className, children, type, ...rest } = props;
+  const { variant = "primary", size = "md", className, children, type, ...rest } = props;
   return (
     <button
       type={type ?? "button"}
-      className={cn(base, variants[variant], className)}
+      className={cn(base, variants[variant], variant !== "link" && sizes[size], className)}
       {...rest}
     >
       {children}
