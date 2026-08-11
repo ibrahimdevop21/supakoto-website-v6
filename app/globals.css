@@ -27,7 +27,11 @@
   --color-paper-ink: #0a0a0b;
 
   /* Type scale — fluid 390 → 1440 */
-  --text-display: clamp(2.75rem, 6vw, 5rem);
+  /* Width AND height aware: on wide-but-short windows (laptop 768px,
+     devtools open) 6vw alone lands 80px type that wraps long titles to
+     5 lines and blows the 100svh first-screen budget. 8.5svh caps it
+     by available height instead. */
+  --text-display: clamp(2.75rem, min(6vw, 8.5svh), 5rem);
   --text-display--line-height: 1.05;
   --text-h1: clamp(2.25rem, 4.5vw, 3.5rem);
   --text-h1--line-height: 1.1;

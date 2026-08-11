@@ -201,6 +201,34 @@ Approved brief, three items:
 Verified: chrome-polish checks 12/12, no dialect in header or first
 screen, lockup logo served, build/lint/typecheck green.
 
+## Amendment 5 (2026-08-11, evening) — first-screen overflow bug
+
+Ibrahim reported intermittent breakage: hero cramped + big gap under
+the strip, "sometimes it works." Systematic debugging, root cause:
+
+- `--text-display: clamp(2.75rem, 6vw, 5rem)` scales with width only.
+  On wide-but-short windows (1366×768) long EN titles render at 80px
+  and wrap to 4–5 lines inside `max-w-2xl` (h1 alone = 420px). With
+  fixed `pt-40`/`pb-20`, the copy block hits 866px against a 631px
+  hero flex share — flex can't shrink below intrinsic content height,
+  so the 100svh column stretched past the fold and pushed the strip
+  below it. Slides wrap differently (3/4/5 lines) → per-slide
+  flip-flop; AR titles are shorter → AR mostly fit. The pre-strip
+  80svh design silently absorbed this for months.
+- Fix (minimal, root-cause): `--text-display` becomes
+  `clamp(2.75rem, min(6vw, 8.5svh), 5rem)` (height-aware cap), and
+  the hero copy overlay compresses its fixed paddings below 960px
+  window height (`pt-40→pt-28`, `pb-20→pb-10`, dots `mt-10→mt-6` via
+  `[@media(max-height:960px)]` variants). Note: the type change
+  affects `text-display` site-wide on short windows — intended; every
+  display heading has the same overflow physics.
+- Failing test written first (scratchpad
+  `test-firstscreen-invariant.mjs`): column height ≤ 100svh for every
+  slide × both locales × 6 window sizes (768→1080 heights). Pre-fix:
+  5/12 cells failed, worst +267px. Post-fix: 12/12 zero overflow.
+  Strip and chrome-polish regression suites re-run green. Worth
+  porting into a permanent E2E harness if the project ever grows one.
+
 ## Next
 
 - Mansour Chevrolet (dealership) / RB Garage: written permission +

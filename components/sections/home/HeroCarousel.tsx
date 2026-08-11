@@ -56,8 +56,11 @@ export function HeroCarousel() {
       {/* Legibility scrim */}
       <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(10,10,11,0.78),rgba(10,10,11,0.35)_55%,rgba(10,10,11,0.85))]" />
 
-      {/* Copy overlay */}
-      <div className="relative z-10 w-full pb-20 pt-40">
+      {/* Copy overlay. The short-viewport paddings keep the whole copy
+          block inside the hero's flex share of the 100svh first screen —
+          without them the column stretches past the fold on ≤960px-tall
+          windows (see docs/progress/12, amendment 5). */}
+      <div className="relative z-10 w-full pb-20 pt-40 [@media(max-height:960px)]:pb-10 [@media(max-height:960px)]:pt-28">
         <Container>
           {cycled ? (
             <AnimatePresence mode="wait">
@@ -79,7 +82,7 @@ export function HeroCarousel() {
           )}
 
           {/* Dots */}
-          <div className="mt-10 flex gap-2">
+          <div className="mt-10 flex gap-2 [@media(max-height:960px)]:mt-6">
             {SLIDE_KEYS.map((k, i) => (
               <button
                 key={k}
