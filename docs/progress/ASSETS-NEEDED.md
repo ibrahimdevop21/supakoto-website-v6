@@ -5,20 +5,24 @@ below either has a clearly-labelled placeholder or is a verification task.
 
 ## PARTNER LOGOS (added 2026-08-11) — TOP PRIORITY
 
-The homepage partners band (`content/partners.ts`) ships fully built but
-renders **nothing** until a real logo lands and its `confirmed` flag is
-flipped. No fabricated marks — a self-styled TAKAI wordmark is the same
-class of error as SK-BLD. Labelled placeholders sit in
-`public/images/partners/`.
+The homepage partners strip (`content/partners.ts`, shares the first
+viewport with the hero) ships fully built but renders **nothing** until
+a real logo lands and its `confirmed` flag is flipped — the hero simply
+fills the whole viewport until then. No fabricated marks. Labelled
+placeholders sit in `public/images/partners/`.
 
 | Partner | Status | Needed |
 |---|---|---|
-| **TAKAI** | **BLOCKS THE ENTIRE SECTION** — the anchor and only confirmed relationship | Official mark from TAKAI — request via **info@takaifilms.jp** (vector or high-res, light-on-dark friendly) |
 | Mansour Chevrolet | Pending permission (hosts Alexandria branch) | Written permission + the dealership's own mark. NOT `mansour-group-logo.svg` from V2 — parent conglomerate, overstates the relationship |
 | RB Garage | Pending permission (Damietta franchise) | Written permission + logo file |
 
-Reminder: car manufacturer logos (Mercedes, BMW, Porsche, …) are never
-ours to display. V2's `public/partners/` folder is a banned source.
+**TAKAI is out of this strip by decision (2026-08-11)** — mother
+company, not a peer partner. For any other TAKAI brand-asset need,
+official marks are requestable via **info@takaifilms.jp**.
+
+Reminder (reconfirmed 2026-08-11): car manufacturer logos (Mercedes,
+BMW, Porsche, …) are never ours to display. V2's `public/partners/`
+folder is a banned source.
 
 ## Resolved
 

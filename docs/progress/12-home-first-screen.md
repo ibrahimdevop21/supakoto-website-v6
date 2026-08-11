@@ -86,11 +86,44 @@ Local commits only; push/merge on Ibrahim's word.
 - Ops note: the stale Aug-7 dev server was killed and `.next` rebuilt
   clean; a fresh `npm run dev` is serving localhost:3000.
 
+## Amendment (2026-08-11, same day)
+
+Ibrahim re-scoped after seeing the build:
+
+1. **First viewport = nav + hero + partners strip together** (was:
+   hero only, strip revealed on scroll). Implemented as a
+   `min-h-[100svh]` flex column in `page.tsx`; hero becomes `flex-1`.
+   When the strip renders nothing the hero fills the viewport alone —
+   the layout self-adjusts, no conditional styling.
+2. **TAKAI removed from the roster** — mother company (we are its
+   exclusive distributor for EG + UAE), not a peer partner. Entry,
+   placeholder asset, and i18n keys deleted.
+3. **Manufacturer-logo ban RECONFIRMED.** The V2 `public/partners/`
+   car logos were floated and explicitly declined — partners only, no
+   "brands we've worked on" reframing. The ban stands as written.
+4. Marquee bug found & fixed during re-verification: with a small
+   roster, 2 track copies don't span wide screens (visible loop gap at
+   ≥1440px). Copy count is now measured at runtime
+   (`ceil(container/copy) + 1`, window-resize aware); wrap distance is
+   one copy width.
+
+Re-verified after the amendment (Playwright, 5 viewports × 2 locales):
+empty state 10/10 (hero fills fold exactly); strip state 11/11 (hero +
+strip tile the viewport, rail below fold, no-gap coverage at 1920px —
+6 copies); marquee behaviour 15/15 (RTL right / LTR left, hover pause,
+reduced-motion static, grayscale→colour); single lockup 8/8 (centred,
+caption correct both locales, inside first viewport). Ship state
+restored: both entries `confirmed: false`.
+
 ## Next
 
-- Ibrahim requests the TAKAI mark (info@takaifilms.jp), drops it into
-  `public/images/partners/`, points `content/partners.ts` at it, flips
-  `confirmed: true` — section goes live with the centred lockup.
+- Ibrahim secures written permission + real logos for Mansour
+  Chevrolet and/or RB Garage, drops them into
+  `public/images/partners/`, points `content/partners.ts` at them,
+  flips `confirmed: true` — the strip appears inside the first
+  viewport, hero shrinks to make room automatically.
+- TAKAI framing («أفلام تاكاي اليابانية الأصلية») stays where it
+  already lives on the site; not part of this strip.
 - Merge order with `feat/building-heat-isolation`: independent; expect
   a trivial i18n merge (new `home.partners` namespace) and none in
   STRUCTURE-SPEC if the unnumbered insert holds.

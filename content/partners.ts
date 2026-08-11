@@ -13,7 +13,7 @@
  * not the dealership; using it overstates the relationship).
  */
 
-export type PartnerId = "takai" | "mansour-chevrolet" | "rb-garage";
+export type PartnerId = "mansour-chevrolet" | "rb-garage";
 
 export type Partner = {
   id: PartnerId;
@@ -32,16 +32,10 @@ export type Partner = {
   url?: string;
 };
 
+// TAKAI is deliberately NOT in this roster: it is the mother company —
+// SupaKoto is its exclusive distributor for Egypt and UAE — so it does
+// not belong in a peer-partner strip (Ibrahim, 2026-08-11).
 export const partners: Partner[] = [
-  {
-    // The anchor: SupaKoto is exclusive TAKAI distributor for Egypt and
-    // UAE. Real mark pending — request from info@takaifilms.jp. Until it
-    // lands, the whole section stays dark.
-    id: "takai",
-    name: "TAKAI",
-    logo: "/images/partners/placeholder-takai.webp",
-    confirmed: false,
-  },
   {
     // Hosts the Alexandria branch. Permission not yet granted.
     id: "mansour-chevrolet",

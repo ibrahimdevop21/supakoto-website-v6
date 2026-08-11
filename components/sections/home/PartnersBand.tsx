@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useAnimationFrame, useMotionValue, useReducedMotion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
@@ -57,20 +57,37 @@ function Marquee({ items }: { items: Partner[] }) {
   const reduce = useReducedMotion();
   const locale = useLocale();
   const x = useMotionValue(0);
-  const trackRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const firstCopyRef = useRef<HTMLUListElement>(null);
   const paused = useRef(false);
+  // With a small roster, two copies of the logo list may not span a wide
+  // screen — render however many copies cover the container, plus one
+  // spare (the wrap distance), so the loop never shows a gap.
+  const [copies, setCopies] = useState(2);
   // The strip drifts in reading direction: leftwards in LTR, rightwards
   // in RTL. The track itself is pinned to dir="ltr" so the wrap math is
   // one coordinate system regardless of locale.
   const dir = locale === "ar" ? 1 : -1;
 
+  useEffect(() => {
+    const measure = () => {
+      const copyW = firstCopyRef.current?.offsetWidth;
+      const containerW = viewportRef.current?.offsetWidth;
+      if (!copyW || !containerW) return;
+      setCopies(Math.max(2, Math.ceil(containerW / copyW) + 1));
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [items]);
+
   useAnimationFrame((_, delta) => {
-    if (reduce || paused.current || !trackRef.current) return;
-    const half = trackRef.current.scrollWidth / 2;
-    if (!half) return;
+    if (reduce || paused.current) return;
+    const copyW = firstCopyRef.current?.offsetWidth;
+    if (!copyW) return;
     let next = x.get() + (dir * SPEED_PX_PER_S * delta) / 1000;
-    if (next <= -half) next += half;
-    if (next > 0) next -= half;
+    if (next <= -copyW) next += copyW;
+    if (next > 0) next -= copyW;
     x.set(next);
   });
 
@@ -96,12 +113,13 @@ function Marquee({ items }: { items: Partner[] }) {
       onFocusCapture={() => (paused.current = true)}
       onBlurCapture={() => (paused.current = false)}
     >
-      <div dir="ltr" className="overflow-hidden">
-        <motion.div ref={trackRef} style={{ x }} className="flex w-max items-center">
-          {[0, 1].map((copy) => (
+      <div ref={viewportRef} dir="ltr" className="overflow-hidden">
+        <motion.div style={{ x }} className="flex w-max items-center">
+          {Array.from({ length: copies }, (_, copy) => (
             <ul
               key={copy}
-              aria-hidden={copy === 1 || undefined}
+              ref={copy === 0 ? firstCopyRef : undefined}
+              aria-hidden={copy > 0 || undefined}
               className="flex items-center gap-14 pe-14"
             >
               {items.map((p) => (

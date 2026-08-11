@@ -34,8 +34,14 @@ export default async function HomePage({
 
   return (
     <main>
-      <HeroCarousel />
-      <PartnersBand />
+      {/* First screen: header (fixed overlay) + hero + partners strip
+          share exactly one viewport. The hero flexes, the strip takes
+          its natural height — and when zero partners are confirmed the
+          strip renders nothing, so the hero fills the viewport alone. */}
+      <div className="flex min-h-[100svh] flex-col">
+        <HeroCarousel />
+        <PartnersBand />
+      </div>
       <ServicesRail />
       <CtaBand
         title={t("title")}
