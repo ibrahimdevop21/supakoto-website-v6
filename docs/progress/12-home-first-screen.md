@@ -152,14 +152,33 @@ at 1920px), marquee behaviour 15/15 with the 25-brand roster (50 imgs
 row of 25, grayscale-invert rest / colour hover). Screenshot review:
 Ferrari detail and Haval wordmark legible after the treatment fix.
 
+## Amendment 3 (2026-08-11, afternoon) — full V2 set, original colours
+
+Ibrahim: include all V2 partner logos "even the mansour and the samir
+rayan", and remove the overlay — original colours. Shipped:
+
+- `mansour-group.webp` (rendered from the SVG he had earlier banned —
+  inclusion now explicitly named by him, ban lifted) and
+  `samir-rayan.webp` (native 256×144 WebP, trimmed; already >2× the
+  48px display size, not upscaled) join the roster `confirmed: true` →
+  **27 visible marks**, ~360 KB total.
+- Filter overlay removed entirely — no grayscale/invert/opacity; the
+  V2 files are mostly dark-site variants, so original colours stay
+  legible on the strip (screenshot-verified: Samir Rayan orange, BYD
+  red, Geely blue, silver Bentley).
+- Mansour Chevrolet + RB Garage placeholder entries remain
+  `confirmed: false` — dealership entity ≠ Group mark; Ibrahim may
+  drop or keep them.
+
+Verified: first-screen tiling 21/21, marquee behaviour 15/15 with 27
+logos (54 imgs = 2 copies, drift, hover pause, reduced-motion static
+row, `filter: none` at rest and on hover).
+
 ## Next
 
-- Mansour Chevrolet / RB Garage: written permission + real logo →
-  point the entry at the file, flip `confirmed: true`.
-- Auto Samir Rayan (V2 `samer.webp`): not imported — awaiting
-  Ibrahim's explicit word + which branch it hosts (he answered "hosts
-  a branch" to the conditional caption question without selecting the
-  file).
+- Mansour Chevrolet (dealership) / RB Garage: written permission +
+  real logo → point the entry at the file, flip `confirmed: true` —
+  or delete the placeholder entries if the Group mark covers Mansour.
 - TAKAI framing («أفلام تاكاي اليابانية الأصلية») stays where it
   already lives on the site; not part of this strip.
 - Merge order with `feat/building-heat-isolation`: independent; expect

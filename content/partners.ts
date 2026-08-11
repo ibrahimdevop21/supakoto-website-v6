@@ -10,16 +10,19 @@
  * HISTORY OF THE MANUFACTURER-LOGO RULE: the original spec banned car
  * manufacturer logos outright. Ibrahim explicitly reversed that on
  * 2026-08-11 (after twice declining) and chose to import the V2 brand
- * set — the 25 car marks below ship visible. Two files stay banned:
- * mansour-group-logo.svg (parent conglomerate, not the dealership —
- * overstates the relationship) and any fabricated mark (SK-BLD class
- * error). Brand logos were re-rendered to trimmed transparent WebPs
- * from V2's public/partners/ SVGs.
+ * set; later the same day he explicitly named Mansour Group and Auto
+ * Samir Rayan for inclusion too — the entire V2 partners folder now
+ * ships visible, in original colours (no filter overlay, also his
+ * call). Still forbidden: fabricated marks of any kind (SK-BLD class
+ * error). Logos were re-rendered to trimmed transparent WebPs from
+ * V2's public/partners/ files.
  */
 
 export type PartnerId =
   | "mansour-chevrolet"
   | "rb-garage"
+  | "mansour-group"
+  | "samir-rayan"
   | "avatr"
   | "bentley"
   | "bmw"
@@ -81,6 +84,9 @@ export const partners: Partner[] = [
     logo: "/images/partners/placeholder-rb-garage.webp",
     confirmed: false,
   },
+  // Business partners with real marks (named by Ibrahim 2026-08-11).
+  brand("mansour-group", "Mansour Group"),
+  brand("samir-rayan", "Auto Samir Rayan"),
   // Car brands (V2 set, import approved 2026-08-11).
   brand("avatr", "Avatr"),
   brand("bentley", "Bentley"),

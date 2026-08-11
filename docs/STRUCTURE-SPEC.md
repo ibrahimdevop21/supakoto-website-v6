@@ -93,23 +93,24 @@ Section order, top to bottom:
       reading direction (RTL-aware), pauses on hover, static row under
       `prefers-reduced-motion`, grayscale at rest → colour on hover,
       copy count measured at runtime so the loop never shows a gap.
-      Roster: **25 car-brand marks from the V2 set ship visible**
-      (Avatr → Volkswagen; re-rendered from V2's `public/partners/`
-      SVGs to trimmed transparent WebPs, ~340 KB total; rest state is
-      `grayscale invert` so dark marks read on the dark strip) plus
-      Mansour Chevrolet (hosts the Alexandria branch) and RB Garage
-      (Damietta franchise), both `confirmed: false` pending written
-      permission + a real logo. **TAKAI is deliberately excluded**:
-      mother company (SupaKoto is its exclusive distributor for Egypt
-      and UAE), not a peer partner.
+      Logos render in **original colours — no filter overlay**
+      (Ibrahim, 2026-08-11; the earlier grayscale-at-rest spec is
+      dead). Roster: **all 27 unique marks from V2's
+      `public/partners/` ship visible** — 25 car brands (Avatr →
+      Volkswagen; Citroën was duplicated in the source) plus Mansour
+      Group and Auto Samir Rayan, re-rendered to trimmed transparent
+      WebPs (~360 KB total). Mansour Chevrolet (dealership entity) and
+      RB Garage keep `confirmed: false` placeholder entries pending
+      written permission + a real logo. **TAKAI is deliberately
+      excluded**: mother company (SupaKoto is its exclusive
+      distributor for Egypt and UAE), not a peer partner.
       **Manufacturer-logo rule history:** the original spec banned car
       manufacturer logos outright; Ibrahim declined to lift the ban
       twice on 2026-08-11, then explicitly reversed it the same day
       (informed choice, the reversal consequence was stated in the
-      question) and approved importing the V2 brand set. Still banned:
-      `mansour-group-logo.svg` (parent conglomerate — overstates the
-      relationship) and fabricated marks of any kind (SK-BLD class
-      error).
+      question) and later that day named Mansour Group and Auto Samir
+      Rayan for inclusion as well. Only fabricated marks (SK-BLD class
+      error) remain forbidden.
 2. **Services rail** — horizontal snap-scroll of cards, image top, H3, one-line
    benefit. Loops. Their five map to ours:
    - أفلام حماية الطلاء / Paint Protection Film → `/services/ppf`

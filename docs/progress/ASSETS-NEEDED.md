@@ -6,16 +6,16 @@ below either has a clearly-labelled placeholder or is a verification task.
 ## PARTNER LOGOS (added 2026-08-11) — TOP PRIORITY
 
 The homepage partners strip (`content/partners.ts`, shares the first
-viewport with the hero) now ships **visible**: 25 car-brand marks
-imported from V2 (Ibrahim explicitly reversed the manufacturer-logo
-ban on 2026-08-11 after twice declining; re-rendered to trimmed
-transparent WebPs, ~340 KB total). Still pending:
+viewport with the hero) ships **visible with all 27 unique V2 marks in
+original colours**: 25 car brands + Mansour Group + Auto Samir Rayan
+(Ibrahim reversed the manufacturer-logo ban and named the last two
+explicitly, 2026-08-11; assets re-rendered to trimmed transparent
+WebPs, ~360 KB total). Still pending:
 
 | Partner | Status | Needed |
 |---|---|---|
-| Mansour Chevrolet | `confirmed: false` (hosts Alexandria branch) | Written permission + the dealership's own mark. NOT `mansour-group-logo.svg` from V2 — parent conglomerate, overstates the relationship; still banned |
+| Mansour Chevrolet (dealership entity, distinct from the imported Mansour Group mark) | `confirmed: false` placeholder | Written permission + the dealership's own mark, if Ibrahim still wants it alongside the Group logo |
 | RB Garage | `confirmed: false` (Damietta franchise) | Written permission + logo file |
-| Auto Samir Rayan | Not imported — logo exists in V2 (`samer.webp`) but was not selected; Ibrahim noted "hosts a branch" | Ibrahim's word to include it + which branch it hosts, for the caption |
 
 **TAKAI is out of this strip by decision (2026-08-11)** — mother
 company, not a peer partner. For any other TAKAI brand-asset need,

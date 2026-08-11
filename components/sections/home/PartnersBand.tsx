@@ -149,13 +149,8 @@ function PartnerLogo({ partner }: { partner: Partner }) {
       className={cn(
         // Box-constrain wide wordmarks (Jetour, Geely, Lexus…) so they
         // sit in the row at a sane size next to compact roundels.
+        // Original colours, no filter overlay (Ibrahim, 2026-08-11).
         "h-12 w-auto max-w-44 object-contain md:h-14 md:max-w-52",
-        // Rest state: grayscale + invert — dark marks turn light so
-        // they read on the dark strip, while filled marks (Ferrari,
-        // Porsche crests) keep their internal contrast, unlike a flat
-        // brightness-0 silhouette. Hover restores original colour.
-        "opacity-70 grayscale invert transition-[filter,opacity] duration-300",
-        "hover:opacity-100 hover:grayscale-0 hover:invert-0",
       )}
     />
   );
