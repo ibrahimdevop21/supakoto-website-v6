@@ -115,13 +115,51 @@ reduced-motion static, grayscale→colour); single lockup 8/8 (centred,
 caption correct both locales, inside first viewport). Ship state
 restored: both entries `confirmed: false`.
 
+## Amendment 2 (2026-08-11, afternoon) — manufacturer-logo ban reversed
+
+Ibrahim asked to import "the actual partners" from V2's
+`public/partners/`. That folder = 26 car-brand logo files (+ banned
+mansour-group-logo.svg + samer.webp / Auto Samir Rayan). Because the
+request contradicted the ban he had reconfirmed the same morning, it
+went back as an explicit AskUserQuestion whose option text stated the
+reversal consequence — **Ibrahim selected the 26 car-brand logos. The
+ban is reversed by informed choice, 2026-08-11.** Not selected (stay
+out): mansour-group-logo.svg, samer.webp.
+
+What shipped:
+
+- 25 unique brands (Citroën was duplicated in V2) rendered from SVG
+  via headless Chrome → alpha-trimmed → 240px-tall transparent WebPs
+  (~340 KB total, down from 1.1 MB of raster-embedded SVGs). Four had
+  opaque white raster backgrounds knocked out (Haval, Renault, Tesla,
+  Toyota).
+- `content/partners.ts`: 25 brand entries `confirmed: true` + Mansour
+  Chevrolet / RB Garage `confirmed: false`; header comment records the
+  rule history. i18n names for all 27 in both locales (Arabic
+  transliterations for brands); aria label now "الماركات والشركاء" /
+  "Brands & partners".
+- Logo rendering: box-constrained (`max-w` + `object-contain`) so wide
+  wordmarks (Jetour 2510×240) sit evenly next to roundels; rest state
+  changed from brightness-0 silhouette (destroyed Ferrari's shield,
+  made white-bg rasters into solid boxes) to `grayscale invert`,
+  hover = original colour.
+- Placeholders regenerated with transparent backgrounds so filters
+  don't turn them into white tiles.
+
+Verified: first-screen tiling 21/21 (5 viewports × 2 locales + no-gap
+at 1920px), marquee behaviour 15/15 with the 25-brand roster (50 imgs
+= 2 measured copies, RTL/LTR drift, hover pause, reduced-motion static
+row of 25, grayscale-invert rest / colour hover). Screenshot review:
+Ferrari detail and Haval wordmark legible after the treatment fix.
+
 ## Next
 
-- Ibrahim secures written permission + real logos for Mansour
-  Chevrolet and/or RB Garage, drops them into
-  `public/images/partners/`, points `content/partners.ts` at them,
-  flips `confirmed: true` — the strip appears inside the first
-  viewport, hero shrinks to make room automatically.
+- Mansour Chevrolet / RB Garage: written permission + real logo →
+  point the entry at the file, flip `confirmed: true`.
+- Auto Samir Rayan (V2 `samer.webp`): not imported — awaiting
+  Ibrahim's explicit word + which branch it hosts (he answered "hosts
+  a branch" to the conditional caption question without selecting the
+  file).
 - TAKAI framing («أفلام تاكاي اليابانية الأصلية») stays where it
   already lives on the site; not part of this strip.
 - Merge order with `feat/building-heat-isolation`: independent; expect

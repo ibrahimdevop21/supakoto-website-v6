@@ -46,7 +46,9 @@ function SingleLockup({ partner }: { partner: Partner }) {
     <Band label={t("aria")}>
       <div className="flex flex-col items-center gap-3 px-(--spacing-gutter)">
         <PartnerLogo partner={partner} />
-        <p className="text-small text-fg-muted">{t(`items.${partner.id}.line`)}</p>
+        {t.has(`items.${partner.id}.line`) && (
+          <p className="text-small text-fg-muted">{t(`items.${partner.id}.line`)}</p>
+        )}
       </div>
     </Band>
   );
@@ -145,8 +147,15 @@ function PartnerLogo({ partner }: { partner: Partner }) {
       height={192}
       unoptimized
       className={cn(
-        "h-12 w-auto opacity-70 grayscale transition-[filter,opacity] duration-300 md:h-14",
-        "hover:opacity-100 hover:grayscale-0",
+        // Box-constrain wide wordmarks (Jetour, Geely, Lexus…) so they
+        // sit in the row at a sane size next to compact roundels.
+        "h-12 w-auto max-w-44 object-contain md:h-14 md:max-w-52",
+        // Rest state: grayscale + invert — dark marks turn light so
+        // they read on the dark strip, while filled marks (Ferrari,
+        // Porsche crests) keep their internal contrast, unlike a flat
+        // brightness-0 silhouette. Hover restores original colour.
+        "opacity-70 grayscale invert transition-[filter,opacity] duration-300",
+        "hover:opacity-100 hover:grayscale-0 hover:invert-0",
       )}
     />
   );

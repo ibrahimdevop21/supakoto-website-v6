@@ -1,41 +1,72 @@
 /**
- * Homepage partner strip. Display strings live in messages under
- * home.partners.items.<id>.* — this file is structure only.
+ * Homepage partner strip (shares the first viewport with the hero).
+ * Display strings live in messages under home.partners.items.<id>.* —
+ * this file is structure only.
  *
  * Only entries with `confirmed: true` render. With zero confirmed
- * entries the band renders nothing at all — no empty state, no
- * reserved space.
+ * entries the strip renders nothing at all — no empty state, no
+ * reserved space — and the hero fills the viewport alone.
  *
- * TRADEMARK RULE: car manufacturer logos (Mercedes, BMW, Porsche,
- * Lamborghini, …) are never ours to display. Do not add them, now or
- * later. V2's public/partners/ folder is a banned source in its
- * entirety — including mansour-group-logo.svg (parent conglomerate,
- * not the dealership; using it overstates the relationship).
+ * HISTORY OF THE MANUFACTURER-LOGO RULE: the original spec banned car
+ * manufacturer logos outright. Ibrahim explicitly reversed that on
+ * 2026-08-11 (after twice declining) and chose to import the V2 brand
+ * set — the 25 car marks below ship visible. Two files stay banned:
+ * mansour-group-logo.svg (parent conglomerate, not the dealership —
+ * overstates the relationship) and any fabricated mark (SK-BLD class
+ * error). Brand logos were re-rendered to trimmed transparent WebPs
+ * from V2's public/partners/ SVGs.
  */
 
-export type PartnerId = "mansour-chevrolet" | "rb-garage";
+export type PartnerId =
+  | "mansour-chevrolet"
+  | "rb-garage"
+  | "avatr"
+  | "bentley"
+  | "bmw"
+  | "byd"
+  | "changan"
+  | "chery"
+  | "citroen"
+  | "ferrari"
+  | "geely"
+  | "haval"
+  | "hyundai"
+  | "jetour"
+  | "kia"
+  | "lamborghini"
+  | "lexus"
+  | "mercedes-benz"
+  | "nissan"
+  | "peugeot"
+  | "porsche"
+  | "renault"
+  | "rolls-royce"
+  | "skoda"
+  | "tesla"
+  | "toyota"
+  | "volkswagen";
 
 export type Partner = {
   id: PartnerId;
   /** Canonical trade name (localized display name in messages). */
   name: string;
-  /**
-   * Path under public/. Every current file is a labelled placeholder —
-   * drop the real mark in, point this at it, then flip `confirmed`.
-   */
+  /** Path under public/. */
   logo: string;
-  /**
-   * Renders only when true. Flip only with the partner's written
-   * permission AND a real logo in place — never over a placeholder.
-   */
+  /** Renders only when true. */
   confirmed: boolean;
   url?: string;
 };
 
-// TAKAI is deliberately NOT in this roster: it is the mother company —
-// SupaKoto is its exclusive distributor for Egypt and UAE — so it does
-// not belong in a peer-partner strip (Ibrahim, 2026-08-11).
+const brand = (id: PartnerId, name: string): Partner => ({
+  id,
+  name,
+  logo: `/images/partners/${id}.webp`,
+  confirmed: true,
+});
+
 export const partners: Partner[] = [
+  // Business partners — placeholders until written permission AND a
+  // real logo land; flip `confirmed` only then.
   {
     // Hosts the Alexandria branch. Permission not yet granted.
     id: "mansour-chevrolet",
@@ -50,4 +81,30 @@ export const partners: Partner[] = [
     logo: "/images/partners/placeholder-rb-garage.webp",
     confirmed: false,
   },
+  // Car brands (V2 set, import approved 2026-08-11).
+  brand("avatr", "Avatr"),
+  brand("bentley", "Bentley"),
+  brand("bmw", "BMW"),
+  brand("byd", "BYD"),
+  brand("changan", "Changan"),
+  brand("chery", "Chery"),
+  brand("citroen", "Citroën"),
+  brand("ferrari", "Ferrari"),
+  brand("geely", "Geely"),
+  brand("haval", "Haval"),
+  brand("hyundai", "Hyundai"),
+  brand("jetour", "Jetour"),
+  brand("kia", "Kia"),
+  brand("lamborghini", "Lamborghini"),
+  brand("lexus", "Lexus"),
+  brand("mercedes-benz", "Mercedes-Benz"),
+  brand("nissan", "Nissan"),
+  brand("peugeot", "Peugeot"),
+  brand("porsche", "Porsche"),
+  brand("renault", "Renault"),
+  brand("rolls-royce", "Rolls-Royce"),
+  brand("skoda", "Škoda"),
+  brand("tesla", "Tesla"),
+  brand("toyota", "Toyota"),
+  brand("volkswagen", "Volkswagen"),
 ];

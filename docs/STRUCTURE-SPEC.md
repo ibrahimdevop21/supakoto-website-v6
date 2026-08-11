@@ -93,17 +93,23 @@ Section order, top to bottom:
       reading direction (RTL-aware), pauses on hover, static row under
       `prefers-reduced-motion`, grayscale at rest → colour on hover,
       copy count measured at runtime so the loop never shows a gap.
-      Roster — actual partners only: Mansour Chevrolet (hosts the
-      Alexandria branch — pending permission), RB Garage (Damietta
-      franchise — pending permission). **TAKAI is deliberately
-      excluded**: mother company (SupaKoto is its exclusive distributor
-      for Egypt and UAE), not a peer partner. Both entries ship
-      `confirmed: false` — no real logo exists locally, and fabricating
-      a mark is forbidden, same class of error as SK-BLD. **TRADEMARK
-      RULE (reconfirmed by Ibrahim 2026-08-11): car manufacturer logos
-      are never ours to display — do not add them, now or later, and no
-      "brands we've worked on" reframing. V2's `public/partners/`
-      folder is a banned source in its entirety.**
+      Roster: **25 car-brand marks from the V2 set ship visible**
+      (Avatr → Volkswagen; re-rendered from V2's `public/partners/`
+      SVGs to trimmed transparent WebPs, ~340 KB total; rest state is
+      `grayscale invert` so dark marks read on the dark strip) plus
+      Mansour Chevrolet (hosts the Alexandria branch) and RB Garage
+      (Damietta franchise), both `confirmed: false` pending written
+      permission + a real logo. **TAKAI is deliberately excluded**:
+      mother company (SupaKoto is its exclusive distributor for Egypt
+      and UAE), not a peer partner.
+      **Manufacturer-logo rule history:** the original spec banned car
+      manufacturer logos outright; Ibrahim declined to lift the ban
+      twice on 2026-08-11, then explicitly reversed it the same day
+      (informed choice, the reversal consequence was stated in the
+      question) and approved importing the V2 brand set. Still banned:
+      `mansour-group-logo.svg` (parent conglomerate — overstates the
+      relationship) and fabricated marks of any kind (SK-BLD class
+      error).
 2. **Services rail** — horizontal snap-scroll of cards, image top, H3, one-line
    benefit. Loops. Their five map to ours:
    - أفلام حماية الطلاء / Paint Protection Film → `/services/ppf`

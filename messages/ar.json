@@ -76,7 +76,7 @@
       "b2bCta": "اطلب عرض سعر"
     },
     "partners": {
-      "aria": "شركاء سوباكوتو",
+      "aria": "الماركات والشركاء",
       "items": {
         "mansour-chevrolet": {
           "name": "منصور شيفروليه",
@@ -85,6 +85,81 @@
         "rb-garage": {
           "name": "آر بي جراج",
           "line": "شريك الامتياز في دمياط"
+        },
+        "avatr": {
+          "name": "أفاتر"
+        },
+        "bentley": {
+          "name": "بنتلي"
+        },
+        "bmw": {
+          "name": "بي إم دبليو"
+        },
+        "byd": {
+          "name": "بي واي دي"
+        },
+        "changan": {
+          "name": "شانجان"
+        },
+        "chery": {
+          "name": "شيري"
+        },
+        "citroen": {
+          "name": "ستروين"
+        },
+        "ferrari": {
+          "name": "فيراري"
+        },
+        "geely": {
+          "name": "جيلي"
+        },
+        "haval": {
+          "name": "هافال"
+        },
+        "hyundai": {
+          "name": "هيونداي"
+        },
+        "jetour": {
+          "name": "جيتور"
+        },
+        "kia": {
+          "name": "كيا"
+        },
+        "lamborghini": {
+          "name": "لامبورجيني"
+        },
+        "lexus": {
+          "name": "لكزس"
+        },
+        "mercedes-benz": {
+          "name": "مرسيدس-بنز"
+        },
+        "nissan": {
+          "name": "نيسان"
+        },
+        "peugeot": {
+          "name": "بيجو"
+        },
+        "porsche": {
+          "name": "بورشه"
+        },
+        "renault": {
+          "name": "رينو"
+        },
+        "rolls-royce": {
+          "name": "رولز-رويس"
+        },
+        "skoda": {
+          "name": "سكودا"
+        },
+        "tesla": {
+          "name": "تسلا"
+        },
+        "toyota": {
+          "name": "تويوتا"
+        },
+        "volkswagen": {
+          "name": "فولكس فاجن"
         }
       }
     }

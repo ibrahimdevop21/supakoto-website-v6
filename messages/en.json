@@ -76,7 +76,7 @@
       "b2bCta": "Request a quote"
     },
     "partners": {
-      "aria": "SupaKoto partners",
+      "aria": "Brands & partners",
       "items": {
         "mansour-chevrolet": {
           "name": "Mansour Chevrolet",
@@ -85,6 +85,81 @@
         "rb-garage": {
           "name": "RB Garage",
           "line": "Damietta franchise partner"
+        },
+        "avatr": {
+          "name": "Avatr"
+        },
+        "bentley": {
+          "name": "Bentley"
+        },
+        "bmw": {
+          "name": "BMW"
+        },
+        "byd": {
+          "name": "BYD"
+        },
+        "changan": {
+          "name": "Changan"
+        },
+        "chery": {
+          "name": "Chery"
+        },
+        "citroen": {
+          "name": "Citroën"
+        },
+        "ferrari": {
+          "name": "Ferrari"
+        },
+        "geely": {
+          "name": "Geely"
+        },
+        "haval": {
+          "name": "Haval"
+        },
+        "hyundai": {
+          "name": "Hyundai"
+        },
+        "jetour": {
+          "name": "Jetour"
+        },
+        "kia": {
+          "name": "Kia"
+        },
+        "lamborghini": {
+          "name": "Lamborghini"
+        },
+        "lexus": {
+          "name": "Lexus"
+        },
+        "mercedes-benz": {
+          "name": "Mercedes-Benz"
+        },
+        "nissan": {
+          "name": "Nissan"
+        },
+        "peugeot": {
+          "name": "Peugeot"
+        },
+        "porsche": {
+          "name": "Porsche"
+        },
+        "renault": {
+          "name": "Renault"
+        },
+        "rolls-royce": {
+          "name": "Rolls-Royce"
+        },
+        "skoda": {
+          "name": "Škoda"
+        },
+        "tesla": {
+          "name": "Tesla"
+        },
+        "toyota": {
+          "name": "Toyota"
+        },
+        "volkswagen": {
+          "name": "Volkswagen"
         }
       }
     }
