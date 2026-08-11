@@ -1,5 +1,22 @@
 # Assets needed — running log
 
+## ⛔ BLOCKING — TAKAI product confirmation (added 2026-08-11)
+
+Two new services enter the catalogue with **no confirmed TAKAI
+product**. Both pages ship with every spec slot as a labelled TODO —
+no product codes, no spec figures, no warranty terms, nothing adapted
+from the automotive PPF page (inventing here is the SK-BLD error
+class). **Launch of each is blocked** until TAKAI confirms in writing
+(info@takaifilms.jp):
+
+| Service | Blocked on |
+|---|---|
+| Marine PPF (`/services/marine-ppf`) | Does TAKAI have a film rated for boat hulls (gelcoat, UV, salt water)? Product name, specs, warranty — all unknown |
+| Interior Surface Protection (`/services/interior-protection`) | Does TAKAI have a film for marble / high-value interior surfaces? Product name, specs, warranty — all unknown |
+
+Photography for both is also missing (no placeholder brief yet —
+write one when products are confirmed).
+
 Updated after the V2_Prod photography harvest (2026-08-05). Everything
 below either has a clearly-labelled placeholder or is a verification task.
 

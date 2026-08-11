@@ -45,6 +45,14 @@ RTL / left in LTR. Two-level nav with dropdowns:
 
 - الرئيسية / Home
 - من نحن / About → [About, FAQ]
+- خدماتنا / Services → [كل الخدمات (index), أفلام حماية الطلاء,
+  العازل الحراري — سيارات, عزل حراري للمباني, تغيير اللون,
+  النانو سيراميك, حماية القوارب, حماية الأسطح الداخلية]
+  — dropdown added on `feat/building-heat-isolation`; the 2026-08-11
+  restructure REMOVES التلميع from it and ADDS Marine PPF + Interior
+  Surface Protection. (Conflict note: this line edits the same region
+  the buildings branch touched — resolve in its favour on structure,
+  this list on content.)
 - أعمالنا / Our Work → [Gallery]
 - احجز / Book
 - الضمان / Warranty → [Warranty Policy, Warranty Claim]
@@ -111,13 +119,36 @@ Section order, top to bottom:
       question) and later that day named Mansour Group and Auto Samir
       Rayan for inclusion as well. Only fabricated marks (SK-BLD class
       error) remain forbidden.
-2. **Services rail** — horizontal snap-scroll of cards, image top, H3, one-line
-   benefit. Loops. Their five map to ours:
-   - أفلام حماية الطلاء / Paint Protection Film → `/services/ppf`
-   - العازل الحراري / Heat Isolation → `/services/heat-isolation`
-   - تغيير اللون / Colour Change → `/services/colour-change`
-   - النانو سيراميك / Nano Ceramic → `/services/nano-ceramic`
-   - التلميع / Polishing → `/services/polishing`
+2. **Services grid (restructured 2026-08-11)** — SupaKoto is no longer
+   framed as car-only: protection film goes on vehicles, buildings,
+   boats, and high-value interior surfaces. "Five ways we protect your
+   car" / «خمس طرق نحمي بيها عربيتك» is DEAD — the new heading covers
+   everything we protect. PROPOSED copy (MSA, Ibrahim signs off):
+   «كل ما يستحق الحماية، نحميه» / "Everything worth protecting" —
+   with sub «سيارات ومبانٍ وقوارب وأسطح داخلية — أفلام تاكاي اليابانية
+   نفسها» / "Cars, buildings, boats, interiors — the same Japanese
+   TAKAI films."
+   Layout: the horizontal snap-rail is replaced by a responsive
+   wrapping flex grid, full container width, equal-height cards,
+   consistent gaps, max 4 per row: 1 column mobile / 2 tablet /
+   3 desktop / 4 wide. Cards wrap to the next row; NO horizontal
+   overflow at any breakpoint. Seven cards:
+   - أفلام حماية الطلاء / Paint Protection Film → `/services/ppf` (vehicle)
+   - العازل الحراري / Heat Isolation → `/services/heat-isolation` (vehicle)
+   - تغيير اللون / Colour Change → `/services/colour-change` (vehicle)
+   - النانو سيراميك / Nano Ceramic → `/services/nano-ceramic` (vehicle)
+   - عزل حراري للمباني / Building Heat Isolation →
+     `/services/building-heat-isolation` (building — built on
+     `feat/building-heat-isolation`; its dual-destination treatment on
+     the automotive heat-isolation card is RETIRED once it has its own
+     card here)
+   - حماية القوارب / Marine PPF → `/services/marine-ppf` (marine)
+   - حماية الأسطح الداخلية / Interior Surface Protection →
+     `/services/interior-protection` (interior)
+   - **التلميع / Polishing is REMOVED entirely** — every surface,
+     every route, all i18n keys. `/services/polishing` gets a 301 to
+     `/services` (record in docs/REDIRECTS.md, implement in
+     next.config).
 3. **"اعرف المزيد"** — single wide CTA band into `/services`.
 4. **أعمالنا / Our Work** — section header + subline, then a 3-across masonry
    preview pulling 9 items from `/gallery`. Reuse the V5 uniform-grid component.
@@ -152,9 +183,18 @@ Section order, top to bottom:
 
 ## `/services` and `/services/[slug]`
 
-Index: hero + 5 service cards, full-bleed alternating rows.
+**Restructured 2026-08-11.** The catalogue is seven services across
+four substrates. `Service.substrate` extends from
+`"vehicle" | "building"` to
+`"vehicle" | "building" | "marine" | "interior"`.
+Only `substrate === "vehicle"` services appear in the booking wizard.
+Polishing is deleted from the catalogue (route 301s to `/services`).
 
-Detail template (same for all 5):
+Index: hero + 7 service cards, full-bleed alternating rows. Non-vehicle
+cards are visually distinguished by substrate (pattern already
+established by the buildings card).
+
+Detail template for the four VEHICLE services (unchanged):
 1. Hero image + H1 + benefit subline
 2. "المشكلة" — the pain (stone chips, swirl marks, heat, resale value)
 3. "الحل" — what the product does, 3–4 bullets
@@ -164,12 +204,41 @@ Detail template (same for all 5):
 7. FAQ accordion, 4–6 items
 8. Booking CTA
 
+Building Heat Isolation keeps its own diverged template (built on
+`feat/building-heat-isolation`, TK-7099-IR, quote form).
+
+**Marine PPF (`/services/marine-ppf`, substrate "marine") and Interior
+Surface Protection (`/services/interior-protection`, substrate
+"interior") — ⚠️ NO CONFIRMED TAKAI PRODUCT EXISTS for either.**
+Automotive PPF is TPU engineered for painted panels; boat hulls
+(gelcoat, UV + salt water) and marble/interior surfaces may need a
+different film entirely, and TAKAI's catalogue mentions neither. Hard
+rules for both pages, spec-level law:
+- NO product codes, NO spec figures, NO warranty terms, NO material
+  claims. Every spec slot renders a labelled TODO
+  («بانتظار تأكيد المنتج من تاكاي» / "Pending product confirmation
+  from TAKAI").
+- Do NOT copy or adapt anything from the automotive PPF page.
+- Do NOT invent product names or numbers — inventing SK-BLD is
+  exactly how this class of error happened before.
+- Page structure: hero + problem/solution framing in general terms +
+  TODO spec block + contact/quote CTA (wa.me routing like buildings).
+  No package tiers, no before/after (no photography exists), no FAQ
+  until products are confirmed.
+- Both services are BLOCKED for launch on written product
+  confirmation from TAKAI (tracked in ASSETS-NEEDED as blocking).
+
 ---
 
 ## `/booking`
 
 Multi-step, one question per screen with a progress bar:
 Region → Branch → Service → Car make/model → Date → Time → Contact → Confirm.
+
+Service step offers ONLY `substrate === "vehicle"` services (four
+after the 2026-08-11 restructure: PPF, Heat Isolation, Colour Change,
+Nano Ceramic). Building/marine/interior route to their own quote
+flows, never through the car booking wizard.
 
 Branch capacity is enforced server-side. Known caps: التجمع 8, زايد 6,
 المعادي 3. Post to the bdm-flow Supabase project — do **not** rebuild booking
