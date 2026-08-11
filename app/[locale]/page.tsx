@@ -34,11 +34,12 @@ export default async function HomePage({
 
   return (
     <main>
-      {/* First screen: header (fixed overlay) + hero + partners strip
-          share exactly one viewport. The hero flexes, the strip takes
-          its natural height — and when zero partners are confirmed the
-          strip renders nothing, so the hero fills the viewport alone. */}
-      <div className="flex min-h-[100svh] flex-col">
+      {/* First screen: nav (fixed, pt-18 reserves its 72px) + hero +
+          partners strip tile EXACTLY one viewport. h-[100svh], not
+          min-h: total height is locked and never derived from slide
+          content — the hero clips internally (min-h-0/overflow-hidden)
+          and every copy row inside it has a reserved fixed height. */}
+      <div className="flex h-[100svh] flex-col pt-18">
         <HeroCarousel />
         <PartnersBand />
       </div>

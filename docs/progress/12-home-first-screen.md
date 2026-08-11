@@ -229,6 +229,52 @@ the strip, "sometimes it works." Systematic debugging, root cause:
   Strip and chrome-polish regression suites re-run green. Worth
   porting into a permanent E2E harness if the project ever grows one.
 
+## Amendment 6 (2026-08-11, night) — deterministic first screen
+
+Single goal: nav + hero + strip fill exactly one viewport with locked,
+content-independent geometry. Supersedes amendment 5's media-query
+padding approach.
+
+Architecture:
+
+- Column: `h-[100svh] pt-18 flex flex-col` (exact height, not min-h).
+  `pt-18` reserves the fixed header's 72px — the hero now sits BELOW
+  the nav instead of bleeding under a transparent overlay (nav zone
+  shows body ink-950; visually a solid bar).
+- Hero: `flex-1 min-h-0 overflow-hidden` — takes exactly what the nav
+  and strip don't; can never stretch the column.
+- Strip: fixed `h-32` (128px) in all three states; reduced-motion
+  static row became a single non-wrapping `overflow-x-auto` row so 27
+  logos can't wrap past the reserve.
+- Hero copy rows have RESERVED heights (lh-unit boxes resolve against
+  each row's own line-height): title `h-[5lh] sm:h-[4lh]` +
+  `line-clamp-5 sm:line-clamp-4` (bottom-anchored), sub `h-[3lh]
+  md:h-[2lh]` + matching clamps; button/dots constant. Long titles
+  clamp inside the reserve instead of pushing layout. Title container
+  widened `max-w-2xl → max-w-4xl` so the longest EN title fits its
+  4-line desktop reserve at 80px type. Copy paddings fixed
+  `pt-6/pb-10` (pt-40 was a transparent-header artifact).
+- `--text-display` keeps the `min(6vw, 8.5svh)` height-aware cap.
+
+Acceptance test (`test-pixel-lock.mjs`, scratchpad): cycles all 5
+slides × both locales × the 5 spec viewports asserting column ==
+viewport exactly, hero top == 72, strip bottom == fold, strip == 128,
+ZERO pixel movement of hero/strip/title-box/sub-box/button/dots
+between slides, no true text clipping (half-line ink threshold — the
+1.05 leading always overflows descender ink by ~12px, which is not
+clipping), and geometry identical after a resize round-trip. 70/70
+PASS. Two methodology lessons recorded: measure only after transform
+settle (slide enter/exit runs 1.2s), and don't equate scrollHeight >
+clientHeight with clamping under tight leading.
+
+Also: Button gains `whitespace-nowrap` in base — the nav CTA wrapped
+to two lines at 390px and overflowed the new fixed h-9.
+
+Known pre-existing (NOT touched, out of scope): the nav CTA is
+visible on mobile despite `hidden md:inline-flex` — Button's base
+`inline-flex` wins over `hidden` in stylesheet order (same plain-join
+cn() class of bug as the old py conflict). Flag for a later pass.
+
 ## Next
 
 - Mansour Chevrolet (dealership) / RB Garage: written permission +

@@ -31,7 +31,9 @@ function Band({
   return (
     <section
       aria-label={label}
-      className="border-b border-ink-700 py-10"
+      // Fixed 128px: the strip is the bottom row of the locked 100svh
+      // first screen — its height must never derive from content.
+      className="flex h-32 shrink-0 flex-col justify-center border-b border-ink-700"
       {...rest}
     >
       {children}
@@ -44,7 +46,7 @@ function SingleLockup({ partner }: { partner: Partner }) {
   const t = useTranslations("home.partners");
   return (
     <Band label={t("aria")}>
-      <div className="flex flex-col items-center gap-3 px-(--spacing-gutter)">
+      <div className="flex flex-col items-center gap-2 px-(--spacing-gutter)">
         <PartnerLogo partner={partner} />
         {t.has(`items.${partner.id}.line`) && (
           <p className="text-small text-fg-muted">{t(`items.${partner.id}.line`)}</p>
@@ -94,11 +96,13 @@ function Marquee({ items }: { items: Partner[] }) {
   });
 
   if (reduce) {
+    // Static single row inside the fixed-height band; horizontal
+    // scroll instead of wrapping so the 128px reserve always holds.
     return (
       <Band label={t("aria")}>
-        <ul className="flex flex-wrap items-center justify-center gap-x-14 gap-y-6 px-(--spacing-gutter)">
+        <ul className="flex items-center gap-14 overflow-x-auto px-(--spacing-gutter)">
           {items.map((p) => (
-            <li key={p.id}>
+            <li key={p.id} className="shrink-0">
               <PartnerLogo partner={p} />
             </li>
           ))}
