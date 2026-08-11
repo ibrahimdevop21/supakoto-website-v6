@@ -149,6 +149,9 @@ function HeroVideo() {
  */
 function SlideCopy({ slideKey }: { slideKey: (typeof SLIDE_KEYS)[number] }) {
   const t = useTranslations("home.hero");
+  // The hero CTA and the header CTA are the same action and must stay
+  // identical in label and size — one key, one size (Ibrahim, 2026-08-11).
+  const tNav = useTranslations("nav");
   return (
     <>
       <div className="flex h-[5lh] items-end font-display text-display font-bold sm:h-[4lh]">
@@ -161,8 +164,8 @@ function SlideCopy({ slideKey }: { slideKey: (typeof SLIDE_KEYS)[number] }) {
           {t(`slides.${slideKey}.sub`)}
         </p>
       </div>
-      <Button href="/booking" className="mt-8">
-        {t("cta")}
+      <Button href="/booking" size="sm" className="mt-8">
+        {tNav("cta")}
       </Button>
     </>
   );
