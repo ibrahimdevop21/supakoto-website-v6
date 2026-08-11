@@ -37,7 +37,7 @@ export function HeroCarousel() {
   const animateIn = cycled && !reduce;
 
   return (
-    <section className="relative flex min-h-[80svh] items-end overflow-hidden border-b border-ink-700">
+    <section className="relative flex min-h-[100svh] items-end overflow-hidden border-b border-ink-700">
       {/* Base photo — SSR-visible (LCP), stays if video can't play */}
       <div className="absolute inset-0">
         <Image
