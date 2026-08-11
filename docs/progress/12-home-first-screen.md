@@ -174,6 +174,33 @@ Verified: first-screen tiling 21/21, marquee behaviour 15/15 with 27
 logos (54 imgs = 2 copies, drift, hover pause, reduced-motion static
 row, `filter: none` at rest and on hover).
 
+## Amendment 4 (2026-08-11, evening) — chrome polish
+
+Approved brief, three items:
+
+1. **Logo**: header + drawer-adjacent top bar + footer now use the V2
+   horizontal lockup (red SK roundel + SUPA KOTO + tagline). The 154 KB
+   traced SVG was rendered once to `public/brand/logo-lockup.webp`
+   (353×150, 19 KB); source archived in `assets/source/v2-brand/`.
+2. **Hero copy → MSA**: ported verbatim from the buildings branch
+   (approved wording) — `home.hero.*` (5 slides + CTA «احجز موعدا»),
+   `nav.cta` («احجز الآن»), dialect fixes in `nav`/`chrome`
+   (openMenu/closeMenu, region modal, whatsapp label), and
+   `home.title` (browser-tab title). Buildings-only `nav.services*`
+   keys were NOT ported (no Services dropdown on this branch; key
+   symmetry with en.json verified). Remaining dialect below the fold
+   ships with the buildings merge.
+3. **Header cluster**: root cause of the size mismatch — `cn()` is a
+   plain join, so the header's `py-1.5` override lost to Button's
+   variant `py-3` in stylesheet order. Button gains a `size` prop
+   (`md` unchanged default / `sm` = h-9 px-4 text-small; padding
+   moved out of variants, link variant keeps text-body); switcher
+   chips become h-9 inline-flex. All three controls verified 36 px,
+   4 px radius, 14 px type in both locales.
+
+Verified: chrome-polish checks 12/12, no dialect in header or first
+screen, lockup logo served, build/lint/typecheck green.
+
 ## Next
 
 - Mansour Chevrolet (dealership) / RB Garage: written permission +

@@ -18,7 +18,7 @@ and still gated on smoke checklist v2.
 |---|---|---|
 | `main` | = origin/main (`11be7a9`), deployed on Vercel | — |
 | `feat/building-heat-isolation` | 6 commits, ends `fe0c582` | Ibrahim's smoke checklist v2 → his merge word |
-| `feat/home-first-screen` | 5 commits, ends `0b8dedf`, tree clean | Ibrahim's review → his merge word |
+| `feat/home-first-screen` | 7 commits (see progress doc 12, amendments 1–4), tree clean | Ibrahim's review → his merge word |
 
 `feat/home-first-screen` commits: e227ddf hero 100svh → f59c5de
 partners band (dark) → ae09cf6 first-screen column + TAKAI out →

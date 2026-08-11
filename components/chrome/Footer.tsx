@@ -7,7 +7,7 @@ import { SOCIAL_LINKS } from "@/lib/nav";
 import { SOCIAL_ICONS, PhoneIcon, WhatsAppIcon } from "@/components/icons";
 import { useRegion } from "@/components/providers/RegionProvider";
 import { TrustBadges } from "@/components/chrome/TrustBadges";
-import logoWhite from "@/public/brand/logo-white.png";
+import logoLockup from "@/public/brand/logo-lockup.webp";
 
 export function Footer() {
   const t = useTranslations("footer");
@@ -20,7 +20,7 @@ export function Footer() {
       <div className="mx-auto w-full max-w-(--container-content) px-(--spacing-gutter) py-16">
         {/* Zone 1 — logo + tagline */}
         <div className="flex flex-col items-center gap-4 text-center">
-          <Image src={logoWhite} alt={tNav("logoAlt")} className="h-12 w-auto" />
+          <Image src={logoLockup} alt={tNav("logoAlt")} className="h-12 w-auto" />
           <p className="max-w-md text-fg-muted">{t("tagline")}</p>
         </div>
 

@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/Button";
 import { LocaleSwitcher } from "@/components/chrome/LocaleSwitcher";
 import { RegionPicker } from "@/components/chrome/RegionPicker";
 import { ChevronDown, CloseIcon, MenuIcon } from "@/components/icons";
-import logoWhite from "@/public/brand/logo-white.png";
+import logoLockup from "@/public/brand/logo-lockup.webp";
 
 export function Header() {
   const t = useTranslations("nav");
@@ -47,7 +47,7 @@ export function Header() {
           className="shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
         >
           <Image
-            src={logoWhite}
+            src={logoLockup}
             alt={t("logoAlt")}
             className="h-9 w-auto"
             priority
@@ -66,7 +66,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <LocaleSwitcher />
           <RegionPicker className="hidden sm:block" />
-          <Button href="/booking" className="hidden md:inline-flex px-4 py-1.5 text-small">
+          <Button href="/booking" size="sm" className="hidden md:inline-flex">
             {t("cta")}
           </Button>
           <button
