@@ -74,6 +74,23 @@
       "b2bTitle": "Fleets & companies",
       "b2bSub": "Fleet protection, dealerships, and SK-BLD building film",
       "b2bCta": "Request a quote"
+    },
+    "partners": {
+      "aria": "SupaKoto partners",
+      "items": {
+        "takai": {
+          "name": "TAKAI",
+          "line": "Genuine Japanese TAKAI films"
+        },
+        "mansour-chevrolet": {
+          "name": "Mansour Chevrolet",
+          "line": "Home of our Alexandria branch"
+        },
+        "rb-garage": {
+          "name": "RB Garage",
+          "line": "Damietta franchise partner"
+        }
+      }
     }
   },
   "nav": {

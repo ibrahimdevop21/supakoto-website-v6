@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/metadata";
 import { HeroCarousel } from "@/components/sections/home/HeroCarousel";
+import { PartnersBand } from "@/components/sections/home/PartnersBand";
 import { ServicesRail } from "@/components/sections/home/ServicesRail";
 import { WorkPreview } from "@/components/sections/home/WorkPreview";
 import { FeatureGrid } from "@/components/sections/home/FeatureGrid";
@@ -34,6 +35,7 @@ export default async function HomePage({
   return (
     <main>
       <HeroCarousel />
+      <PartnersBand />
       <ServicesRail />
       <CtaBand
         title={t("title")}

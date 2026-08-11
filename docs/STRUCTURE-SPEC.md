@@ -77,6 +77,31 @@ Section order, top to bottom:
 
 1. **Hero carousel** — full-bleed, 5–6 slides, autoplay 6s, one CTA overlay
    linking to `/booking`. Ken Burns drift on the image, Framer Motion.
+   **Height (2026-08-11):** `min-h-[100svh]` — fills the first viewport
+   exactly (svh, never vh, to avoid the mobile browser-chrome jump). The
+   hero keeps flowing under the fixed transparent header; nothing from any
+   section below is visible at initial scroll position. Not a literal
+   `calc(100svh - header)` — that would land the fold 72px early.
+1.5 **Partners band (2026-08-11)** — a strip directly below the hero,
+   before the services rail; the first thing revealed on scroll.
+   `content/partners.ts` is structure-only (id, name, logo path,
+   `confirmed` flag, optional URL); display strings in
+   `home.partners.*`. Only `confirmed: true` entries render — zero
+   confirmed renders NOTHING (no empty state, no reserved space; the
+   page flows hero → rail as before). One confirmed → centred static
+   lockup with its framing line, never a one-item scroller. Two+ →
+   Framer Motion marquee: drifts in reading direction (RTL-aware),
+   pauses on hover, static row under `prefers-reduced-motion`,
+   grayscale at rest → colour on hover. Roster: TAKAI (anchor — framed
+   as «أفلام تاكاي اليابانية الأصلية» / "Genuine Japanese TAKAI films",
+   a material partnership, never a client logo), Mansour Chevrolet
+   (hosts the Alexandria branch — pending permission), RB Garage
+   (Damietta franchise — pending permission). All three currently
+   `confirmed: false`: no real logo exists locally for any of them, and
+   fabricating one (e.g. a self-styled TAKAI wordmark) is forbidden —
+   same class of error as SK-BLD. **TRADEMARK RULE: car manufacturer
+   logos are never ours to display — do not add them, now or later.
+   V2's `public/partners/` folder is a banned source in its entirety.**
 2. **Services rail** — horizontal snap-scroll of cards, image top, H3, one-line
    benefit. Loops. Their five map to ours:
    - أفلام حماية الطلاء / Paint Protection Film → `/services/ppf`
