@@ -1,4 +1,25 @@
-# CHECKPOINT — 2026-08-14
+# CHECKPOINT — 2026-08-15
+
+## Update 2026-08-15 (~1am): smoke pass GREEN, everything pushed
+
+Ibrahim green-lit push conditional on tests. Automated combined smoke
+pass executed against a fresh production build (43/43 checks passed:
+all key routes 200 in both locales with correct dir, all 12 Phase 14
+redirects + polishing redirects, all 7 anchors, lifetime scoping
+clean, TAKAI table on home, no product codes in pending marine/
+surface sections, TK-7099-IR present for building). Then pushed:
+`main` (11be7a9→794d0a5, **Vercel will auto-deploy this** — the
+merged buildings + home-first-screen state, WITHOUT phases 13–14),
+plus new remote branches `feat/services-restructure`,
+`feat/building-heat-isolation`, `feat/home-first-screen`. The smoke
+gate below is SATISFIED. Remaining decision: merge
+`feat/services-restructure` → `main` (which then deploys phases
+13–14 to production) — Ibrahim's word. Smoke script kept at the
+session scratchpad (`smoke.py`); all local Next servers stopped.
+
+---
+
+# Previous checkpoint — 2026-08-14
 
 ## TL;DR (2026-08-14, ~9:50pm)
 
