@@ -5,8 +5,9 @@
  * Hard rules (CLAUDE.md):
  * - No site-wide single warranty figure, ever.
  * - Standard TAKAI tiers: "up to 15 years", always named as such.
- * - Premium Plus: "lifetime" — allowed ONLY on /warranty, /services/ppf and
- *   the Premium Plus tier card, and every render MUST place the qualifier
+ * - Premium Plus: "lifetime" — allowed ONLY on /warranty, the PPF section
+ *   of /services (Phase 14 folded /services/ppf into it) and the Premium
+ *   Plus tier card, and every render MUST place the qualifier
  *   (LIFETIME_QUALIFIER message key) in the same visual block.
  *
  * RESOLVED (Ibrahim, 2026-08-06):
@@ -57,7 +58,7 @@ export const LIFETIME_QUALIFIER_KEY = "warranty.qualifier.text";
 /** Routes allowed to render the word "lifetime" at all. */
 export const LIFETIME_ALLOWED_ROUTES = [
   "/warranty",
-  "/services/ppf",
+  "/services", // PPF section only — the old /services/ppf page lives here now
 ] as const;
 
 /**

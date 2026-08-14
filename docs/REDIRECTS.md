@@ -56,3 +56,13 @@ or dropped those paths), so those three do redirect to `/en/*`.
 `/services/polishing` and `/en/services/polishing` 301 to their
 locale's `/services`. The polishing service was dropped from the
 catalogue in the services restructure (7 services, 4 substrates).
+
+## 2026-08-14 — services consolidated to one page (Phase 14)
+
+Per-service detail pages folded into anchored sections on `/services`.
+Six services × both locales 301 to `/services#<id>` /
+`/en/services#<id>`: `ppf`, `heat-isolation`, `colour-change`,
+`nano-ceramic`, `marine-ppf`, `surface-protection`.
+
+`/services/building-heat-isolation` (+ `/quote`) deliberately kept live
+in both locales — standalone SEO landing page for building window film.

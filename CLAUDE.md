@@ -46,8 +46,9 @@ structure only**: `dettaglioauto.sa`. Visual identity is 100% SupaKoto.
   - **Premium Plus: lifetime** — and every use of "lifetime" on this site must
     render the qualifier defined in `content/warranty.ts` in the same visual
     block. Never a bare "lifetime warranty" with no scope.
-  - A page may state "lifetime" only on `/warranty`, `/services/ppf`, and the
-    Premium Plus tier card. Not in the footer, not in global taglines, not in
+  - A page may state "lifetime" only on `/warranty`, the PPF section of
+    `/services` (Phase 14 folded `/services/ppf` into it), and the Premium
+    Plus tier card. Not in the footer, not in global taglines, not in
     metadata descriptions.
 
 ## Autonomy

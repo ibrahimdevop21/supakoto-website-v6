@@ -12,21 +12,9 @@ export const NAV: NavItem[] = [
       { key: "faq", href: "/faq" },
     ],
   },
-  {
-    // Added 2026-08-07 — services were never nav-reachable (gap inherited
-    // from the reference IA). Buildings gets its own direct entry.
-    key: "services",
-    children: [
-      { key: "servicesAll", href: "/services" },
-      { key: "servicesPpf", href: "/services/ppf" },
-      { key: "servicesHeatCars", href: "/services/heat-isolation" },
-      { key: "servicesBuildings", href: "/services/building-heat-isolation" },
-      { key: "servicesColour", href: "/services/colour-change" },
-      { key: "servicesNano", href: "/services/nano-ceramic" },
-      { key: "servicesMarine", href: "/services/marine-ppf" },
-      { key: "servicesSurface", href: "/services/surface-protection" },
-    ],
-  },
+  // Single link since Phase 14 — all services render inline on /services
+  // (anchored sections); the per-service dropdown died with the detail pages.
+  { key: "services", href: "/services" },
   {
     key: "ourWork",
     children: [{ key: "gallery", href: "/gallery" }],

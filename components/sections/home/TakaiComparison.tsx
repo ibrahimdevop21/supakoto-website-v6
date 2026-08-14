@@ -19,8 +19,8 @@ import { cn } from "@/lib/cn";
  *
  * NO warranty column, deliberately — same call V2 shipped with
  * (SHOW_WARRANTY_ROW = false): warranty is tier-scoped and "lifetime"
- * may only render on /warranty, /services/ppf, and the Premium Plus
- * tier card. The CTA routes to /services/ppf where terms live.
+ * may only render on /warranty, the PPF section of /services, and the
+ * Premium Plus tier card. The CTA routes to /services#ppf where terms live.
  */
 export function TakaiComparison() {
   const t = useTranslations("home.takai");
@@ -111,7 +111,7 @@ export function TakaiComparison() {
         <p className="mt-2 text-small text-fg-muted">{tTakai("regionNote")}</p>
 
         <Reveal className="mt-8">
-          <Button variant="ghost" href="/services/ppf">
+          <Button variant="ghost" href="/services#ppf">
             {t("cta")}
           </Button>
         </Reveal>

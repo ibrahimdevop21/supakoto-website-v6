@@ -22,7 +22,7 @@ export async function ServicesGrid() {
       {services.map((s) => (
         <RevealItem key={s.id} className="h-full">
           <Link
-            href={`/services/${s.slug}`}
+            href={`/services#${s.id}`}
             className={cn(
               "group flex h-full flex-col overflow-hidden rounded-card border bg-ink-800 transition-colors",
               s.substrate === "vehicle"
