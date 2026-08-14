@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 
 const TILES = [
   { key: "branches", href: "/branches", wide: true },
-  { key: "takai", href: "/services/ppf", wide: false },
+  { key: "takai", href: "/services#ppf", wide: false },
   { key: "warranty", href: "/warranty", wide: false },
   { key: "book", href: "/booking", wide: true },
 ] as const;

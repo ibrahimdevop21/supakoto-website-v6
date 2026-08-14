@@ -1,15 +1,21 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import Image from "next/image";
-import { services } from "@/content/services";
-import { serviceImage } from "@/content/gallery";
+import { services, type ServiceId } from "@/content/services";
 import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { Container } from "@/components/ui/Container";
-import { Heading } from "@/components/ui/Heading";
-import { Button } from "@/components/ui/Button";
-import { Reveal } from "@/components/ui/Reveal";
-import { cn } from "@/lib/cn";
+import {
+  ServiceShowcase,
+  ShowcaseAnchorNav,
+} from "@/components/sections/services/ServiceShowcase";
+import { JsonLd } from "@/components/JsonLd";
+
+/**
+ * Phase 14: the one services page. Every service renders inline here
+ * (anchored sections) — the old per-service detail URLs 301 to
+ * /services#<id>. Only the building SEO landing page and its quote
+ * funnel remain as standalone routes.
+ */
 
 export async function generateMetadata({
   params,
@@ -37,59 +43,38 @@ export default async function ServicesPage({
   const tItems = await getTranslations("services.items");
   const tAbout = await getTranslations("about.cta");
 
+  const labels = Object.fromEntries(
+    services.map((s) => [s.id, tItems(`${s.id}.name`)]),
+  ) as Record<ServiceId, string>;
+
   return (
     <main>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          itemListElement: services.map((s, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "Service",
+              name: tItems(`${s.id}.name`),
+              description: tItems(`${s.id}.benefit`),
+              provider: { "@type": "Organization", name: "SupaKoto" },
+              areaServed: ["EG", "AE"],
+            },
+          })),
+        }}
+      />
       <PageHero eyebrow={t("eyebrow")} title={t("title")} sub={t("sub")} />
 
-      <section className="py-(--spacing-section)">
-        <Container className="space-y-16">
-          {services.map((s, i) => (
-            <Reveal
-              key={s.id}
-              className={cn(
-                "grid items-center gap-8 md:grid-cols-2",
-                // Buildings is a different substrate — visually distinct
-                // from the five automotive treatments, never just card six.
-                s.substrate === "building" &&
-                  "rounded-card border border-sk-red/40 bg-ink-900 p-6 md:p-8",
-              )}
-            >
-              <div
-                className={cn(
-                  "relative aspect-4/3 overflow-hidden rounded-card border border-ink-700",
-                  i % 2 === 1 && "md:order-last",
-                )}
-              >
-                <Image
-                  src={serviceImage(s.id)}
-                  alt={tItems(`${s.id}.imageAlt`)}
-                  fill
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div>
-                {s.substrate === "building" && (
-                  <p className="mb-4 inline-block rounded-card border border-sk-red bg-sk-red-muted px-3 py-1 text-eyebrow text-fg">
-                    {t("buildingBadge")}
-                  </p>
-                )}
-                <Heading level={2}>{tItems(`${s.id}.name`)}</Heading>
-                <p className="mt-3 max-w-prose text-fg-muted">
-                  {tItems(`${s.id}.benefit`)}
-                </p>
-                <Button
-                  variant="ghost"
-                  href={`/services/${s.slug}`}
-                  className="mt-6"
-                >
-                  {t("detailsCta")}
-                </Button>
-              </div>
-            </Reveal>
-          ))}
+      <section className="py-8">
+        <Container>
+          <ShowcaseAnchorNav ariaLabel={t("title")} labels={labels} />
         </Container>
       </section>
+
+      <ServiceShowcase />
 
       <CtaBand
         title={tAbout("title")}

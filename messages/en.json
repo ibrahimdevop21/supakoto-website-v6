@@ -32,22 +32,15 @@
       "placeholderNote": "Placeholder image — campaign photography pending"
     },
     "services": {
-      "eyebrow": "Services",
-      "title": "Five ways we protect your car",
+      "eyebrow": "What we protect",
+      "title": "Everything worth protecting",
       "viewAll": "All services",
-      "forCars": "For cars",
-      "forBuildings": "For buildings"
+      "sub": "Cars, buildings, boats, interiors — the same Japanese TAKAI films."
     },
     "knowMore": {
       "title": "Not sure what your car needs?",
       "sub": "Every service has a full page with details and packages",
       "cta": "Explore our services"
-    },
-    "ourWork": {
-      "eyebrow": "Our Work",
-      "title": "The work speaks",
-      "sub": "Real cars from our workshops in Egypt and the UAE",
-      "cta": "View the full gallery"
     },
     "features": {
       "branches": {
@@ -169,6 +162,12 @@
           "name": "Auto Samir Rayan"
         }
       }
+    },
+    "takai": {
+      "eyebrow": "TAKAI films",
+      "title": "Compare the TAKAI lineup",
+      "sub": "Full specifications for every film in your market. Warranty is tier-scoped — terms live on the PPF page.",
+      "cta": "PPF details & warranty"
     }
   },
   "nav": {
@@ -200,7 +199,8 @@
     "servicesBuildings": "Building heat isolation",
     "servicesColour": "Colour change",
     "servicesNano": "Nano ceramic",
-    "servicesPolishing": "Polishing"
+    "servicesMarine": "Marine PPF",
+    "servicesSurface": "Surface Protection"
   },
   "chrome": {
     "region": {
@@ -239,7 +239,8 @@
       "title": "Protection, matched to your car",
       "sub": "Japanese materials. Factory-grade installation. Choose what fits.",
       "detailsCta": "Details & packages",
-      "buildingBadge": "For buildings — installed at your property"
+      "buildingBadge": "For buildings — installed at your property",
+      "fullDetails": "Full details"
     },
     "detail": {
       "problemHeading": "The problem",
@@ -534,76 +535,21 @@
         },
         "imageAlt": "Close-up of deep paint gloss"
       },
-      "polishing": {
-        "name": "Polishing",
-        "benefit": "We bring back the paint's original depth and gloss",
-        "problem": "Wash lines, holograms, and oxidation drain the colour's depth — especially on dark cars.",
-        "solutionIntro": "Staged polishing with professional compounds and tooling:",
-        "solutions": {
-          "b1": "Removes wash lines and holograms",
-          "b2": "Restores colour depth and gloss",
-          "b3": "The ideal prep before ceramic or film",
-          "b4": "Paint-depth measured before any work — no gambling"
-        },
-        "spec": {
-          "stages": {
-            "label": "Stages",
-            "value": "One to three, per condition"
-          },
-          "duration": {
-            "label": "Duration",
-            "value": "Half a day to a full day"
-          },
-          "finish": {
-            "label": "Result",
-            "value": "A surface ready for protection or delivery"
-          }
-        },
-        "packages": {
-          "exterior": {
-            "name": "Exterior polish",
-            "coverage": "Full body"
-          },
-          "showroom": {
-            "name": "Showroom prep",
-            "coverage": "Polish + complete detail"
-          }
-        },
-        "faq": {
-          "1": {
-            "q": "Doesn't polishing eat the paint?",
-            "a": "We measure paint depth first and remove the least material that achieves the result."
-          },
-          "2": {
-            "q": "How often should I polish?",
-            "a": "Rarely — protected and coated, once every few years is enough."
-          },
-          "3": {
-            "q": "Does it remove all scratches?",
-            "a": "Surface scratches, yes; deeper ones are reduced. Anything through to the base coat needs touch-up."
-          },
-          "4": {
-            "q": "Why here?",
-            "a": "The same Japanese standards we install film with — measurement, patience, proper inspection lighting."
-          }
-        },
-        "imageAlt": "Hand-finishing the paint surface"
-      },
       "building-heat-isolation": {
         "name": "Building heat isolation",
-        "benefit": "Less sun, lower bills — without darkening the glass",
-        "imageAlt": "Placeholder — building installation photography is being documented",
+        "benefit": "Less sun, lower bills",
+        "imageAlt": "Office building with TAKAI heat-isolation film across its glass facade",
         "seoTitle": "Building Window Film & Heat Isolation | SupaKoto",
-        "seoDescription": "TAKAI TK-7099-IR Japanese window film for buildings and glass facades in Egypt and the UAE. 99% infrared rejection at 70% clarity — offices, apartments and villas. Send your measurements for a quote, no site visit needed.",
+        "seoDescription": "TAKAI TK-7099-IR Japanese window film for buildings and glass facades in Egypt and the UAE. 99% infrared rejection at 70% visible light transmission — offices, apartments and villas. Send your measurements for a quote, no site visit needed.",
         "problem": "Sun pours through the glass all day. The AC fights it and loses, the bill climbs, screens catch the glare, and furniture and floors fade a little more every month. The usual fixes — closed curtains or dark glass — cost you the light and the view.",
         "solutionIntro": "One film, applied to the glass, that solves it without changing how the building looks:",
         "solutions": {
           "b1": "Rejects 99% of infrared — the main heat carrier — so the AC works less and the bill drops",
           "b2": "Blocks 99.5% of the UV that fades furniture, curtains and flooring",
-          "b3": "Cuts screen glare while the glass stays 70% clear — daylight and view intact",
+          "b3": "Cuts screen glare while keeping 70% visible light transmission",
           "b4": "Holds shattered glass together so fragments don't scatter — safer for everyone inside"
         },
-        "positioning": "Darker films score higher total heat rejection — we fit those on cars. For buildings we chose the TK-7099-IR for one reason: the highest heat rejection you can get while the glass still looks untouched. If you want a cooler space without giving up light and view, this is it.",
+        "positioning": "Darker films score higher total heat rejection — we fit those on cars. For buildings we chose the TK-7099-IR for its balance: strong heat rejection at 70% visible light transmission. If you want a cooler space that keeps most of its daylight, this is it.",
         "spec": {
           "product": {
             "label": "Product",
@@ -615,7 +561,7 @@
           },
           "vlt": {
             "label": "Visible light transmission",
-            "value": "70% — the glass stays clear"
+            "value": "70%"
           },
           "irRejection": {
             "label": "Infrared rejection",
@@ -661,6 +607,32 @@
           }
         },
         "quoteCta": "Request a quote"
+      },
+      "marine-ppf": {
+        "name": "Marine PPF",
+        "benefit": "For hulls and marine surfaces.",
+        "imageAlt": "SupaKoto technician beside a boat ahead of marine protection work",
+        "seoTitle": "Marine PPF — boat hull protection",
+        "seoDescription": "Protection film for boats, from the TAKAI distributor for Egypt and UAE. Product line pending confirmation.",
+        "problem": "Sun, salt water, and mooring abrasion work on a hull all season. Gelcoat fades and loses its depth long before the boat ages.",
+        "solutionIntro": "We are extending SupaKoto protection to boats. What we publish here will follow the same rule as everything else on this site: confirmed TAKAI products only.",
+        "pendingTitle": "Specifications",
+        "pendingBody": "Pending product confirmation from TAKAI. No film, spec, or warranty will be listed until the marine product line is confirmed in writing.",
+        "quoteCta": "Talk to us about your boat",
+        "waMessage": "Hello, I'd like to ask about Marine PPF."
+      },
+      "surface-protection": {
+        "name": "Surface Protection",
+        "benefit": "For marble and high-value interior surfaces.",
+        "imageAlt": "Marble bathroom vanity finished with TAKAI surface protection film",
+        "seoTitle": "Surface Protection — marble and interior surfaces",
+        "seoDescription": "Protection film for marble and high-value interior surfaces, from the TAKAI distributor for Egypt and UAE. Product line pending confirmation.",
+        "problem": "Marble counters, reception desks, and high-value interior surfaces etch, stain, and scratch — and unlike paint, natural stone cannot be resprayed.",
+        "solutionIntro": "We are extending SupaKoto protection to interior surfaces. What we publish here will follow the same rule as everything else on this site: confirmed TAKAI products only.",
+        "pendingTitle": "Specifications",
+        "pendingBody": "Pending product confirmation from TAKAI. No film, spec, or warranty will be listed until the surface product line is confirmed in writing.",
+        "quoteCta": "Talk to us about your project",
+        "waMessage": "Hello, I'd like to ask about Surface Protection."
       }
     }
   },
@@ -1236,9 +1208,26 @@
       },
       "showreel": {
         "alt": "Video from inside the SupaKoto workshops"
+      },
+      "building-astrazeneca": {
+        "alt": "AstraZeneca building facade after TAKAI heat-isolation film installation"
+      },
+      "building-hustle-drip": {
+        "alt": "Hustle Drip cafe glass storefront after TAKAI heat-isolation film installation"
+      },
+      "surface-film-roll": {
+        "alt": "Roll of clear TAKAI protection film on a glossy wood table"
+      },
+      "surface-marble-counter": {
+        "alt": "White marble counter during surface protection film installation"
+      },
+      "surface-marble-table": {
+        "alt": "Marble dining table finished with TAKAI surface protection film"
+      },
+      "surface-interior-table": {
+        "alt": "Long marble table in a yacht interior finished with surface protection film"
       }
-    },
-    "buildingsEmpty": "Building installation photos are coming soon — our first documented projects are underway."
+    }
   },
   "faq": {
     "title": "Frequently asked questions",

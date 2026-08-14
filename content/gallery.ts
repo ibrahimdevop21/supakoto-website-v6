@@ -58,7 +58,7 @@ const img = (
 export const galleryItems: GalleryItem[] = [
   img("001", "ppf", 1600, 1200),
   img("005", "ppf"),
-  img("013", "polishing"),
+  img("013", "nano-ceramic"),
   img("021", "ppf"),
   img("034", "nano-ceramic"),
   img("041", "ppf"),
@@ -69,7 +69,7 @@ export const galleryItems: GalleryItem[] = [
   img("088", "ppf"),
   img("095", "ppf"),
   img("100", "ppf"),
-  img("105", "polishing"),
+  img("105", "nano-ceramic"),
   img("107", "nano-ceramic"),
   img("116", "ppf"),
   img("123", "ppf", 1536, 2048),
@@ -92,6 +92,64 @@ export const galleryItems: GalleryItem[] = [
   img("230", "nano-ceramic", 1536, 2048),
   img("232", "colour-change", 1536, 2048),
   img("234", "ppf", 1536, 2048),
+  // Building projects — our own installation photos (SupaKoto × TAKAI
+  // watermarked), not from the V2_Prod harvest.
+  {
+    id: "building-astrazeneca",
+    kind: "image",
+    category: "building-heat-isolation",
+    src: "/images/gallery/building-astrazeneca.webp",
+    width: 680,
+    height: 383,
+    aspect: "landscape",
+  },
+  {
+    id: "building-hustle-drip",
+    kind: "image",
+    category: "building-heat-isolation",
+    src: "/images/gallery/building-hustle-drip.webp",
+    width: 408,
+    height: 544,
+    aspect: "portrait",
+  },
+  // Surface protection — our own installation and product photos
+  // (SupaKoto × TAKAI watermarked).
+  {
+    id: "surface-film-roll",
+    kind: "image",
+    category: "surface-protection",
+    src: "/images/gallery/surface-film-roll.webp",
+    width: 1000,
+    height: 1000,
+    aspect: "square",
+  },
+  {
+    id: "surface-marble-counter",
+    kind: "image",
+    category: "surface-protection",
+    src: "/images/gallery/surface-marble-counter.webp",
+    width: 563,
+    height: 1000,
+    aspect: "portrait",
+  },
+  {
+    id: "surface-marble-table",
+    kind: "image",
+    category: "surface-protection",
+    src: "/images/gallery/surface-marble-table.webp",
+    width: 387,
+    height: 516,
+    aspect: "portrait",
+  },
+  {
+    id: "surface-interior-table",
+    kind: "image",
+    category: "surface-protection",
+    src: "/images/gallery/surface-interior-table.webp",
+    width: 470,
+    height: 640,
+    aspect: "portrait",
+  },
   {
     id: "showreel",
     kind: "video",
@@ -108,8 +166,8 @@ export const galleryCategories: Array<GalleryCategory | "all"> = [
   "heat-isolation",
   "colour-change",
   "nano-ceramic",
-  "polishing",
   "building-heat-isolation",
+  "surface-protection",
   "video",
 ];
 

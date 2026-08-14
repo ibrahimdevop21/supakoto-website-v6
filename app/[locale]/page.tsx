@@ -2,8 +2,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/metadata";
 import { HeroCarousel } from "@/components/sections/home/HeroCarousel";
 import { PartnersBand } from "@/components/sections/home/PartnersBand";
-import { ServicesRail } from "@/components/sections/home/ServicesRail";
-import { WorkPreview } from "@/components/sections/home/WorkPreview";
+import { ServicesSection } from "@/components/sections/home/ServicesSection";
+import { TakaiComparison } from "@/components/sections/home/TakaiComparison";
 import { FeatureGrid } from "@/components/sections/home/FeatureGrid";
 import { BusinessBand } from "@/components/sections/home/BusinessBand";
 import { CtaBand } from "@/components/sections/CtaBand";
@@ -43,14 +43,14 @@ export default async function HomePage({
         <HeroCarousel />
         <PartnersBand />
       </div>
-      <ServicesRail />
+      <ServicesSection />
       <CtaBand
         title={t("title")}
         sub={t("sub")}
         buttonLabel={t("cta")}
         href="/services"
       />
-      <WorkPreview />
+      <TakaiComparison />
       <FeatureGrid />
       <BusinessBand />
     </main>

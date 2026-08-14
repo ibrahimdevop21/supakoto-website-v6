@@ -80,7 +80,7 @@ export default async function BuildingHeatIsolationPage({
       />
       <PageHero title={tItem("name")} sub={tItem("benefit")} />
 
-      {/* Hero visual — labelled placeholder until building photography exists */}
+      {/* Hero visual — our own building installation photography */}
       <section className="py-(--spacing-section)">
         <Container>
           <Reveal>

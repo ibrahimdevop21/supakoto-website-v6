@@ -153,8 +153,16 @@ Section order, top to bottom:
      `/services` (record in docs/REDIRECTS.md, implement in
      next.config).
 3. **"اعرف المزيد"** — single wide CTA band into `/services`.
-4. **أعمالنا / Our Work** — section header + subline, then a 3-across masonry
-   preview pulling 9 items from `/gallery`. Reuse the V5 uniform-grid component.
+4. **TAKAI comparison table (replaced Our Work, 2026-08-11)** — the V2
+   comparison ported by CONTENT, not design: region-aware tier table
+   from `content/takai.ts` (Signature/UAE, Performance/Egypt, Premium
+   Plus flagship-accented in both), all spec columns, overflow-x
+   scroll on narrow screens. **NO warranty column** — V2 shipped the
+   same call (`SHOW_WARRANTY_ROW = false`), and the site law stands:
+   warranty is tier-scoped and "lifetime" renders only on /warranty,
+   /services/ppf, and the Premium Plus tier card. CTA → /services/ppf
+   where terms live. The Our Work gallery preview is deleted (gallery
+   remains reachable via nav أعمالنا and the feature grid).
 5. **Feature tile grid** — 2×2 asymmetric. Theirs is Gifts / Branches 3D /
    Products / Warranty. Ours:
    - فروعنا — "٦ فروع في مصر والإمارات"

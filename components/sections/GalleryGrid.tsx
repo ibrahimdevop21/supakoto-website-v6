@@ -67,14 +67,6 @@ export function GalleryGrid() {
         ))}
       </div>
 
-      {/* Buildings has no photography yet — labelled placeholder state,
-          never car images. */}
-      {filtered.length === 0 && (
-        <p className="mt-8 max-w-prose rounded-card border border-ink-700 bg-ink-800 px-5 py-6 text-fg-muted">
-          {t("buildingsEmpty")}
-        </p>
-      )}
-
       {/* Grid */}
       <RevealStagger
         key={filter}
