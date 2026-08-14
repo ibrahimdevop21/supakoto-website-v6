@@ -40,7 +40,8 @@ export async function PendingServiceDetail({
       />
       <PageHero title={tItem("name")} sub={tItem("benefit")} />
 
-      {/* Labelled placeholder — no real photography exists yet */}
+      {/* Hero visual — real photo for marine-ppf; surface-protection still
+          uses a labelled placeholder until photography exists */}
       <section className="py-(--spacing-section)">
         <Container>
           <Reveal>

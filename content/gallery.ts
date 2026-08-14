@@ -92,6 +92,26 @@ export const galleryItems: GalleryItem[] = [
   img("230", "nano-ceramic", 1536, 2048),
   img("232", "colour-change", 1536, 2048),
   img("234", "ppf", 1536, 2048),
+  // Building projects — our own installation photos (SupaKoto × TAKAI
+  // watermarked), not from the V2_Prod harvest.
+  {
+    id: "building-astrazeneca",
+    kind: "image",
+    category: "building-heat-isolation",
+    src: "/images/gallery/building-astrazeneca.webp",
+    width: 680,
+    height: 383,
+    aspect: "landscape",
+  },
+  {
+    id: "building-hustle-drip",
+    kind: "image",
+    category: "building-heat-isolation",
+    src: "/images/gallery/building-hustle-drip.webp",
+    width: 408,
+    height: 544,
+    aspect: "portrait",
+  },
   {
     id: "showreel",
     kind: "video",
