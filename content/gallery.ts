@@ -112,6 +112,44 @@ export const galleryItems: GalleryItem[] = [
     height: 544,
     aspect: "portrait",
   },
+  // Surface protection — our own installation and product photos
+  // (SupaKoto × TAKAI watermarked).
+  {
+    id: "surface-film-roll",
+    kind: "image",
+    category: "surface-protection",
+    src: "/images/gallery/surface-film-roll.webp",
+    width: 1000,
+    height: 1000,
+    aspect: "square",
+  },
+  {
+    id: "surface-marble-counter",
+    kind: "image",
+    category: "surface-protection",
+    src: "/images/gallery/surface-marble-counter.webp",
+    width: 563,
+    height: 1000,
+    aspect: "portrait",
+  },
+  {
+    id: "surface-marble-table",
+    kind: "image",
+    category: "surface-protection",
+    src: "/images/gallery/surface-marble-table.webp",
+    width: 387,
+    height: 516,
+    aspect: "portrait",
+  },
+  {
+    id: "surface-interior-table",
+    kind: "image",
+    category: "surface-protection",
+    src: "/images/gallery/surface-interior-table.webp",
+    width: 470,
+    height: 640,
+    aspect: "portrait",
+  },
   {
     id: "showreel",
     kind: "video",
@@ -129,6 +167,7 @@ export const galleryCategories: Array<GalleryCategory | "all"> = [
   "colour-change",
   "nano-ceramic",
   "building-heat-isolation",
+  "surface-protection",
   "video",
 ];
 

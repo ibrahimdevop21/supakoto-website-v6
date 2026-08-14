@@ -623,7 +623,7 @@
       "surface-protection": {
         "name": "Surface Protection",
         "benefit": "For marble and high-value interior surfaces.",
-        "imageAlt": "Interior surface placeholder — awaiting photography",
+        "imageAlt": "Marble bathroom vanity finished with TAKAI surface protection film",
         "seoTitle": "Surface Protection — marble and interior surfaces",
         "seoDescription": "Protection film for marble and high-value interior surfaces, from the TAKAI distributor for Egypt and UAE. Product line pending confirmation.",
         "problem": "Marble counters, reception desks, and high-value interior surfaces etch, stain, and scratch — and unlike paint, natural stone cannot be resprayed.",
@@ -1213,6 +1213,18 @@
       },
       "building-hustle-drip": {
         "alt": "Hustle Drip cafe glass storefront after TAKAI heat-isolation film installation"
+      },
+      "surface-film-roll": {
+        "alt": "Roll of clear TAKAI protection film on a glossy wood table"
+      },
+      "surface-marble-counter": {
+        "alt": "White marble counter during surface protection film installation"
+      },
+      "surface-marble-table": {
+        "alt": "Marble dining table finished with TAKAI surface protection film"
+      },
+      "surface-interior-table": {
+        "alt": "Long marble table in a yacht interior finished with surface protection film"
       }
     }
   },
