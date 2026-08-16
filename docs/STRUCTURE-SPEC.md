@@ -49,7 +49,13 @@ violation.
    Windows. Flags are image assets under `public/images/brand/` (currently
    `flag-japan.webp`; a clean inline SVG is the preferred upgrade — see
    ASSETS-NEEDED).
-6. **Lifetime stays scoped** (unchanged): only `/warranty`, the PPF section of
+6. **Arabic register is white Arabic (عربية بيضاء)** — Dr. Amer, 2026-08-16.
+   Fluent MSA with simple everyday vocabulary, short sentences, active
+   voice, no classical constructions, no MSA marketing clichés, no
+   regionalisms, no tashkeel; simple but specific. Full rule in CLAUDE.md
+   → Content rules. Supersedes the earlier Egyptian-dialect and plain-MSA
+   notes wherever they still appear in older progress docs.
+7. **Lifetime stays scoped** (unchanged): only `/warranty`, the PPF section of
    `/services`, and the Premium Plus tier card, always with the qualifier in
    the same visual block.
 
