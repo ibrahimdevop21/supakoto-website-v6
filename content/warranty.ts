@@ -65,9 +65,19 @@ export const LIFETIME_ALLOWED_ROUTES = [
  * Per-product warranty terms — OPS-CONFIRMED, Ibrahim 2026-08-06.
  * EGYPT (Performance line): TAKAI 5 → 5y, GOLD/GOLD PLUS → 10y,
  * STEEL/STEEL PLUS → 15y, PREMIUM PLUS → lifetime.
- * UAE (Signature line): SILVER (=TAKAI 5) → 5y; MATT / MATT PLUS /
- * Colours / ULTIMATE GLOSS → 10y; STEELPLUS → 15y; PREMIUM PLUS →
- * lifetime. Lifetime = vehicle lifetime, transfers on resale.
+ * UAE (Signature line): SILVER → 5y; MATT / MATT PLUS / Colours /
+ * ULTIMATE GLOSS → 10y; STEELPLUS → 15y; PREMIUM PLUS → lifetime.
+ * Lifetime = vehicle lifetime, transfers on resale.
+ *
+ * NAMING (Dr. Amer, 2026-08-16): in the UAE the entry product is called
+ * TAKAI SILVER — only. Never "TAKAI 5", never "SILVER (TAKAI 5)", never any
+ * statement that the two are the same film. Product names are region-scoped;
+ * /warranty renders one region's list at a time (TierBreakdown, RegionPicker).
+ *
+ * HEAT (Dr. Amer, 2026-08-16): PPF / Premium Plus is body-panel paint
+ * protection. Nothing here or in any PPF context may claim heat isolation,
+ * IR/UV rejection, or cabin-temperature benefit — glass heat isolation is a
+ * separate product and service. Enforced by scripts/check-claims.mjs.
  */
 export type ProductWarrantyTerm =
   | { kind: "years"; years: 5 | 10 | 15 }
@@ -107,7 +117,7 @@ export const egyptTierBreakdown: TierBreakdownGroup[] = [
 ];
 
 export const uaeTierBreakdown: TierBreakdownGroup[] = [
-  { products: ["TAKAI SILVER (TAKAI 5)"], term: { kind: "years", years: 5 } },
+  { products: ["TAKAI SILVER"], term: { kind: "years", years: 5 } },
   {
     products: ["TAKAI MATT", "TAKAI MATT PLUS", "TAKAI Colours", "TAKAI ULTIMATE GLOSS"],
     term: { kind: "years", years: 10 },
@@ -115,6 +125,13 @@ export const uaeTierBreakdown: TierBreakdownGroup[] = [
   { products: ["TAKAI STEELPLUS"], term: { kind: "years", years: 15 } },
   { products: ["TAKAI PREMIUM PLUS"], term: { kind: "lifetime" } },
 ];
+
+/** Region-gated view for /warranty — never render both lists together. */
+export function tierBreakdownForRegion(
+  region: "egypt" | "uae",
+): TierBreakdownGroup[] {
+  return region === "uae" ? uaeTierBreakdown : egyptTierBreakdown;
+}
 
 export function warrantyTermForProduct(
   region: "egypt" | "uae",

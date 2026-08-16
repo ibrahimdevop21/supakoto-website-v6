@@ -10,6 +10,64 @@ alternate.
 
 ---
 
+## Claim discipline (permanent — Dr. Amer review, 2026-08-16)
+
+These rules are spec-level law and are enforced at build time by
+`scripts/check-claims.mjs` (runs before `next build`, same mechanism as the
+phone-literal guard). Editing the guard to make a claim pass is itself a
+violation.
+
+1. **Traceability (standing rule).** No product name, product code, spec
+   figure, warranty term, or performance claim appears on this site unless it
+   is traceable to a source supplied by Ibrahim or to TAKAI's official
+   catalogue. Never infer a spec from a related product. Never invent a
+   product code. **SK-BLD is the cautionary precedent** — a fabricated product
+   name that shipped to a live page. This includes **unsubstantiated
+   superlatives** — "best / finest / number one", «أفضل / الأفضل / الأول» —
+   attached to the brand, film, material, protection, installation, quality
+   or price (guard rule `superlative`, added 2026-08-16). Shared surfaces
+   (nav, home headings, services index, /about vision-mission-values,
+   footer, contact) speak to the customer, not to "your car" — the catalogue
+   spans vehicles, buildings, marine and interiors; service sections and the
+   vehicle-only booking funnel keep their own substrate language.
+2. **PPF / Premium Plus never claims heat.** Paint protection film — every
+   TAKAI tier including Premium Plus — is body-panel paint protection. No PPF,
+   Premium Plus, TAKAI-tier or vehicle-warranty context may claim heat
+   isolation, IR/UV rejection, or any cabin-temperature benefit. Glass heat
+   isolation is a **separate product and a separate service**. Legitimate
+   heat language stays on the automotive heat-isolation service, the building
+   heat-isolation service, and the self-healing "heals with heat" statement
+   (physically correct). Distributor-facing line taglines such as "built for
+   high-heat markets" do not appear on customer surfaces.
+3. **TAKAI SILVER ≠ "TAKAI 5".** In the UAE the entry product is called TAKAI
+   SILVER — only. Never "TAKAI 5", never "SILVER (TAKAI 5)", never any
+   statement that the two are the same film, no alias field in data. Product
+   names are **region-scoped**: the TAKAI comparison table and the `/warranty`
+   per-tier breakdown render **one region's line at a time**, gated on the
+   RegionPicker like branches and phone numbers. A UAE visitor never sees an
+   Egypt list on those blocks.
+4. **Distributor, not manufacturer.** SupaKoto is the exclusive
+   **distributor** of genuine Japanese TAKAI films in Egypt and the UAE.
+   Exclusivity attaches to distribution rights, never to manufacturing. Never
+   "made for us", "made exclusively for SupaKoto", "to our specification",
+   "our own formulation", «لنا حصريا», «خصيصا لنا», «تصنع لنا». Correct
+   framing: «الوكيل الحصري لأفلام TAKAI اليابانية الأصلية في مصر والإمارات».
+5. **No emoji flags anywhere.** Regional-indicator emoji render as letters on
+   Windows. Flags are image assets under `public/images/brand/` (currently
+   `flag-japan.webp`; a clean inline SVG is the preferred upgrade — see
+   ASSETS-NEEDED).
+6. **Arabic register is white Arabic (عربية بيضاء)** — Dr. Amer, 2026-08-16.
+   Fluent MSA with simple everyday vocabulary, short sentences, active
+   voice, no classical constructions, no MSA marketing clichés, no
+   regionalisms, no tashkeel; simple but specific. Full rule in CLAUDE.md
+   → Content rules. Supersedes the earlier Egyptian-dialect and plain-MSA
+   notes wherever they still appear in older progress docs.
+7. **Lifetime stays scoped** (unchanged): only `/warranty`, the PPF section of
+   `/services`, and the Premium Plus tier card, always with the qualifier in
+   the same visual block.
+
+---
+
 ## Route map
 
 | Reference route | V6 route | Build? |
@@ -183,7 +241,8 @@ Section order, top to bottom:
 4. **Stat counter row, 4 up** — animate on scroll into view:
    - `6` فروع في مصر والإمارات
    - `100%` أفلام يابانية أصلية TAKAI
-   - `🇯🇵` الوكيل الحصري في مصر والإمارات
+   - Japan flag **image** (`/images/brand/flag-japan.webp`, never the emoji)
+     الوكيل الحصري في مصر والإمارات
    - fourth stat: **not a warranty figure** — warranty is tiered and a bare
      numeral here would contradict `/warranty`. Use years in market, cars
      protected, or TAKAI partnership year. `TODO — Ibrahim to pick.`
@@ -290,7 +349,7 @@ before/after slider, no booking CTA):**
 5. Quote CTA → `/services/building-heat-isolation/quote`
 6. FAQ accordion (buildings-specific)
 
-Copy: fresh Arabic first in Egyptian dialect, then English. Do not adapt the
+Copy: fresh Arabic first (white Arabic register — see CLAUDE.md), then English. Do not adapt the
 automotive heat-isolation copy. No "lifetime" string anywhere on these routes
 (allowed-pages list unchanged). Warranty statements say **10 years (TAKAI,
 buildings)** — tier-scoped as always.
@@ -353,15 +412,18 @@ English, `/` sends Arabic. Same field order both ways.
 Card grid, filtered by the RegionPicker. Each card: photo, name, address,
 phone (tel: link), WhatsApp button, Google Maps embed, hours.
 
-Seed data (**verify all of these against ops before launch**):
+Branch numbers — **OPS-CONFIRMED full replacement, Ibrahim/Dr. Amer
+2026-08-16** (source of truth: `content/branches.ts`; regional lines in
+`content/regions.ts` — Egypt main line stays 01103402446 by design, UAE line =
+Dubai branch number by design):
 
 | Branch | Region | Phone |
 |---|---|---|
-| التجمع الخامس | Egypt | 01220080189 |
-| الشيخ زايد | Egypt | 01156608134 |
-| زهراء المعادي | Egypt | 01127232340 |
-| الإسكندرية — الطريق الصحراوي، داخل منصور شيفروليه | Egypt | 01103402446 |
-| دمياط الجديدة — RB Garage، أمام كلية فنون | Egypt (franchise) | 01126978186 |
+| التجمع الخامس | Egypt | +20 10 12747478 |
+| الشيخ زايد | Egypt | +20 11 03670059 |
+| زهراء المعادي | Egypt | +20 11 00512230 |
+| الإسكندرية — الطريق الصحراوي، داخل منصور شيفروليه | Egypt | +20 10 44202946 |
+| دمياط الجديدة — RB Garage، أمام كلية فنون | Egypt (franchise) | +20 11 26978186 |
 | دبي — القوز ٣، المنطقة الصناعية | UAE | +971 55 205 4478 |
 
 Damietta is a franchise location — flag whether it carries a franchise badge on
@@ -407,6 +469,11 @@ Warranty is **tiered**, so this page is a comparison, not a single number.
 says 15 years, customers will read it as a bait-and-switch. Either the footer
 gains a Premium Plus line or the site keeps "lifetime" scoped to the tier card
 only. Flag to Ibrahim if unresolved at Phase 6.
+
+**Per-tier breakdown ("Terms by tier")**: region-aware since 2026-08-16 —
+`components/sections/warranty/TierBreakdown.tsx` renders only the visitor's
+line (Egypt = Performance: TAKAI 5 …; UAE = Signature: TAKAI SILVER …) from
+`tierBreakdownForRegion()`. Never both lists on screen; never an alias.
 
 **Buildings row**: TAKAI TK-7099-IR carries **10 years** per TAKAI's official
 catalogue. Rendered as its own row/block — it is a different substrate, not a

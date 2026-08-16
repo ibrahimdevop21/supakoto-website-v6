@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "SupaKoto — Japanese protection for your car",
+    "title": "SupaKoto — Genuine Japanese protection",
     "hero": {
       "slides": {
         "s1": {
@@ -10,7 +10,7 @@
         },
         "s2": {
           "title": "The sun won't hold back. We will",
-          "sub": "Heat isolation that protects cabin and paint from Egyptian and Gulf summers.",
+          "sub": "Heat isolation that protects the cabin from Egyptian and Gulf summers.",
           "alt": "Land Cruiser Prado in the desert sun"
         },
         "s3": {
@@ -38,7 +38,7 @@
       "sub": "Cars, buildings, boats, interiors — the same Japanese TAKAI films."
     },
     "knowMore": {
-      "title": "Not sure what your car needs?",
+      "title": "Not sure what you need?",
       "sub": "Every service has a full page with details and packages",
       "cta": "Explore our services"
     },
@@ -49,7 +49,7 @@
       },
       "takai": {
         "title": "Japanese engineering",
-        "sub": "The TAKAI story — film made in Japan, exclusively for us"
+        "sub": "The TAKAI story — genuine Japanese film, distributed exclusively by us in Egypt and the UAE"
       },
       "warranty": {
         "title": "Warranty",
@@ -236,7 +236,7 @@
   "services": {
     "index": {
       "eyebrow": "Services",
-      "title": "Protection, matched to your car",
+      "title": "Protection, matched to you",
       "sub": "Japanese materials. Factory-grade installation. Choose what fits.",
       "detailsCta": "Details & packages",
       "buildingBadge": "For buildings — installed at your property",
@@ -336,7 +336,7 @@
       },
       "heat-isolation": {
         "name": "Heat Isolation",
-        "benefit": "A cooler cabin and paint shielded from the sun",
+        "benefit": "A cooler cabin, interior protected from the sun",
         "problem": "Summer sun turns the cabin into an oven, works the AC to death, and slowly cooks the upholstery and dashboard.",
         "solutionIntro": "Japanese heat isolation that works without darkening your view:",
         "solutions": {
@@ -646,7 +646,7 @@
       },
       "performance": {
         "name": "TAKAI Performance",
-        "tagline": "High-strength protection — built for high-heat markets like the Middle East"
+        "tagline": "High-strength protection for everyday driving"
       }
     },
     "columns": {
@@ -679,7 +679,7 @@
     "sub": "Exclusive agent for TAKAI films in Egypt and the UAE",
     "whoWeAre": {
       "title": "Our story",
-      "body": "We started in 2016 out of a genuine love of cars and a conviction that this market deserved a different level of protection. We secured a Japanese film made exclusively for us — TAKAI — and built workshops around it to the factory's own standard: measurement before any work, documented installation at every step. The journey hasn't stopped since — partnerships with Škoda, Kasrawy and Mansour, branches from Maadi to the Fifth Settlement and from Alexandria to Dubai, past 25,000 cars protected. These are the milestones:"
+      "body": "We started in 2016 out of a genuine love of cars and a conviction that this market deserved a different level of protection. We became the exclusive distributor of genuine Japanese TAKAI film in Egypt and the UAE, and built workshops around it to the factory's own standard: measurement before any work, documented installation at every step. The journey hasn't stopped since — partnerships with Škoda, Kasrawy and Mansour, branches from Maadi to the Fifth Settlement and from Alexandria to Dubai, past 25,000 cars protected. These are the milestones:"
     },
     "stats": {
       "branches": {
@@ -691,7 +691,6 @@
         "label": "Genuine Japanese TAKAI film"
       },
       "exclusive": {
-        "value": "🇯🇵",
         "label": "Exclusive agent in Egypt & UAE"
       },
       "cars": {
@@ -702,15 +701,15 @@
     "vmv": {
       "vision": {
         "title": "Vision",
-        "body": "To be the Middle East's reference in car protection — the first name that comes to mind when you think of protecting your investment."
+        "body": "To be the Middle East's reference in protection solutions — the first name that comes to mind when you think of protecting your investment."
       },
       "mission": {
         "title": "Mission",
-        "body": "Deliver the finest Japanese material with the finest installation, and keep the experience transparent: clear pricing, written warranty, visible results."
+        "body": "Deliver genuine Japanese TAKAI film with the highest standard of installation, and keep the experience transparent: clear pricing, written warranty, visible results."
       },
       "values": {
         "title": "Values",
-        "body": "Precision before speed. Honesty before the sale. Every car in our workshop is treated like our own."
+        "body": "Precision before speed. Honesty before the sale. Everything in our workshop is treated like our own."
       },
       "heading": "What we stand for"
     },
@@ -871,8 +870,7 @@
     "breakdown": {
       "heading": "Terms by tier",
       "egypt": "Performance line — Egypt",
-      "uae": "Signature line — UAE",
-      "note": "TAKAI SILVER is the UAE market name for TAKAI 5 — the exact same film."
+      "uae": "Signature line — UAE"
     },
     "registration": {
       "heading": "How to register your warranty",
@@ -988,8 +986,8 @@
     "whyHeading": "Why this brand",
     "why": {
       "1": {
-        "title": "Exclusive material",
-        "body": "TAKAI is made in Japan for us alone — no competitor sells the same product"
+        "title": "Exclusive distribution",
+        "body": "SupaKoto is the exclusive distributor of TAKAI in Egypt and the UAE — no competitor sells the same product"
       },
       "2": {
         "title": "A built brand",
@@ -1246,7 +1244,7 @@
       },
       "whyJapanese": {
         "q": "What's different about Japanese film?",
-        "a": "Colour stability, adhesive quality, and self-healing. TAKAI is made in Japan to specifications we set."
+        "a": "Colour stability, adhesive quality, and self-healing. TAKAI is made in Japan to strict factory standards — and we are its exclusive distributor here."
       },
       "howLongInstall": {
         "q": "How long does installation take?",

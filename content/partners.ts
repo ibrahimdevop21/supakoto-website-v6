@@ -114,3 +114,14 @@ export const partners: Partner[] = [
   brand("toyota", "Toyota"),
   brand("volkswagen", "Volkswagen"),
 ];
+
+/**
+ * Claim provenance (STRUCTURE-SPEC "Claim discipline" §1). The /about story
+ * and journey timeline name these three as partners; the claim is sourced.
+ * Do not add a partnership claim to copy without an entry here.
+ */
+export const PARTNERSHIP_CLAIMS = [
+  { partner: "Škoda", ar: "شكودا", confirmedBy: "Ibrahim Mohamed", confirmedOn: "2026-08-16" },
+  { partner: "Kasrawy Group", ar: "القصراوي", confirmedBy: "Ibrahim Mohamed", confirmedOn: "2026-08-16" },
+  { partner: "Mansour Group", ar: "منصور", confirmedBy: "Ibrahim Mohamed", confirmedOn: "2026-08-16" },
+] as const;

@@ -4,7 +4,12 @@ export type Branch = {
   /** Also the message key: branches.items.<id>.{name,address} */
   id: string;
   region: RegionId;
-  /** Display phone, always rendered LTR. Unverified seed data — see ASSETS-NEEDED.md. */
+  /**
+   * Display phone, always rendered LTR. OPS-CONFIRMED full replacement,
+   * Ibrahim/Dr. Amer 2026-08-16 (E.164 with spaces, as supplied).
+   * Alexandria's BRANCH number is +20 10 44202946; the Egypt REGIONAL line
+   * in content/regions.ts stays 01103402446 on purpose — see that file.
+   */
   phone: string;
   /** wa.me target, digits only. */
   whatsapp: string;
@@ -23,8 +28,8 @@ export const branches: Branch[] = [
     photo: "/images/branches/tagamoa.webp",
     coords: { lat: 30.019004, lng: 31.432151 },
     region: "egypt",
-    phone: "01220080189",
-    whatsapp: "201220080189",
+    phone: "+20 10 12747478",
+    whatsapp: "201012747478",
     capacity: 8,
   },
   {
@@ -32,8 +37,8 @@ export const branches: Branch[] = [
     photo: "/images/branches/zayed.webp",
     coords: { lat: 30.019908, lng: 30.977818 },
     region: "egypt",
-    phone: "01156608134",
-    whatsapp: "201156608134",
+    phone: "+20 11 03670059",
+    whatsapp: "201103670059",
     capacity: 6,
   },
   {
@@ -41,8 +46,8 @@ export const branches: Branch[] = [
     photo: "/images/branches/maadi.webp",
     coords: { lat: 29.959924, lng: 31.320286 },
     region: "egypt",
-    phone: "01127232340",
-    whatsapp: "201127232340",
+    phone: "+20 11 00512230",
+    whatsapp: "201100512230",
     capacity: 3,
   },
   {
@@ -50,15 +55,15 @@ export const branches: Branch[] = [
     photo: "/images/branches/alexandria.webp",
     coords: { lat: 31.048005, lng: 29.785749 },
     region: "egypt",
-    phone: "01103402446",
-    whatsapp: "201103402446",
+    phone: "+20 10 44202946",
+    whatsapp: "201044202946",
   },
   {
     id: "damietta",
     photo: "/images/branches/damietta.webp",
     coords: { lat: 31.443499, lng: 31.675357 },
     region: "egypt",
-    phone: "01126978186",
+    phone: "+20 11 26978186",
     whatsapp: "201126978186",
     franchise: true,
   },
