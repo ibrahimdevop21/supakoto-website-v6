@@ -47,7 +47,7 @@ export const NAV: NavItem[] = [
 
 export const SOCIAL_LINKS = [
   { key: "instagram", href: "https://instagram.com/supakoto" },
-  { key: "tiktok", href: "#" }, // TODO — URL not in V2_Prod, see ASSETS-NEEDED.md
+  { key: "tiktok", href: "#" }, // TODO — URL missing; Footer drops "#" entries (ASSETS-NEEDED)
   { key: "facebook", href: "https://facebook.com/supakoto" },
   { key: "youtube", href: "#" }, // TODO — see ASSETS-NEEDED.md
   { key: "linkedin", href: "#" }, // TODO — see ASSETS-NEEDED.md

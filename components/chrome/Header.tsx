@@ -151,37 +151,48 @@ function DesktopNavItem({
           className={cn("size-3.5 transition-transform", open && "rotate-180")}
         />
       </button>
-      <AnimatePresence>
-        {open && (
-          <motion.ul
-            initial={reduce ? false : { opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? undefined : { opacity: 0, y: 8 }}
-            transition={{ duration: 0.25, ease: EASE_OUT }}
-            className="absolute start-0 top-full min-w-48 rounded-card border border-ink-700 bg-ink-900 p-1.5"
-          >
-            {item.children.map((child) => (
-              <li key={child.key}>
-                <Link
-                  href={child.href}
-                  aria-current={
-                    isActive(pathname, child.href) ? "page" : undefined
-                  }
-                  className={cn(
-                    "block rounded-card px-3 py-2 text-small transition-colors",
-                    isActive(pathname, child.href)
-                      ? "bg-ink-800 text-fg"
-                      : "text-fg-muted hover:bg-ink-800 hover:text-fg",
-                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red",
-                  )}
-                >
-                  {t(child.key)}
-                </Link>
-              </li>
-            ))}
-          </motion.ul>
-        )}
-      </AnimatePresence>
+      {/* Always in the DOM (SSR-crawlable child links — Phase 17: the
+          conditional render left /about, /faq, /gallery, /contact, /careers
+          with no server-rendered link anywhere). Visibility is animated;
+          `inert` keeps the closed menu out of the tab order. */}
+      <motion.ul
+        initial={false}
+        animate={open ? "open" : "closed"}
+        variants={{
+          open: { opacity: 1, y: 0, visibility: "visible" },
+          closed: {
+            opacity: 0,
+            y: reduce ? 0 : 8,
+            transitionEnd: { visibility: "hidden" },
+          },
+        }}
+        transition={{ duration: reduce ? 0 : 0.25, ease: EASE_OUT }}
+        style={{ visibility: open ? "visible" : "hidden" }}
+        aria-hidden={!open}
+        inert={!open}
+        className="absolute start-0 top-full min-w-48 rounded-card border border-ink-700 bg-ink-900 p-1.5"
+      >
+        {item.children.map((child) => (
+          <li key={child.key}>
+            <Link
+              href={child.href}
+              aria-current={
+                isActive(pathname, child.href) ? "page" : undefined
+              }
+              tabIndex={open ? undefined : -1}
+              className={cn(
+                "block rounded-card px-3 py-2 text-small transition-colors",
+                isActive(pathname, child.href)
+                  ? "bg-ink-800 text-fg"
+                  : "text-fg-muted hover:bg-ink-800 hover:text-fg",
+                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red",
+              )}
+            >
+              {t(child.key)}
+            </Link>
+          </li>
+        ))}
+      </motion.ul>
     </li>
   );
 }

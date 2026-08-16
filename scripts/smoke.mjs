@@ -24,23 +24,31 @@ for (const r of ROUTES) {
   ok(ar.status === 200 && /<html[^>]*dir="rtl"/.test(ar.html), `200 + rtl  ${r}`);
   ok(en.status === 200 && /<html[^>]*dir="ltr"/.test(en.html), `200 + ltr  /en${r}`);
 }
-// Phase 14 redirects
-const IDS = ["ppf", "heat-isolation", "colour-change", "nano-ceramic", "marine-ppf", "surface-protection"];
-for (const id of IDS) {
-  const a = await get(`/services/${id}`); const e = await get(`/en/services/${id}`);
-  ok([301, 308].includes(a.status) && a.location?.endsWith(`/services#${id}`), `redirect /services/${id} → /services#${id}`);
-  ok([301, 308].includes(e.status) && e.location?.endsWith(`/en/services#${id}`), `redirect /en/services/${id} → /en/services#${id}`);
+// Phase 17: the seven service pages are real routes again (no anchor redirects).
+const SLUGS = ["ppf", "heat-isolation", "colour-change", "nano-ceramic", "building-heat-isolation", "marine-ppf", "surface-protection"];
+const NOINDEX = new Set(["marine-ppf", "surface-protection"]);
+for (const slug of SLUGS) for (const loc of ["", "/en"]) {
+  const r = await get(`${loc}/services/${slug}`, "follow"); const v = visible(r.html);
+  ok(r.status === 200, `200 ${loc}/services/${slug}`);
+  ok(/"@type":"Service"/.test(r.html) && /"@type":"BreadcrumbList"/.test(r.html), `Service + BreadcrumbList JSON-LD ${loc}/services/${slug}`);
+  const robotsNoindex = /<meta name="robots" content="noindex, follow"/.test(r.html);
+  ok(NOINDEX.has(slug) ? robotsNoindex : !robotsNoindex, `${NOINDEX.has(slug) ? "noindex,follow" : "indexable"} ${loc}/services/${slug}`);
+  ok(!/href="[^"]*\/services#/.test(r.html), `no anchor-form links on ${loc}/services/${slug}`);
 }
+const smx = await (await fetch(BASE + "/sitemap.xml")).text();
+ok(!/marine-ppf|surface-protection/.test(smx), "sitemap excludes noindex services");
+ok(/\/services\/ppf<\/loc>/.test(smx) && /\/en\/services\/ppf/.test(smx) && /x-default/.test(smx), "sitemap has /services/ppf both locales + x-default");
 // anchors + claim checks on /services (both locales)
 for (const loc of ["", "/en"]) {
   const s = visible((await get(loc + "/services", "follow")).html);
-  ok(["ppf", "heat-isolation", "colour-change", "nano-ceramic", "building-heat-isolation", "marine-ppf", "surface-protection"].every((id) => s.includes(`id="${id}"`)), `7 anchors ${loc}/services`);
+  ok(SLUGS.every((slug) => s.includes(`href="${loc}/services/${slug}"`)), `7 service cards link to pages ${loc}/services`);
   ok(!/SK-BLD/.test(s), `no SK-BLD ${loc}/services`);
   const b = visible((await get(loc + "/services/building-heat-isolation", "follow")).html);
   ok(/TK-7099-IR/.test(b), `TK-7099-IR present ${loc}/services/building-heat-isolation`);
   ok(!/SK-BLD/.test(b), `no SK-BLD ${loc}/services/building-heat-isolation`);
-  const lifetimeHits = (s.match(/lifetime|مدى الحياة/gi) || []).length;
-  ok(lifetimeHits > 0 && /warranty\.qualifier|مدى حياة السيارة|lifetime of the vehicle/i.test(s), `lifetime scoped with qualifier ${loc}/services`);
+  ok(!/lifetime warranty|ضمان مدى الحياة/i.test(s), `no lifetime on the services INDEX ${loc}/services`);
+  const ppf = visible((await get(loc + "/services/ppf", "follow")).html);
+  ok(/lifetime|مدى الحياة/i.test(ppf) && /مدى حياة السيارة|lifetime of the vehicle/i.test(ppf), `lifetime scoped with qualifier ${loc}/services/ppf`);
 }
 // lifetime must NOT be visible on these
 for (const p of ["/", "/about", "/branches", "/faq", "/en", "/en/about", "/en/faq"]) {
@@ -66,10 +74,20 @@ for (const loc of ["", "/en"]) {
   ok(/الموزع المعتمد الوحيد|sole authorized distributor/i.test(s), `citable distributor line ${loc}/authentic`);
   ok(/متاحة عند الطلب|متاحان عند الطلب|available on request/i.test(s) && !/تسلم تلقائيا مع|handed over automatically with/i.test(s), `documentation 'on request' ${loc}/authentic`);
   ok(!/\b3M\b|xpel|suntek|llumar|\bstek\b|garware/i.test(s), `no competitor names ${loc}/authentic`);
-  for (const [page, needle] of [["/", "/authentic"], ["/about", "/authentic"], ["/services", "/authentic"], ["/faq", "/authentic"]]) {
+  for (const [page, needle] of [["/", "/authentic"], ["/about", "/authentic"], ["/services/ppf", "/authentic"], ["/faq", "/authentic"]]) {
     const h = visible((await get(loc + page, "follow")).html);
     ok(h.includes(`href="${loc}/authentic"`), `link to /authentic from ${loc}${page}`);
   }
+}
+for (const p of ["/", "/en", "/services", "/en/services", "/warranty", "/en/warranty"]) {
+  const h = (await get(p, "follow")).html;
+  ok(!/href="[^"]*\/services#/.test(h), `no anchor-form links on ${p}`);
+}
+const titles = new Map();
+for (const p of ["/", "/services", "/services/ppf", "/services/heat-isolation", "/services/colour-change", "/services/nano-ceramic", "/services/building-heat-isolation", "/authentic", "/warranty", "/branches", "/about", "/faq", "/booking"]) {
+  const h = (await get(p, "follow")).html; const t = h.match(/<title>([^<]*)<\/title>/)?.[1] ?? "";
+  ok(t.length >= 30 && !titles.has(t), `unique keyword title ${p} (${t.length})`); titles.set(t, p);
+  ok(/<link rel="canonical" href="https:\/\/supakoto\.com/.test(h) && /hreflang="x-default"/i.test(h) && /hreflang="en"/i.test(h) && /hreflang="ar"/i.test(h), `canonical + hreflang ar/en/x-default ${p}`);
 }
 // TAKAI table on home + region hint
 const home = visible((await get("/", "follow")).html);

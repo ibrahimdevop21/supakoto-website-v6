@@ -69,3 +69,25 @@ JSON-LD parses with required fields; crawl: no 404 / chains / orphans; guards gr
   `url`, `parentOrganization`, `brand`; FAQPage on /faq, /authentic and service pages;
   Organization on `/` (+ /authentic); BreadcrumbList on /services/*, the quote funnel
   and /warranty/claim; ItemList on /services.
+
+### Item 4 — broken links and cutover readiness
+- Footer: social icons whose URL is a placeholder are no longer rendered (Instagram +
+  Facebook remain); TikTok / YouTube / LinkedIn URLs logged in ASSETS-NEEDED — adding
+  the URL in `lib/nav.ts` makes the icon appear.
+- Canonical/OG/hreflang/JSON-LD/sitemap/robots all derive from one env var
+  (`NEXT_PUBLIC_SITE_URL`, default `https://supakoto.com`) — cutover is DNS + (optional)
+  env, no code. Documented step by step in `docs/progress/CUTOVER.md`, incl. why the
+  vercel.app preview is deliberately non-indexable today and why og:image previews look
+  broken until the domain moves (they resolve via `/opengraph-image` on the new origin).
+- **Crawl** (`scripts/crawl.mjs`): 72 URLs, no 404, no redirect chains, no orphans.
+  The first crawl found five orphans (/about, /faq, /gallery, /contact, /careers) —
+  root cause: the header dropdown children were conditionally rendered, so no
+  server-rendered link existed anywhere. Fixed in `Header.tsx`: submenu always in the
+  DOM, visibility animated, `inert` + `tabIndex=-1` when closed (hover/click still
+  open/close, tab order verified).
+- Smoke extended: 7 service pages × 2 locales (200, Service+Breadcrumb JSON-LD, robots
+  index/noindex as intended, no anchor links), sitemap composition, unique keyword
+  titles, canonical + hreflang, no `/services#` anywhere → **195/195**.
+- Ops note: `pkill -x next-server` does NOT match the process (`next-server (v15…)`);
+  use `pkill -f "^next-server"`. A stale server serving cached prerenders cost one
+  false negative during this round.

@@ -27,7 +27,10 @@ export function Footer() {
 
         {/* Zone 2 — social row */}
         <ul className="mt-8 flex items-center justify-center gap-2">
-          {SOCIAL_LINKS.map(({ key, href }) => {
+          {/* Placeholder "#" anchors are never shipped — icons without a
+              real URL are dropped until marketing supplies them (Phase 17;
+              missing URLs logged in ASSETS-NEEDED). */}
+          {SOCIAL_LINKS.filter(({ href }) => href !== "#").map(({ key, href }) => {
             const Icon = SOCIAL_ICONS[key];
             return (
               <li key={key}>

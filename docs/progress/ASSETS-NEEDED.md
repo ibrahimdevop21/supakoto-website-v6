@@ -87,7 +87,7 @@ official marks are requestable via **info@takaifilms.jp**.
 | Asset | Placeholder in use | Needed from |
 |---|---|---|
 | Before/after pairs | Labelled placeholder slider on service pages | Marketing — no true before/after pairs exist in the V2 archive |
-| TikTok, YouTube, LinkedIn profile URLs | Footer icons render with `#` + TODO | Marketing |
+| TikTok, YouTube, LinkedIn profile URLs | **Icons NOT rendered** (Phase 17: no placeholder `#` anchors ship). Add the URL in `lib/nav.ts` → icon appears | Marketing |
 | Egypt trust badges / registry equivalents | `<TrustBadges />` renders nothing | Ibrahim |
 
 ## BUILDINGS PHOTOGRAPHY (added 2026-08-07)
