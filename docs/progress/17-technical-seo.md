@@ -56,3 +56,16 @@ JSON-LD parses with required fields; crawl: no 404 / chains / orphans; guards gr
   مكتوب، لا كلام»; branches «فروع سوباكوتو في مصر والإمارات».
 - No "lifetime" in any metadata (guard scope unchanged); no superlatives; no
   competitor names.
+
+### Item 3 — sitemap, robots, schema
+- `app/sitemap.ts` = `ROUTES` (derived) × hreflang `ar` / `en` / `x-default`; noindex
+  services excluded; 22 AR entries each declaring both locales. `robots.ts` unchanged
+  (allows all but `/dev/`); nothing important blocked.
+- hreflang on every page: `ar`, `en`, `x-default` (→ ar) + canonical, both directions
+  (each locale's page lists the other) — smoke asserts.
+- JSON-LD (audited by `scripts/jsonld-audit.mjs`, all 44 pages parse, required fields
+  present): Service + BreadcrumbList (+ FAQPage where FAQs exist) on all seven service
+  pages; AutomotiveBusiness ×6 on /branches now with `telephone` = new numbers, `geo`,
+  `url`, `parentOrganization`, `brand`; FAQPage on /faq, /authentic and service pages;
+  Organization on `/` (+ /authentic); BreadcrumbList on /services/*, the quote funnel
+  and /warranty/claim; ItemList on /services.

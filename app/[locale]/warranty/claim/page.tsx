@@ -3,6 +3,8 @@ import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
 import { ClaimForm } from "@/components/forms/ClaimForm";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbLd } from "@/lib/jsonld";
 
 export async function generateMetadata({
   params,
@@ -14,8 +16,8 @@ export async function generateMetadata({
   return pageMetadata({
     locale,
     path: "/warranty/claim",
-    title: t("title"),
-    description: t("sub"),
+    title: t("seoTitle"),
+    description: t("seoDescription"),
   });
 }
 
@@ -27,9 +29,18 @@ export default async function WarrantyClaimPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("warrantyClaim");
+  const tNav = await getTranslations("nav");
+  const loc = locale === "ar" ? "ar" : "en";
 
   return (
     <main>
+      <JsonLd
+        data={breadcrumbLd(loc, [
+          [tNav("home"), "/"],
+          [tNav("warrantyPolicy"), "/warranty"],
+          [t("title"), "/warranty/claim"],
+        ])}
+      />
       <PageHero title={t("title")} sub={t("sub")} />
       <section className="py-(--spacing-section)">
         <Container>

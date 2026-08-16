@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/metadata";
+import { localeUrl } from "@/lib/site";
 import { branches } from "@/content/branches";
 import { PageHero } from "@/components/sections/PageHero";
 import { BranchGrid } from "@/components/sections/BranchGrid";
@@ -17,8 +18,8 @@ export async function generateMetadata({
   return pageMetadata({
     locale,
     path: "/branches",
-    title: t("title"),
-    description: t("sub"),
+    title: t("seoTitle"),
+    description: t("seoDescription"),
   });
 }
 
@@ -30,6 +31,7 @@ export default async function BranchesPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("branches");
+  const loc = locale === "ar" ? "ar" : "en";
 
   return (
     <main>
@@ -46,7 +48,14 @@ export default async function BranchesPage({
               addressCountry: b.region === "egypt" ? "EG" : "AE",
             },
             telephone: b.phone,
-            brand: "SupaKoto",
+            url: localeUrl(loc, "/branches"),
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: b.coords.lat,
+              longitude: b.coords.lng,
+            },
+            parentOrganization: { "@type": "Organization", name: "SupaKoto" },
+            brand: { "@type": "Brand", name: "TAKAI" },
           }}
         />
       ))}
