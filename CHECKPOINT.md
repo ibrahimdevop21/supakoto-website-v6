@@ -1,3 +1,61 @@
+# CHECKPOINT — 2026-08-17
+
+## TL;DR (2026-08-17, start of day)
+
+**Everything through Phase 17 is on `main` (`78830c6`), pushed, and live on
+Vercel production (https://supakoto-website-v6.vercel.app) — verified against
+production: smoke 196/196, crawl clean (no 404/chains/orphans), JSON-LD clean,
+sitemap 44 URLs, marine/surface `noindex, follow`.** Yesterday shipped four
+phases in sequence: 15 (Dr. Amer VP feedback: claim corrections, phones, tiles,
+white Arabic ×2 rounds), 16 (`/authentic` genuine-TAKAI page + competitor-name
+guard), confirmed facts (2016, 25k vehicles, partnerships — provenance in
+`lib/site.ts` / `content/partners.ts`), and 17 (technical SEO: `/services`
+re-split into seven pages, keyword titles/metas/H1s, sitemap/hreflang, JSON-LD
+audit incl. Organization/LocalBusiness/Breadcrumbs, SSR nav submenu links,
+footer placeholders removed, `docs/progress/CUTOVER.md`). Tree clean, nothing
+unpushed, no local servers.
+
+## Phase ledger
+- 0–17: done and deployed (progress docs 00–17).
+- **Next: DOMAIN CUTOVER** — Ibrahim's day; runbook = `docs/progress/CUTOVER.md`
+  (also read back as a 23-step checklist in the 2026-08-16 session).
+- After cutover: Search Console watch (48h), then whatever Ibrahim briefs.
+
+## Decisions (do not re-litigate) — cumulative, see progress docs 15–17
+- White Arabic register; claim discipline (7 guard rules in
+  `scripts/check-claims.mjs`, spec-level law); PPF never claims heat; TAKAI
+  SILVER only in UAE, region-scoped naming; distributor-not-manufacturer;
+  no superlatives; no competitor names; documentation "available on request".
+- One URL per service intent (`/services/<slug>`); marine + surface noindex via
+  `NOINDEX_SERVICE_IDS` until TAKAI confirms; sitemap derived, both locales as
+  own entries; `NEXT_PUBLIC_SITE_URL` is the single canonical switch.
+- Phones: Egypt regional line 01103402446 stays; UAE regional = Dubai branch.
+- Facts confirmed by Ibrahim 2026-08-16: founded 2016; 25,000 vehicles baseline
+  (live counter later = baseline + bdm-flow delta); partners Škoda / Kasrawy /
+  Mansour.
+
+## HELD (never auto-resume)
+- Live vehicles counter fed by bdm-flow (constraint recorded in `lib/site.ts`).
+- Supabase for V6 ("later"; no project exists; never touch bdm-flow).
+- Marine / surface product content + indexing (pending written TAKAI confirmation).
+- Inline-SVG Japan flag; TikTok/YouTube/LinkedIn URLs (icons hidden until supplied).
+
+## The law
+- Phone digits only in `content/regions.ts` / `content/branches.ts` (guard).
+- Never edit `check-claims.mjs` to make a claim pass. Never invent product codes.
+- Lifetime only on /warranty, /services/ppf, Premium Plus card, with qualifier.
+- Local verification: `pnpm build` → `PORT=3111 pnpm start` → `node scripts/smoke.mjs`,
+  `crawl.mjs`, `jsonld-audit.mjs`, `e2e-whatsapp-routing.mjs`. Kill servers with
+  `pkill -f "^next-server"` (NOT `-x`); never run `pnpm dev` and `pnpm start` from
+  the same checkout.
+
+## Exact next action
+Cutover is Ibrahim's manual day (Vercel domains → DNS → verify → Search Console).
+If a session opens before that: /orient, then wait for the brief. If it opens
+after: run the three scripts with `BASE=https://supakoto.com` and report.
+
+---
+
 # CHECKPOINT — 2026-08-16
 
 ## TL;DR (2026-08-16, evening)
