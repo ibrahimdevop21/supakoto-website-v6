@@ -32,10 +32,27 @@ structure only**: `dettaglioauto.sa`. Visual identity is 100% SupaKoto.
 
 ## Content rules
 
-- Arabic copy is Modern Standard Arabic (فصحى). Professional and clear, not
-  stiff or bureaucratic. Avoid MSA clichés: `نقدم لكم`, `أفضل الأسعار`,
-  `خدمة متميزة`, `يسعدنا أن`. Short sentences. Same confident, minimal tone
-  as the English. (Reversed from Egyptian dialect — Ibrahim, 2026-08-07.)
+- **Arabic copy is white Arabic (عربية بيضاء)** — direction set by co-founder
+  Dr. Amer, 2026-08-16; supersedes both the Egyptian-dialect rule and the
+  plain-MSA rule. Fluent Modern Standard Arabic with simple, everyday
+  vocabulary — the register pan-Arab brands and Gulf media use. Grammatically
+  standard, effortless to read. An Egyptian, Emirati, or Saudi reader
+  understands it immediately without parsing.
+  - Common words over formal synonyms: `يحمي` not `يقي`, `يحافظ على` not `يصون`
+  - Short sentences, one idea each
+  - No classical constructions: `تجدر الإشارة`, `نظرًا لـ`, `يُعد`,
+    `من الجدير بالذكر`, `حيث أن`
+  - No MSA marketing clichés: `نقدم لكم`, `أفضل الأسعار`, `خدمة متميزة`,
+    `يسعدنا أن`
+  - No regionalisms — nothing distinctly Egyptian, Levantine, or Gulf
+  - Active voice, direct address
+  - Match the English tone: confident, minimal, unhurried
+  - Simple must not become bland. «حماية يابانية أصلية لسيارتك» is simple AND
+    specific. Generic service-site Arabic is a fail even if every rule passes.
+  - Test per string: would this read naturally to a car owner in Cairo, Dubai,
+    AND Riyadh with zero friction? If any of the three would pause on a word,
+    choose a simpler one.
+  - No tashkeel. Phone numbers always LTR. Every key lands in both `en` and `ar`.
 - English copy: confident, minimal, premium. Short sentences. No hype.
 - Brand framing: premium Japanese engineering, long-term investment in the car.
   Never cheap, discount, "best price", or rushed.

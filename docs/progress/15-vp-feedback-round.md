@@ -26,6 +26,12 @@ C white Arabic (1).
   locales to distributor framing; grep for all listed variants → 0 (the only hit,
   franchise "workshop fit-out to our spec", is not about the film and the guard is
   scoped to film/TAKAI context). Guard rule `distributor-not-manufacturer`.
+- **Item 6 addendum (found during the Arabic read-through):** two more
+  manufacturer-framing strings — `franchise.why.1.body` ("TAKAI is made in Japan
+  for us alone" / «TAKAI تصنع في اليابان لنا») and `faq.items.whyJapanese.a`
+  ("made in Japan to specifications we set" / «بمواصفات نحددها نحن») — rewritten to
+  distributor framing in both locales; guard patterns widened (`made in Japan for
+  us`, `for us alone`, `specifications we set`, «تصنع في اليابان لنا», «نحددها نحن»).
 - **Item 7:** standing traceability rule added to STRUCTURE-SPEC §1 (SK-BLD precedent).
 - **Item 5:** `Flag_of_Japan.svg.webp` (960×640 WebP) → `public/images/brand/flag-japan.webp`,
   rendered via `next/image` in the /about stat; `about.stats.exclusive.value` removed

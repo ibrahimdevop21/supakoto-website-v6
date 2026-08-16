@@ -63,7 +63,7 @@ const SILVER = /\bSILVER\b|سيلفر/i;
 const TAKAI5 = /TAKAI\s*5\b|تاكاي\s*5/i;
 const ALTNAME = /\baltName\b/;
 const MADE_FOR_US =
-  /made\s+(exclusively\s+)?for\s+us|exclusively\s+for\s+(us|supakoto)|(made|produced|manufactured)\s+for\s+supakoto|our\s+own\s+formulation|to\s+our\s+(own\s+)?spec(ification)?s?\b.*(film|takai)|(film|takai).*to\s+our\s+(own\s+)?spec|لنا حصريا|حصريا لنا|خصيصا لنا|تصنع لنا|صنعت من أجلنا|مصنوع(ة)? لنا|(فيلم|خامة|takai).*بمواصفاتنا|بمواصفاتنا.*(فيلم|خامة|takai)/i;
+  /made\s+(exclusively\s+)?for\s+us|made\s+in\s+japan\s+for\s+us|for\s+us\s+alone|spec(ification)?s?\s+(that\s+)?we\s+(set|define|specify)|exclusively\s+for\s+(us|supakoto)|(made|produced|manufactured)\s+for\s+supakoto|our\s+own\s+formulation|to\s+our\s+(own\s+)?spec(ification)?s?\b.*(film|takai)|(film|takai).*to\s+our\s+(own\s+)?spec|لنا حصريا|حصريا لنا|خصيصا لنا|تصنع لنا|تصنع\s+في\s+اليابان\s+لنا|نحددها\s+نحن|بمواصفات\s+نحددها|صنعت من أجلنا|مصنوع(ة)? لنا|(فيلم|خامة|takai).*بمواصفاتنا|بمواصفاتنا.*(فيلم|خامة|takai)/i;
 const EMOJI_FLAG = /[\u{1F1E6}-\u{1F1FF}]/u;
 const LIFETIME = /lifetime|مدى الحياة/i;
 const LIFETIME_ALLOW = /^(warranty\.|services\.items\.ppf\.|takai\.terms\.lifetime$)/;
