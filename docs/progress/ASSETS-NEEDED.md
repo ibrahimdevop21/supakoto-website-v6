@@ -55,14 +55,15 @@ official marks are requestable via **info@takaifilms.jp**.
 
 ## CLAIMS NEEDING TRACEABLE CONFIRMATION (added 2026-08-16, second copy review)
 
-Logged under STRUCTURE-SPEC "Claim discipline" §1 — **not removed**, but neither
-has a source on file. Ibrahim/ops to confirm in writing (invoice count export,
-partnership agreements) or the wording gets softened:
+Logged under STRUCTURE-SPEC "Claim discipline" §1 — **not removed**:
 
-- `about.whoWeAre.body` (+ the /about stat and `about.stats.cars`):
-  «تجاوزنا 25 ألف سيارة محمية» / "past 25,000 cars protected".
-- `about.whoWeAre.body` + journey events 2/4/9: partnerships named as
-  شكودا (Škoda), القصراوي (Kasrawy), منصور (Mansour).
+- **Still open — performance figure:** `about.whoWeAre.body` + the /about stat
+  (`about.stats.cars`, `Counter value={25000}`): «تجاوزنا 25 ألف سيارة محمية» /
+  "past 25,000 cars protected". Needs a traceable source (invoice / booking
+  export) or the wording gets softened.
+- ~~Partnerships Škoda / Kasrawy / Mansour~~ — **CONFIRMED by Ibrahim Mohamed,
+  2026-08-16** (official SupaKoto partners). Provenance recorded in
+  `content/partners.ts` (`PARTNERSHIP_CLAIMS`). Closed.
 
 ## Resolved
 

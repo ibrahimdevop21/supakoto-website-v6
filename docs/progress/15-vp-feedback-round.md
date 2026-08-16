@@ -412,3 +412,20 @@ positioning «لفئات أخرى», «فيها»→«تضم», «مشغولة �
   والتركيب», «خامات يابانية» on the index, vinyl wrap strings, «معيار الخامات»).
 - **Logged, not removed** (ASSETS-NEEDED): 25,000 cars stat; Škoda/Kasrawy/Mansour partnerships.
 - Green: typecheck, lint (0 errors), build 42/42, both guards, en/ar parity, no tashkeel.
+
+### Pre-merge pass (2026-08-16, later)
+- `home.title` neutralised per Ibrahim's (b): «سوباكوتو — حماية يابانية أصلية» /
+  "SupaKoto — Genuine Japanese protection".
+- Partnerships Škoda / Kasrawy / Mansour **confirmed by Ibrahim Mohamed 2026-08-16** —
+  provenance in `content/partners.ts` (`PARTNERSHIP_CLAIMS`), ASSETS-NEEDED item closed;
+  the 25,000-cars figure stays logged as needing a traceable source.
+- Screenshot review surfaced `services.items.heat-isolation.benefit` "cooler cabin, **paint**
+  protected from the sun" — same glass-film/paint blur as the approved OQ-2(a) hero fix;
+  changed to "interior protected from the sun" / «وفرش محمي من الشمس» both locales.
+- Combined-state verification on a fresh prod build: `smoke.mjs` 97/97 · `e2e-whatsapp-routing.mjs`
+  16/16 · / and /services at 390 + 1440, ar + en: 8 screenshots, no console/page errors, all 4
+  feature-tile images load at every size · `/warranty` gating: Egypt cookie → TAKAI 5 only,
+  UAE cookie → SILVER only, both locales.
+- Incident during the pass: a `next dev` on :3000 had overwritten `.next` under the running
+  prod server (all `_next/static` 400, hydration stalled). Not a code fault; killed, rebuilt,
+  re-ran → green. Reminder: never run `pnpm dev` and `pnpm start` from the same checkout.
