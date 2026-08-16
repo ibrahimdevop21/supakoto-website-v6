@@ -18,7 +18,7 @@ const get = async (path, redirect = "manual") => {
 };
 const visible = (html) => html.replace(/<script[\s\S]*?<\/script>/g, "");
 
-const ROUTES = ["/", "/services", "/services/building-heat-isolation", "/services/building-heat-isolation/quote", "/warranty", "/warranty/claim", "/booking", "/branches", "/about", "/franchise", "/business", "/gallery", "/faq", "/contact", "/careers"];
+const ROUTES = ["/", "/authentic", "/services", "/services/building-heat-isolation", "/services/building-heat-isolation/quote", "/warranty", "/warranty/claim", "/booking", "/branches", "/about", "/franchise", "/business", "/gallery", "/faq", "/contact", "/careers"];
 for (const r of ROUTES) {
   const ar = await get(r, "follow"); const en = await get("/en" + r, "follow");
   ok(ar.status === 200 && /<html[^>]*dir="rtl"/.test(ar.html), `200 + rtl  ${r}`);
@@ -58,6 +58,19 @@ for (const p of ["/", "/en", "/warranty", "/en/warranty", "/about", "/en/about",
 const br = (await get("/branches", "follow")).html;
 for (const n of ["201012747478", "201103670059", "201100512230", "201044202946", "201126978186", "971552054478"]) ok(br.includes(`wa.me/${n}`), `branch wa.me ${n}`);
 ok(!/50 626 5404|506265404|01220080189|01156608134|01127232340/.test(br), "retired numbers absent on /branches");
+// /authentic — genuine TAKAI page (Phase 16)
+for (const loc of ["", "/en"]) {
+  const raw = (await get(loc + "/authentic", "follow")).html;
+  const s = visible(raw);
+  ok(/"@type":"FAQPage"/.test(raw) && /"@type":"Organization"/.test(raw) && /"@type":"Brand","name":"TAKAI"/.test(raw), `JSON-LD FAQPage + Organization/Brand ${loc}/authentic`);
+  ok(/الموزع المعتمد الوحيد|sole authorized distributor/i.test(s), `citable distributor line ${loc}/authentic`);
+  ok(/متاحة عند الطلب|متاحان عند الطلب|available on request/i.test(s) && !/تسلم تلقائيا مع|handed over automatically with/i.test(s), `documentation 'on request' ${loc}/authentic`);
+  ok(!/\b3M\b|xpel|suntek|llumar|\bstek\b|garware/i.test(s), `no competitor names ${loc}/authentic`);
+  for (const [page, needle] of [["/", "/authentic"], ["/about", "/authentic"], ["/services", "/authentic"], ["/faq", "/authentic"]]) {
+    const h = visible((await get(loc + page, "follow")).html);
+    ok(h.includes(`href="${loc}/authentic"`), `link to /authentic from ${loc}${page}`);
+  }
+}
 // TAKAI table on home + region hint
 const home = visible((await get("/", "follow")).html);
 ok(/TAKAI PREMIUM PLUS/.test(home) && /TAKAI 5\b/.test(home), "home TAKAI table (Egypt default) renders");

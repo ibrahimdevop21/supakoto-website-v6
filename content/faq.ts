@@ -10,11 +10,13 @@ export type FaqCategory =
   | "aftercare"
   | "buildings";
 
-export type FaqEntry = { id: string; category: FaqCategory };
+/** `link` renders a link-through under the answer (e.g. /authentic). */
+export type FaqEntry = { id: string; category: FaqCategory; link?: string };
 
 export const faqEntries: FaqEntry[] = [
   { id: "whatIsPpf", category: "general" },
   { id: "whyJapanese", category: "general" },
+  { id: "genuine", category: "general", link: "/authentic" },
   { id: "howLongInstall", category: "booking" },
   { id: "bookingDeposit", category: "booking" },
   { id: "whichBranch", category: "booking" },

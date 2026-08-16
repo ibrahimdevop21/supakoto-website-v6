@@ -25,6 +25,11 @@
  *                   §1 traceability). Comparatives in advice ("better than
  *                   automatic brushes") and "first day/first shipment" are fine.
  *
+ *  7. COMPETITOR    No competitor brand name anywhere in messages, content, app
+ *                   or components (3M, XPEL, SunTek, Llumar, STEK, Garware).
+ *                   Counterfeit film is a category problem, never a named
+ *                   company — legal exposure, not style.
+ *
  * Comments in .ts/.tsx are stripped before scanning so the rules can be
  * documented in code without tripping the guard.
  */
@@ -72,6 +77,7 @@ const MADE_FOR_US =
 const EMOJI_FLAG = /[\u{1F1E6}-\u{1F1FF}]/u;
 const LIFETIME = /lifetime|مدى الحياة/i;
 const LIFETIME_ALLOW = /^(warranty\.|services\.items\.ppf\.|takai\.terms\.lifetime$)/;
+const COMPETITOR = /\b3M\b|\b(xpel|suntek|llumar|stek|garware)\b/i;
 const SUPERLATIVE =
   /\b(the\s+)?(best|finest|number\s*one|no\.\s*1|#1)\s+(japanese\s+)?(film|films|material|materials|protection|installation|quality|price|prices|brand|ppf|choice|in\s+(egypt|the\s+uae|the\s+middle\s+east|the\s+market))|(^|\s)(أفضل|الأفضل)\s+(خامة|فيلم|أفلام|حماية|منتج|علامة|تركيب|جودة|سعر|أسعار|اختيار)|(الاسم|العلامة|الشركة|الوكيل|المركز)\s+الأول(ى)?\b|الأول(ى)?\s+في\s+(مصر|الإمارات|الشرق\s+الأوسط|السوق)/i;
 
@@ -87,6 +93,7 @@ for (const loc of ["en", "ar"]) {
     if (EMOJI_FLAG.test(val)) fail(file, key, "emoji-flag", val);
     if (LIFETIME.test(val) && !LIFETIME_ALLOW.test(key)) fail(file, key, "lifetime-scope", val);
     if (SUPERLATIVE.test(val)) fail(file, key, "superlative", val);
+    if (COMPETITOR.test(val)) fail(file, key, "competitor-name", val);
   }
 }
 
@@ -102,6 +109,7 @@ for (const dir of CODE_DIRS) {
       if (MADE_FOR_US.test(line)) fail(rel, where, "distributor-not-manufacturer", line);
       if (EMOJI_FLAG.test(line)) fail(rel, where, "emoji-flag", line);
       if (SUPERLATIVE.test(line)) fail(rel, where, "superlative", line);
+      if (COMPETITOR.test(line)) fail(rel, where, "competitor-name", line);
     });
     // Heat language inside the PPF/TAKAI data files (not the services
     // catalogue, which legitimately lists the heat-isolation services).
@@ -119,8 +127,8 @@ if (violations.length) {
   console.error(
     "\nRules: docs/STRUCTURE-SPEC.md → “Claim discipline”. PPF never claims heat; " +
       "SILVER and TAKAI 5 are never equated; SupaKoto distributes, TAKAI manufactures; " +
-      "no emoji flags; lifetime stays scoped; no best/finest/أفضل superlatives on brand or product.\n",
+      "no emoji flags; lifetime stays scoped; no best/finest/أفضل superlatives on brand or product; no competitor brand names.\n",
   );
   process.exit(1);
 }
-console.log("✓ Claims guard: no heat-in-PPF, Silver/TAKAI 5, manufacturer-framing, emoji-flag, lifetime-scope or superlative violations.");
+console.log("✓ Claims guard: no heat-in-PPF, Silver/TAKAI 5, manufacturer-framing, emoji-flag, lifetime-scope, superlative or competitor-name violations.");

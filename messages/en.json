@@ -200,7 +200,8 @@
     "servicesColour": "Colour change",
     "servicesNano": "Nano ceramic",
     "servicesMarine": "Marine PPF",
-    "servicesSurface": "Surface Protection"
+    "servicesSurface": "Surface Protection",
+    "authenticity": "Authenticity"
   },
   "chrome": {
     "region": {
@@ -1293,6 +1294,10 @@
       "bhiMismatch": {
         "q": "What if the on-site measurements differ from what I sent?",
         "a": "The final price is adjusted to the actual measurement before any work starts — no surprises after installation."
+      },
+      "genuine": {
+        "q": "How do I know my protection film is genuine?",
+        "a": "Genuine TAKAI film in Egypt and the UAE comes from one authorized distributor: SupaKoto. Buy from an authorized branch, ask for the certificate of origin and import documentation (available on request), and have the warranty registered in the tier's name at installation."
       }
     }
   },
@@ -1539,6 +1544,109 @@
       "umm-al-quwain": "Umm Al Quwain",
       "ras-al-khaimah": "Ras Al Khaimah",
       "fujairah": "Fujairah"
+    }
+  },
+  "authentic": {
+    "title": "Genuine TAKAI film in Egypt and the UAE — the sole authorized distributor",
+    "metaDescription": "SupaKoto is the sole authorized distributor of TAKAI films in Egypt and the UAE. How to verify your paint protection film is genuine: an authorized branch, certificate of origin and import documentation available on request, and a warranty registered in the tier's name.",
+    "eyebrow": "Authenticity",
+    "hero": {
+      "title": "Genuine film starts at the source",
+      "sub": "SupaKoto is the sole authorized distributor of TAKAI films in Egypt and the UAE. Buy from the authorized source and the question does not arise."
+    },
+    "why": {
+      "eyebrow": "Why counterfeit film exists",
+      "title": "A category problem, not a brand problem",
+      "body": "Counterfeit protection film exists in this market. The reason is not any one brand — it is the nature of the category:",
+      "b1": "Long supply chains that pass through several hands before a workshop",
+      "b2": "Resellers with no chain of custody to show where the film came from",
+      "b3": "A product the customer cannot inspect once it is on the car",
+      "b4": "A name printed on the roll is not evidence on its own"
+    },
+    "takai": {
+      "eyebrow": "Why TAKAI is different",
+      "title": "R&D and manufacturing in Japan — one chain of custody",
+      "body": "TAKAI does its research, development and manufacturing in Japan (Nippon Takai Trading & Innovation Co., Ltd., Tokyo). One country, one factory, one chain of custody from the factory to a SupaKoto branch.",
+      "b1": "Research and development in Japan",
+      "b2": "Manufacturing in Japan",
+      "b3": "Shipped from TAKAI directly to SupaKoto — no intermediaries in Egypt or the UAE"
+    },
+    "distributor": {
+      "eyebrow": "What “authorized distributor” means",
+      "title": "What we receive, what we hold, what you can ask for",
+      "receive": {
+        "title": "What we receive",
+        "body": "TAKAI shipments arrive at SupaKoto directly from TAKAI. There is no other authorized distributor of TAKAI films in Egypt or the UAE."
+      },
+      "hold": {
+        "title": "What we hold",
+        "body": "Certificates of origin for our TAKAI shipments, and the import documentation that goes with them."
+      },
+      "ask": {
+        "title": "What you can ask for",
+        "body": "The certificate of origin and import documentation — available on request at any of our branches."
+      }
+    },
+    "verify": {
+      "eyebrow": "How to verify",
+      "title": "Four steps you can check yourself",
+      "sub": "Not reassurance — specific steps, each with something to show for it.",
+      "s1": {
+        "title": "Buy from an authorized SupaKoto branch",
+        "body": "The authorized branches in Egypt and the UAE are listed on the branches page. No location outside that list sells or installs genuine TAKAI film."
+      },
+      "s2": {
+        "title": "Ask for the certificate of origin and import documentation",
+        "body": "We hold both for our TAKAI shipments, and they are available on request. Ask the branch before or after installation."
+      },
+      "s3": {
+        "title": "Have the warranty registered in the tier's name at installation",
+        "body": "The branch registers your car and protection tier, and you receive a warranty booklet naming the tier and its term. Keep it with the invoice."
+      },
+      "s4": {
+        "title": "Know the limit of what we can verify",
+        "body": "We speak only for film installed at our branches. We cannot verify film sold or installed anywhere else."
+      },
+      "branchesCta": "Authorized branches"
+    },
+    "faqHeading": "Authenticity questions",
+    "faq": {
+      "1": {
+        "q": "How do I know my protection film is genuine?",
+        "a": "Genuine TAKAI film in Egypt and the UAE comes from one authorized distributor: SupaKoto. To verify: buy from an authorized SupaKoto branch, ask for the certificate of origin and import documentation (available on request), and make sure the branch registers your warranty in the protection tier's name at installation."
+      },
+      "2": {
+        "q": "Who is the authorized TAKAI distributor in Egypt and the UAE?",
+        "a": "SupaKoto is the sole authorized distributor of TAKAI films in Egypt and the UAE. Genuine TAKAI film cannot be sourced from anyone else in these two markets."
+      },
+      "3": {
+        "q": "Do you hand over the certificate of origin with every installation?",
+        "a": "Not automatically. The certificate of origin and import documentation for our TAKAI shipments are held by SupaKoto and are available on request at any branch."
+      },
+      "4": {
+        "q": "Where is TAKAI film made?",
+        "a": "In Japan. TAKAI does its research, development and manufacturing in Japan (Nippon Takai Trading & Innovation Co., Ltd., Tokyo) and ships directly to SupaKoto."
+      },
+      "5": {
+        "q": "I bought TAKAI film somewhere else — can you verify it?",
+        "a": "No. We speak only for film installed at our authorized branches, and we cannot verify film sold or installed anywhere else."
+      },
+      "6": {
+        "q": "How do I know my warranty is registered?",
+        "a": "At installation the branch registers your car and protection tier, and you receive a warranty booklet naming the tier and its term. If you did not receive one, ask the same branch for it."
+      }
+    },
+    "cta": {
+      "title": "Choose an authorized branch and book",
+      "sub": "The shortest route to genuine film: a SupaKoto branch, and a warranty in the tier's name.",
+      "branches": "Authorized branches",
+      "book": "Book your slot"
+    },
+    "links": {
+      "about": "How to verify your film is genuine",
+      "ppf": "Genuine film comes only from the authorized distributor — how to verify",
+      "faq": "Full page: how to verify your film is genuine",
+      "footer": "Sole authorized TAKAI distributor — verify authenticity"
     }
   }
 }

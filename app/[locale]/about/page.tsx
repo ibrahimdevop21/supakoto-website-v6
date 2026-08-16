@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/metadata";
 import { CARS_PROTECTED, DOCUMENTARY_YOUTUBE_ID } from "@/lib/site";
@@ -35,6 +36,7 @@ export default async function AboutPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("about");
+  const tAuth = await getTranslations("authentic");
 
   return (
     <main className="pt-18">
@@ -65,6 +67,14 @@ export default async function AboutPage({
             <Eyebrow>{t("journey.eyebrow")}</Eyebrow>
             <Heading level={2}>{t("whoWeAre.title")}</Heading>
             <p className="mt-6 text-fg-muted">{t("whoWeAre.body")}</p>
+            <p className="mt-4">
+              <Link
+                href="/authentic"
+                className="text-small font-medium text-sk-red underline-offset-4 hover:underline"
+              >
+                {tAuth("links.about")} →
+              </Link>
+            </p>
           </Reveal>
           <RevealStagger className="space-y-0">
             {Array.from({ length: 11 }, (_, i) => i + 1).map((n) => (
@@ -120,7 +130,11 @@ export default async function AboutPage({
                   className="h-12 w-auto rounded-sm ring-1 ring-ink-700"
                 />
               </span>
-              <p className="mt-2 text-fg-muted">{t("stats.exclusive.label")}</p>
+              <p className="mt-2 text-fg-muted">
+                <Link href="/authentic" className="underline-offset-4 hover:underline">
+                  {t("stats.exclusive.label")}
+                </Link>
+              </p>
             </RevealItem>
             <RevealItem className="text-center">
               <Counter value={CARS_PROTECTED.baseline} suffix="+" className="text-display" />

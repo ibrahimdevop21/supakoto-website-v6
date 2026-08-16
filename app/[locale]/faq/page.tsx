@@ -8,6 +8,7 @@ import { Heading } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Accordion } from "@/components/ui/Accordion";
 import { JsonLd } from "@/components/JsonLd";
+import { Link } from "@/i18n/navigation";
 
 const CATEGORY_ORDER: FaqCategory[] = [
   "general",
@@ -40,6 +41,7 @@ export default async function FaqPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("faq");
+  const tAuth = await getTranslations("authentic");
 
   return (
     <main>
@@ -66,7 +68,21 @@ export default async function FaqPage({
               .map((e) => ({
                 id: e.id,
                 question: t(`items.${e.id}.q`),
-                answer: t(`items.${e.id}.a`),
+                answer: e.link ? (
+                  <>
+                    <p>{t(`items.${e.id}.a`)}</p>
+                    <p className="mt-3">
+                      <Link
+                        href={e.link}
+                        className="font-medium text-sk-red underline-offset-4 hover:underline"
+                      >
+                        {tAuth("links.faq")} →
+                      </Link>
+                    </p>
+                  </>
+                ) : (
+                  t(`items.${e.id}.a`)
+                ),
               }));
             if (items.length === 0) return null;
             return (

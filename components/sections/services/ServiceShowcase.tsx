@@ -10,6 +10,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Accordion } from "@/components/ui/Accordion";
 import { PendingServiceCta } from "@/components/sections/services/PendingServiceCta";
 import { cn } from "@/lib/cn";
+import { Link } from "@/i18n/navigation";
 
 /**
  * All seven services inline on /services (Phase 14 — Ibrahim 2026-08-14:
@@ -70,6 +71,7 @@ export async function ServiceShowcase() {
   const tItems = await getTranslations("services.items");
   const tGallery = await getTranslations("gallery.items");
   const tWarranty = await getTranslations("warranty");
+  const tAuth = await getTranslations("authentic");
 
   return (
     <>
@@ -189,6 +191,19 @@ export async function ServiceShowcase() {
                                      block (CLAUDE.md warranty rule). */
                                   <p className="mt-4 max-w-prose text-eyebrow text-fg-subtle">
                                     {tWarranty("qualifier.text")}
+                                  </p>
+                                )}
+                                {s.id === "ppf" && (
+                                  /* Authenticity link-through — PPF only
+                                     (spec: "/authentic linked from the PPF
+                                     spec area"). */
+                                  <p className="mt-4 text-small">
+                                    <Link
+                                      href="/authentic"
+                                      className="font-medium text-sk-red underline-offset-4 hover:underline"
+                                    >
+                                      {tAuth("links.ppf")} →
+                                    </Link>
                                   </p>
                                 )}
                               </div>

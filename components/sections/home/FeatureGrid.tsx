@@ -15,7 +15,7 @@ import { cn } from "@/lib/cn";
  */
 const TILES = [
   { key: "branches", href: "/branches", wide: true, image: "/images/branches/tagamoa.webp" }, // aerial of the Tagamoa branch
-  { key: "takai", href: "/services#ppf", wide: false, image: "/images/gallery/sk-034.webp" }, // TAKAI film gloss on a bonnet
+  { key: "takai", href: "/authentic", wide: false, image: "/images/gallery/sk-034.webp" }, // TAKAI film gloss on a bonnet
   { key: "warranty", href: "/warranty", wide: false, image: "/images/gallery/sk-148.webp" }, // Prado after full protection — long-term
   { key: "book", href: "/booking", wide: true, image: "/images/gallery/sk-105.webp" }, // cars in the workshop
 ] as const;

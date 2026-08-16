@@ -224,12 +224,59 @@ Section order, top to bottom:
 5. **Feature tile grid** — 2×2 asymmetric. Theirs is Gifts / Branches 3D /
    Products / Warranty. Ours:
    - فروعنا — "٦ فروع في مصر والإمارات"
-   - التقنية اليابانية — TAKAI story → `/services/ppf`
+   - التقنية اليابانية — TAKAI story → `/authentic` (was `/services/ppf`; 2026-08-16)
    - الضمان — tier-neutral line, no numeral → `/warranty`
    - احجز موعدك — direct booking tile
 6. **قطاع الأعمال / Business band** — split panel, franchise on one side, B2B
    fleet on the other.
 7. **Footer.**
+
+---
+
+## `/authentic` — genuine TAKAI verification (added 2026-08-16)
+
+**Purpose:** the differentiator page. Written to be quoted by search engines
+and AI assistants answering "how do I know my PPF is genuine" / "where do I
+buy TAKAI in Egypt". Arabic first (white Arabic), English second.
+
+**Facts allowed (Ibrahim, 2026-08-16) — use only these:**
+1. SupaKoto is the **sole authorized TAKAI distributor** in Egypt and the UAE;
+   genuine TAKAI film cannot be legitimately sourced from anyone else there.
+2. TAKAI does **R&D and manufacturing in Japan** — one country, one chain of
+   custody (Nippon Takai Trading & Innovation Co., Ltd., Tokyo).
+3. SupaKoto holds **certificates of origin** for its TAKAI shipments plus
+   import documentation — **available on request**.
+
+**Hard constraints (legal, not style):**
+- Never name or describe a competitor (no brand names, no "American brands",
+  no "made in China"). Counterfeit film is a *category* problem, never a named
+  company. Build guard `competitor-name` fails on 3M / XPEL / SunTek / Llumar /
+  STEK / Garware anywhere in messages, content, app, components.
+- Never claim documentation is handed over automatically — it is "available
+  on request", exactly.
+- Never imply we can verify film sold by anyone else.
+- No superlatives (existing guard). No invented certificate numbers, dates,
+  shipment references or document images.
+- Tone: calm, factual; confidence not fear. Lead with the fact, then the
+  explanation. Every FAQ answer stands alone.
+
+**Structure:** 1 hero (position stated plainly) · 2 why counterfeits exist in
+this category · 3 why TAKAI is different (Japan R&D + manufacturing, single
+chain of custody) · 4 what "authorized distributor" means (what we receive,
+hold, what you can ask for) · 5 **How to verify** — numbered, checkable steps
+(buy from an authorized branch; ask for the certificate of origin and import
+documentation — on request; warranty registered in the tier's name at
+installation) · 6 FAQ 4–6 incl. the verbatim customer question «إزاي أعرف إن
+فيلم الحماية أصلي؟» (Ibrahim: keep the customer's own words for that ONE
+question — search intent — even though the register rule bans regionalisms;
+answers are white Arabic) · 7 CTA → /branches + /booking.
+
+**JSON-LD:** FAQPage for the FAQ block; Organization (SupaKoto) with `brand`
+TAKAI, `areaServed` EG + AE and the distributor relationship in `description`.
+
+**Linked from:** nav About group [About, Authenticity, FAQ]; home TAKAI feature
+tile (was /services#ppf); /about distributor stat + story; PPF spec block on
+/services; /faq "genuine" question; footer trust line.
 
 ---
 

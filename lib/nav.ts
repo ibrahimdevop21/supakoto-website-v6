@@ -9,6 +9,7 @@ export const NAV: NavItem[] = [
     key: "about",
     children: [
       { key: "aboutPage", href: "/about" },
+      { key: "authenticity", href: "/authentic" },
       { key: "faq", href: "/faq" },
     ],
   },

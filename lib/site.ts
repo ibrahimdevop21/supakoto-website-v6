@@ -38,6 +38,7 @@ export const DOCUMENTARY_YOUTUBE_ID: string | null = "umm7ZVZvBqo";
 export const ROUTES = [
   "/",
   "/about",
+  "/authentic",
   "/faq",
   "/gallery",
   "/booking",

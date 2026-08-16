@@ -12,6 +12,7 @@ import logoLockup from "@/public/brand/logo-lockup.webp";
 export function Footer() {
   const t = useTranslations("footer");
   const tNav = useTranslations("nav");
+  const tAuth = useTranslations("authentic");
   const { region } = useRegion();
   const year = new Date().getFullYear();
 
@@ -70,6 +71,17 @@ export function Footer() {
         </div>
 
         <TrustBadges />
+
+        {/* Trust-adjacent: the authenticity page (sole authorized TAKAI
+            distributor — how to verify). Added 2026-08-16. */}
+        <p className="mt-8 text-center text-small">
+          <Link
+            href="/authentic"
+            className="text-fg-muted underline decoration-ink-700 underline-offset-4 transition-colors hover:text-fg hover:decoration-fg-subtle"
+          >
+            {tAuth("links.footer")}
+          </Link>
+        </p>
 
         {/* Zone 4 — legal */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-ink-700 pt-6 text-small text-fg-muted sm:flex-row">
