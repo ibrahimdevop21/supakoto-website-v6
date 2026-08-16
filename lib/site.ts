@@ -35,6 +35,18 @@ export const CARS_PROTECTED = {
 /** The 18-minute SupaKoto documentary (supplied by Ibrahim, 2026-08-06). */
 export const DOCUMENTARY_YOUTUBE_ID: string | null = "umm7ZVZvBqo";
 
+import { services, NOINDEX_SERVICE_IDS, servicePath } from "@/content/services";
+
+/** Every service page that may be indexed (sitemap + crawl). */
+export const SERVICE_ROUTES = services
+  .filter((s) => !NOINDEX_SERVICE_IDS.has(s.id))
+  .map(servicePath);
+
+/** Service pages that exist but are noindex (crawled by smoke, never in sitemap). */
+export const NOINDEX_ROUTES = services
+  .filter((s) => NOINDEX_SERVICE_IDS.has(s.id))
+  .map(servicePath);
+
 export const ROUTES = [
   "/",
   "/about",
@@ -50,7 +62,7 @@ export const ROUTES = [
   "/contact",
   "/careers",
   "/services",
-  "/services/building-heat-isolation",
+  ...SERVICE_ROUTES, // /services/<slug> for every indexable service (building included)
   "/services/building-heat-isolation/quote",
   "/privacy",
   "/terms",

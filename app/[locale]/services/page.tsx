@@ -1,22 +1,18 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { services, type ServiceId } from "@/content/services";
+import { services, servicePath } from "@/content/services";
 import { pageMetadata } from "@/lib/metadata";
+import { localeUrl } from "@/lib/site";
 import { PageHero } from "@/components/sections/PageHero";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { Container } from "@/components/ui/Container";
-import {
-  ServiceShowcase,
-  ShowcaseAnchorNav,
-} from "@/components/sections/services/ServiceShowcase";
+import { ServicesGrid } from "@/components/sections/services/ServicesGrid";
 import { JsonLd } from "@/components/JsonLd";
 
 /**
- * Phase 14: the one services page. Every service renders inline here
- * (anchored sections) — the old per-service detail URLs 301 to
- * /services#<id>. Only the building SEO landing page and its quote
- * funnel remain as standalone routes.
+ * /services — INDEX (Phase 17). Seven cards in the shared wrapping grid,
+ * each linking to the service's own page. The Phase-14 inline sections
+ * are gone: one URL per search intent.
  */
-
 export async function generateMetadata({
   params,
 }: {
@@ -27,8 +23,8 @@ export async function generateMetadata({
   return pageMetadata({
     locale,
     path: "/services",
-    title: t("title"),
-    description: t("sub"),
+    title: t("seoTitle"),
+    description: t("seoDescription"),
   });
 }
 
@@ -39,13 +35,10 @@ export default async function ServicesPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const loc = locale === "ar" ? "ar" : "en";
   const t = await getTranslations("services.index");
   const tItems = await getTranslations("services.items");
   const tAbout = await getTranslations("about.cta");
-
-  const labels = Object.fromEntries(
-    services.map((s) => [s.id, tItems(`${s.id}.name`)]),
-  ) as Record<ServiceId, string>;
 
   return (
     <main>
@@ -53,34 +46,22 @@ export default async function ServicesPage({
         data={{
           "@context": "https://schema.org",
           "@type": "ItemList",
+          name: t("h1"),
           itemListElement: services.map((s, i) => ({
             "@type": "ListItem",
             position: i + 1,
-            item: {
-              "@type": "Service",
-              name: tItems(`${s.id}.name`),
-              description: tItems(`${s.id}.benefit`),
-              provider: { "@type": "Organization", name: "SupaKoto" },
-              areaServed: ["EG", "AE"],
-            },
+            url: localeUrl(loc, servicePath(s)),
+            name: tItems(`${s.id}.name`),
           })),
         }}
       />
-      <PageHero eyebrow={t("eyebrow")} title={t("title")} sub={t("sub")} />
-
-      <section className="py-8">
+      <PageHero eyebrow={t("eyebrow")} title={t("h1")} sub={t("sub")} />
+      <section className="py-(--spacing-section)">
         <Container>
-          <ShowcaseAnchorNav ariaLabel={t("title")} labels={labels} />
+          <ServicesGrid />
         </Container>
       </section>
-
-      <ServiceShowcase />
-
-      <CtaBand
-        title={tAbout("title")}
-        buttonLabel={tAbout("button")}
-        href="/booking"
-      />
+      <CtaBand title={tAbout("title")} buttonLabel={tAbout("button")} href="/booking" />
     </main>
   );
 }

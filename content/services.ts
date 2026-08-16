@@ -112,6 +112,35 @@ export const services: Service[] = [
 
 export const serviceIds = services.map((s) => s.id);
 
+/**
+ * Services whose pages exist but must NOT be indexed yet (thin content,
+ * TAKAI product unconfirmed). Drives `robots: noindex, follow` on the page
+ * AND exclusion from sitemap.ts. Enabling later = delete the id from this
+ * set — nothing else to touch. (Phase 17, 2026-08-16.)
+ * TODO(TAKAI-confirmation): remove "marine-ppf" / "surface-protection" here
+ * once written product confirmation arrives (ASSETS-NEEDED, blocking item).
+ */
+export const NOINDEX_SERVICE_IDS: ReadonlySet<ServiceId> = new Set<ServiceId>([
+  "marine-ppf",
+  "surface-protection",
+]);
+
+/** Related services shown at the foot of each detail page (2–3 each). */
+export const RELATED_SERVICES: Record<ServiceId, ServiceId[]> = {
+  ppf: ["nano-ceramic", "heat-isolation", "colour-change"],
+  "heat-isolation": ["ppf", "nano-ceramic", "building-heat-isolation"],
+  "colour-change": ["ppf", "nano-ceramic"],
+  "nano-ceramic": ["ppf", "heat-isolation", "colour-change"],
+  "building-heat-isolation": ["heat-isolation", "surface-protection"],
+  "marine-ppf": ["ppf", "surface-protection"],
+  "surface-protection": ["building-heat-isolation", "marine-ppf"],
+};
+
+/** Path of a service's own page (building has a static route; the rest are [slug]). */
+export function servicePath(s: Pick<Service, "slug">): string {
+  return `/services/${s.slug}`;
+}
+
 /** The four automotive treatments — what the booking flow and car-only UI use. */
 export const vehicleServices = services.filter(
   (s) => s.substrate === "vehicle",

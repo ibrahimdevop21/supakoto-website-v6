@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { services } from "@/content/services";
+import { services, servicePath } from "@/content/services";
 import { serviceImage } from "@/content/gallery";
 import { Link } from "@/i18n/navigation";
 import { RevealStagger, RevealItem } from "@/components/ui/Reveal";
@@ -8,7 +8,8 @@ import { cn } from "@/lib/cn";
 
 /**
  * The one services layout, used by both the homepage section and the
- * /services index (Ibrahim 2026-08-11: "7 cards should behave the same
+ * /services index. Cards link to each service's own page (Phase 17
+ * re-split — never the /services#anchor form). (Ibrahim 2026-08-11: "7 cards should behave the same
  * in both places"). Responsive wrapping grid, max 4 per row:
  * 1 column / sm 2 / lg 3 / 2xl 4. Equal-height cards, no horizontal
  * overflow. Non-vehicle substrates read differently on purpose —
@@ -22,7 +23,7 @@ export async function ServicesGrid() {
       {services.map((s) => (
         <RevealItem key={s.id} className="h-full">
           <Link
-            href={`/services#${s.id}`}
+            href={servicePath(s)}
             className={cn(
               "group flex h-full flex-col overflow-hidden rounded-card border bg-ink-800 transition-colors",
               s.substrate === "vehicle"

@@ -10,6 +10,8 @@ import { Heading } from "@/components/ui/Heading";
 import { Reveal, RevealStagger, RevealItem } from "@/components/ui/Reveal";
 import { Accordion } from "@/components/ui/Accordion";
 import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbLd } from "@/lib/jsonld";
+import { localeUrl } from "@/lib/site";
 
 /**
  * Buildings substrate — deliberately NOT the automotive detail template:
@@ -58,6 +60,9 @@ export default async function BuildingHeatIsolationPage({
   setRequestLocale(locale);
   const t = await getTranslations("services.detail");
   const tItem = await getTranslations("services.items.building-heat-isolation");
+  const tNav = await getTranslations("nav");
+  const tIndex = await getTranslations("services.index");
+  const loc = locale === "ar" ? "ar" : "en";
 
   const faqItems = Array.from({ length: 4 }, (_, i) => ({
     id: `faq-${i + 1}`,
@@ -74,11 +79,34 @@ export default async function BuildingHeatIsolationPage({
           name: tItem("name"),
           description: tItem("seoDescription"),
           serviceType: "Building window film installation",
-          provider: { "@type": "Organization", name: "SupaKoto" },
-          areaServed: ["EG", "AE"],
+          url: localeUrl(loc, "/services/building-heat-isolation"),
+          provider: { "@type": "Organization", name: "SupaKoto", url: localeUrl(loc, "/") },
+          areaServed: [
+            { "@type": "Country", name: "Egypt" },
+            { "@type": "Country", name: "United Arab Emirates" },
+          ],
+          brand: { "@type": "Brand", name: "TAKAI" },
         }}
       />
-      <PageHero title={tItem("name")} sub={tItem("benefit")} />
+      <JsonLd
+        data={breadcrumbLd(loc, [
+          [tNav("home"), "/"],
+          [tIndex("eyebrow"), "/services"],
+          [tItem("name"), "/services/building-heat-isolation"],
+        ])}
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqItems.map((f) => ({
+            "@type": "Question",
+            name: f.question,
+            acceptedAnswer: { "@type": "Answer", text: f.answer },
+          })),
+        }}
+      />
+      <PageHero eyebrow={tIndex("eyebrow")} title={tItem("h1")} sub={tItem("benefit")} />
 
       {/* Hero visual — our own building installation photography */}
       <section className="py-(--spacing-section)">

@@ -300,6 +300,19 @@ tile (was /services#ppf); /about distributor stat + story; PPF spec block on
 
 ## `/services` and `/services/[slug]`
 
+**Re-split 2026-08-16 (Phase 17, technical SEO — reverses Phase 14's one-page
+consolidation).** One URL cannot rank for seven intents. `/services` is an
+INDEX (hero + the seven cards in the wrapping grid + CTA); each service has
+its own page `/services/<slug>` with its own title, meta description, H1,
+canonical, Service + BreadcrumbList JSON-LD and OG image. Building keeps its
+diverged template + `/quote`. **Marine PPF and interior surface protection
+render but are `noindex, follow` and excluded from the sitemap** until TAKAI
+confirms a product — flip `NOINDEX_SERVICE_IDS` in `content/services.ts`.
+No internal link may use the `/services#<id>` anchor form; the Phase-14
+anchor redirects are gone. Detail pages cross-link 2–3 related services,
+link to /booking (vehicle) or the quote funnel (buildings), and every
+PPF-related page links to /authentic.
+
 **Restructured 2026-08-11.** The catalogue is seven services across
 four substrates. `Service.substrate` extends from
 `"vehicle" | "building"` to

@@ -66,3 +66,11 @@ Six services × both locales 301 to `/services#<id>` /
 
 `/services/building-heat-isolation` (+ `/quote`) deliberately kept live
 in both locales — standalone SEO landing page for building window film.
+
+## 2026-08-16 — services re-split (Phase 17, technical SEO)
+
+The Phase-14 anchor redirects (`/services/<slug>` → `/services#<slug>`) are
+REMOVED: the seven service pages are real routes again. Nothing else in the
+map changed. Building keeps `/services/building-heat-isolation` (+ `/quote`);
+marine-ppf and surface-protection exist but are `noindex, follow` and out of
+the sitemap until TAKAI confirms a product.

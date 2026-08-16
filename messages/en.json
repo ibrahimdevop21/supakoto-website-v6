@@ -4,7 +4,7 @@
     "hero": {
       "slides": {
         "s1": {
-          "title": "Your car deserves genuine Japanese protection",
+          "title": "TAKAI Japanese films: car paint protection and building heat isolation",
           "sub": "TAKAI films, made in Japan. Total clarity. Protection that lasts years.",
           "alt": "Black luxury SUV inside the SupaKoto workshop"
         },
@@ -168,7 +168,9 @@
       "title": "Compare the TAKAI lineup",
       "sub": "Full specifications for every film in your market. Warranty is tier-scoped — terms live on the PPF page.",
       "cta": "PPF details & warranty"
-    }
+    },
+    "seoTitle": "Car Paint Protection Film (PPF) — TAKAI, Egypt & UAE | SupaKoto",
+    "metaDescription": "TAKAI Japanese paint protection film (PPF), heat isolation, nano ceramic and colour change. Sole authorized TAKAI distributor in Egypt and the UAE, 6 branches."
   },
   "nav": {
     "home": "Home",
@@ -241,7 +243,10 @@
       "sub": "Japanese materials. Factory-grade installation. Choose what fits.",
       "detailsCta": "Details & packages",
       "buildingBadge": "For buildings — installed at your property",
-      "fullDetails": "Full details"
+      "fullDetails": "Full details",
+      "seoTitle": "Car Protection Services: PPF, Heat Isolation, Ceramic | SupaKoto",
+      "seoDescription": "Seven services with Japanese TAKAI films: PPF, heat isolation for cars and buildings, nano ceramic, colour change, marine and surface protection. Pick yours, book.",
+      "h1": "Protection services for cars, buildings and boats"
     },
     "detail": {
       "problemHeading": "The problem",
@@ -253,7 +258,8 @@
       "packagesHeading": "Packages",
       "faqHeading": "Common questions",
       "bookCta": "Book this service",
-      "placeholderNote": "Placeholder image — workshop photography pending"
+      "placeholderNote": "Placeholder image — workshop photography pending",
+      "relatedHeading": "Related services"
     },
     "items": {
       "ppf": {
@@ -333,7 +339,10 @@
             "a": "The warranty transfers with the car to the new owner for its remaining term — it follows the car, not the owner."
           }
         },
-        "imageAlt": "Gloss protection film on a dark car"
+        "imageAlt": "Gloss protection film on a dark car",
+        "seoTitle": "TAKAI Paint Protection Film (PPF) in Egypt & UAE | SupaKoto",
+        "seoDescription": "Clear Japanese TPU film that takes gravel and scratches instead of your paint, self-healing, with a written warranty per tier — up to 15 years on standard tiers.",
+        "h1": "TAKAI paint protection film (PPF)"
       },
       "heat-isolation": {
         "name": "Heat Isolation",
@@ -404,7 +413,10 @@
             "a": "It follows the isolation tier you choose — documented in writing at installation."
           }
         },
-        "imageAlt": "Car in direct sun with isolated glass"
+        "imageAlt": "Car in direct sun with isolated glass",
+        "seoTitle": "Car Heat Isolation — Japanese Window Tint Film | SupaKoto",
+        "seoDescription": "Japanese nano-ceramic heat isolation film for cars: rejects a high share of heat and UV in legal tint shades — a cooler cabin, less AC load. Book at a branch.",
+        "h1": "Car heat isolation — Japanese window tint film"
       },
       "colour-change": {
         "name": "Colour Change",
@@ -467,7 +479,10 @@
             "a": "A wrap protects value and reverses. A respray doesn't."
           }
         },
-        "imageAlt": "Glossy red car after preparation"
+        "imageAlt": "Glossy red car after preparation",
+        "seoTitle": "Car Colour Change — Vinyl Car Wrap in Egypt & UAE | SupaKoto",
+        "seoDescription": "Change your car's colour with a wrap instead of paint: gloss, matte, satin or metallic, removable any time with the original paint untouched. Packages and booking.",
+        "h1": "Car colour change — full wrap or accents"
       },
       "nano-ceramic": {
         "name": "Nano Ceramic",
@@ -534,14 +549,17 @@
             "a": "Yes — the strongest combination: film takes the impact, ceramic makes cleaning easy."
           }
         },
-        "imageAlt": "Close-up of deep paint gloss"
+        "imageAlt": "Close-up of deep paint gloss",
+        "seoTitle": "Nano Ceramic Coating for Cars — Gloss & Protection | SupaKoto",
+        "seoDescription": "A nano ceramic layer bonded to the paint: deep gloss for months, a surface that sheds water and dust, easier washing. Alone or over protection film. Book now.",
+        "h1": "Nano ceramic coating for cars"
       },
       "building-heat-isolation": {
         "name": "Building heat isolation",
         "benefit": "Less sun, lower bills",
         "imageAlt": "Office building with TAKAI heat-isolation film across its glass facade",
-        "seoTitle": "Building Window Film & Heat Isolation | SupaKoto",
-        "seoDescription": "TAKAI TK-7099-IR Japanese window film for buildings and glass facades in Egypt and the UAE. 99% infrared rejection at 70% visible light transmission — offices, apartments and villas. Send your measurements for a quote, no site visit needed.",
+        "seoTitle": "Building Heat Isolation & Facade Window Film | SupaKoto",
+        "seoDescription": "Japanese TAKAI TK-7099-IR heat isolation film for buildings and facades in Egypt and the UAE: 99% IR rejection at 70% light. Send measurements for a quote.",
         "problem": "Sun pours through the glass all day. The AC fights it and loses, the bill climbs, screens catch the glare, and furniture and floors fade a little more every month. The usual fixes — closed curtains or dark glass — cost you the light and the view.",
         "solutionIntro": "One film, applied to the glass, that solves it without changing how the building looks:",
         "solutions": {
@@ -607,33 +625,36 @@
             "a": "The final price is adjusted to the actual measurement before any work starts — no surprises after installation."
           }
         },
-        "quoteCta": "Request a quote"
+        "quoteCta": "Request a quote",
+        "h1": "Building heat isolation for glass facades"
       },
       "marine-ppf": {
         "name": "Marine PPF",
         "benefit": "For hulls and marine surfaces.",
         "imageAlt": "SupaKoto technician beside a boat ahead of marine protection work",
-        "seoTitle": "Marine PPF — boat hull protection",
+        "seoTitle": "Marine Protection — Films for Boat Hulls | SupaKoto",
         "seoDescription": "Protection film for boats, from the TAKAI distributor for Egypt and UAE. Product line pending confirmation.",
         "problem": "Sun, salt water, and mooring abrasion work on a hull all season. Gelcoat fades and loses its depth long before the boat ages.",
         "solutionIntro": "We are extending SupaKoto protection to boats. What we publish here will follow the same rule as everything else on this site: confirmed TAKAI products only.",
         "pendingTitle": "Specifications",
         "pendingBody": "Pending product confirmation from TAKAI. No film, spec, or warranty will be listed until the marine product line is confirmed in writing.",
         "quoteCta": "Talk to us about your boat",
-        "waMessage": "Hello, I'd like to ask about Marine PPF."
+        "waMessage": "Hello, I'd like to ask about Marine PPF.",
+        "h1": "Marine protection"
       },
       "surface-protection": {
         "name": "Surface Protection",
         "benefit": "For marble and high-value interior surfaces.",
         "imageAlt": "Marble bathroom vanity finished with TAKAI surface protection film",
-        "seoTitle": "Surface Protection — marble and interior surfaces",
+        "seoTitle": "Surface Protection — Marble & Interior Surfaces | SupaKoto",
         "seoDescription": "Protection film for marble and high-value interior surfaces, from the TAKAI distributor for Egypt and UAE. Product line pending confirmation.",
         "problem": "Marble counters, reception desks, and high-value interior surfaces etch, stain, and scratch — and unlike paint, natural stone cannot be resprayed.",
         "solutionIntro": "We are extending SupaKoto protection to interior surfaces. What we publish here will follow the same rule as everything else on this site: confirmed TAKAI products only.",
         "pendingTitle": "Specifications",
         "pendingBody": "Pending product confirmation from TAKAI. No film, spec, or warranty will be listed until the surface product line is confirmed in writing.",
         "quoteCta": "Talk to us about your project",
-        "waMessage": "Hello, I'd like to ask about Surface Protection."
+        "waMessage": "Hello, I'd like to ask about Surface Protection.",
+        "h1": "Interior surface protection"
       }
     }
   },
@@ -783,10 +804,12 @@
       "title": "18 minutes inside SupaKoto",
       "sub": "The whole story from day one — the workshops, the people, the Japanese film.",
       "unmute": "Turn sound on"
-    }
+    },
+    "seoTitle": "About SupaKoto — Exclusive TAKAI Film Distributor since 2016",
+    "seoDescription": "SupaKoto since 2016: exclusive distributor of Japanese TAKAI films in Egypt and the UAE, 6 branches, over 25,000 cars protected, partners Škoda, Kasrawy and Mansour."
   },
   "branches": {
-    "title": "Our branches",
+    "title": "SupaKoto branches in Egypt and the UAE",
     "sub": "6 branches across Egypt and the UAE — pick the nearest",
     "call": "Call",
     "whatsapp": "WhatsApp",
@@ -825,10 +848,12 @@
       "ariaLabel": "Interactive map of all SupaKoto branches in Egypt and the UAE",
       "approx": "Approximate location — being confirmed"
     },
-    "buildingNote": "Building heat isolation is installed at your property, not at a branch."
+    "buildingNote": "Building heat isolation is installed at your property, not at a branch.",
+    "seoTitle": "SupaKoto Branches — Car Protection in Cairo, Alexandria & Dubai",
+    "seoDescription": "6 car protection branches: Fifth Settlement, Sheikh Zayed, Maadi, Alexandria, Damietta and Dubai. Addresses, phones, WhatsApp and directions — pick one and book."
   },
   "warranty": {
-    "title": "A warranty in writing, not in words",
+    "title": "Car protection warranty — in writing, not words",
     "sub": "Every protection tier carries its own documented warranty — this is the full policy",
     "tiersHeading": "Tier comparison",
     "tierStandard": "Standard TAKAI tiers",
@@ -906,7 +931,9 @@
       "product": "TAKAI TK-7099-IR",
       "term": "10 years",
       "note": "The TK-7099-IR buildings product carries a 10-year TAKAI warranty — entirely separate from the vehicle tiers above."
-    }
+    },
+    "seoTitle": "Car Protection Warranty — TAKAI Warranty by Tier | SupaKoto",
+    "seoDescription": "A written TAKAI warranty for every protection tier, in its own name: standard tiers up to 15 years, transferring with the car on resale. Compare, register, claim."
   },
   "warrantyClaim": {
     "title": "Warranty claim",
@@ -922,7 +949,9 @@
       "submit": "Submit claim"
     },
     "success": "Received. We'll contact you within two working days.",
-    "stub": "[Claim submission activates with system integration — this form is temporary]"
+    "stub": "[Claim submission activates with system integration — this form is temporary]",
+    "seoTitle": "TAKAI Warranty Claim — File a Request | SupaKoto",
+    "seoDescription": "File a warranty claim for your protection film: plate number, branch, invoice date, issue description and photos — inspection steps within two working days."
   },
   "booking": {
     "title": "Book your appointment",
@@ -979,7 +1008,9 @@
     "success": "We've prepared a WhatsApp message with your booking details — send it and we'll confirm your slot.",
     "reopenWhatsApp": "Open WhatsApp again",
     "stub": "Direct online booking is coming soon — for now confirmation happens over WhatsApp.",
-    "waTitle": "New booking from the website:"
+    "waTitle": "New booking from the website:",
+    "seoTitle": "Book Car Protection — PPF, Heat Isolation, Ceramic | SupaKoto",
+    "seoDescription": "Book at your nearest SupaKoto branch in two minutes: region, branch, service and day, confirmed on WhatsApp. PPF, heat isolation, ceramic, colour change."
   },
   "franchise": {
     "title": "Become a SupaKoto partner",
@@ -1047,7 +1078,9 @@
         "q": "Do you offer financing?",
         "a": "No, but we help you build a realistic feasibility study before you commit."
       }
-    }
+    },
+    "seoTitle": "SupaKoto Franchise — Open a Car Protection Branch | SupaKoto",
+    "seoDescription": "A franchise for a car protection brand built on Japanese TAKAI films: exclusive distribution, proven operations, training and launch support. Steps and how to apply."
   },
   "business": {
     "title": "Solutions for companies and fleets",
@@ -1081,7 +1114,9 @@
       "message": "Additional details",
       "submit": "Send request"
     },
-    "success": "Request received — the business team will reply soon."
+    "success": "Request received — the business team will reply soon.",
+    "seoTitle": "Fleet & Corporate Protection — Dealers and Buildings | SupaKoto",
+    "seoDescription": "Uniform protection for company fleets, pre-delivery preparation for dealers, and heat isolation for building facades — one standard, one invoice. Get a quote."
   },
   "gallery": {
     "title": "Our work",
@@ -1226,7 +1261,9 @@
       "surface-interior-table": {
         "alt": "Long marble table in a yacht interior finished with surface protection film"
       }
-    }
+    },
+    "seoTitle": "Our Work — Car Protection Photos with TAKAI Film | SupaKoto",
+    "seoDescription": "Photos and video straight from SupaKoto workshops: cars after paint protection film, heat isolation and nano ceramic, plus building heat-isolation projects."
   },
   "faq": {
     "title": "Frequently asked questions",
@@ -1299,7 +1336,9 @@
         "q": "How do I know my protection film is genuine?",
         "a": "Genuine TAKAI film in Egypt and the UAE comes from one authorized distributor: SupaKoto. Buy from an authorized branch, ask for the certificate of origin and import documentation (available on request), and have the warranty registered in the tier's name at installation."
       }
-    }
+    },
+    "seoTitle": "Car Protection & TAKAI Film Questions Answered | SupaKoto",
+    "seoDescription": "Straight answers on paint protection film, warranty by tier, booking and installation, aftercare and building heat isolation — from the exclusive TAKAI distributor."
   },
   "contact": {
     "title": "Contact us",
@@ -1325,7 +1364,9 @@
       "subjectBuildings": "Building heat isolation"
     },
     "complaintNote": "Complaints go directly to management; we reply within two working days.",
-    "success": "Message received — we'll get back to you soon."
+    "success": "Message received — we'll get back to you soon.",
+    "seoTitle": "Contact SupaKoto — Car Protection in Egypt & UAE",
+    "seoDescription": "Ask, suggest or complain — we answer everyone. Phone and WhatsApp per region, plus a contact form for bookings and questions on car protection or building isolation."
   },
   "careers": {
     "title": "Work with us",
@@ -1346,7 +1387,9 @@
       "message": "Tell us why you",
       "submit": "Submit application"
     },
-    "success": "Application received — we'll review and reach out on a match."
+    "success": "Application received — we'll review and reach out on a match.",
+    "seoTitle": "Careers — Work with SupaKoto",
+    "seoDescription": "Installer, sales and operations roles across SupaKoto branches in Egypt and the UAE. Send your details and we'll get in touch when there's a match."
   },
   "privacy": {
     "title": "Privacy Policy",
@@ -1368,7 +1411,9 @@
         "title": "Privacy questions",
         "body": "Any question about your data? Reach us through the contact page and we'll answer."
       }
-    }
+    },
+    "seoTitle": "Privacy Policy | SupaKoto",
+    "seoDescription": "What we collect in booking and contact forms, how we use it to confirm bookings and follow up warranties, and the one cookie that stores your region. Never sold."
   },
   "terms": {
     "title": "Terms & Conditions",
@@ -1390,7 +1435,9 @@
         "title": "Liability",
         "body": "We stand by our documented installation standards. Any service concern is reviewed by management and handled under the warranty policy."
       }
-    }
+    },
+    "seoTitle": "Terms & Conditions | SupaKoto",
+    "seoDescription": "Terms for using the SupaKoto website and booking car protection services in Egypt and the UAE: bookings and appointments, warranty by tier, and liability."
   },
   "common": {
     "formStub": "[Submission activates with system integration — this form is a stub for now]"
@@ -1544,11 +1591,13 @@
       "umm-al-quwain": "Umm Al Quwain",
       "ras-al-khaimah": "Ras Al Khaimah",
       "fujairah": "Fujairah"
-    }
+    },
+    "seoTitle": "Building Heat Isolation Quote — No Site Visit | SupaKoto",
+    "seoDescription": "Send approximate glass measurements and get a quote for TAKAI TK-7099-IR film for buildings and facades in Egypt and the UAE, with a proposed install date."
   },
   "authentic": {
-    "title": "Genuine TAKAI film in Egypt and the UAE — the sole authorized distributor",
-    "metaDescription": "SupaKoto is the sole authorized distributor of TAKAI films in Egypt and the UAE. How to verify your paint protection film is genuine: an authorized branch, certificate of origin and import documentation available on request, and a warranty registered in the tier's name.",
+    "title": "Genuine Protection Film — Authentic TAKAI, Authorized | SupaKoto",
+    "metaDescription": "SupaKoto is the sole authorized distributor of TAKAI films in Egypt and the UAE. Verify your film is genuine: authorized branch, documents on request, tier warranty.",
     "eyebrow": "Authenticity",
     "hero": {
       "title": "Genuine film starts at the source",
