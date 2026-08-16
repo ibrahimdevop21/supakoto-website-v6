@@ -1,3 +1,73 @@
+# CHECKPOINT — 2026-08-16
+
+## TL;DR (2026-08-16, evening)
+
+**Phase 15 (Dr. Amer VP feedback round) is fully shipped: merged to `main`
+(`06b55db`), pushed, Vercel production deployed and smoke-verified 97/97
+against https://supakoto-website-v6.vercel.app.** Follow-up commit `4db2fc2`
+(confirmed founding year + 25k baseline provenance) also on `main`, pushed.
+Tree clean, nothing unpushed, no local servers running. What shipped: the
+three claim corrections (PPF never claims heat; TAKAI SILVER ≠ TAKAI 5 with a
+region-aware `/warranty` breakdown; distributor-not-manufacturer framing),
+standing claim-discipline rule + `scripts/check-claims.mjs` (6 rules, runs in
+`pnpm build`), all six branch phone numbers replaced + UAE regional line
+unified (E2E 16/16), home feature tiles photographed, and the **white Arabic
+(عربية بيضاء) register** applied across `ar.json` in two review rounds
+(CLAUDE.md rule replaced). Supabase MCP authed but parked (no V6 project;
+bdm-flow is off-limits).
+
+## Phase ledger
+- 0–14: done (see progress docs 00–14).
+- **15 — VP feedback round: DONE, deployed** (`docs/progress/15-vp-feedback-round.md`
+  has the full execution log, the 103-string Arabic review table, overrides, and
+  the pre-merge verification).
+- Next phase: none briefed. Candidates parked by Ibrahim: Supabase for V6
+  (later), live vehicles counter (see HELD).
+
+## Decisions this session (do not re-litigate)
+- Arabic register = **white Arabic** (supersedes Egyptian dialect and plain MSA).
+- PPF / Premium Plus never claims heat, IR/UV or cabin benefit; the heat-isolation
+  service never claims paint protection.
+- UAE product is **TAKAI SILVER only**; product names are region-scoped; `/warranty`
+  and the home TAKAI table render one region at a time (RegionPicker).
+- SupaKoto = exclusive **distributor**; TAKAI manufactures for the market.
+- No superlatives (best/finest/number one/أفضل/الأول) on brand/product/quality/price.
+- Shared surfaces don't assume "your car"; service sections and the vehicle-only
+  booking funnel keep substrate language. `home.title` = «سوباكوتو — حماية يابانية أصلية».
+- Phones: Egypt regional line **01103402446 stays** (dedicated, not Alexandria's);
+  UAE regional line = Dubai branch number **by design**; old 050 line retired.
+- Confirmed facts (Ibrahim, 2026-08-16): founded 2016; 25,000 vehicles baseline;
+  partnerships Škoda / Kasrawy / Mansour. Provenance in `lib/site.ts` and
+  `content/partners.ts`.
+- Second-reviewer items Ibrahim REJECTED were not applied (hero «ما تملكه»,
+  «لفئات أخرى», «تضم», «منفذة بعناية», «من دون» on policy pages).
+
+## HELD (approved to wait — never auto-resume)
+- **Live vehicles counter** fed by bdm-flow — future phase. Constraint recorded in
+  `lib/site.ts` (`CARS_PROTECTED`): bdm-flow launched 2026-06-01 with no history,
+  so it must be fixed baseline + live delta, never a raw query.
+- Supabase for V6 — "later" (Ibrahim). No V6 project exists; do not create one
+  unasked; never touch bdm-flow.
+- Marine PPF / interior surface protection: still pending-product, no TAKAI codes.
+- Inline-SVG Japan flag (nice-to-have; WebP is live).
+
+## The law (frozen unless Ibrahim says otherwise)
+- Only `content/regions.ts` and `content/branches.ts` carry phone digits (guard).
+- `scripts/check-claims.mjs` rules are spec-level law; editing the guard to make a
+  claim pass is itself a violation. Never invent product codes (SK-BLD precedent).
+- Lifetime warranty text only on `/warranty`, PPF section, Premium Plus card, with
+  the qualifier in the same block.
+- Never run `pnpm dev` and `pnpm start` from the same checkout (a stray dev server
+  overwrote `.next` mid-verification today).
+
+## Exact next action
+Nothing in flight. When Ibrahim brings the next item: run /orient (read this file +
+`docs/progress/15-vp-feedback-round.md` + `git log -5`), then sprint-brief it if it
+has 2+ requirements. Verification tooling to reuse: `pnpm build` (guards),
+`node scripts/smoke.mjs` (needs `PORT=3111 pnpm start`), `node scripts/e2e-whatsapp-routing.mjs`.
+
+---
+
 # CHECKPOINT — 2026-08-15
 
 ## Update 2026-08-15 (~1am): smoke pass GREEN, everything pushed
