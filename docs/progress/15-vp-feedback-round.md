@@ -51,6 +51,20 @@ C white Arabic (1).
 - Region gating spot-check on the running build: `/warranty` and home TAKAI table
   show TAKAI 5 only with the Egypt cookie and TAKAI SILVER only with the UAE cookie,
   both locales; no "(TAKAI 5)" alias anywhere.
+  Commit `1aee293`.
+
+### Group B — item 8 home feature tiles
+- **Diagnosis:** the image slot was never wired — `FeatureGrid.tsx` had no image
+  element at all (not broken paths, not missing assets). Fixed by adding
+  `next/image` fill backgrounds + a bottom-up scrim, min-height 44→56.
+- Images (all SupaKoto × TAKAI watermarked, from the sanctioned V2 harvest already
+  in `public/images`): فروعنا → `branches/tagamoa.webp` (aerial of the branch);
+  التقنية اليابانية → `gallery/sk-034.webp` (film gloss on a bonnet); الضمان →
+  `gallery/sk-148.webp` (Prado after full protection); احجز موعدك →
+  `gallery/sk-105.webp` (cars in the workshop). No car photo on any buildings
+  surface (none of these tiles is a buildings surface).
+- Verified on the prod build: all 4 `<img>` load (`naturalWidth>0`), screenshot at
+  1280 and 390 legible. ASSETS-NEEDED: SVG-flag note + tile-imagery note logged.
 
 
 ═══ BRIEF vp-feedback-round-1 ═══

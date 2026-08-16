@@ -38,6 +38,21 @@ WebPs, ~360 KB total). Still pending:
 company, not a peer partner. For any other TAKAI brand-asset need,
 official marks are requestable via **info@takaifilms.jp**.
 
+## FROM THE VP REVIEW (added 2026-08-16)
+
+- **Japan flag — inline SVG preferred.** The `/about` stat now uses
+  `public/images/brand/flag-japan.webp` (960×640 raster, supplied by Ibrahim)
+  instead of the 🇯🇵 emoji (renders as letters on Windows). A clean inline
+  SVG (red disc, 3:2) would be crisper at high pixel densities and
+  theme-safe; swap in when available — no code change beyond the `src`.
+- **Home feature tiles now carry photography** (branches aerial, TAKAI film
+  gloss, Prado, workshop) chosen from the sanctioned watermarked set. If ops
+  wants purpose-shot tile imagery (e.g. a booking-desk / handover shot for
+  «احجز موعدك»), supply watermarked 3:2 landscapes ≥1600px.
+- **Branch photos**: `content/branches.ts` still labels the branch photos
+  as "placeholder until set" — Tagamoa's aerial is real; verify the other
+  five are the intended storefronts.
+
 ## Resolved
 
 - **Branch photos** — all six delivered by Ibrahim 2026-08-06, converted
