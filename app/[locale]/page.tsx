@@ -7,6 +7,9 @@ import { TakaiComparison } from "@/components/sections/home/TakaiComparison";
 import { FeatureGrid } from "@/components/sections/home/FeatureGrid";
 import { BusinessBand } from "@/components/sections/home/BusinessBand";
 import { CtaBand } from "@/components/sections/CtaBand";
+import { JsonLd } from "@/components/JsonLd";
+import { organizationLd } from "@/lib/jsonld";
+import { SITE_URL } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -18,8 +21,8 @@ export async function generateMetadata({
   return pageMetadata({
     locale,
     path: "/",
-    title: t("home.title"),
-    description: t("footer.tagline"),
+    title: t("home.seoTitle"),
+    description: t("home.metaDescription"),
   });
 }
 
@@ -31,9 +34,14 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home.knowMore");
+  const tAuth = await getTranslations("authentic");
+  const loc = locale === "ar" ? "ar" : "en";
 
   return (
     <main>
+      {/* Site-wide Organization node: SupaKoto = sole authorized TAKAI
+          distributor (Phase 17 JSON-LD audit). */}
+      <JsonLd data={organizationLd(loc, tAuth("hero.sub"), SITE_URL)} />
       {/* First screen: nav (fixed, pt-18 reserves its 72px) + hero +
           partners strip tile EXACTLY one viewport. h-[100svh], not
           min-h: total height is locked and never derived from slide

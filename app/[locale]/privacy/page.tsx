@@ -19,8 +19,8 @@ export async function generateMetadata({
   return pageMetadata({
     locale,
     path: "/privacy",
-    title: t("title"),
-    description: t("sections.collect.body"),
+    title: t("seoTitle"),
+    description: t("seoDescription"),
   });
 }
 

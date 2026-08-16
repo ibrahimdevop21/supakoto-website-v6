@@ -23,8 +23,8 @@ export async function generateMetadata({
   return pageMetadata({
     locale,
     path: "/about",
-    title: t("title"),
-    description: t("sub"),
+    title: t("seoTitle"),
+    description: t("seoDescription"),
   });
 }
 

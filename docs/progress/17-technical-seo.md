@@ -44,3 +44,15 @@ JSON-LD parses with required fields; crawl: no 404 / chains / orphans; guards gr
   each detail page → 2–3 related + /booking or the quote funnel; PPF page → /authentic;
   zero `/services#` links remain (smoke asserts). Phase-14 anchor redirects removed
   from next.config.ts (REDIRECTS.md updated).
+
+### Item 2 — titles, meta descriptions, H1s
+- Every route now uses `seoTitle` / `seoDescription` (home: `home.seoTitle` /
+  `home.metaDescription`); Arabic primary keyword first, brand last; unique per route
+  (smoke asserts uniqueness + length ≥ 30). AR titles 49–65 chars on the keyword
+  pages (legal pages shorter by nature); AR descriptions 146–165; EN trimmed ≤ 165.
+- H1s: home hero slide 1 → «أفلام تاكاي اليابانية: حماية طلاء السيارات وعزل حراري
+  للمباني» (no longer car-only); services index «خدمات حماية السيارات والمباني
+  والقوارب»; each detail page has its own `h1` key; warranty «ضمان حماية السيارات —
+  مكتوب، لا كلام»; branches «فروع سوباكوتو في مصر والإمارات».
+- No "lifetime" in any metadata (guard scope unchanged); no superlatives; no
+  competitor names.

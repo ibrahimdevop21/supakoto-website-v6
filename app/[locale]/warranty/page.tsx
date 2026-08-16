@@ -21,8 +21,8 @@ export async function generateMetadata({
   return pageMetadata({
     locale,
     path: "/warranty",
-    title: t("title"),
-    description: t("sub"),
+    title: t("seoTitle"),
+    description: t("seoDescription"),
   });
 }
 
