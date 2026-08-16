@@ -33,6 +33,24 @@ C white Arabic (1).
 - Guard also enforces lifetime scoping (allowed namespaces only) so the "lifetime
   guard" Ibrahim referenced is now a real script, not a convention.
 - Green: typecheck, lint (1 pre-existing BranchGrid warning), build, both guards.
+  Commit `8812a4d`.
+
+### Group B — item 4 phones (regions.ts UNFROZEN per Ibrahim's execution message)
+- `content/branches.ts`: all six numbers replaced (display E.164-with-spaces as
+  supplied; wa digits derived). `content/regions.ts`: UAE call line → +971 55 205 4478
+  (= Dubai branch, intentional); Egypt line unchanged 01103402446 (dedicated main
+  line, NOT Alexandria's — recorded as comments in the file so nobody "corrects" it).
+  Old UAE 050 call line purged repo-wide (incl. docs). STRUCTURE-SPEC branch table
+  updated. Old branch numbers: 0 hits repo-wide.
+- **E2E verified** (`scripts/e2e-whatsapp-routing.mjs`, Playwright vs prod build):
+  booking wizard + building quote form × {ar,en} × cookie {egypt,uae} × form
+  choice {egypt,uae} = **16/16** wa.me targets correct (form choice overrides the
+  RegionPicker cookie; Egypt → 201103402446, UAE → 971552054478; the post-submit
+  "reopen WhatsApp" link matches). `/branches` DOM: 6 tel: links + 6 wa.me + JSON-LD
+  `telephone` all new numbers, all `dir="ltr"`; footer/FAB regional line present.
+- Region gating spot-check on the running build: `/warranty` and home TAKAI table
+  show TAKAI 5 only with the Egypt cookie and TAKAI SILVER only with the UAE cookie,
+  both locales; no "(TAKAI 5)" alias anywhere.
 
 
 ═══ BRIEF vp-feedback-round-1 ═══
@@ -101,7 +119,7 @@ are all data-driven (BranchGrid, BranchMap, Footer, WhatsAppFab, forms, JSON-LD 
 `app/[locale]/branches/page.tsx` via `b.phone`). Build guard forbids literals
 elsewhere, so the change is one file. `content/regions.ts` Egypt line =
 `+20 110 340 2446` / wa `201103402446` = old Alexandria number → **FROZEN**.
-UAE regional: call `+971 50 626 5404`, WhatsApp `971552054478` (already = new Dubai
+UAE regional: call (old 050 line, since retired), WhatsApp `971552054478` (already = new Dubai
 branch number).
 
 **Item 5 — flags.** Exactly one emoji flag in the repo: `about.stats.exclusive.value`
@@ -166,7 +184,7 @@ plain MSA (2026-08-07). Rewrite target is White Arabic per Dr. Amer.
   region, with the switch hint). (b) is a structural change to a spec'd page.
 - **OQ-4 (item 4):** Dubai's new branch number `+971 55 205 4478` equals the current
   UAE regional WhatsApp digits. Confirm the UAE regional **call** line
-  `+971 50 626 5404` in `regions.ts` also stays as-is (frozen with Egypt)?
+  the old 050 call line in `regions.ts` also stays as-is (frozen with Egypt)?
   *Default: yes, whole file frozen.*
 - **OQ-5 (item 5):** The asset is WebP, not SVG. Use it as-is (fine for a ~40px
   stat glyph) or do you want me to draw a clean inline SVG (red disc on white,

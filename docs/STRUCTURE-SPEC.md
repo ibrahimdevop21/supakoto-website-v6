@@ -399,15 +399,18 @@ English, `/` sends Arabic. Same field order both ways.
 Card grid, filtered by the RegionPicker. Each card: photo, name, address,
 phone (tel: link), WhatsApp button, Google Maps embed, hours.
 
-Seed data (**verify all of these against ops before launch**):
+Branch numbers — **OPS-CONFIRMED full replacement, Ibrahim/Dr. Amer
+2026-08-16** (source of truth: `content/branches.ts`; regional lines in
+`content/regions.ts` — Egypt main line stays 01103402446 by design, UAE line =
+Dubai branch number by design):
 
 | Branch | Region | Phone |
 |---|---|---|
-| التجمع الخامس | Egypt | 01220080189 |
-| الشيخ زايد | Egypt | 01156608134 |
-| زهراء المعادي | Egypt | 01127232340 |
-| الإسكندرية — الطريق الصحراوي، داخل منصور شيفروليه | Egypt | 01103402446 |
-| دمياط الجديدة — RB Garage، أمام كلية فنون | Egypt (franchise) | 01126978186 |
+| التجمع الخامس | Egypt | +20 10 12747478 |
+| الشيخ زايد | Egypt | +20 11 03670059 |
+| زهراء المعادي | Egypt | +20 11 00512230 |
+| الإسكندرية — الطريق الصحراوي، داخل منصور شيفروليه | Egypt | +20 10 44202946 |
+| دمياط الجديدة — RB Garage، أمام كلية فنون | Egypt (franchise) | +20 11 26978186 |
 | دبي — القوز ٣، المنطقة الصناعية | UAE | +971 55 205 4478 |
 
 Damietta is a franchise location — flag whether it carries a franchise badge on
