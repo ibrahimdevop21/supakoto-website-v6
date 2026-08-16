@@ -1,6 +1,6 @@
 # Phase 15 — VP feedback round (Dr. Amer), 2026-08-16
 
-Status: **EXECUTING — approved 2026-08-16 in fully autonomous mode** (no gates,
+Status: **DONE 2026-08-16 — all items shipped on `feat/vp-feedback-round-1` (local only, not pushed)**; was approved in fully autonomous mode (no gates,
 overrides recorded below). Order: A claims (2,3,6,7) → B data/assets (4,5,8) →
 C white Arabic (1).
 
@@ -201,6 +201,20 @@ C white Arabic (1).
 | `buildingQuote.sub` | أرسل مقاساتك وسنرد عليك بعرض سعر وموعد مقترح — من دون زيارة مسبقة. | أرسل مقاساتك وسنرد عليك بعرض سعر وموعد مقترح — بدون زيارة مسبقة. |
 | `buildingQuote.disclaimer` | المقاسات التقريبية تكفي. يراجع الفني كل شيء على الطبيعة يوم التركيب، ويؤكد السعر النهائي قبل بدء العمل. | المقاسات التقريبية تكفي. الفني يراجع كل شيء على الطبيعة يوم التركيب، ويؤكد السعر النهائي قبل بدء العمل. |
 | `buildingQuote.success` | تم — فتحنا لك واتساب برسالة فيها كل التفاصيل. إن لم تفتح تلقائيا، استخدم الزر أدناه. | تم — فتحنا لك واتساب برسالة فيها كل التفاصيل. إذا لم تفتح تلقائيا، استخدم الزر أدناه. |
+
+- Commit `65a58bb`.
+
+### Final gate (after all groups)
+- `pnpm typecheck` ✓ · `pnpm lint` ✓ (0 errors; 1 pre-existing BranchGrid warning) ·
+  `pnpm build` ✓ (phone-literal guard ✓, claims guard ✓, 42/42 pages) ·
+  en/ar parity ✓ · `scripts/smoke.mjs` **97/97** (recreated + persisted, since the
+  Phase-14 43-check script lived in a cleared scratchpad) ·
+  `scripts/e2e-whatsapp-routing.mjs` **16/16**.
+- Overrides applied vs. the original brief: OQ-2(b) tagline removed (was "keep");
+  OQ-3 /warranty made region-aware (was "keep both lists"); regions.ts unfrozen
+  and UAE line changed (was "frozen"); item 5 folded into the group-A commit so
+  the new guard was green from its first commit.
+- Not pushed. Merge/push is Ibrahim's call.
 
 - CTA/button wrap at 390px: measured every `a`/`button` CTA on 15 routes with the
   rebuilt Arabic — no CTA overflows or wraps; no button label was lengthened by this
