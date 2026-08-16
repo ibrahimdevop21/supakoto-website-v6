@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/metadata";
-import { DOCUMENTARY_YOUTUBE_ID } from "@/lib/site";
+import { CARS_PROTECTED, DOCUMENTARY_YOUTUBE_ID } from "@/lib/site";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { DocumentaryPlayer } from "@/components/sections/DocumentaryPlayer";
 import { Container } from "@/components/ui/Container";
@@ -123,7 +123,7 @@ export default async function AboutPage({
               <p className="mt-2 text-fg-muted">{t("stats.exclusive.label")}</p>
             </RevealItem>
             <RevealItem className="text-center">
-              <Counter value={25000} suffix="+" className="text-display" />
+              <Counter value={CARS_PROTECTED.baseline} suffix="+" className="text-display" />
               <p className="mt-2 text-fg-muted">{t("stats.cars.label")}</p>
             </RevealItem>
           </RevealStagger>

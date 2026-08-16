@@ -80,7 +80,7 @@ polishing removed) → 02b0602 TAKAI comparison table on home →
   confirmed TAKAI line — never add codes/specs/warranty for them
   (SK-BLD class error). Launch of those sections' full content is
   blocked on written TAKAI confirmation.
-- Owner TODOs: founding year 2016 vs 2018, social URLs, branch
+- Owner TODOs: (founding year 2016 — CONFIRMED 2026-08-16), social URLs, branch
   hours, franchise figures, RH-Zak licence.
 
 ## The law (frozen constraints)

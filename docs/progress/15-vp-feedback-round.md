@@ -429,3 +429,12 @@ positioning «لفئات أخرى», «فيها»→«تضم», «مشغولة �
 - Incident during the pass: a `next dev` on :3000 had overwritten `.next` under the running
   prod server (all `_next/static` 400, hydration stalled). Not a code fault; killed, rebuilt,
   re-ran → green. Reminder: never run `pnpm dev` and `pnpm start` from the same checkout.
+
+### Confirmations (2026-08-16, after deploy)
+- Founding year 2016 confirmed. Repo grep "2018": only historical notes
+  (progress 09/10, CHECKPOINT TODO line) — no live copy. `FOUNDED_YEAR` in `lib/site.ts`.
+- 25,000 vehicles confirmed (Ibrahim; ~15k as of 2025, 3 new branches, ~1,250/month
+  capacity, floor ≈ 400). `CARS_PROTECTED` in `lib/site.ts` with confirmedBy/On/note; the
+  /about counter now reads it. Future live counter = fixed baseline + bdm-flow delta
+  (bdm-flow launched 2026-06-01, no history) — constraint recorded next to the number.
+- ASSETS-NEEDED: both items closed under "Confirmed facts".

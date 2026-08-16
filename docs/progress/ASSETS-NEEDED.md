@@ -53,17 +53,20 @@ official marks are requestable via **info@takaifilms.jp**.
   as "placeholder until set" — Tagamoa's aerial is real; verify the other
   five are the intended storefronts.
 
-## CLAIMS NEEDING TRACEABLE CONFIRMATION (added 2026-08-16, second copy review)
+## CONFIRMED FACTS (closed 2026-08-16 — provenance in code)
 
-Logged under STRUCTURE-SPEC "Claim discipline" §1 — **not removed**:
-
-- **Still open — performance figure:** `about.whoWeAre.body` + the /about stat
-  (`about.stats.cars`, `Counter value={25000}`): «تجاوزنا 25 ألف سيارة محمية» /
-  "past 25,000 cars protected". Needs a traceable source (invoice / booking
-  export) or the wording gets softened.
-- ~~Partnerships Škoda / Kasrawy / Mansour~~ — **CONFIRMED by Ibrahim Mohamed,
-  2026-08-16** (official SupaKoto partners). Provenance recorded in
-  `content/partners.ts` (`PARTNERSHIP_CLAIMS`). Closed.
+- **Founding year 2016** — confirmed by Ibrahim Mohamed 2026-08-16. Repo grep for
+  "2018": zero hits in live copy; only historical notes in progress docs 09/10 and
+  the old CHECKPOINT TODO line. `lib/site.ts` → `FOUNDED_YEAR`. Closed.
+- **25,000 vehicles protected** — confirmed by Ibrahim Mohamed 2026-08-16
+  (~15,000 as of 2025; three branches opened since; network capacity ~1,250
+  vehicles/month, monthly floor ≈ 400). `lib/site.ts` → `CARS_PROTECTED` carries
+  confirmedBy / confirmedOn / note ("Baseline as of 2026. Reconcile against
+  bdm-flow when the live counter is wired") and the **future-phase constraint**:
+  bdm-flow launched 2026-06-01 with no prior history, so the live counter must be
+  fixed baseline + live delta, never a raw query. Closed.
+- **Partnerships Škoda / Kasrawy / Mansour** — confirmed by Ibrahim Mohamed
+  2026-08-16 (`content/partners.ts` → `PARTNERSHIP_CLAIMS`). Closed.
 
 ## Resolved
 
