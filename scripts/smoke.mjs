@@ -37,7 +37,8 @@ for (const slug of SLUGS) for (const loc of ["", "/en"]) {
 }
 const smx = await (await fetch(BASE + "/sitemap.xml")).text();
 ok(!/marine-ppf|surface-protection/.test(smx), "sitemap excludes noindex services");
-ok(/\/services\/ppf<\/loc>/.test(smx) && /\/en\/services\/ppf/.test(smx) && /x-default/.test(smx), "sitemap has /services/ppf both locales + x-default");
+ok(/\/services\/ppf<\/loc>/.test(smx) && /\/en\/services\/ppf<\/loc>/.test(smx) && /x-default/.test(smx), "sitemap has /services/ppf as its own <url> in both locales + x-default");
+ok((smx.match(/<loc>/g) || []).length === 44, `sitemap lists 44 URLs (${(smx.match(/<loc>/g) || []).length})`);
 // anchors + claim checks on /services (both locales)
 for (const loc of ["", "/en"]) {
   const s = visible((await get(loc + "/services", "follow")).html);

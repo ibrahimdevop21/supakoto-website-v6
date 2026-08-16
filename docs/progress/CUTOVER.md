@@ -44,8 +44,8 @@ right now). Nothing to fix; it resolves the moment the domain moves.
    - `view-source` → canonical + hreflang (`ar`, `en`, `x-default`) all on
      `supakoto.com`; `og:image` = `https://supakoto.com/opengraph-image…`
      returns an image (200, image/png)
-   - `https://supakoto.com/sitemap.xml` lists every indexable route ×
-     alternates; `robots.txt` points at it; `/services/marine-ppf` and
+   - `https://supakoto.com/sitemap.xml` lists every indexable route in BOTH
+     locales (44 `<url>` entries, each with ar/en/x-default alternates); `robots.txt` points at it; `/services/marine-ppf` and
      `/services/surface-protection` carry `noindex, follow` and are absent
      from the sitemap
    - `BASE=https://supakoto.com node scripts/smoke.mjs` → all green

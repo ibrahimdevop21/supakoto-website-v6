@@ -5,8 +5,7 @@
  */
 const BASE = (process.env.BASE ?? "http://localhost:3111").replace(/\/$/, "");
 const sm = await (await fetch(BASE + "/sitemap.xml")).text();
-const arPaths = [...new Set([...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname))];
-const paths = arPaths.flatMap((p) => [p, p === "/" ? "/en" : "/en" + p]);
+const paths = [...new Set([...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname))];
 paths.push("/services/marine-ppf", "/en/services/marine-ppf", "/services/surface-protection", "/en/services/surface-protection");
 const REQUIRED = {
   Organization: ["name", "url"],

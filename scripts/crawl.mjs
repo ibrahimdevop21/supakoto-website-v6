@@ -59,7 +59,7 @@ for (const [p, r] of seen) {
 // orphans: sitemap routes never linked
 const sm = await (await fetch(BASE + "/sitemap.xml")).text();
 const smPaths = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => norm(m[1], "/")).filter(Boolean);
-const orphans = smPaths.filter((p) => !linkedFrom.has(p) && p !== "/" && p !== "/en");
+const orphans = [...new Set(smPaths)].filter((p) => !linkedFrom.has(p) && p !== "/" && p !== "/en");
 for (const o of orphans) problems.push(`ORPHAN (in sitemap, unlinked) ${o}`);
 const anchorLinks = [...linkedFrom.keys()].filter((p) => p.includes("/services#"));
 console.log(`crawled ${seen.size} URLs, sitemap ${smPaths.length} entries, ${linkedFrom.size} linked paths`);
