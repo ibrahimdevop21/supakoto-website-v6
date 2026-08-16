@@ -22,7 +22,14 @@ violation.
    is traceable to a source supplied by Ibrahim or to TAKAI's official
    catalogue. Never infer a spec from a related product. Never invent a
    product code. **SK-BLD is the cautionary precedent** — a fabricated product
-   name that shipped to a live page.
+   name that shipped to a live page. This includes **unsubstantiated
+   superlatives** — "best / finest / number one", «أفضل / الأفضل / الأول» —
+   attached to the brand, film, material, protection, installation, quality
+   or price (guard rule `superlative`, added 2026-08-16). Shared surfaces
+   (nav, home headings, services index, /about vision-mission-values,
+   footer, contact) speak to the customer, not to "your car" — the catalogue
+   spans vehicles, buildings, marine and interiors; service sections and the
+   vehicle-only booking funnel keep their own substrate language.
 2. **PPF / Premium Plus never claims heat.** Paint protection film — every
    TAKAI tier including Premium Plus — is body-panel paint protection. No PPF,
    Premium Plus, TAKAI-tier or vehicle-warranty context may claim heat

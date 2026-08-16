@@ -19,6 +19,11 @@
  *                   them as letters). Use image assets.
  *  5. LIFETIME      "lifetime" only under the allowed message namespaces
  *                   (/warranty, PPF section, tier card, TAKAI term label).
+ *  6. SUPERLATIVE   No unsubstantiated "best / finest / number one / أفضل /
+ *                   الأفضل / الأول" attached to the brand, film, material,
+ *                   protection, installation, quality or price (STRUCTURE-SPEC
+ *                   §1 traceability). Comparatives in advice ("better than
+ *                   automatic brushes") and "first day/first shipment" are fine.
  *
  * Comments in .ts/.tsx are stripped before scanning so the rules can be
  * documented in code without tripping the guard.
@@ -67,6 +72,8 @@ const MADE_FOR_US =
 const EMOJI_FLAG = /[\u{1F1E6}-\u{1F1FF}]/u;
 const LIFETIME = /lifetime|مدى الحياة/i;
 const LIFETIME_ALLOW = /^(warranty\.|services\.items\.ppf\.|takai\.terms\.lifetime$)/;
+const SUPERLATIVE =
+  /\b(the\s+)?(best|finest|number\s*one|no\.\s*1|#1)\s+(japanese\s+)?(film|films|material|materials|protection|installation|quality|price|prices|brand|ppf|choice|in\s+(egypt|the\s+uae|the\s+middle\s+east|the\s+market))|(^|\s)(أفضل|الأفضل)\s+(خامة|فيلم|أفلام|حماية|منتج|علامة|تركيب|جودة|سعر|أسعار|اختيار)|(الاسم|العلامة|الشركة|الوكيل|المركز)\s+الأول(ى)?\b|الأول(ى)?\s+في\s+(مصر|الإمارات|الشرق\s+الأوسط|السوق)/i;
 
 /* ---------- messages ---------- */
 for (const loc of ["en", "ar"]) {
@@ -79,6 +86,7 @@ for (const loc of ["en", "ar"]) {
     if (MADE_FOR_US.test(val)) fail(file, key, "distributor-not-manufacturer", val);
     if (EMOJI_FLAG.test(val)) fail(file, key, "emoji-flag", val);
     if (LIFETIME.test(val) && !LIFETIME_ALLOW.test(key)) fail(file, key, "lifetime-scope", val);
+    if (SUPERLATIVE.test(val)) fail(file, key, "superlative", val);
   }
 }
 
@@ -93,6 +101,7 @@ for (const dir of CODE_DIRS) {
       if (ALTNAME.test(line)) fail(rel, where, "silver≠takai5 (altName alias)", line);
       if (MADE_FOR_US.test(line)) fail(rel, where, "distributor-not-manufacturer", line);
       if (EMOJI_FLAG.test(line)) fail(rel, where, "emoji-flag", line);
+      if (SUPERLATIVE.test(line)) fail(rel, where, "superlative", line);
     });
     // Heat language inside the PPF/TAKAI data files (not the services
     // catalogue, which legitimately lists the heat-isolation services).
@@ -110,8 +119,8 @@ if (violations.length) {
   console.error(
     "\nRules: docs/STRUCTURE-SPEC.md → “Claim discipline”. PPF never claims heat; " +
       "SILVER and TAKAI 5 are never equated; SupaKoto distributes, TAKAI manufactures; " +
-      "no emoji flags; lifetime stays scoped.\n",
+      "no emoji flags; lifetime stays scoped; no best/finest/أفضل superlatives on brand or product.\n",
   );
   process.exit(1);
 }
-console.log("✓ Claims guard: no heat-in-PPF, Silver/TAKAI 5, manufacturer-framing, emoji-flag or lifetime-scope violations.");
+console.log("✓ Claims guard: no heat-in-PPF, Silver/TAKAI 5, manufacturer-framing, emoji-flag, lifetime-scope or superlative violations.");

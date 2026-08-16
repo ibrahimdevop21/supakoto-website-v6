@@ -53,6 +53,17 @@ official marks are requestable via **info@takaifilms.jp**.
   as "placeholder until set" — Tagamoa's aerial is real; verify the other
   five are the intended storefronts.
 
+## CLAIMS NEEDING TRACEABLE CONFIRMATION (added 2026-08-16, second copy review)
+
+Logged under STRUCTURE-SPEC "Claim discipline" §1 — **not removed**, but neither
+has a source on file. Ibrahim/ops to confirm in writing (invoice count export,
+partnership agreements) or the wording gets softened:
+
+- `about.whoWeAre.body` (+ the /about stat and `about.stats.cars`):
+  «تجاوزنا 25 ألف سيارة محمية» / "past 25,000 cars protected".
+- `about.whoWeAre.body` + journey events 2/4/9: partnerships named as
+  شكودا (Škoda), القصراوي (Kasrawy), منصور (Mansour).
+
 ## Resolved
 
 - **Branch photos** — all six delivered by Ibrahim 2026-08-06, converted

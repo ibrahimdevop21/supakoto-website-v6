@@ -384,3 +384,31 @@ commits only; imperative subjects; no trailers. Push/merge only on Ibrahim's wor
 - 15c: ar.json key parity with en.json (script), no tashkeel, no phone digits, no
   clichés/classical constructions (grep list), banned-word list from Dr. Amer's
   bullets = 0 hits; review list published in this doc.
+
+### Round 2 — second copy reviewer, filtered subset (2026-08-16, later)
+Applied only what Ibrahim listed. Rejected items NOT applied (hero s5 «ما تملكه»,
+positioning «لفئات أخرى», «فيها»→«تضم», «مشغولة بصبر»→«منفذة بعناية», «بدون»→«من دون»).
+- **Critical scope fixes:** `services.index.sub` «اختر ما يناسبك»; `about.vmv.vision.body`
+  «المرجع في حلول الحماية» + EN "reference in protection solutions"; `about.vmv.mission.body`
+  «أفلام TAKAI اليابانية وأعلى مستوى تركيب» + EN "genuine Japanese TAKAI film with the highest
+  standard of installation" (was "the finest … the finest" — claim fix, superlative).
+- **Superlative guard rule** added to `check-claims.mjs` (best/finest/number one/أفضل/الأفضل/الأول
+  on brand/product/quality/price; self-tested with an injected violation) + STRUCTURE-SPEC §1.
+- **Shared-surface sweep (both locales, keys under nav/home non-slide/services.index/warranty/
+  about/contact/footer/chrome/faq headings/booking title):**
+  FIXED — `home.knowMore.title` («ما الذي يناسبك؟» / "Not sure what you need?"),
+  `services.index.title` («الحماية المناسبة لك» / "Protection, matched to you"),
+  `about.vmv.values.body` («وكل ما يدخل ورشتنا نعامله كأنه ملكنا» / "Everything in our workshop…").
+  KEPT (deliberate, reported): `home.title` «حماية يابانية لسيارتك» — the exact phrasing Dr. Amer
+  cited as the model of simple-and-specific; `about.cta.title` "Ready to protect your car?" — its
+  CTA is /booking, which is vehicle-only by spec; `about.whoWeAre.body` "love of cars" (origin
+  story) and `about.stats.cars` (a factual stat); `warranty.rows.transferable`, `warranty.qualifier`,
+  `warranty.registration.steps.1` — the vehicle tier warranty (buildings has its own block);
+  `nav.servicesPpf` (product name) and `nav.servicesHeatCars` (explicitly the cars variant);
+  `about.journey.events.1` already says "cars and architectural facades". Footer/contact: no hits.
+- **Minor phrasing** (6) applied as listed. **فيلم vs خامة:** product references → «فيلم»
+  (`ppf.solutions.b1`, `about.documentary.sub`, `faq.whyJapanese.q`, `faq.whichBranch.a`,
+  `franchise.get.6`); «خامة/خامات» kept where abstract (spec "Material" labels, «عيوب الخامة
+  والتركيب», «خامات يابانية» on the index, vinyl wrap strings, «معيار الخامات»).
+- **Logged, not removed** (ASSETS-NEEDED): 25,000 cars stat; Škoda/Kasrawy/Mansour partnerships.
+- Green: typecheck, lint (0 errors), build 42/42, both guards, en/ar parity, no tashkeel.
