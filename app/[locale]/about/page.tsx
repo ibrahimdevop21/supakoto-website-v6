@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/metadata";
 import { DOCUMENTARY_YOUTUBE_ID } from "@/lib/site";
@@ -107,8 +108,17 @@ export default async function AboutPage({
               <p className="mt-2 text-fg-muted">{t("stats.japanese.label")}</p>
             </RevealItem>
             <RevealItem className="text-center">
-              <span className="font-display text-display font-bold">
-                {t("stats.exclusive.value")}
+              {/* Image, not the 🇯🇵 emoji — regional-indicator emoji render as
+                  letters on Windows (Dr. Amer review, 2026-08-16). Asset:
+                  public/images/brand/flag-japan.webp; decorative, label carries meaning. */}
+              <span className="inline-flex h-(--text-display) items-center justify-center">
+                <Image
+                  src="/images/brand/flag-japan.webp"
+                  alt=""
+                  width={96}
+                  height={64}
+                  className="h-12 w-auto rounded-sm ring-1 ring-ink-700"
+                />
               </span>
               <p className="mt-2 text-fg-muted">{t("stats.exclusive.label")}</p>
             </RevealItem>

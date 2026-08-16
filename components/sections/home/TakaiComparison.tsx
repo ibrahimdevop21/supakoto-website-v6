@@ -72,12 +72,7 @@ export function TakaiComparison() {
                         flagship && "text-sk-red",
                       )}
                     >
-                      <span dir="ltr">
-                        {p.name}
-                        {p.altName && (
-                          <span className="text-fg-subtle"> ({p.altName})</span>
-                        )}
-                      </span>
+                      <span dir="ltr">{p.name}</span>
                       {p.matteAvailable && (
                         <span className="ms-2 inline-block rounded-card border border-ink-700 px-1.5 py-0.5 text-eyebrow font-normal text-fg-muted">
                           {tTakai("matteBadge")}

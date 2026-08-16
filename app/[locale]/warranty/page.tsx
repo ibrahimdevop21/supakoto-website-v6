@@ -1,10 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import {
-  warrantyRows,
-  egyptTierBreakdown,
-  uaeTierBreakdown,
-  type TierBreakdownGroup,
-} from "@/content/warranty";
+import { warrantyRows } from "@/content/warranty";
+import { TierBreakdown } from "@/components/sections/warranty/TierBreakdown";
 import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
@@ -38,7 +34,6 @@ export default async function WarrantyPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("warranty");
-  const tTakai = await getTranslations("takai");
 
   const faqItems = [1, 2, 3].map((n) => ({
     id: `wf-${n}`,
@@ -115,39 +110,10 @@ export default async function WarrantyPage({
                 </tbody>
               </table>
             </div>
-            {/* Per-tier terms, both regions — ops-confirmed 2026-08-06. */}
-            <div className="mt-10">
-              <Heading level={3} className="text-paper-ink">
-                {t("breakdown.heading")}
-              </Heading>
-              <div className="mt-4 grid gap-8 lg:grid-cols-2">
-                <TierBreakdownList
-                  title={t("breakdown.egypt")}
-                  groups={egyptTierBreakdown}
-                  termLabel={(term) =>
-                    term.kind === "lifetime"
-                      ? tTakai("terms.lifetime")
-                      : term.kind === "years"
-                        ? tTakai(`terms.y${term.years}`)
-                        : tTakai("terms.tbc")
-                  }
-                />
-                <TierBreakdownList
-                  title={t("breakdown.uae")}
-                  groups={uaeTierBreakdown}
-                  termLabel={(term) =>
-                    term.kind === "lifetime"
-                      ? tTakai("terms.lifetime")
-                      : term.kind === "years"
-                        ? tTakai(`terms.y${term.years}`)
-                        : tTakai("terms.tbc")
-                  }
-                />
-              </div>
-              <p className="mt-3 max-w-prose text-small text-paper-ink/60">
-                {t("breakdown.note")}
-              </p>
-            </div>
+            {/* Per-tier terms — REGION-AWARE (2026-08-16): only the
+                visitor's line renders (UAE = TAKAI SILVER, Egypt = TAKAI 5),
+                gated on the RegionPicker like branches and phones. */}
+            <TierBreakdown />
 
             {/* Qualifier block — must sit adjacent to the lifetime cell. */}
             <p className="mt-6 max-w-prose rounded-card border border-paper-ink/20 bg-paper-ink/5 px-4 py-3 text-small text-paper-ink/70">
@@ -219,42 +185,5 @@ export default async function WarrantyPage({
         </Container>
       </Section>
     </main>
-  );
-}
-
-function TierBreakdownList({
-  title,
-  groups,
-  termLabel,
-}: {
-  title: string;
-  groups: TierBreakdownGroup[];
-  termLabel: (term: TierBreakdownGroup["term"]) => string;
-}) {
-  return (
-    <div>
-      <p className="text-small font-medium text-paper-ink/60">{title}</p>
-      <dl className="mt-2 divide-y divide-paper-ink/10 border-y border-paper-ink/10">
-        {groups.map((group) => (
-          <div
-            key={group.products.join("/")}
-            className="flex items-center justify-between gap-4 py-3"
-          >
-            <dt className="font-medium" dir="ltr">
-              {group.products.join(" / ")}
-            </dt>
-            <dd
-              className={
-                group.term.kind === "lifetime"
-                  ? "font-bold"
-                  : "text-paper-ink/70"
-              }
-            >
-              {termLabel(group.term)}
-            </dd>
-          </div>
-        ))}
-      </dl>
-    </div>
   );
 }

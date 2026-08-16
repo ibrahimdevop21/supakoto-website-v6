@@ -10,7 +10,7 @@
         },
         "s2": {
           "title": "The sun won't hold back. We will",
-          "sub": "Heat isolation that protects cabin and paint from Egyptian and Gulf summers.",
+          "sub": "Heat isolation that protects the cabin from Egyptian and Gulf summers.",
           "alt": "Land Cruiser Prado in the desert sun"
         },
         "s3": {
@@ -49,7 +49,7 @@
       },
       "takai": {
         "title": "Japanese engineering",
-        "sub": "The TAKAI story — film made in Japan, exclusively for us"
+        "sub": "The TAKAI story — genuine Japanese film, distributed exclusively by us in Egypt and the UAE"
       },
       "warranty": {
         "title": "Warranty",
@@ -646,7 +646,7 @@
       },
       "performance": {
         "name": "TAKAI Performance",
-        "tagline": "High-strength protection — built for high-heat markets like the Middle East"
+        "tagline": "High-strength protection for everyday driving"
       }
     },
     "columns": {
@@ -679,7 +679,7 @@
     "sub": "Exclusive agent for TAKAI films in Egypt and the UAE",
     "whoWeAre": {
       "title": "Our story",
-      "body": "We started in 2016 out of a genuine love of cars and a conviction that this market deserved a different level of protection. We secured a Japanese film made exclusively for us — TAKAI — and built workshops around it to the factory's own standard: measurement before any work, documented installation at every step. The journey hasn't stopped since — partnerships with Škoda, Kasrawy and Mansour, branches from Maadi to the Fifth Settlement and from Alexandria to Dubai, past 25,000 cars protected. These are the milestones:"
+      "body": "We started in 2016 out of a genuine love of cars and a conviction that this market deserved a different level of protection. We became the exclusive distributor of genuine Japanese TAKAI film in Egypt and the UAE, and built workshops around it to the factory's own standard: measurement before any work, documented installation at every step. The journey hasn't stopped since — partnerships with Škoda, Kasrawy and Mansour, branches from Maadi to the Fifth Settlement and from Alexandria to Dubai, past 25,000 cars protected. These are the milestones:"
     },
     "stats": {
       "branches": {
@@ -691,7 +691,6 @@
         "label": "Genuine Japanese TAKAI film"
       },
       "exclusive": {
-        "value": "🇯🇵",
         "label": "Exclusive agent in Egypt & UAE"
       },
       "cars": {
@@ -871,8 +870,7 @@
     "breakdown": {
       "heading": "Terms by tier",
       "egypt": "Performance line — Egypt",
-      "uae": "Signature line — UAE",
-      "note": "TAKAI SILVER is the UAE market name for TAKAI 5 — the exact same film."
+      "uae": "Signature line — UAE"
     },
     "registration": {
       "heading": "How to register your warranty",

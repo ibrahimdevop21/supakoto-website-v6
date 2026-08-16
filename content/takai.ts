@@ -13,9 +13,12 @@
 import type { RegionId } from "./regions";
 
 export type TakaiProduct = {
+  /**
+   * Region-scoped market name. UAE entry product is "TAKAI SILVER" — only;
+   * never rendered with, or described as equal to, "TAKAI 5" (Dr. Amer,
+   * 2026-08-16). No alias field on purpose.
+   */
   name: string;
-  /** Market alias shown alongside the name (e.g. TAKAI SILVER = UAE name for TAKAI 5). */
-  altName?: string;
   totalThickness: string;
   tpuFilm: string;
   /** null = matte (no gloss value). */
@@ -48,8 +51,7 @@ export const takaiLines: TakaiLine[] = [
     id: "signature",
     region: "uae",
     products: [
-      // Same product as TAKAI 5 — UAE market name is TAKAI SILVER (Ibrahim, 2026-08-06).
-      { name: "TAKAI SILVER", altName: "TAKAI 5", totalThickness: "170 μm", tpuFilm: "130 μm", gloss: "92", elongationAtBreak: "≥ 350%", tensileStrength: "30 MPa", ...common },
+      { name: "TAKAI SILVER", totalThickness: "170 μm", tpuFilm: "130 μm", gloss: "92", elongationAtBreak: "≥ 350%", tensileStrength: "30 MPa", ...common },
       { name: "TAKAI MATT", totalThickness: "190 μm", tpuFilm: "150 μm", gloss: null, elongationAtBreak: "≥ 400%", tensileStrength: "35 MPa", ...common },
       { name: "TAKAI MATT PLUS", totalThickness: "240 μm", tpuFilm: "200 μm", gloss: null, elongationAtBreak: "≥ 400%", tensileStrength: "38 MPa", ...common },
       { name: "TAKAI Colours", totalThickness: "240 μm", tpuFilm: "200 μm", gloss: "93.8", elongationAtBreak: "≥ 400%", tensileStrength: "35 MPa", ...common },
