@@ -338,7 +338,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <LocaleSwitcher />
               <RegionPicker />
-              <Button href="/booking" onClick={onClose}>{t("cta")}</Button>
+              <Button href="/booking" size="sm" onClick={onClose}>{t("cta")}</Button>
             </div>
           </nav>
         </motion.div>
