@@ -8,7 +8,7 @@ import { FeatureGrid } from "@/components/sections/home/FeatureGrid";
 import { BusinessBand } from "@/components/sections/home/BusinessBand";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { Testimonials } from "@/components/sections/Testimonials";
-import { byIds, HOME_TESTIMONIAL_IDS } from "@/content/testimonials";
+import { orderedTestimonials } from "@/content/testimonials";
 import { JsonLd } from "@/components/JsonLd";
 import { organizationLd } from "@/lib/jsonld";
 import { SITE_URL } from "@/lib/site";
@@ -62,8 +62,8 @@ export default async function HomePage({
       />
       <TakaiComparison />
       <FeatureGrid />
-      {/* Social proof harvested from V2 (Phase 18) — four named reviews, one per branch */}
-      <Testimonials items={byIds(HOME_TESTIMONIAL_IDS)} />
+      {/* Social proof harvested from V2 (Phase 18) — every review, carousel */}
+      <Testimonials items={orderedTestimonials()} />
       <BusinessBand />
     </main>
   );

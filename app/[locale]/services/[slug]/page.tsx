@@ -16,7 +16,7 @@ import { CtaBand } from "@/components/sections/CtaBand";
 import { ServiceDetailBody } from "@/components/sections/services/ServiceDetailBody";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { ServiceViewTracker } from "@/components/providers/ServiceViewTracker";
-import { forService } from "@/content/testimonials";
+import { orderedTestimonials } from "@/content/testimonials";
 
 /**
  * /services/<slug> — one page per service (Phase 17 re-split; SEO: one URL
@@ -110,10 +110,10 @@ export default async function ServiceDetailPage({
       <ServiceViewTracker service={service.slug} />
       <PageHero eyebrow={tIndex("eyebrow")} title={tItem("h1")} sub={tItem("benefit")} />
       <ServiceDetailBody service={service} />
-      {/* Two reviews per vehicle service (service-tagged where the V2 set
-          has them, otherwise general) — none for pending/non-vehicle pages */}
+      {/* All reviews, the ones about this service first — none for
+          pending/non-vehicle pages */}
       {!pending && service.substrate === "vehicle" && (
-        <Testimonials items={forService(service.id)} />
+        <Testimonials items={orderedTestimonials(service.id)} />
       )}
       {!pending && service.substrate === "vehicle" && (
         <CtaBand title={tAbout("title")} buttonLabel={t("bookCta")} href="/booking" />

@@ -177,3 +177,48 @@ in your list, **not** wired.
 - Meta: after deploy, check Events Manager → pixel 1306471927697780 shows
   PageView / ViewContent / Contact / Lead from supakoto.com; GA4 DebugView with
   `?sk_debug`; TikTok Events Manager for Pageview / Contact / Lead.
+
+
+## Rev. 2 — testimonials corrections (2026-08-19, afternoon)
+
+Ibrahim's three corrections, all applied:
+
+**1. Aggregate = real Google totals, count-weighted.** `content/branches.ts`
+now carries `reviews` per listing (supplied by Ibrahim, `asOf: 2026-08-19`):
+Tagamoa 699 × 4.9 · Zayed 439 × 4.8 · Maadi 363 × 4.8 · Dubai 69 × 4.9.
+`googleAggregate()` in `components/sections/Testimonials.tsx` computes
+Σ(rating × count) / Σ count = 7,612.8 / 1,570 = **4.849 → displayed "4.8 out
+of 5 · 1,570 Google reviews"** (one decimal; not an average of averages, which
+would give 4.85). The figure is shown as text only — **no AggregateRating
+JSON-LD**: Google's review-snippet rules don't allow ratings aggregated from a
+third-party site (the Google listings), and an AggregateRating over the 29
+cards would contradict the displayed 1,570. The Review nodes still mark up
+exactly the 29 cards on the page. Alexandria and Damietta have no listing
+figures yet — add them to `branches.ts` and the number updates.
+
+**2. No translations.** `content/testimonials.ts` entries are now `{ lang,
+text }` — the customer's original only. Arabic cards render Arabic (dir=rtl)
+on both `/` and `/en`; English cards render English (dir=ltr) on both. Every
+"Translated from …" label and the translated texts are gone.
+
+**3. Carousel with expand.** `components/sections/TestimonialsCarousel.tsx`
+(client): all 29 reviews everywhere (service pages lead with the reviews
+tagged for that service); native scroll-snap track + prev/next; every card
+the same height (quote area fixed at six body lines, `line-clamp-6` + fade,
+"Read more" only on the 20 cards that actually overflow); click/tap opens the
+full text in a modal (Framer Motion fade, focus to Close, Escape closes,
+focus returns to the card); keyboard: arrow keys move between cards (mirrored
+in RTL), Home/End, Enter/Space expands; autoplay every 6 s, pauses on hover /
+focus, stops after any interaction, never runs under prefers-reduced-motion.
+Attribution block unchanged (name, then branch).
+
+Verification: new `scripts/e2e-testimonials.mjs` **38/38** (aggregate text,
+no AggregateRating, no translation labels, 29 cards, per-card lang/dir, equal
+heights, Review JSON-LD = 29, ArrowRight/Enter/Escape/focus-restore, read-more
+count, click-to-open, autoplay idle / reduced-motion, PPF-first ordering on
+/services/ppf); e2e-analytics 84/84, e2e-whatsapp-routing 16/16, smoke 196/196,
+crawl clean, JSON-LD clean, build + lint 0/0 + typecheck.
+
+Note: these checks ran from a throwaway worktree — Ibrahim's own `npm run
+dev` (pts/3, 16:51) was rebuilding `.next` in the main checkout, which kept
+killing `next start` there. Nothing of his was touched.

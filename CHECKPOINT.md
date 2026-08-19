@@ -3,8 +3,9 @@
 ## TL;DR (2026-08-19, Phase 18 done, awaiting Ibrahim's approval)
 
 **Phase 18 (pre-cutover quick wins + tracking foundation) is complete on
-`feat/phase-18-pre-cutover` — 8 commits on top of `main` 92b3b7e, NOT merged,
-NOT pushed.** Report + harvest table + event verification:
+`feat/phase-18-pre-cutover` — 10 commits on top of `main` 92b3b7e, NOT merged,
+NOT pushed.** Rev. 2 (testimonials: real Google aggregate 4.8 · 1,570, no
+translations, carousel with expand) landed 2026-08-19 afternoon. Report + harvest table + event verification:
 `docs/progress/18-pre-cutover-tracking.md`. Contract for Phase 3:
 `docs/progress/TRACKING-SPEC.md`. Shipped: V2 testimonials (29, JSON-LD
 Review/AggregateRating), footer payment strip (region-aware, V2 logos), five

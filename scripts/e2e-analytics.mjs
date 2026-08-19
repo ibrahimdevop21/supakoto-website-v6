@@ -123,7 +123,7 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 /* 2. Service pages: service_view + pending-service CTA */
 for (const slug of ["ppf", "marine-ppf", "building-heat-isolation"]) {
   const { ctx, page, beacons } = await fresh(`/en/services/${slug}`);
-  await wait(800);
+  await wait(1500);
   const ev = await log(page);
   ok(has(ev, "service_view", (e) => e.service === slug), `service_view(${slug})`);
   ok(fbBeacons(beacons).some((b) => /ev=ViewContent/.test(b)) || (await fbCalls(page)).some((b) => /ev=ViewContent/.test(b) && new RegExp(`content_name=${slug}`).test(b)), `Meta: ViewContent (${slug})`);
@@ -139,9 +139,10 @@ for (const slug of ["ppf", "marine-ppf", "building-heat-isolation"]) {
 {
   const { ctx, page } = await fresh("/en/branches");
   await wait(800);
-  await page.locator('a[data-track="call:branch_card"]').first().click();
-  await page.locator('a[data-track="whatsapp:branch_card"]').first().click();
-  await page.locator('a[data-track="directions:branch_card"]').first().click();
+  // force: the Reveal entrance animation can leave the card image over the link for a moment
+  await page.locator('a[data-track="call:branch_card"]').first().click({ force: true });
+  await page.locator('a[data-track="whatsapp:branch_card"]').first().click({ force: true });
+  await page.locator('a[data-track="directions:branch_card"]').first().click({ force: true });
   await wait(400);
   let ev = await log(page);
   ok(has(ev, "call_click", (e) => e.source === "branch_card" && e.branch), "call_click(branch_card)");
