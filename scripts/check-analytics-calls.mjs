@@ -42,8 +42,20 @@ for (const dir of SCAN_DIRS) {
     });
   }
 }
+// Completeness: any runtime file that renders a tel: or wa.me link must
+// also track it (Phase 18 item 7 — "no tel:/wa.me link anywhere is untracked").
+const LINK = /href=\{?[`"']tel:|wa\.me\//;
+for (const dir of ["app", "components"]) {
+  for (const file of walk(path.join(ROOT, dir))) {
+    const rel = path.relative(ROOT, file);
+    const src = strip(readFileSync(file, "utf8"));
+    if (LINK.test(src) && !/\btrack\(/.test(src) && !/data-track/.test(src))
+      violations.push(`${rel}  renders a tel:/wa.me link but never calls track()`);
+  }
+}
+
 if (violations.length) {
-  console.error("✗ Direct analytics call outside lib/analytics.ts:");
+  console.error("✗ Direct analytics call outside lib/analytics.ts (or an untracked tel:/wa.me link):");
   for (const v of violations) console.error("  " + v);
   console.error("Use track() from @/lib/analytics — the single fan-out point.");
   process.exit(1);

@@ -31,6 +31,16 @@ for (const p of paths.sort()) {
     if (t === "FAQPage" && !j.mainEntity.every((q) => q.name && q.acceptedAnswer?.text)) { fails++; console.log(`FAQ incomplete ${p}`); }
     if (t === "BreadcrumbList" && !j.itemListElement.every((i) => i.name && i.item && i.position)) { fails++; console.log(`Breadcrumb incomplete ${p}`); }
     if (t === "AutomotiveBusiness" && !/^\+?\d[\d ]{8,}$/.test(String(j.telephone))) { fails++; console.log(`Bad telephone ${p}: ${j.telephone}`); }
+    // Phase 18: Review + AggregateRating nodes (testimonials) — only the displayed reviews, complete fields
+    if (j.aggregateRating) {
+      const a = j.aggregateRating;
+      if (a["@type"] !== "AggregateRating" || !(a.ratingValue > 0) || !(a.reviewCount > 0)) { fails++; console.log(`AggregateRating incomplete ${p}`); }
+      if (!Array.isArray(j.review) || j.review.length !== a.reviewCount) { fails++; console.log(`reviewCount ≠ reviews listed ${p}`); }
+      if (!(j.review ?? []).every((r) => r["@type"] === "Review" && r.author?.name && r.reviewRating?.ratingValue && r.reviewBody)) { fails++; console.log(`Review incomplete ${p}`); }
+      if (!j.sameAs) { /* sameAs lives on the site-wide node (home) */ }
+      types[types.length - 1] = `${t}(reviews×${j.review?.length ?? 0})`;
+    }
+    if (t === "Organization" && j.sameAs && !(Array.isArray(j.sameAs) && j.sameAs.length === 5)) { fails++; console.log(`Organization sameAs should list the 5 social profiles ${p}`); }
   }
   const counts = types.reduce((a, t) => ((a[t] = (a[t] ?? 0) + 1), a), {});
   summary[p] = Object.entries(counts).map(([t, n]) => (n > 1 ? `${t}×${n}` : t)).join(" + ") || "—";

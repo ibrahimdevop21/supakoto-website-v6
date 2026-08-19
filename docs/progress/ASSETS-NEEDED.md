@@ -87,8 +87,11 @@ official marks are requestable via **info@takaifilms.jp**.
 | Asset | Placeholder in use | Needed from |
 |---|---|---|
 | Before/after pairs | Labelled placeholder slider on service pages | Marketing — no true before/after pairs exist in the V2 archive |
-| TikTok, YouTube, LinkedIn profile URLs | **Icons NOT rendered** (Phase 17: no placeholder `#` anchors ship). Add the URL in `lib/nav.ts` → icon appears | Marketing |
-| Egypt trust badges / registry equivalents | `<TrustBadges />` renders nothing | Ibrahim |
+| ~~TikTok, YouTube, LinkedIn profile URLs~~ | **RESOLVED 2026-08-19 (Phase 18)** — all five live URLs in `lib/nav.ts`, icons render, `sameAs` emitted | — |
+| ~~Egypt trust badges~~ | **RESOLVED 2026-08-19 (Phase 18)** — `<TrustBadges />` now renders the region-aware payment-method strip (`content/payments.ts`). **Pending Ibrahim's confirmation that every listed method is accepted at the branches** before cutover | Ibrahim |
+| **CIB logo** | V2 only had a 109×33 white "CIB · 50" anniversary mark → rendered on a dark chip, soft at 2×. Need the standard CIB wordmark (SVG or ≥240px PNG, transparent) | Marketing / CIB brand kit |
+| **Per-branch public rating** (Google Business Profile ★ + review count) | Testimonials aggregate line falls back to the mean of the 29 harvested V2 reviews (5.0 · 29). Fill `content/branches.ts → reviews { rating, count, asOf, url }` per branch and the section switches to the real figures | Ibrahim / ops (Google Business Profile → each branch → rating + count) |
+| **Testimonial dates / source** | V2 carried no dates or source; JSON-LD Review omits `datePublished`. If these are Google reviews, the original dates + profile URLs would let us mark them up fully and link them | Ibrahim (Google Business Profile review list per branch) |
 
 ## BUILDINGS PHOTOGRAPHY (added 2026-08-07)
 
