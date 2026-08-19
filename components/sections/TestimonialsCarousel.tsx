@@ -12,6 +12,8 @@ export type CarouselItem = {
   lang: "ar" | "en";
   rating: number;
   ratingLabel: string;
+  /** "Review {n} of {total}", formatted server-side. */
+  positionLabel: string;
   text: string;
 };
 
@@ -21,8 +23,6 @@ export type CarouselLabels = {
   close: string;
   prev: string;
   next: string;
-  /** "{n} of {total}" — template with {n} and {total} */
-  position: string;
 };
 
 const AUTOPLAY_MS = 6000;
@@ -178,7 +178,7 @@ export function TestimonialsCarousel({
             <li
               key={item.id}
               className="w-[85vw] shrink-0 snap-start sm:w-[22rem]"
-              aria-label={labels.position.replace("{n}", String(i + 1)).replace("{total}", String(items.length))}
+              aria-label={item.positionLabel}
             >
               <article className="flex h-full flex-col rounded-card border border-ink-700 bg-ink-800 p-6">
                 <Stars value={item.rating} label={item.ratingLabel} />

@@ -78,8 +78,9 @@ export async function Testimonials({
         </Reveal>
         <div className="mt-12">
           <TestimonialsCarousel
-            items={items.map((r) => ({
+            items={items.map((r, i) => ({
               id: r.id,
+              positionLabel: t("position", { n: i + 1, total: items.length }),
               name: r.name,
               branchName: tBranches(`${r.branch}.name`),
               lang: r.lang,
@@ -93,7 +94,6 @@ export async function Testimonials({
               close: t("close"),
               prev: t("prev"),
               next: t("next"),
-              position: t("position"),
             }}
           />
         </div>
