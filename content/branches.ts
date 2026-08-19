@@ -20,6 +20,13 @@ export type Branch = {
   franchise?: boolean;
   /** Server-enforced daily capacity where known (bdm-flow). */
   capacity?: number;
+  /**
+   * Public rating for the branch (Google Business Profile) — the visible
+   * aggregate on testimonial sections reads from here. UNSET until ops
+   * supplies real figures (docs/progress/ASSETS-NEEDED.md); the section
+   * then falls back to the mean of the harvested testimonials.
+   */
+  reviews?: { rating: number; count: number; asOf: string; url?: string };
 };
 
 export const branches: Branch[] = [

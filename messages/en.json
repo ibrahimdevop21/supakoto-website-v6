@@ -1697,5 +1697,14 @@
       "faq": "Full page: how to verify your film is genuine",
       "footer": "Sole authorized TAKAI distributor — verify authenticity"
     }
+  },
+  "testimonials": {
+    "eyebrow": "Customer reviews",
+    "title": "What customers say",
+    "aggregate": "{rating} out of 5 · {count} reviews",
+    "ratingAria": "{rating} out of 5 stars",
+    "translated": "Translated from {lang}",
+    "langAr": "Arabic",
+    "langEn": "English"
   }
 }

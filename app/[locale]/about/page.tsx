@@ -12,6 +12,8 @@ import { Heading } from "@/components/ui/Heading";
 import { Counter } from "@/components/ui/Counter";
 import { Card } from "@/components/ui/Card";
 import { Reveal, RevealStagger, RevealItem } from "@/components/ui/Reveal";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { byIds, ABOUT_TESTIMONIAL_IDS } from "@/content/testimonials";
 
 export async function generateMetadata({
   params,
@@ -162,6 +164,9 @@ export default async function AboutPage({
           </RevealStagger>
         </Container>
       </Section>
+
+      {/* Three named customer reviews harvested from V2 (Phase 18) */}
+      <Testimonials items={byIds(ABOUT_TESTIMONIAL_IDS)} tone="dark" />
 
       <CtaBand
         title={t("cta.title")}
