@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
@@ -19,6 +20,7 @@ export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const burgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -75,10 +77,12 @@ export function Header() {
             </Button>
           </div>
           <button
+            ref={burgerRef}
             type="button"
             onClick={() => setDrawerOpen(true)}
             aria-label={t("openMenu")}
             aria-expanded={drawerOpen}
+            aria-controls="mobile-drawer"
             className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-card border border-ink-700 text-fg transition-colors hover:border-fg-subtle hover:bg-ink-800 lg:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
           >
             <MenuIcon className="size-5" />
@@ -86,7 +90,13 @@ export function Header() {
         </div>
       </div>
 
-      <MobileDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      <MobileDrawer
+        open={drawerOpen}
+        onClose={() => {
+          setDrawerOpen(false);
+          burgerRef.current?.focus({ preventScroll: true });
+        }}
+      />
     </header>
   );
 }
@@ -197,26 +207,56 @@ function DesktopNavItem({
   );
 }
 
+/**
+ * Mobile drawer — PORTALED to <body> (2026-08-19 audit). It used to render
+ * inside <header>, which gains `backdrop-blur` once the page is scrolled;
+ * `backdrop-filter` makes that header the containing block for
+ * `position: fixed`, so the "full-screen" drawer was trapped inside the
+ * 72px bar on every scrolled page (390×72 measured on all routes). The
+ * portal takes it out of any transformed / filtered ancestor for good.
+ * Also: dialog semantics, focus moves to Close on open and back to the
+ * burger on close, body scroll lock, Escape, and EVERY link click closes
+ * the drawer (same-page links don't change the pathname).
+ */
 function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const t = useTranslations("nav");
   const reduce = useReducedMotion();
   const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => setMounted(true), []);
+
+  // Fresh state every time it opens — an expanded group from the last visit
+  // shouldn't greet the user (and the next tap would collapse it).
+  useEffect(() => {
+    if (!open) setOpenGroup(null);
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const id = window.setTimeout(() => closeRef.current?.focus({ preventScroll: true }), 0);
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      document.body.style.overflow = prev;
+      window.clearTimeout(id);
     };
   }, [open, onClose]);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
+          id="mobile-drawer"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t("openMenu")}
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={reduce ? undefined : { opacity: 0 }}
@@ -226,6 +266,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
           <div className="flex h-18 items-center justify-between px-(--spacing-gutter)">
             <span className="font-display text-h3 font-bold">SupaKoto</span>
             <button
+              ref={closeRef}
               type="button"
               onClick={onClose}
               aria-label={t("closeMenu")}
@@ -242,6 +283,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
                   <li key={item.key}>
                     <Link
                       href={item.href}
+                      onClick={onClose}
                       className="block py-4 text-h3 font-medium text-fg"
                     >
                       {t(item.key)}
@@ -278,6 +320,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
                             <li key={child.key}>
                               <Link
                                 href={child.href}
+                                onClick={onClose}
                                 className="block py-3 ps-4 text-body text-fg-muted"
                               >
                                 {t(child.key)}
@@ -295,11 +338,12 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <LocaleSwitcher />
               <RegionPicker />
-              <Button href="/booking">{t("cta")}</Button>
+              <Button href="/booking" onClick={onClose}>{t("cta")}</Button>
             </div>
           </nav>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }
