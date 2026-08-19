@@ -75,24 +75,37 @@ function Marquee({ items }: { items: Partner[] }) {
 
   useEffect(() => {
     const measure = () => {
-      const copyW = firstCopyRef.current?.offsetWidth;
+      const copyW = firstCopyRef.current?.getBoundingClientRect().width;
       const containerW = viewportRef.current?.offsetWidth;
       if (!copyW || !containerW) return;
-      setCopies(Math.max(2, Math.ceil(containerW / copyW) + 1));
+      // +2: one copy is the wrap distance, one is spare, so the visible
+      // window is always covered on both sides of the seam.
+      setCopies(Math.max(2, Math.ceil(containerW / copyW) + 2));
     };
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, [items]);
 
+  /**
+   * Seamless infinite loop (2026-08-19 fix — the strip used to "reset"):
+   * - the track position is kept in (-copyW, 0] with a modulo, never an
+   *   `if` that can only correct one copy-width — after a tab switch or a
+   *   hover pause the frame delta can exceed that and the strip jumped;
+   * - the delta is clamped so a long frame moves at most ~50 ms worth;
+   * - copyW is the EXACT fractional width (getBoundingClientRect), not the
+   *   rounded offsetWidth, so the seam lands on the identical pixel every
+   *   time. The logos are eager-loaded (see PartnerLogo) so every copy has
+   *   the same width from the first frame.
+   */
   useAnimationFrame((_, delta) => {
     if (reduce || paused.current) return;
-    const copyW = firstCopyRef.current?.offsetWidth;
+    const copyW = firstCopyRef.current?.getBoundingClientRect().width;
     if (!copyW) return;
-    let next = x.get() + (dir * SPEED_PX_PER_S * delta) / 1000;
-    if (next <= -copyW) next += copyW;
-    if (next > 0) next -= copyW;
-    x.set(next);
+    const step = (dir * SPEED_PX_PER_S * Math.min(delta, 50)) / 1000;
+    const next = x.get() + step;
+    // Normalise into (-copyW, 0] — identical frame for every k·copyW.
+    x.set(((next % copyW) - copyW) % copyW);
   });
 
   if (reduce) {
@@ -150,6 +163,10 @@ function PartnerLogo({ partner }: { partner: Partner }) {
       width={480}
       height={192}
       unoptimized
+      // Eager: the marquee duplicates the row, and a lazy (unloaded) copy is
+      // laid out from the generic 480×192 ratio, not the logo's own — copies
+      // of different widths made the loop seam visibly jump.
+      loading="eager"
       className={cn(
         // Box-constrain wide wordmarks (Jetour, Geely, Lexus…) so they
         // sit in the row at a sane size next to compact roundels.
