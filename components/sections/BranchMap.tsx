@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import type { Map as LeafletMap } from "leaflet";
 import { branches, directionsUrl } from "@/content/branches";
 import { useRegion } from "@/components/providers/RegionProvider";
+import { track } from "@/lib/analytics";
 import "leaflet/dist/leaflet.css";
 
 /**
@@ -63,15 +64,34 @@ export function BranchMap() {
             <div>${address}</div>
             ${approx}
             <div class="sk-popup-links">
-              <a href="tel:${b.phone.replace(/\s/g, "")}" dir="ltr">${b.phone}</a>
-              <a href="https://wa.me/${b.whatsapp}" target="_blank" rel="noopener noreferrer">${t("whatsapp")}</a>
-              <a href="${maps}" target="_blank" rel="noopener noreferrer">${t("directions")}</a>
+              <a href="tel:${b.phone.replace(/\s/g, "")}" dir="ltr" data-track="call:branch_map" data-branch="${b.id}">${b.phone}</a>
+              <a href="https://wa.me/${b.whatsapp}" target="_blank" rel="noopener noreferrer" data-track="whatsapp:branch_map" data-branch="${b.id}" data-region="${b.region}">${t("whatsapp")}</a>
+              <a href="${maps}" target="_blank" rel="noopener noreferrer" data-track="directions:branch_map" data-branch="${b.id}">${t("directions")}</a>
             </div>
           </div>`;
         L.marker([b.coords.lat, b.coords.lng], { icon })
           .addTo(map)
-          .bindPopup(popup);
+          .bindPopup(popup)
+          .on("popupopen", () => track("branch_view", { branch: b.id, action: "map_popup" }));
       }
+
+      // Popup links are innerHTML strings — delegate their clicks to the
+      // analytics module so map tel:/wa.me links are never untracked.
+      containerRef.current.addEventListener("click", (e) => {
+        const a = (e.target as Element | null)?.closest?.("a[data-track]") as HTMLAnchorElement | null;
+        if (!a) return;
+        const branch = a.dataset.branch ?? "";
+        const kind = a.dataset.track?.split(":")[0];
+        if (kind === "call") {
+          track("call_click", { branch, source: "branch_map" });
+          track("branch_view", { branch, action: "call" });
+        } else if (kind === "whatsapp") {
+          track("whatsapp_click", { source: "branch_map", branch, region: a.dataset.region });
+          track("branch_view", { branch, action: "whatsapp" });
+        } else if (kind === "directions") {
+          track("branch_view", { branch, action: "directions" });
+        }
+      });
 
       mapRef.current = map;
       fitRegion(map, region.id, false);

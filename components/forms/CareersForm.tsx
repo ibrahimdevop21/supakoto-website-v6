@@ -10,6 +10,7 @@ export function CareersForm() {
 
   return (
     <StubForm
+      formId="careers"
       submitLabel={t("fields.submit")}
       successText={t("success")}
       stubText={tCommon("formStub")}

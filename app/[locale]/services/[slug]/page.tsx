@@ -15,6 +15,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { ServiceDetailBody } from "@/components/sections/services/ServiceDetailBody";
 import { Testimonials } from "@/components/sections/Testimonials";
+import { ServiceViewTracker } from "@/components/providers/ServiceViewTracker";
 import { forService } from "@/content/testimonials";
 
 /**
@@ -106,6 +107,7 @@ export default async function ServiceDetailPage({
           }}
         />
       )}
+      <ServiceViewTracker service={service.slug} />
       <PageHero eyebrow={tIndex("eyebrow")} title={tItem("h1")} sub={tItem("benefit")} />
       <ServiceDetailBody service={service} />
       {/* Two reviews per vehicle service (service-tagged where the V2 set

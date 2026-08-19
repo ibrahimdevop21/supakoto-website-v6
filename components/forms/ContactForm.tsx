@@ -6,6 +6,7 @@ import { StubForm } from "@/components/forms/StubForm";
 import { Label, Input, Textarea, Select, PhoneInput } from "@/components/ui/Field";
 import { PhoneIcon, WhatsAppIcon, MailIcon } from "@/components/icons";
 import { CONTACT_EMAIL } from "@/lib/nav";
+import { track } from "@/lib/analytics";
 
 export function ContactInfo() {
   const t = useTranslations("contact.info");
@@ -20,6 +21,8 @@ export function ContactInfo() {
         </p>
         <a
           href={`tel:${region.phone.replace(/\s/g, "")}`}
+          data-track="call:contact"
+          onClick={() => track("call_click", { branch: `${region.id}-regional`, source: "contact" })}
           dir="ltr"
           className="mt-2 block font-medium text-fg hover:text-fg-muted"
         >
@@ -35,6 +38,8 @@ export function ContactInfo() {
           href={`https://wa.me/${region.whatsapp}`}
           target="_blank"
           rel="noopener noreferrer"
+          data-track="whatsapp:contact"
+          onClick={() => track("whatsapp_click", { source: "contact", region: region.id })}
           dir="ltr"
           className="mt-2 block font-medium text-fg hover:text-fg-muted"
         >
@@ -69,6 +74,7 @@ export function ContactForm() {
 
   return (
     <StubForm
+      formId="contact"
       submitLabel={t("fields.submit")}
       successText={t("success")}
       stubText={tCommon("formStub")}

@@ -162,7 +162,12 @@ export function initAnalytics(): void {
     win.gtag("js", new Date());
     // We fire page_view ourselves on every route change (App Router), so
     // the automatic one is off — otherwise the hard load double-counts.
-    if (ANALYTICS_IDS.ga4) win.gtag("config", ANALYTICS_IDS.ga4, { send_page_view: false });
+    if (ANALYTICS_IDS.ga4)
+      win.gtag("config", ANALYTICS_IDS.ga4, {
+        send_page_view: false,
+        // ?sk_debug → events appear in GA4 DebugView (manual verification)
+        ...(win.__skAnalytics.debug ? { debug_mode: true } : {}),
+      });
     if (ANALYTICS_IDS.googleAds) win.gtag("config", ANALYTICS_IDS.googleAds, { send_page_view: false });
     loadScript(`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleId)}`);
   }

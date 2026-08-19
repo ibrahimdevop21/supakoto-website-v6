@@ -10,6 +10,7 @@ import { Heading } from "@/components/ui/Heading";
 import { Reveal, RevealStagger, RevealItem } from "@/components/ui/Reveal";
 import { Accordion } from "@/components/ui/Accordion";
 import { JsonLd } from "@/components/JsonLd";
+import { ServiceViewTracker } from "@/components/providers/ServiceViewTracker";
 import { breadcrumbLd } from "@/lib/jsonld";
 import { localeUrl } from "@/lib/site";
 
@@ -106,6 +107,7 @@ export default async function BuildingHeatIsolationPage({
           })),
         }}
       />
+      <ServiceViewTracker service="building-heat-isolation" />
       <PageHero eyebrow={tIndex("eyebrow")} title={tItem("h1")} sub={tItem("benefit")} />
 
       {/* Hero visual — our own building installation photography */}
