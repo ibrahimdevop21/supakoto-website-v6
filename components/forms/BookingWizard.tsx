@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { branchesForRegion } from "@/content/branches";
@@ -11,6 +11,9 @@ import { Button } from "@/components/ui/Button";
 import { Label, Input, PhoneInput } from "@/components/ui/Field";
 import { cn } from "@/lib/cn";
 import { EASE_OUT } from "@/lib/motion";
+import { track } from "@/lib/analytics";
+import { generateRef } from "@/lib/ref";
+import { readAttribution } from "@/lib/attribution";
 
 const STEPS = [
   "region",
@@ -53,8 +56,23 @@ type Draft = {
  * UUID branch ids) are documented in docs/progress/05-pages.md.
  */
 
-function logIntent(draft: Draft) {
-  const entry = { ...draft, at: new Date().toISOString() };
+/**
+ * Intent log entry — the client-side record that pairs the SK-ref sent into
+ * WhatsApp with the landing attribution (Phase 18 item 6; shape is the
+ * Phase-3 contract in docs/progress/TRACKING-SPEC.md).
+ */
+function logIntent(draft: Draft, ref: string) {
+  const entry = {
+    ref,
+    kind: "booking" as const,
+    at: new Date().toISOString(),
+    region: draft.region,
+    branch: draft.branchId,
+    service: draft.serviceId,
+    locale: typeof document !== "undefined" ? document.documentElement.lang : undefined,
+    attribution: readAttribution(),
+    draft,
+  };
   console.info("[booking] submit intent", entry);
   try {
     const key = "sk-booking-intents";
@@ -91,9 +109,26 @@ export function BookingWizard() {
   const step: Step = STEPS[stepIndex];
   const patch = (p: Partial<Draft>) => setDraft((d) => ({ ...d, ...p }));
 
-  const buildWhatsAppUrl = (): string => {
+  // One ref per completed booking; generated at confirm, kept for "open again".
+  const [ref, setRef] = useState<string | null>(null);
+
+  // booking_start once (step 1 shown), booking_step on every step shown.
+  const started = useRef(false);
+  useEffect(() => {
+    if (!started.current) {
+      started.current = true;
+      track("booking_start", { region: draft.region });
+    }
+    track("booking_step", { step: stepIndex + 1, step_name: step, region: draft.region });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stepIndex]);
+
+  const buildWhatsAppUrl = (currentRef: string | null = ref): string => {
     const lines = [
       t("waTitle"),
+      // Ref on its own clearly-labelled line, right under the title, so
+      // whoever answers sees and records it (Phase 18 item 6).
+      ...(currentRef ? [`${t("waRef")}: ${currentRef}`] : []),
       `${t("summary.region")}: ${tChrome(draft.region)}`,
       `${t("summary.branch")}: ${draft.branchId ? tBranches(`items.${draft.branchId}.name`) : ""}`,
       `${t("summary.service")}: ${draft.serviceId ? tServices(`${draft.serviceId}.name`) : ""}`,
@@ -140,10 +175,19 @@ export function BookingWizard() {
           href={buildWhatsAppUrl()}
           target="_blank"
           rel="noopener noreferrer"
+          data-track="whatsapp:booking"
+          onClick={() =>
+            track("whatsapp_click", { source: "booking", region: draft.region, branch: draft.branchId, ref: ref ?? undefined })
+          }
           className="inline-flex items-center justify-center gap-2 rounded-card border border-ink-700 px-6 py-3 text-body font-medium text-fg transition-colors hover:border-fg-subtle hover:bg-ink-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
         >
           {t("reopenWhatsApp")}
         </a>
+        {ref && (
+          <p className="text-small text-fg-muted" dir="auto">
+            {t("waRef")}: <span className="font-medium text-fg" dir="ltr">{ref}</span>
+          </p>
+        )}
         <p className="text-small text-fg-subtle">{t("stub")}</p>
       </div>
     );
@@ -334,10 +378,21 @@ export function BookingWizard() {
             )}
             {step === "confirm" ? (
               <Button
+                data-track="booking:confirm"
                 onClick={() => {
-                  logIntent(draft);
+                  const newRef = generateRef();
+                  setRef(newRef);
+                  // PRIMARY conversion — fired BEFORE the WhatsApp handoff.
+                  track("booking_complete", {
+                    ref: newRef,
+                    region: draft.region,
+                    branch: draft.branchId,
+                    service: draft.serviceId,
+                  });
+                  track("whatsapp_click", { source: "booking", region: draft.region, branch: draft.branchId, ref: newRef });
+                  logIntent(draft, newRef);
                   window.open(
-                    buildWhatsAppUrl(),
+                    buildWhatsAppUrl(newRef),
                     "_blank",
                     "noopener,noreferrer",
                   );

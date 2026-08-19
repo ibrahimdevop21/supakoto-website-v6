@@ -1015,7 +1015,8 @@
     "stub": "Direct online booking is coming soon — for now confirmation happens over WhatsApp.",
     "waTitle": "New booking from the website:",
     "seoTitle": "Book Car Protection — PPF, Heat Isolation, Ceramic | SupaKoto",
-    "seoDescription": "Book at your nearest SupaKoto branch in two minutes: region, branch, service and day, confirmed on WhatsApp. PPF, heat isolation, ceramic, colour change."
+    "seoDescription": "Book at your nearest SupaKoto branch in two minutes: region, branch, service and day, confirmed on WhatsApp. PPF, heat isolation, ceramic, colour change.",
+    "waRef": "Request ref"
   },
   "franchise": {
     "title": "Become a SupaKoto partner",
@@ -1559,7 +1560,8 @@
       "problem": "Main problem",
       "name": "Name",
       "phone": "Phone",
-      "whatsapp": "WhatsApp"
+      "whatsapp": "WhatsApp",
+      "ref": "Request ref"
     },
     "governorates": {
       "cairo": "Cairo",
