@@ -234,6 +234,11 @@
       "facebook": "Facebook",
       "youtube": "YouTube",
       "linkedin": "LinkedIn"
+    },
+    "payments": {
+      "title": "Payment methods",
+      "installments": "Installment options",
+      "cards": "Cards & wallets"
     }
   },
   "services": {

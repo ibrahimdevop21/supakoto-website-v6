@@ -234,6 +234,11 @@
       "facebook": "فيسبوك",
       "youtube": "يوتيوب",
       "linkedin": "لينكد إن"
+    },
+    "payments": {
+      "title": "طرق الدفع",
+      "installments": "خيارات التقسيط",
+      "cards": "البطاقات والمحافظ الإلكترونية"
     }
   },
   "services": {
