@@ -1,4 +1,5 @@
 import { localeUrl } from "./site";
+import { SOCIAL_LINKS, CONTACT_EMAIL } from "./nav";
 
 /**
  * schema.org BreadcrumbList for nested routes (Phase 17). `crumbs` are
@@ -30,6 +31,8 @@ export function organizationLd(locale: "ar" | "en", description: string, siteUrl
     url: siteUrl,
     logo: `${siteUrl}/brand/logo.svg`,
     description,
+    email: CONTACT_EMAIL,
+    sameAs: SOCIAL_LINKS.map((s) => s.href),
     foundingDate: "2016",
     areaServed: [
       { "@type": "Country", name: "Egypt" },

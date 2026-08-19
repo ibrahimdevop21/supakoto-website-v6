@@ -1352,7 +1352,9 @@
       "phone": "Phone",
       "whatsapp": "WhatsApp",
       "hours": "Office hours",
-      "hoursValue": "Saturday–Thursday, 10:00–18:00"
+      "hoursValue": "Saturday–Thursday, 10:00–18:00",
+      "email": "Email",
+      "emailNote": "Business and franchise enquiries"
     },
     "formHeading": "Write to us",
     "fields": {

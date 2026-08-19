@@ -4,14 +4,15 @@ import { useTranslations } from "next-intl";
 import { useRegion } from "@/components/providers/RegionProvider";
 import { StubForm } from "@/components/forms/StubForm";
 import { Label, Input, Textarea, Select, PhoneInput } from "@/components/ui/Field";
-import { PhoneIcon, WhatsAppIcon } from "@/components/icons";
+import { PhoneIcon, WhatsAppIcon, MailIcon } from "@/components/icons";
+import { CONTACT_EMAIL } from "@/lib/nav";
 
 export function ContactInfo() {
   const t = useTranslations("contact.info");
   const { region } = useRegion();
 
   return (
-    <div className="grid gap-4 sm:grid-cols-3">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <div className="rounded-card border border-ink-700 bg-ink-800 p-5">
         <p className="flex items-center gap-2 text-small text-fg-muted">
           <PhoneIcon className="size-4 text-sk-red" />
@@ -39,6 +40,20 @@ export function ContactInfo() {
         >
           +{region.whatsapp}
         </a>
+      </div>
+      <div className="rounded-card border border-ink-700 bg-ink-800 p-5">
+        <p className="flex items-center gap-2 text-small text-fg-muted">
+          <MailIcon className="size-4 text-sk-red" />
+          {t("email")}
+        </p>
+        <a
+          href={`mailto:${CONTACT_EMAIL}`}
+          dir="ltr"
+          className="mt-2 block font-medium text-fg hover:text-fg-muted"
+        >
+          {CONTACT_EMAIL}
+        </a>
+        <p className="mt-1 text-small text-fg-subtle">{t("emailNote")}</p>
       </div>
       <div className="rounded-card border border-ink-700 bg-ink-800 p-5">
         <p className="text-small text-fg-muted">{t("hours")}</p>
