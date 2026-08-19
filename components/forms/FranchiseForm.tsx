@@ -10,6 +10,7 @@ export function FranchiseForm() {
 
   return (
     <StubForm
+      formId="franchise"
       submitLabel={t("fields.submit")}
       successText={t("success")}
       stubText={tCommon("formStub")}

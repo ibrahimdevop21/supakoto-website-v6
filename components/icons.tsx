@@ -59,6 +59,14 @@ export function WhatsAppIcon({ className }: IconProps) {
   );
 }
 
+export function MailIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M3 5.5h18A1.5 1.5 0 0 1 22.5 7v10a1.5 1.5 0 0 1-1.5 1.5H3A1.5 1.5 0 0 1 1.5 17V7A1.5 1.5 0 0 1 3 5.5zm.3 1.7 8.7 6.3 8.7-6.3H3.3zm17.4 1.9-8.7 6.3-8.7-6.3V16.8h17.4V9.1z" />
+    </Svg>
+  );
+}
+
 export function InstagramIcon({ className }: IconProps) {
   return (
     <Svg className={className}>

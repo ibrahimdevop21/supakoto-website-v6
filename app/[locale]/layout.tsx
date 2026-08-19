@@ -8,6 +8,7 @@ import { RegionProvider } from "@/components/providers/RegionProvider";
 import { Header } from "@/components/chrome/Header";
 import { Footer } from "@/components/chrome/Footer";
 import { WhatsAppFab } from "@/components/chrome/WhatsAppFab";
+import { Analytics } from "@/components/providers/Analytics";
 import "@/app/globals.css";
 
 export const metadata: Metadata = {
@@ -46,6 +47,8 @@ export default async function LocaleLayout({
             {children}
             <Footer />
             <WhatsAppFab />
+            {/* Direct pixels (GA4 / Meta / TikTok / Ads base), loaded after hydration; route-change pageviews */}
+            <Analytics />
           </RegionProvider>
         </NextIntlClientProvider>
       </body>

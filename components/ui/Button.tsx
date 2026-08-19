@@ -30,16 +30,26 @@ type CommonProps = {
   children: React.ReactNode;
 };
 
-type AsLink = CommonProps & { href: ComponentProps<typeof Link>["href"] };
+type AsLink = CommonProps & {
+  href: ComponentProps<typeof Link>["href"];
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+  target?: string;
+  rel?: string;
+  "data-track"?: string;
+};
 type AsButton = CommonProps &
   Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children">;
 
 export function Button(props: AsLink | AsButton) {
   if ("href" in props) {
-    const { variant = "primary", size = "md", className, children, href } = props;
+    const { variant = "primary", size = "md", className, children, href, onClick, target, rel } = props;
     return (
       <Link
         href={href}
+        onClick={onClick}
+        target={target}
+        rel={rel}
+        data-track={props["data-track"]}
         className={cn(base, variants[variant], variant !== "link" && sizes[size], className)}
       >
         {children}

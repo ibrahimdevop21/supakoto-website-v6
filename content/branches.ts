@@ -20,11 +20,20 @@ export type Branch = {
   franchise?: boolean;
   /** Server-enforced daily capacity where known (bdm-flow). */
   capacity?: number;
+  /**
+   * Public Google Business Profile rating for the branch listing. The
+   * testimonials section shows the COUNT-WEIGHTED average across every
+   * branch that has one (never an average of averages) plus the summed
+   * count. Figures supplied by Ibrahim 2026-08-19; refresh `asOf` when
+   * updated. Alexandria and Damietta have no listing figures yet.
+   */
+  reviews?: { rating: number; count: number; asOf: string; url?: string };
 };
 
 export const branches: Branch[] = [
   {
     id: "tagamoa",
+    reviews: { rating: 4.9, count: 699, asOf: "2026-08-19" },
     photo: "/images/branches/tagamoa.webp",
     coords: { lat: 30.019004, lng: 31.432151 },
     region: "egypt",
@@ -34,6 +43,7 @@ export const branches: Branch[] = [
   },
   {
     id: "zayed",
+    reviews: { rating: 4.8, count: 439, asOf: "2026-08-19" },
     photo: "/images/branches/zayed.webp",
     coords: { lat: 30.019908, lng: 30.977818 },
     region: "egypt",
@@ -43,6 +53,7 @@ export const branches: Branch[] = [
   },
   {
     id: "maadi",
+    reviews: { rating: 4.8, count: 363, asOf: "2026-08-19" },
     photo: "/images/branches/maadi.webp",
     coords: { lat: 29.959924, lng: 31.320286 },
     region: "egypt",
@@ -69,6 +80,7 @@ export const branches: Branch[] = [
   },
   {
     id: "dubai",
+    reviews: { rating: 4.9, count: 69, asOf: "2026-08-19" },
     photo: "/images/branches/dubai.webp",
     coords: { lat: 25.117529, lng: 55.236156 },
     region: "uae",

@@ -3,11 +3,12 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { SOCIAL_LINKS } from "@/lib/nav";
-import { SOCIAL_ICONS, PhoneIcon, WhatsAppIcon } from "@/components/icons";
+import { SOCIAL_LINKS, CONTACT_EMAIL } from "@/lib/nav";
+import { SOCIAL_ICONS, PhoneIcon, WhatsAppIcon, MailIcon } from "@/components/icons";
 import { useRegion } from "@/components/providers/RegionProvider";
 import { TrustBadges } from "@/components/chrome/TrustBadges";
 import logoLockup from "@/public/brand/logo-lockup.webp";
+import { track } from "@/lib/analytics";
 
 export function Footer() {
   const t = useTranslations("footer");
@@ -27,10 +28,7 @@ export function Footer() {
 
         {/* Zone 2 — social row */}
         <ul className="mt-8 flex items-center justify-center gap-2">
-          {/* Placeholder "#" anchors are never shipped — icons without a
-              real URL are dropped until marketing supplies them (Phase 17;
-              missing URLs logged in ASSETS-NEEDED). */}
-          {SOCIAL_LINKS.filter(({ href }) => href !== "#").map(({ key, href }) => {
+          {SOCIAL_LINKS.map(({ key, href }) => {
             const Icon = SOCIAL_ICONS[key];
             return (
               <li key={key}>
@@ -56,6 +54,8 @@ export function Footer() {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
               href={`tel:${region.phone.replace(/\s/g, "")}`}
+              data-track="call:footer"
+              onClick={() => track("call_click", { branch: `${region.id}-regional`, source: "footer" })}
               className="flex items-center gap-2 text-fg transition-colors hover:text-fg-muted"
             >
               <PhoneIcon className="size-4 text-sk-red" />
@@ -65,10 +65,19 @@ export function Footer() {
               href={`https://wa.me/${region.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
+              data-track="whatsapp:footer"
+              onClick={() => track("whatsapp_click", { source: "footer", region: region.id })}
               className="flex items-center gap-2 text-fg transition-colors hover:text-fg-muted"
             >
               <WhatsAppIcon className="size-4 text-sk-red" />
               {t("whatsapp")}
+            </a>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="flex items-center gap-2 text-fg transition-colors hover:text-fg-muted"
+            >
+              <MailIcon className="size-4 text-sk-red" />
+              <span dir="ltr">{CONTACT_EMAIL}</span>
             </a>
           </div>
         </div>

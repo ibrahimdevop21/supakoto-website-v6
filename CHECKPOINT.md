@@ -1,3 +1,30 @@
+# CHECKPOINT — 2026-08-19
+
+## TL;DR (2026-08-19, Phase 18 done, awaiting Ibrahim's approval)
+
+**Phase 18 (pre-cutover quick wins + tracking foundation) is complete on
+`feat/phase-18-pre-cutover` — 10 commits on top of `main` 92b3b7e, NOT merged,
+NOT pushed.** Rev. 2 (testimonials: real Google aggregate 4.8 · 1,570, no
+translations, carousel with expand) landed 2026-08-19 afternoon. Report + harvest table + event verification:
+`docs/progress/18-pre-cutover-tracking.md`. Contract for Phase 3:
+`docs/progress/TRACKING-SPEC.md`. Shipped: V2 testimonials (29, JSON-LD
+Review/AggregateRating), footer payment strip (region-aware, V2 logos), five
+live social URLs + info@supakoto.com + sameAs, direct pixels through
+`lib/analytics.ts` (GA4 / Meta / TikTok / Ads base, env IDs, route-change
+pageviews, build guard), full event taxonomy on every tel:/wa.me/form,
+`SK-XXXXXX` ref in the WhatsApp message + intent log + attribution.
+Green: build (3 guards), lint 0/0, typecheck, i18n parity, smoke 196/196,
+crawl, JSON-LD, e2e-whatsapp 16/16, **e2e-analytics 84/84**. No local servers.
+
+## Exact next action
+Ibrahim reviews the report (testimonials list, payment methods, consent open
+item), sets the four `NEXT_PUBLIC_*` env vars on Vercel (values in
+`.env.example`), then says merge/push → cutover per `docs/progress/CUTOVER.md`.
+After deploy: Meta Events Manager / GA4 DebugView (`?sk_debug`) / TikTok
+Events Manager sanity check.
+
+---
+
 # CHECKPOINT — 2026-08-17
 
 ## TL;DR (2026-08-17, start of day)

@@ -12,13 +12,13 @@ import { Placeholder } from "@/components/ui/Placeholder";
 import { RevealStagger, RevealItem } from "@/components/ui/Reveal";
 import { Heading } from "@/components/ui/Heading";
 import { PhoneIcon, WhatsAppIcon } from "@/components/icons";
+import { track } from "@/lib/analytics";
 
 /**
  * Every branch is always visible (Ibrahim, 2026-08-06): the active
  * region's branches lead, the other region follows under its own heading.
  */
 export function BranchGrid() {
-  const t = useTranslations("branches");
   const tRegion = useTranslations("chrome.region");
   const { region } = useRegion();
 
@@ -102,6 +102,11 @@ function BranchCard({ branch }: { branch: Branch }) {
         <div className="mt-auto flex flex-wrap gap-3 pt-3">
           <a
             href={`tel:${branch.phone.replace(/\s/g, "")}`}
+            data-track="call:branch_card"
+            onClick={() => {
+              track("call_click", { branch: branch.id, source: "branch_card" });
+              track("branch_view", { branch: branch.id, action: "call" });
+            }}
             className="flex items-center gap-2 rounded-card border border-ink-700 px-3 py-2 text-small transition-colors hover:border-fg-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
           >
             <PhoneIcon className="size-4 text-sk-red" />
@@ -111,6 +116,11 @@ function BranchCard({ branch }: { branch: Branch }) {
             href={`https://wa.me/${branch.whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
+            data-track="whatsapp:branch_card"
+            onClick={() => {
+              track("whatsapp_click", { source: "branch_card", branch: branch.id, region: branch.region });
+              track("branch_view", { branch: branch.id, action: "whatsapp" });
+            }}
             className="flex items-center gap-2 rounded-card border border-ink-700 px-3 py-2 text-small transition-colors hover:border-fg-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
           >
             <WhatsAppIcon className="size-4 text-sk-red" />
@@ -120,6 +130,8 @@ function BranchCard({ branch }: { branch: Branch }) {
             href={directionsUrl(branch)}
             target="_blank"
             rel="noopener noreferrer"
+            data-track="directions:branch_card"
+            onClick={() => track("branch_view", { branch: branch.id, action: "directions" })}
             className="rounded-card border border-ink-700 px-3 py-2 text-small transition-colors hover:border-fg-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
           >
             {t("directions")}

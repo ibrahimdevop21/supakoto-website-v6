@@ -45,10 +45,18 @@ export const NAV: NavItem[] = [
   },
 ];
 
+/**
+ * Live profile URLs — the V2 site's values (Ibrahim, 2026-08-19). V6 had
+ * drifted to instagram.com/supakoto and facebook.com/supakoto; these are
+ * the real handles. Also emitted as Organization `sameAs` (lib/jsonld.ts).
+ */
 export const SOCIAL_LINKS = [
-  { key: "instagram", href: "https://instagram.com/supakoto" },
-  { key: "tiktok", href: "#" }, // TODO — URL missing; Footer drops "#" entries (ASSETS-NEEDED)
-  { key: "facebook", href: "https://facebook.com/supakoto" },
-  { key: "youtube", href: "#" }, // TODO — see ASSETS-NEEDED.md
-  { key: "linkedin", href: "#" }, // TODO — see ASSETS-NEEDED.md
+  { key: "facebook", href: "https://www.facebook.com/SUPAKOTO" },
+  { key: "instagram", href: "https://www.instagram.com/supakotoofficial/" },
+  { key: "tiktok", href: "https://www.tiktok.com/@suapkoto.uae" },
+  { key: "youtube", href: "https://www.youtube.com/@supakoto94" },
+  { key: "linkedin", href: "https://www.linkedin.com/company/supakoto/" },
 ] as const;
+
+/** Business / franchise enquiries. Rendered in the footer and on /contact. */
+export const CONTACT_EMAIL = "info@supakoto.com";

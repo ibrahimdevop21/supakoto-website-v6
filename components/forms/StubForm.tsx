@@ -2,18 +2,22 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { track, type FormId } from "@/lib/analytics";
 
 /**
  * Form shell for pages whose backend lands with later integrations.
  * Submission is faked locally; the visible stub note keeps it honest.
  */
 export function StubForm({
+  formId,
   submitLabel,
   successText,
   stubText,
   className,
   children,
 }: {
+  /** Analytics id — `form_submit` fires with it on submit (Phase 18). */
+  formId: FormId;
   submitLabel: string;
   successText: string;
   stubText?: string;
@@ -24,9 +28,11 @@ export function StubForm({
 
   return (
     <form
+      data-track={`form:${formId}`}
       className={className}
       onSubmit={(e) => {
         e.preventDefault();
+        track("form_submit", { form: formId });
         setSubmitted(true);
       }}
     >

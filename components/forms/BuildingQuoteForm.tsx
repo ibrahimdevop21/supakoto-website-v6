@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { areasForRegion } from "@/content/buildingQuote";
 import { regions, type RegionId } from "@/content/regions";
 import { Button } from "@/components/ui/Button";
 import { Label, Input, PhoneInput, Select, Textarea } from "@/components/ui/Field";
 import { cn } from "@/lib/cn";
+import { track } from "@/lib/analytics";
+import { generateRef } from "@/lib/ref";
+import { readAttribution } from "@/lib/attribution";
 
 type MeasureMode = "area" | "windows";
 
@@ -59,6 +62,15 @@ export function BuildingQuoteForm() {
 
   const patch = (p: Partial<Draft>) => setDraft((d) => ({ ...d, ...p }));
 
+  const [ref, setRef] = useState<string | null>(null);
+  const started = useRef(false);
+  useEffect(() => {
+    if (started.current) return;
+    started.current = true;
+    track("quote_start", { region: draft.region });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const measurementsOk =
     draft.measureMode === "area"
       ? draft.glazingArea.trim().length > 0
@@ -73,11 +85,13 @@ export function BuildingQuoteForm() {
     draft.name.trim().length > 1 &&
     draft.phone.trim().length >= 10;
 
-  const buildWhatsAppUrl = () => {
+  const buildWhatsAppUrl = (currentRef: string | null = ref) => {
     const areaKind = draft.region === "egypt" ? "governorates" : "emirates";
-    // Quote marker first, measurements immediately after — triage-proof.
+    // Quote marker first, ref on its own labelled line (Phase 18 item 6),
+    // measurements immediately after — triage-proof.
     const lines = [
       t("wa.title"),
+      ...(currentRef ? [`${t("wa.ref")}: ${currentRef}`] : []),
       ...(draft.measureMode === "area"
         ? [`${t("wa.area")}: ${draft.glazingArea} m²`]
         : [
@@ -101,8 +115,18 @@ export function BuildingQuoteForm() {
     return `https://wa.me/${regions[draft.region].whatsapp}?text=${text}`;
   };
 
-  const logIntent = () => {
-    const entry = { ...draft, at: new Date().toISOString() };
+  const logIntent = (currentRef: string) => {
+    const entry = {
+      ref: currentRef,
+      kind: "quote" as const,
+      at: new Date().toISOString(),
+      region: draft.region,
+      branch: null,
+      service: "building-heat-isolation",
+      locale: typeof document !== "undefined" ? document.documentElement.lang : undefined,
+      attribution: readAttribution(),
+      draft,
+    };
     console.info("[building-quote] submit intent", entry);
     try {
       const key = "sk-building-quote-intents";
@@ -135,10 +159,17 @@ export function BuildingQuoteForm() {
           href={buildWhatsAppUrl()}
           target="_blank"
           rel="noopener noreferrer"
+          data-track="whatsapp:quote"
+          onClick={() => track("whatsapp_click", { source: "quote", region: draft.region, ref: ref ?? undefined })}
           className="inline-flex items-center justify-center gap-2 rounded-card border border-ink-700 px-6 py-3 text-body font-medium text-fg transition-colors hover:border-fg-subtle hover:bg-ink-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
         >
           {t("reopenWhatsApp")}
         </a>
+        {ref && (
+          <p className="text-small text-fg-muted" dir="auto">
+            {t("wa.ref")}: <span className="font-medium text-fg" dir="ltr">{ref}</span>
+          </p>
+        )}
       </div>
     );
   }
@@ -149,8 +180,13 @@ export function BuildingQuoteForm() {
       onSubmit={(e) => {
         e.preventDefault();
         if (!canSubmit) return;
-        logIntent();
-        window.open(buildWhatsAppUrl(), "_blank", "noopener,noreferrer");
+        const newRef = generateRef();
+        setRef(newRef);
+        // PRIMARY conversion — fired BEFORE the WhatsApp handoff.
+        track("quote_complete", { ref: newRef, region: draft.region, property_type: draft.propertyType });
+        track("whatsapp_click", { source: "quote", region: draft.region, ref: newRef });
+        logIntent(newRef);
+        window.open(buildWhatsAppUrl(newRef), "_blank", "noopener,noreferrer");
         setSubmitted(true);
       }}
     >

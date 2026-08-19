@@ -11,6 +11,7 @@ export function ClaimForm() {
 
   return (
     <StubForm
+      formId="warranty_claim"
       submitLabel={t("fields.submit")}
       successText={t("success")}
       stubText={t("stub")}
