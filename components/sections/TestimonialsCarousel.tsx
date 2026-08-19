@@ -310,7 +310,7 @@ export function Stars({ value, label }: { value: number; label?: string }) {
       role="img"
       aria-label={label}
       aria-hidden={label ? undefined : true}
-      className="inline-flex items-center gap-0.5 text-sk-red"
+      className="inline-flex items-center gap-0.5 text-star"
     >
       {[1, 2, 3, 4, 5].map((i) => (
         <svg

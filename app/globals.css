@@ -10,6 +10,8 @@
   --color-sk-red: #bf1e2e;
   --color-sk-red-hover: #a51828;
   --color-sk-red-muted: #bf1e2e1a;
+  /* Rating stars only (testimonials) — gold reads as a score, red as brand */
+  --color-star: #e6b422;
 
   /* Surfaces */
   --color-ink-950: #0a0a0b;
