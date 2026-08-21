@@ -19,13 +19,16 @@ e2e-gallery 42/42 twice; first-load 0.4–2.1 MB. Brief + report:
 `docs/progress/20-gallery-viewer.md`. No local servers.
 
 ## Exact next action
-PUSHED to GitHub 2026-08-22 on Ibrahim's word (branches only — NOT merged
-to main, NOT deployed). Branch stack: main ← feat/phase-19-feedback-round-2
-(10 commits, verified) ← feat/phase-20-gallery-viewer (5 commits incl. the
-refresh-reshuffle fix, verified). Next: Ibrahim's word on merging the stack
-into main (merge 19 then 20, or 20 alone brings both) → Vercel deploy.
-Still open from Phase 18: Vercel env vars + pixel check + domain cutover.
-HELD unchanged (bdm-flow counter, Supabase V6, marine/surface content).
+**MERGED + DEPLOYED 2026-08-22 on Ibrahim's word.** Phases 19+20 merged to
+`main` (25eef8e, ac32c42), pushed, Vercel production live and verified
+against https://supakoto-website-v6.vercel.app: smoke 196/196, crawl 72
+URLs clean, e2e-gallery 44/44 (RTL travel, per-refresh shuffle, marine
+empty state — all confirmed on prod; first-load 2.7–4.6 MB with live
+pixel SDKs). Everything through Phase 20 is now in production.
+Still open from Phase 18: the four NEXT_PUBLIC_* pixel env vars on Vercel
+(pixels inactive until set) + post-deploy pixel sanity check + domain
+cutover (docs/progress/CUTOVER.md). HELD unchanged (bdm-flow counter,
+Supabase V6, marine/surface content).
 
 ---
 
