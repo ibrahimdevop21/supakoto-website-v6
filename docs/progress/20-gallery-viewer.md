@@ -107,3 +107,12 @@ convention normalized per 43cb2ba); the pre-existing 41 alts untouched.
   would be ~33 MB)
 
 Awaiting Ibrahim: word on push/merge (stacked on Phase 19).
+
+## Post-report fix — 2026-08-22, Ibrahim: "same image every time I refresh"
+LD-3's sessionStorage seed survived refreshes by design — wrong reading of
+the spec ("shuffle on each page LOAD"; per-session seeding was only meant
+to prevent mid-browse jumping). Fixed: seed now lives in module scope
+(`lib/shuffle.ts` `pageLoadSeed()`) — every full load/refresh reshuffles;
+filter toggles and client-side nav-and-back keep the order. e2e updated:
+"refresh gives a new order" + "client-side nav away and back keeps the
+order" — 44/44, twice.

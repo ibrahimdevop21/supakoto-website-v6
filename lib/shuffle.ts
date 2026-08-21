@@ -1,28 +1,23 @@
 /**
- * Session-seeded shuffle for the gallery (Phase 20). The seed is minted
- * once per browser session so the order stays put while the visitor
- * browses (filter toggles, navigating away and back), and a new session
- * gets a fresh order. Client-only — call after hydration; storage access
- * is wrapped so a blocked sessionStorage just means canonical order.
+ * Per-page-load seeded shuffle for the gallery (Phase 20). The seed is
+ * minted once per JS lifetime (module scope): every full page load — a
+ * refresh included — gets a fresh order (Ibrahim, 2026-08-22: "shuffle on
+ * each page load"; sessionStorage survived refreshes and kept showing the
+ * same first image). Client-side navigation away and back keeps module
+ * state, so the order never changes mid-browse, and filtering stays
+ * stable because the same seed re-derives the same permutation.
  */
 
-const SEED_KEY = "sk-gallery-seed";
+let seed: number | null = null;
 
-export function sessionSeed(): number | null {
-  try {
-    const stored = sessionStorage.getItem(SEED_KEY);
-    if (stored !== null) return Number(stored) >>> 0;
-    const seed = (Math.random() * 2 ** 32) >>> 0;
-    sessionStorage.setItem(SEED_KEY, String(seed));
-    return seed;
-  } catch {
-    return null;
-  }
+export function pageLoadSeed(): number {
+  if (seed === null) seed = (Math.random() * 2 ** 32) >>> 0;
+  return seed;
 }
 
 /** mulberry32 — tiny deterministic PRNG, good enough for display order. */
-function mulberry32(seed: number): () => number {
-  let a = seed >>> 0;
+function mulberry32(s: number): () => number {
+  let a = s >>> 0;
   return () => {
     a = (a + 0x6d2b79f5) | 0;
     let t = Math.imul(a ^ (a >>> 15), 1 | a);
@@ -32,8 +27,8 @@ function mulberry32(seed: number): () => number {
 }
 
 /** Fisher–Yates with a seeded PRNG; returns a new array. */
-export function seededShuffle<T>(items: readonly T[], seed: number): T[] {
-  const rand = mulberry32(seed);
+export function seededShuffle<T>(items: readonly T[], withSeed: number): T[] {
+  const rand = mulberry32(withSeed);
   const out = [...items];
   for (let i = out.length - 1; i > 0; i--) {
     const j = Math.floor(rand() * (i + 1));

@@ -9,8 +9,9 @@ real-estate-style viewer (main stage + overlay arrows + lazy 16:9 thumbnail
 strip + fullscreen + keyboard/swipe, RTL direction of travel measured
 correct); the full V2 library ships — 202 new photos audited image-by-image
 (all watermarked, 12 colour-change wraps found, bespoke AR/EN alts), site
-gallery = 243 items; order shuffles per session (sessionStorage seed,
-stable mid-browse); filter row derives from content/services.ts so
+gallery = 243 items; order reshuffles on every page load/refresh (module-scope seed —
+sessionStorage survived refreshes, Ibrahim flagged it; stable across
+filter toggles + client-side nav); filter row derives from content/services.ts so
 marine-ppf (previously missing) renders with a labelled empty state (0
 photos); guard #6 `check-gallery-filters.mjs` negative-tested. End gate:
 build 6 guards, lint 0/0, typecheck, parity, smoke 196/196, crawl 72 clean,

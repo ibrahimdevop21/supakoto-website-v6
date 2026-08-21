@@ -11,7 +11,7 @@ import {
   type GalleryItem,
 } from "@/content/gallery";
 import { Lightbox } from "@/components/ui/Lightbox";
-import { sessionSeed, seededShuffle } from "@/lib/shuffle";
+import { pageLoadSeed, seededShuffle } from "@/lib/shuffle";
 import { cn } from "@/lib/cn";
 
 /**
@@ -20,8 +20,8 @@ import { cn } from "@/lib/cn";
  * Lightbox. Direction of travel follows the reading direction — in RTL
  * "next" moves LEFT (keyboard and swipe are mapped physically→logically at
  * event time, same convention as Lightbox). The item order is shuffled
- * once per session (lib/shuffle.ts) so returning visitors see fresh work
- * without images jumping around mid-browse.
+ * on every full page load (lib/shuffle.ts) so each visit sees fresh
+ * work, but never reshuffles mid-browse (filtering, client-side nav).
  *
  * Perf at a 240-image library: current image eager, prev/next preloaded
  * via hidden eager images, thumbnails lazy (96px), nothing else fetched.
@@ -40,13 +40,12 @@ export function GalleryViewer() {
   const [index, setIndex] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
 
-  // Session-seeded shuffle, applied after hydration (no SSR mismatch).
+  // Shuffled per page load, applied after hydration (no SSR mismatch).
+  // The seed lives in module scope: a refresh reshuffles, client-side
+  // navigation within the visit does not (lib/shuffle.ts).
   useEffect(() => {
-    const seed = sessionSeed();
-    if (seed !== null) {
-      setItems(seededShuffle(galleryItems, seed));
-      setIndex(0);
-    }
+    setItems(seededShuffle(galleryItems, pageLoadSeed()));
+    setIndex(0);
   }, []);
 
   const filtered = useMemo(

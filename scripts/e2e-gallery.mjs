@@ -8,8 +8,8 @@
  *    Arabic and rightward in English (positions measured, not icons);
  *  - keyboard physical→logical mapping (ArrowLeft = next in RTL);
  *  - fullscreen opens on stage click and Escape closes it;
- *  - the session-seeded shuffle: stable across reload + filter toggles
- *    within a session, different in a fresh session;
+ *  - the per-page-load shuffle: a refresh gives a NEW order; filter
+ *    toggles and client-side nav-and-back keep the current order;
  *  - first-load transferred bytes stay bounded (no full-library fetch).
  */
 import { chromium } from "playwright";
@@ -108,23 +108,30 @@ for (const locale of ["ar", "en"]) {
     ok(/قريبا|coming soon/i.test(empty), `[${locale}] marine empty state is labelled`);
   }
 
-  // Shuffle: same session order survives reload + filter toggle; fresh session differs.
+  // Shuffle: a refresh reshuffles; filter toggles and client-side
+  // nav-and-back keep the order within the visit.
   await filterButtons.first().click();
   await page.waitForTimeout(300);
   const order1 = await thumbOrder(page);
-  await page.reload({ waitUntil: "domcontentloaded" });
-  await page.waitForSelector("[data-thumb]");
-  const order2 = await thumbOrder(page);
-  ok(order1.join() === order2.join(), `[${locale}] reload keeps the session order`);
   await page.locator("div[role='group']").first().locator("button").last().click();
   await page.waitForTimeout(200);
   await page.locator("div[role='group']").first().locator("button").first().click();
   await page.waitForTimeout(200);
+  const order2 = await thumbOrder(page);
+  ok(order1.join() === order2.join(), `[${locale}] filter toggle keeps the order`);
+  await page.locator("header a").first().click(); // logo → home, client-side
+  await page.waitForTimeout(800);
+  await page.goBack();
+  await page.waitForSelector("[data-thumb]");
   const order3 = await thumbOrder(page);
-  ok(order2.join() === order3.join(), `[${locale}] filter toggle keeps the order`);
+  ok(order1.join() === order3.join(), `[${locale}] client-side nav away and back keeps the order`);
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await page.waitForSelector("[data-thumb]");
+  const orderReload = await thumbOrder(page);
+  ok(order1.join() !== orderReload.join(), `[${locale}] refresh gives a new order`);
   const { ctx: ctx2, page: page2 } = await fresh({ locale });
   const orderFresh = await thumbOrder(page2);
-  ok(order1.join() !== orderFresh.join(), `[${locale}] fresh session gets a different order`);
+  ok(orderReload.join() !== orderFresh.join(), `[${locale}] fresh session gets a different order`);
   await ctx2.close();
   await ctx.close();
 }
