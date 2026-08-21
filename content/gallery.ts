@@ -11,6 +11,12 @@ import type { ServiceId } from "./services";
  * shows that work (wraps, coating application, tinted glass).
  * Alt text: gallery.items.<id>.alt in both message files — written fresh,
  * nothing ported from V2.
+ *
+ * Tiles render at ONE ratio (GalleryGrid TILE_ASPECT, 16:9 per Ibrahim
+ * 2026-08-21) with object-cover; width/height here are the intrinsic
+ * dimensions for the lightbox only. Every entry must be a distinct photo —
+ * sk-234 (byte-identical to sk-123) and sk-232 (same Porsche as sk-230,
+ * second angle) were removed in that round.
  */
 
 export type GalleryCategory = ServiceId | "video";
@@ -23,7 +29,6 @@ export type GalleryItem =
       src: string;
       width: number;
       height: number;
-      aspect: "square" | "portrait" | "landscape";
     }
   | {
       id: string;
@@ -32,7 +37,6 @@ export type GalleryItem =
       src: string;
       /** Lower-bitrate source for small screens. */
       srcMobile?: string;
-      aspect: "landscape";
     };
 
 const img = (
@@ -47,12 +51,6 @@ const img = (
   src: `/images/gallery/sk-${num}.webp`,
   width,
   height,
-  aspect:
-    width / height > 1.15
-      ? "landscape"
-      : width / height < 0.87
-        ? "portrait"
-        : "square",
 });
 
 export const galleryItems: GalleryItem[] = [
@@ -90,8 +88,6 @@ export const galleryItems: GalleryItem[] = [
   img("221", "ppf", 1536, 2048),
   img("225", "ppf", 1536, 2048),
   img("230", "nano-ceramic", 1536, 2048),
-  img("232", "colour-change", 1536, 2048),
-  img("234", "ppf", 1536, 2048),
   // Building projects — our own installation photos (SupaKoto × TAKAI
   // watermarked), not from the V2_Prod harvest.
   {
@@ -101,7 +97,6 @@ export const galleryItems: GalleryItem[] = [
     src: "/images/gallery/building-astrazeneca.webp",
     width: 680,
     height: 383,
-    aspect: "landscape",
   },
   {
     id: "building-hustle-drip",
@@ -110,7 +105,6 @@ export const galleryItems: GalleryItem[] = [
     src: "/images/gallery/building-hustle-drip.webp",
     width: 408,
     height: 544,
-    aspect: "portrait",
   },
   // Surface protection — our own installation and product photos
   // (SupaKoto × TAKAI watermarked).
@@ -121,7 +115,6 @@ export const galleryItems: GalleryItem[] = [
     src: "/images/gallery/surface-film-roll.webp",
     width: 1000,
     height: 1000,
-    aspect: "square",
   },
   {
     id: "surface-marble-counter",
@@ -130,7 +123,6 @@ export const galleryItems: GalleryItem[] = [
     src: "/images/gallery/surface-marble-counter.webp",
     width: 563,
     height: 1000,
-    aspect: "portrait",
   },
   {
     id: "surface-marble-table",
@@ -139,7 +131,6 @@ export const galleryItems: GalleryItem[] = [
     src: "/images/gallery/surface-marble-table.webp",
     width: 387,
     height: 516,
-    aspect: "portrait",
   },
   {
     id: "surface-interior-table",
@@ -148,7 +139,6 @@ export const galleryItems: GalleryItem[] = [
     src: "/images/gallery/surface-interior-table.webp",
     width: 470,
     height: 640,
-    aspect: "portrait",
   },
   {
     id: "showreel",
@@ -156,7 +146,6 @@ export const galleryItems: GalleryItem[] = [
     category: "video",
     src: "/videos/showreel.webm",
     srcMobile: "/videos/showreel-mobile.webm",
-    aspect: "landscape",
   },
 ];
 
