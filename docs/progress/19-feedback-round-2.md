@@ -110,3 +110,32 @@ Order: 0 → A → B → C. One "approved" covers all; no re-confirmation betwee
 - Heat-isolation label: «عزل حراري للسيارات» wherever the building service also appears; grep for bare «العازل الحراري» returns only body copy, never a list label.
 - Homepage audit: report table (viewport × locale × element × defect); zero unexplained findings after fixes.
 - All guards + e2e suites green; no new phone literals; no competitor names.
+
+═══ SHIPPED — 2026-08-21 ═══
+
+All phases 0 → A → B → C executed and committed on
+`feat/phase-19-feedback-round-2` (9 commits on `main` 463831e, local only):
+
+| Commit | Item |
+|---|---|
+| `24c673f` | Phase 0 — BOOKING-TIER-DECISION.md + CONTENT-ROADMAP.md |
+| `e88e196` | LD-7 — «عزل حراري للسيارات» / "Car Heat Isolation" everywhere, dead nav keys deleted |
+| `87125aa` | LD-8 (16:9 override) — one tile ratio, `sk-234` + `sk-232` dropped |
+| `6c2fc61` | LD-9 (ships override) — Maserati in roster; Bentley + Porsche white wordmarks |
+| `b7568ee` | Japan flag moved to `/images/brand/flag-japan.webp`; `check-image-refs.mjs` guard |
+| `33f76a7` | Phase B — seven-service wizard, substrate branching, building fieldset split, flow-specific funnel tops, `check-wizard-services.mjs` guard |
+| `e4bf322` | Phase C — react-day-picker calendar + branch-hour slot buttons (10:00–20:00 interim) |
+| `402570a` | LD-13 audit — one real defect (hero copy absent ~1.2s/cycle) fixed via crossfade |
+| `5a4a20e` | e2e harness — whatsapp-routing gotos `domcontentloaded` (networkidle flaked) |
+
+## End-gate verification (2026-08-21 evening, after power outage interrupted the first attempt)
+- `pnpm build` — green, all 5 guards (phone-literals, claims, analytics-calls, image-refs, wizard-services)
+- lint 0 errors 0 warnings · typecheck clean · i18n parity 1036 = 1036 keys
+- smoke 196/196 · e2e-whatsapp **32/32** · e2e-analytics **130/130**
+- crawl: 72 URLs, CLEAN (no 404s/chains/orphans) · JSON-LD CLEAN
+- Flake notes: whatsapp e2e `networkidle` gotos timed out nondeterministically
+  (different cases per run) → fixed in `5a4a20e`; analytics initial-pageview
+  beacon checks (GA4 `/g/collect`, TikTok page) depend on live third-party SDK
+  download timing and failed once, clean 130/130 on re-run — left as-is.
+
+Awaiting Ibrahim: review this report → word on push/merge.
