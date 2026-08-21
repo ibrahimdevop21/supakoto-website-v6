@@ -68,3 +68,42 @@ lifetime (per-tab). No server state.
 - First-load transferred bytes reported (390 + 1440, ar + en); no full-library fetch.
 - `check-gallery-filters.mjs` proven to fail when a service filter is removed, then restored.
 - All guards + suites green; i18n parity; no unwatermarked image shipped.
+
+═══ SHIPPED — 2026-08-22 ═══
+
+Three commits on `feat/phase-20-gallery-viewer` (off the unmerged Phase 19
+branch, local only): `8906635` brief · `e9c5e50` viewer + full library +
+filters + guard · `a3bb75c` e2e suite.
+
+## Library audit result
+All 202 unshipped photos audited image-by-image (6 parallel vision passes +
+perceptual-hash sweep): **every one carries the SupaKoto × TAKAI watermark;
+0 excluded**. Only byte/near duplicate in the whole 238 = supa-234 ≡
+supa-123 (already known). New categories found: 12 colour-change wraps;
+no boats, no buildings, no tint-subject or coating-subject shots in the
+new set. Alts: bespoke EN + AR per image (white Arabic, مركز متخصص
+convention normalized per 43cb2ba); the pre-existing 41 alts untouched.
+
+## Item counts per category (site total 243)
+| Category | Count |
+|---|---|
+| ppf | 215 |
+| colour-change | 14 |
+| nano-ceramic | 5 |
+| heat-isolation (cars) | 2 |
+| building-heat-isolation | 2 |
+| surface-protection | 4 |
+| **marine-ppf** | **0 → labelled empty state** |
+| video | 1 |
+
+## End-gate (2026-08-22)
+- build green with **6 guards** (new: check-gallery-filters, negative-tested)
+- lint 0/0 · typecheck clean · i18n parity (243 gallery items each locale)
+- smoke 196/196 · crawl 72 URLs clean · **e2e-gallery 42/42, run twice**
+- RTL direction of travel verified by measurement (successor thumb x-position
+  + active-id after "next" + physical-key mapping), not by icon inspection
+- First-load transfer: ar 1.7–2.1 MB, en 0.4–1.6 MB (390px & 1440px; varies
+  with which shuffled images land first; no full-library fetch — 243 items
+  would be ~33 MB)
+
+Awaiting Ibrahim: word on push/merge (stacked on Phase 19).
