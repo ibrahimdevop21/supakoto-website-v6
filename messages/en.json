@@ -1175,6 +1175,11 @@
       "all": "All",
       "video": "Video"
     },
+    "empty": "Photography coming soon.",
+    "viewer": {
+      "thumbnails": "Photo thumbnails",
+      "openFull": "View fullscreen"
+    },
     "placeholderNote": "Placeholder media — real work photos pending",
     "lightbox": {
       "close": "Close",
@@ -1185,104 +1190,710 @@
       "sk-001": {
         "alt": "Black luxury SUV after protection film installation in the SupaKoto workshop"
       },
+      "sk-002": {
+        "alt": "White electric SUV after protection film installation outside the SupaKoto workshop"
+      },
+      "sk-003": {
+        "alt": "Satin grey luxury sedan with matte finish film outside the SupaKoto workshop"
+      },
+      "sk-004": {
+        "alt": "Front close-up of a grey sedan with a matte finish in the SupaKoto workshop"
+      },
       "sk-005": {
         "alt": "German luxury sedan after protection film installation"
+      },
+      "sk-006": {
+        "alt": "Grey matte sedan after full matte film installation outside the SupaKoto workshop"
+      },
+      "sk-007": {
+        "alt": "White SUV after protection film installation outside the SupaKoto workshop"
+      },
+      "sk-008": {
+        "alt": "White family SUV after protection film installation outside the SupaKoto workshop"
+      },
+      "sk-009": {
+        "alt": "Front close-up of a white SUV after protection film installation in the workshop"
+      },
+      "sk-010": {
+        "alt": "White family SUV after protection film installation outside the SupaKoto centre"
+      },
+      "sk-011": {
+        "alt": "White SUV after protection film installation in the SupaKoto workshop"
+      },
+      "sk-012": {
+        "alt": "Car dashboard and screen after interior protection film installation in the SupaKoto workshop"
       },
       "sk-013": {
         "alt": "Deep gloss on a black sedan after polishing"
       },
+      "sk-014": {
+        "alt": "Black luxury sedan after protection film installation in front of the SupaKoto workshop"
+      },
+      "sk-015": {
+        "alt": "Two dark German luxury sedans inside the SupaKoto workshop"
+      },
+      "sk-016": {
+        "alt": "Two black German luxury sedans after protection film installation outside a showroom"
+      },
+      "sk-017": {
+        "alt": "Two black luxury sedans after protection film installation outside a car showroom"
+      },
+      "sk-018": {
+        "alt": "Two black luxury sedans after protection film installation outside the showroom"
+      },
+      "sk-019": {
+        "alt": "Black electric crossover after protection film installation in the SupaKoto workshop"
+      },
+      "sk-020": {
+        "alt": "Close-up of a black car headlight covered with protection film in the workshop"
+      },
       "sk-021": {
         "alt": "White SUV protected with TAKAI film"
+      },
+      "sk-022": {
+        "alt": "Black luxury SUV after protection film installation outside the workshop"
+      },
+      "sk-023": {
+        "alt": "Black luxury compact SUV after protection film installation outside the workshop"
+      },
+      "sk-024": {
+        "alt": "Dark grey fastback after protection film installation photographed at night"
+      },
+      "sk-025": {
+        "alt": "Grey electric crossover after protection film installation outside the showroom at night"
+      },
+      "sk-026": {
+        "alt": "Black luxury SUV after protection film installation outside the workshop"
+      },
+      "sk-027": {
+        "alt": "Front of a black luxury SUV after protection film installation"
+      },
+      "sk-028": {
+        "alt": "Grey electric sedan after protection film installation at night outside the service center"
+      },
+      "sk-029": {
+        "alt": "Interior of a modern electric car with ambient lighting after protection work"
+      },
+      "sk-030": {
+        "alt": "Modern electric car interior with wide dashboard screen at night"
+      },
+      "sk-031": {
+        "alt": "Interior dashboard and touchscreen of a luxury electric car in the SupaKoto workshop"
+      },
+      "sk-032": {
+        "alt": "Two-tone luxury sedan after protection film installation at the SupaKoto workshop entrance"
+      },
+      "sk-033": {
+        "alt": "Two-tone luxury sedan after protection film installation at the SupaKoto workshop"
       },
       "sk-034": {
         "alt": "Flagship sedan paint gloss after treatment"
       },
+      "sk-035": {
+        "alt": "Two-tone luxury sedan after protection film installation in the SupaKoto workshop"
+      },
+      "sk-036": {
+        "alt": "Two-tone blue and silver luxury sedan after protection film installation, side view"
+      },
+      "sk-037": {
+        "alt": "Silver German luxury sedan after protection film installation in the SupaKoto workshop"
+      },
+      "sk-038": {
+        "alt": "Silver luxury sedan after protection film installation in the SupaKoto workshop"
+      },
+      "sk-039": {
+        "alt": "Grey compact crossover after protection film installation photographed outdoors at sunset"
+      },
+      "sk-040": {
+        "alt": "Silver compact SUV after protection film installation in front of the SupaKoto branch at sunset"
+      },
       "sk-041": {
         "alt": "Compact car in the workshop during installation"
+      },
+      "sk-042": {
+        "alt": "Silver compact SUV after protection film installation parked outdoors"
+      },
+      "sk-043": {
+        "alt": "Silver compact crossover front close-up after protection film installation"
+      },
+      "sk-044": {
+        "alt": "Green luxury SUV after protection film installation outside the showroom"
+      },
+      "sk-045": {
+        "alt": "Green SUV after protection film installation outside the SupaKoto branch"
+      },
+      "sk-046": {
+        "alt": "Black luxury coupe SUV parked in front of the TAKAI showroom at dusk"
+      },
+      "sk-047": {
+        "alt": "Black sports SUV after protection film installation outside the SupaKoto showroom"
+      },
+      "sk-048": {
+        "alt": "Front detail of a black luxury SUV after protection film installation"
+      },
+      "sk-049": {
+        "alt": "Interior of a luxury SUV with brown leather after protection work"
       },
       "sk-050": {
         "alt": "Sedan with isolated glass at sunset"
       },
+      "sk-051": {
+        "alt": "Black electric fastback after protection film installation outside the SupaKoto branch"
+      },
+      "sk-052": {
+        "alt": "Black electric fastback after protection film installation outside the SupaKoto branch at sunset"
+      },
+      "sk-053": {
+        "alt": "Matte black electric sedan after matte film installation photographed at night"
+      },
+      "sk-054": {
+        "alt": "Matte black full wrap on a fastback sedan outside the workshop at dusk"
+      },
+      "sk-055": {
+        "alt": "Electric sedan with a matte dark green wrap photographed at dusk"
+      },
+      "sk-056": {
+        "alt": "Fastback sedan in matte dark green finish photographed at dusk"
+      },
+      "sk-057": {
+        "alt": "Matte black fastback with satin finish film photographed at dusk"
+      },
+      "sk-058": {
+        "alt": "Black compact SUV after protection film installation, front view at night"
+      },
       "sk-059": {
         "alt": "Full matte black wrap"
+      },
+      "sk-060": {
+        "alt": "Black compact luxury SUV after protection film installation photographed at night"
+      },
+      "sk-061": {
+        "alt": "Black crossover after protection film installation photographed at night"
+      },
+      "sk-062": {
+        "alt": "White performance SUV after protection film installation in the SupaKoto workshop"
+      },
+      "sk-063": {
+        "alt": "White luxury performance SUV front close-up after protection film installation in the workshop"
+      },
+      "sk-064": {
+        "alt": "Close-up of a white luxury SUV front end after protection film installation"
       },
       "sk-065": {
         "alt": "White Lamborghini Urus in the SupaKoto workshop"
       },
+      "sk-066": {
+        "alt": "White luxury performance SUV at the SupaKoto workshop entrance"
+      },
+      "sk-067": {
+        "alt": "White performance SUV after protection film installation in the SupaKoto workshop"
+      },
+      "sk-068": {
+        "alt": "Front of a black SUV after protection film installation in the workshop passage"
+      },
+      "sk-069": {
+        "alt": "Black compact SUV after protection film installation outside the workshop"
+      },
+      "sk-070": {
+        "alt": "Black compact SUV after protection film installation outside a showroom"
+      },
+      "sk-071": {
+        "alt": "Blue and red SUVs after protection film installation outside a car showroom"
+      },
       "sk-072": {
         "alt": "Two red cars outside the SupaKoto centre"
+      },
+      "sk-073": {
+        "alt": "Red SUV after protection film installation, front view outside the showroom"
+      },
+      "sk-074": {
+        "alt": "Dark blue SUV after protection film installation in front of the showroom"
+      },
+      "sk-075": {
+        "alt": "Dark green SUV with protection film photographed at a dealership yard"
+      },
+      "sk-076": {
+        "alt": "Black SUV and black minivan after protection film installation outside a dealership"
+      },
+      "sk-077": {
+        "alt": "Three black SUVs after protection film installation outside a dealership"
+      },
+      "sk-078": {
+        "alt": "Black sport sedan after protection film installation in the SupaKoto workshop"
+      },
+      "sk-079": {
+        "alt": "Black fastback sedan after protection film installation outside the SupaKoto branch at night"
+      },
+      "sk-080": {
+        "alt": "Close-up of a black bonnet and grille after protection film installation"
+      },
+      "sk-081": {
+        "alt": "Black compact SUV after protection film installation inside the SupaKoto workshop"
+      },
+      "sk-082": {
+        "alt": "Two dark luxury cars inside the SupaKoto workshop under the brand sign"
+      },
+      "sk-083": {
+        "alt": "Black sporty crossover after protection film installation, side view at sunset"
+      },
+      "sk-084": {
+        "alt": "Black performance SUV after protection film installation photographed at dusk"
+      },
+      "sk-085": {
+        "alt": "Black crossover after protection film installation outside the SupaKoto branch at dusk"
+      },
+      "sk-086": {
+        "alt": "Black sport crossover after protection film installation photographed outdoors at dusk"
+      },
+      "sk-087": {
+        "alt": "Black crossover after protection film installation outside the workshop"
       },
       "sk-088": {
         "alt": "Modern SUV after protection work"
       },
+      "sk-089": {
+        "alt": "Black crossover SUV after protection film installation outside the SupaKoto center"
+      },
+      "sk-090": {
+        "alt": "Two SUVs in matte dark grey finish in front of the SupaKoto workshop"
+      },
+      "sk-091": {
+        "alt": "Two SUVs with satin matte finish film outside the SupaKoto and TAKAI centre"
+      },
+      "sk-092": {
+        "alt": "Grey SUV with a matte finish parked outside the SupaKoto branch"
+      },
+      "sk-093": {
+        "alt": "Two matte black SUVs after matte film installation outside the SupaKoto branch"
+      },
+      "sk-094": {
+        "alt": "White off-road SUV after protection film installation photographed outdoors at dusk"
+      },
       "sk-095": {
         "alt": "White off-road SUV after preparation"
+      },
+      "sk-096": {
+        "alt": "Grey luxury SUV after protection film installation photographed at sunset"
+      },
+      "sk-097": {
+        "alt": "Grey luxury SUV front close-up after protection film installation"
+      },
+      "sk-098": {
+        "alt": "Grey luxury SUV after protection film installation outside the centre"
+      },
+      "sk-099": {
+        "alt": "Grey luxury SUV after protection film installation, side view in the workshop yard"
       },
       "sk-100": {
         "alt": "White Land Cruiser after protection installation"
       },
+      "sk-101": {
+        "alt": "Grey luxury SUV bonnet after protection film installation in the SupaKoto workshop"
+      },
+      "sk-102": {
+        "alt": "White crossover hood and headlight after protection film installation in the SupaKoto workshop"
+      },
+      "sk-103": {
+        "alt": "White crossover after protection film installation in the SupaKoto workshop"
+      },
+      "sk-104": {
+        "alt": "Interior of a modern crossover with widescreen display after protection work"
+      },
       "sk-105": {
         "alt": "Hand application of coating on the bonnet"
+      },
+      "sk-106": {
+        "alt": "Blue and red compact crossovers after protection film installation in the workshop"
       },
       "sk-107": {
         "alt": "Close-up of paint gloss after nano ceramic"
       },
+      "sk-108": {
+        "alt": "White large SUV after protection film installation, side view in the workshop yard"
+      },
+      "sk-109": {
+        "alt": "Headlight of a white large SUV after protection film installation in the SupaKoto workshop"
+      },
+      "sk-110": {
+        "alt": "Front of a light blue crossover after protection film installation in the workshop"
+      },
+      "sk-111": {
+        "alt": "Silver electric hatchback after protection film installation in the SupaKoto workshop"
+      },
+      "sk-112": {
+        "alt": "Two light blue electric crossovers after protection film installation inside the SupaKoto workshop"
+      },
+      "sk-113": {
+        "alt": "Protection film being applied to the hood of a black car with a squeegee"
+      },
+      "sk-114": {
+        "alt": "Dark blue convertible after protection film installation outside the showroom"
+      },
+      "sk-115": {
+        "alt": "Close-up of a dark blue bonnet and badge after protection film installation"
+      },
       "sk-116": {
         "alt": "Grey coupe in the workshop"
+      },
+      "sk-117": {
+        "alt": "Close-up of a luxury car steering wheel inside the SupaKoto workshop"
+      },
+      "sk-118": {
+        "alt": "Luxury car interior with steering wheel and dashboard after interior protection work"
+      },
+      "sk-119": {
+        "alt": "Blue convertible after protection film installation outside a showroom"
+      },
+      "sk-120": {
+        "alt": "Blue convertible after protection film installation outside the showroom"
+      },
+      "sk-121": {
+        "alt": "Dark blue convertible with the roof down after protection film installation"
+      },
+      "sk-122": {
+        "alt": "Dark grey luxury coupe front after protection film installation"
       },
       "sk-123": {
         "alt": "White luxury car outside the workshop"
       },
+      "sk-124": {
+        "alt": "Dark blue electric SUV after protection film installation in the SupaKoto workshop"
+      },
+      "sk-125": {
+        "alt": "Dark blue electric SUV after protection film installation in the workshop bay"
+      },
+      "sk-126": {
+        "alt": "Dark blue electric SUV after protection film installation at the SupaKoto workshop"
+      },
+      "sk-127": {
+        "alt": "Dark blue electric SUV after protection film installation in the SupaKoto workshop"
+      },
       "sk-128": {
         "alt": "White SUV with isolated glass"
+      },
+      "sk-129": {
+        "alt": "Red compact sedan after protection film installation in the SupaKoto workshop"
+      },
+      "sk-130": {
+        "alt": "Red sedan after protection film installation in the SupaKoto workshop"
       },
       "sk-131": {
         "alt": "Dark sedan after protection work"
       },
+      "sk-132": {
+        "alt": "Dashboard and steering wheel of a sedan photographed inside the workshop"
+      },
+      "sk-133": {
+        "alt": "White compact luxury SUV after protection film installation in the SupaKoto workshop"
+      },
+      "sk-134": {
+        "alt": "White compact SUV front view after protection film installation in the workshop bay"
+      },
+      "sk-135": {
+        "alt": "Side profile of a white compact SUV after protection film installation"
+      },
+      "sk-136": {
+        "alt": "White compact SUV after protection film installation, front close-up in the workshop"
+      },
+      "sk-137": {
+        "alt": "Black luxury SUV after protection film installation in the workshop"
+      },
+      "sk-138": {
+        "alt": "Black luxury SUV after protection film installation at the SupaKoto branch"
+      },
+      "sk-139": {
+        "alt": "Grey premium crossover after protection film installation in the SupaKoto workshop"
+      },
+      "sk-140": {
+        "alt": "Dark grey crossover front view after protection film installation in the workshop"
+      },
       "sk-141": {
         "alt": "Land Cruiser Prado in the desert after full protection"
+      },
+      "sk-142": {
+        "alt": "Side profile of a grey SUV after protection film installation in the workshop"
+      },
+      "sk-143": {
+        "alt": "Leather interior and dashboard of a luxury car in the SupaKoto workshop"
+      },
+      "sk-144": {
+        "alt": "Dashboard screen after interior protection film installation in the SupaKoto workshop"
+      },
+      "sk-145": {
+        "alt": "Front of a white SUV after protection film installation at a dealership"
+      },
+      "sk-146": {
+        "alt": "Two white SUVs after protection film installation outside a dealership"
+      },
+      "sk-147": {
+        "alt": "Two white family SUVs after protection film installation outside a dealership"
       },
       "sk-148": {
         "alt": "Dark Mercedes with gloss protection film"
       },
+      "sk-149": {
+        "alt": "White off-road SUV after protection film installation in a desert setting"
+      },
+      "sk-150": {
+        "alt": "White off-road SUV with protection film in the desert at sunset"
+      },
+      "sk-151": {
+        "alt": "White electric sedan after protection film installation outside the SupaKoto branch"
+      },
+      "sk-152": {
+        "alt": "White electric sedan after protection film installation in the workshop"
+      },
+      "sk-153": {
+        "alt": "White electric sedan after protection film installation in the workshop"
+      },
       "sk-154": {
         "alt": "Dark blue SUV outside the centre"
+      },
+      "sk-155": {
+        "alt": "Black luxury coupe SUV after protection film installation outside a showroom"
+      },
+      "sk-156": {
+        "alt": "Front close-up of a black luxury SUV after protection film installation"
+      },
+      "sk-157": {
+        "alt": "Black coupe SUV after protection film installation, side view outside the showroom"
       },
       "sk-158": {
         "alt": "German car after installation outside the workshop"
       },
+      "sk-159": {
+        "alt": "Grey luxury electric SUV after protection film installation in front of the SupaKoto branch"
+      },
+      "sk-160": {
+        "alt": "Front of a blue sports SUV after protection film installation in the workshop"
+      },
+      "sk-161": {
+        "alt": "Dark blue luxury SUV after protection film installation at the workshop entrance"
+      },
+      "sk-162": {
+        "alt": "Blue coupe SUV after protection film installation in front of the SupaKoto storefront"
+      },
+      "sk-163": {
+        "alt": "Grey crossover after protection film installation photographed outdoors"
+      },
+      "sk-164": {
+        "alt": "Steering wheel and dashboard of a crossover in the SupaKoto workshop"
+      },
       "sk-165": {
         "alt": "Glossy red car after preparation"
+      },
+      "sk-166": {
+        "alt": "Close-up of a dark grey front end and badge after protection film installation"
+      },
+      "sk-167": {
+        "alt": "Grey hatchback after protection film installation outside the SupaKoto branch"
+      },
+      "sk-168": {
+        "alt": "Grey hatchback after protection film installation photographed outdoors at dusk"
+      },
+      "sk-169": {
+        "alt": "Dark grey hatchback after protection film installation outside the SupaKoto workshop at dusk"
+      },
+      "sk-170": {
+        "alt": "Front close-up of a black off-road SUV after protection film installation"
+      },
+      "sk-171": {
+        "alt": "Silver MPV after protection film installation in the workshop garage"
+      },
+      "sk-172": {
+        "alt": "Red crossover SUV after protection film installation in the SupaKoto workshop"
       },
       "sk-173": {
         "alt": "Red car in the workshop at night"
       },
+      "sk-174": {
+        "alt": "Rear of a turquoise electric fastback after protection film installation in the workshop"
+      },
+      "sk-175": {
+        "alt": "SUV interior with red leather seats during interior protection work in the workshop"
+      },
       "sk-176": {
         "alt": "Matte green wrap on an SUV"
+      },
+      "sk-177": {
+        "alt": "Olive green SUV headlight close-up after protection film installation in the workshop"
+      },
+      "sk-178": {
+        "alt": "Rear view of an olive green SUV after protection film installation in the SupaKoto workshop"
+      },
+      "sk-179": {
+        "alt": "White sports coupe after protection film installation in the SupaKoto workshop"
+      },
+      "sk-180": {
+        "alt": "White sports coupe after protection film installation in the SupaKoto workshop"
+      },
+      "sk-181": {
+        "alt": "White sports coupe after protection film installation inside the SupaKoto workshop"
       },
       "sk-182": {
         "alt": "Black SUV inside the workshop hall"
       },
+      "sk-183": {
+        "alt": "Black luxury SUV inside the SupaKoto workshop bay"
+      },
+      "sk-184": {
+        "alt": "Orange coupe SUV rear view after protection film installation in the workshop"
+      },
+      "sk-185": {
+        "alt": "Rear detail of an orange crossover after protection film installation in the workshop"
+      },
+      "sk-186": {
+        "alt": "Orange crossover after protection film installation, front close-up in the workshop"
+      },
       "sk-187": {
         "alt": "White performance car during preparation"
+      },
+      "sk-188": {
+        "alt": "White luxury sedan after protection film installation in the SupaKoto workshop"
+      },
+      "sk-189": {
+        "alt": "White luxury sedan after protection film installation in front of the SupaKoto workshop"
+      },
+      "sk-190": {
+        "alt": "Luxury grand tourer interior with cream and black dashboard during protection work"
+      },
+      "sk-191": {
+        "alt": "Interior of a luxury grand tourer with cream leather after protection work"
+      },
+      "sk-192": {
+        "alt": "Blue grand tourer sports car during protection film work in the workshop"
+      },
+      "sk-193": {
+        "alt": "Blue grand tourer after protection film installation in the SupaKoto workshop"
+      },
+      "sk-194": {
+        "alt": "Bronze large luxury SUV during protection film work in the SupaKoto workshop"
+      },
+      "sk-195": {
+        "alt": "Large bronze SUV after protection film installation inside the workshop"
       },
       "sk-196": {
         "alt": "White sedan in the workshop"
       },
+      "sk-197": {
+        "alt": "Silver sedan after protection film installation at night outside the SupaKoto center"
+      },
+      "sk-198": {
+        "alt": "Beige sedan rear view after protection film installation in the workshop"
+      },
+      "sk-199": {
+        "alt": "Large black luxury SUV after protection film installation in the SupaKoto workshop"
+      },
       "sk-200": {
         "alt": "Japanese luxury SUV in the workshop"
+      },
+      "sk-201": {
+        "alt": "Black large SUV after protection film installation in the SupaKoto workshop"
+      },
+      "sk-202": {
+        "alt": "Dark blue muscle coupe after protection film installation in the SupaKoto workshop"
+      },
+      "sk-203": {
+        "alt": "Dark sports coupe after protection film installation in the SupaKoto workshop"
+      },
+      "sk-204": {
+        "alt": "Black muscle coupe after protection film installation in the SupaKoto workshop"
+      },
+      "sk-205": {
+        "alt": "Grey off-road SUV with open door showing a mint green interior in the workshop"
+      },
+      "sk-206": {
+        "alt": "Luxury SUV interior with mint green leather photographed in the workshop"
+      },
+      "sk-207": {
+        "alt": "Grey off-road SUV with carbon accents after protection film installation, front close-up"
+      },
+      "sk-208": {
+        "alt": "White luxury sedan after protection film installation in the SupaKoto workshop"
+      },
+      "sk-209": {
+        "alt": "Front of a white sedan after protection film installation in the workshop"
+      },
+      "sk-210": {
+        "alt": "White luxury sedan with other cars inside the SupaKoto workshop"
+      },
+      "sk-211": {
+        "alt": "White luxury sedan after protection film installation in the workshop at night"
+      },
+      "sk-212": {
+        "alt": "Black grand tourer convertible with red soft top after protection film installation in the workshop"
       },
       "sk-213": {
         "alt": "White 4x4 in the workshop"
       },
+      "sk-214": {
+        "alt": "White off-road pickup after protection film installation in the SupaKoto workshop"
+      },
+      "sk-215": {
+        "alt": "White grand tourer rear after protection film installation in the SupaKoto workshop"
+      },
+      "sk-216": {
+        "alt": "White sports coupe after protection film installation inside the SupaKoto workshop"
+      },
+      "sk-217": {
+        "alt": "Dark green large SUV after protection film installation in the SupaKoto workshop"
+      },
+      "sk-218": {
+        "alt": "Black large luxury SUV rear side view after protection film installation in the workshop"
+      },
+      "sk-219": {
+        "alt": "Dark green large SUV after protection film installation at the workshop entrance"
+      },
+      "sk-220": {
+        "alt": "Blue electric sports sedan with other cars after protection film installation in the workshop"
+      },
       "sk-221": {
         "alt": "Row of cars in preparation inside the workshop"
+      },
+      "sk-222": {
+        "alt": "Group of cars after protection film installation inside the SupaKoto workshop"
+      },
+      "sk-223": {
+        "alt": "Black sports sedan after protection film installation in front of the workshop"
+      },
+      "sk-224": {
+        "alt": "Black full-size SUV after protection film installation in the SupaKoto workshop"
       },
       "sk-225": {
         "alt": "White G-Class in the workshop"
       },
+      "sk-226": {
+        "alt": "Grey luxury performance SUV rear view inside the SupaKoto workshop"
+      },
+      "sk-227": {
+        "alt": "Rear view of a grey performance SUV after protection film installation in the workshop"
+      },
+      "sk-228": {
+        "alt": "Grey luxury performance SUV after protection film installation, rear view in the workshop"
+      },
+      "sk-229": {
+        "alt": "Close-up of a grey supercar badge after protection film installation in the workshop"
+      },
       "sk-230": {
         "alt": "Glossy green sports car after treatment"
+      },
+      "sk-231": {
+        "alt": "Green electric fastback and grey SUV after protection film installation in the workshop"
+      },
+      "sk-233": {
+        "alt": "Green electric sports car after protection film installation in the SupaKoto workshop"
+      },
+      "sk-235": {
+        "alt": "Luxury sedan interior with red leather photographed through the open door in the workshop"
+      },
+      "sk-236": {
+        "alt": "White fastback crossover after protection film installation in the SupaKoto workshop"
+      },
+      "sk-237": {
+        "alt": "Black luxury sedan after protection film installation in the SupaKoto workshop"
+      },
+      "sk-238": {
+        "alt": "Rear of a black sedan after protection film installation in the workshop"
       },
       "showreel": {
         "alt": "Video from inside the SupaKoto workshops"

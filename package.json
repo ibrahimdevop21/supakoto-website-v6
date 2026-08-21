@@ -6,11 +6,11 @@
   "packageManager": "pnpm@11.20.0",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "node scripts/check-phone-literals.mjs && node scripts/check-claims.mjs && node scripts/check-analytics-calls.mjs && node scripts/check-image-refs.mjs && node scripts/check-wizard-services.mjs && next build",
+    "build": "node scripts/check-phone-literals.mjs && node scripts/check-claims.mjs && node scripts/check-analytics-calls.mjs && node scripts/check-image-refs.mjs && node scripts/check-wizard-services.mjs && node scripts/check-gallery-filters.mjs && next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "guards": "node scripts/check-phone-literals.mjs && node scripts/check-claims.mjs && node scripts/check-analytics-calls.mjs && node scripts/check-image-refs.mjs && node scripts/check-wizard-services.mjs"
+    "guards": "node scripts/check-phone-literals.mjs && node scripts/check-claims.mjs && node scripts/check-analytics-calls.mjs && node scripts/check-image-refs.mjs && node scripts/check-wizard-services.mjs && node scripts/check-gallery-filters.mjs"
   },
   "dependencies": {
     "date-fns": "^4.4.0",
