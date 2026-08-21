@@ -2,7 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/metadata";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
-import { GalleryGrid } from "@/components/sections/GalleryGrid";
+import { GalleryViewer } from "@/components/sections/GalleryViewer";
 
 export async function generateMetadata({
   params,
@@ -33,7 +33,7 @@ export default async function GalleryPage({
       <PageHero title={t("title")} sub={t("sub")} />
       <section className="py-(--spacing-section)">
         <Container>
-          <GalleryGrid />
+          <GalleryViewer />
         </Container>
       </section>
     </main>

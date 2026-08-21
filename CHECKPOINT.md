@@ -1,3 +1,34 @@
+# CHECKPOINT — 2026-08-22
+
+## TL;DR (2026-08-22, Phase 20 done + verified, awaiting Ibrahim's word)
+
+**Phase 20 (gallery rebuild) is complete and verified on
+`feat/phase-20-gallery-viewer` — 4 commits stacked ON TOP of the unmerged
+`feat/phase-19-feedback-round-2`, local only.** The static grid is now a
+real-estate-style viewer (main stage + overlay arrows + lazy 16:9 thumbnail
+strip + fullscreen + keyboard/swipe, RTL direction of travel measured
+correct); the full V2 library ships — 202 new photos audited image-by-image
+(all watermarked, 12 colour-change wraps found, bespoke AR/EN alts), site
+gallery = 243 items; order reshuffles on every page load/refresh (module-scope seed —
+sessionStorage survived refreshes, Ibrahim flagged it; stable across
+filter toggles + client-side nav); filter row derives from content/services.ts so
+marine-ppf (previously missing) renders with a labelled empty state (0
+photos); guard #6 `check-gallery-filters.mjs` negative-tested. End gate:
+build 6 guards, lint 0/0, typecheck, parity, smoke 196/196, crawl 72 clean,
+e2e-gallery 42/42 twice; first-load 0.4–2.1 MB. Brief + report:
+`docs/progress/20-gallery-viewer.md`. No local servers.
+
+## Exact next action
+PUSHED to GitHub 2026-08-22 on Ibrahim's word (branches only — NOT merged
+to main, NOT deployed). Branch stack: main ← feat/phase-19-feedback-round-2
+(10 commits, verified) ← feat/phase-20-gallery-viewer (5 commits incl. the
+refresh-reshuffle fix, verified). Next: Ibrahim's word on merging the stack
+into main (merge 19 then 20, or 20 alone brings both) → Vercel deploy.
+Still open from Phase 18: Vercel env vars + pixel check + domain cutover.
+HELD unchanged (bdm-flow counter, Supabase V6, marine/surface content).
+
+---
+
 # CHECKPOINT — 2026-08-21
 
 ## TL;DR (2026-08-21 evening, Phase 19 done + verified, awaiting Ibrahim's word)
