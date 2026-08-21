@@ -54,7 +54,7 @@ export function HeroCarousel() {
       {!reduce && <HeroVideo />}
 
       {/* Legibility scrim */}
-      <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(10,10,11,0.78),rgba(10,10,11,0.35)_55%,rgba(10,10,11,0.85))]" />
+      <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(10,10,11,0.8),rgba(10,10,11,0.5)_55%,rgba(10,10,11,0.85))]" />
 
       {/* Copy overlay. Every row below has a RESERVED height (lh-unit
           boxes for the text rows), so the block's total height is a
@@ -62,24 +62,31 @@ export function HeroCarousel() {
           move the layout. */}
       <div className="relative z-10 w-full pb-10 pt-6">
         <Container>
-          {cycled ? (
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={key}
-                initial={animateIn ? { opacity: 0, y: 24 } : false}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduce ? undefined : { opacity: 0 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="max-w-4xl"
-              >
+          {/* Crossfade, not hand-over: with mode="wait" the outgoing copy
+              faded out (0.6s) BEFORE the incoming faded in (0.6s), so the
+              hero had no text at all for ~1.2s of every cycle — the "text
+              not showing" Hussein saw (audit 2026-08-21). Both copies now
+              share one grid cell and overlap while they cross. */}
+          <div className="grid max-w-4xl">
+            {cycled ? (
+              <AnimatePresence initial={false}>
+                <motion.div
+                  key={key}
+                  initial={animateIn ? { opacity: 0, y: 12 } : false}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduce ? undefined : { opacity: 0 }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="col-start-1 row-start-1"
+                >
+                  <SlideCopy slideKey={key} />
+                </motion.div>
+              </AnimatePresence>
+            ) : (
+              <div className="col-start-1 row-start-1">
                 <SlideCopy slideKey={key} />
-              </motion.div>
-            </AnimatePresence>
-          ) : (
-            <div className="max-w-4xl">
-              <SlideCopy slideKey={key} />
-            </div>
-          )}
+              </div>
+            )}
+          </div>
 
           {/* Dots */}
           <div className="mt-10 flex gap-2">
@@ -159,7 +166,7 @@ function SlideCopy({ slideKey }: { slideKey: (typeof SLIDE_KEYS)[number] }) {
           {t(`slides.${slideKey}.title`)}
         </h1>
       </div>
-      <div className="mt-4 h-[3lh] max-w-xl text-h3 text-fg-muted md:h-[2lh]">
+      <div className="mt-4 h-[3lh] max-w-xl text-h3 text-fg/85 md:h-[2lh]">
         <p className="line-clamp-3 md:line-clamp-2">
           {t(`slides.${slideKey}.sub`)}
         </p>
