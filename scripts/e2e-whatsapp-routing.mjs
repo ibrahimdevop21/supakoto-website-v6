@@ -31,7 +31,7 @@ const clickText = async (page, txt) =>
 async function booking(locale, cookieRegion, formRegion) {
   const { ctx, page } = await fresh(cookieRegion, locale);
   const L = LABEL[locale];
-  await page.goto(`${BASE}${locale === "en" ? "/en" : ""}/booking`, { waitUntil: "networkidle" });
+  await page.goto(`${BASE}${locale === "en" ? "/en" : ""}/booking`, { waitUntil: "domcontentloaded" });
   // step 1 service: first card = PPF (cars group first)
   await page.locator("main button[aria-pressed]").first().click();
   await clickText(page, L.next);
@@ -60,7 +60,7 @@ async function booking(locale, cookieRegion, formRegion) {
 async function wizardQuote(locale, cookieRegion, formRegion) {
   const { ctx, page } = await fresh(cookieRegion, locale);
   const L = LABEL[locale];
-  await page.goto(`${BASE}${locale === "en" ? "/en" : ""}/booking`, { waitUntil: "networkidle" });
+  await page.goto(`${BASE}${locale === "en" ? "/en" : ""}/booking`, { waitUntil: "domcontentloaded" });
   await page.locator(`main button[aria-pressed]:has-text("${L.building}")`).first().click();
   await clickText(page, L.next);
   await clickText(page, L[formRegion]); await clickText(page, L.next);
@@ -82,7 +82,7 @@ async function wizardQuote(locale, cookieRegion, formRegion) {
 async function enquiry(locale, cookieRegion, formRegion) {
   const { ctx, page } = await fresh(cookieRegion, locale);
   const L = LABEL[locale];
-  await page.goto(`${BASE}${locale === "en" ? "/en" : ""}/booking`, { waitUntil: "networkidle" });
+  await page.goto(`${BASE}${locale === "en" ? "/en" : ""}/booking`, { waitUntil: "domcontentloaded" });
   await page.locator(`main button[aria-pressed]:has-text("${L.marine}")`).first().click();
   await clickText(page, L.next);
   await clickText(page, L[formRegion]); await clickText(page, L.next);
@@ -99,7 +99,7 @@ async function enquiry(locale, cookieRegion, formRegion) {
 async function quote(locale, cookieRegion, formRegion) {
   const { ctx, page } = await fresh(cookieRegion, locale);
   const L = LABEL[locale];
-  await page.goto(`${BASE}${locale === "en" ? "/en" : ""}/services/building-heat-isolation/quote`, { waitUntil: "networkidle" });
+  await page.goto(`${BASE}${locale === "en" ? "/en" : ""}/services/building-heat-isolation/quote`, { waitUntil: "domcontentloaded" });
   const groups = page.locator("form fieldset");
   await groups.nth(0).locator("button[aria-pressed]").first().click(); // property type
   await page.locator(`form button:text-is("${L[formRegion]}")`).first().click();
