@@ -19,10 +19,13 @@ e2e-gallery 42/42 twice; first-load 0.4–2.1 MB. Brief + report:
 `docs/progress/20-gallery-viewer.md`. No local servers.
 
 ## Exact next action
-Ibrahim reads the Phase 20 report → his word on push/merge. Branch stack:
-main ← feat/phase-19-feedback-round-2 (11 commits, verified) ←
-feat/phase-20-gallery-viewer (4 commits, verified). Still open from Phase
-18: Vercel env vars + pixel check + cutover. HELD unchanged.
+PUSHED to GitHub 2026-08-22 on Ibrahim's word (branches only — NOT merged
+to main, NOT deployed). Branch stack: main ← feat/phase-19-feedback-round-2
+(10 commits, verified) ← feat/phase-20-gallery-viewer (5 commits incl. the
+refresh-reshuffle fix, verified). Next: Ibrahim's word on merging the stack
+into main (merge 19 then 20, or 20 alone brings both) → Vercel deploy.
+Still open from Phase 18: Vercel env vars + pixel check + domain cutover.
+HELD unchanged (bdm-flow counter, Supabase V6, marine/surface content).
 
 ---
 
