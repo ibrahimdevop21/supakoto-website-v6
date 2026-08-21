@@ -195,14 +195,6 @@
     "closeMenu": "Close menu",
     "logoAlt": "SupaKoto",
     "services": "Services",
-    "servicesAll": "All services",
-    "servicesPpf": "Paint Protection Film",
-    "servicesHeatCars": "Heat isolation — cars",
-    "servicesBuildings": "Building heat isolation",
-    "servicesColour": "Colour change",
-    "servicesNano": "Nano ceramic",
-    "servicesMarine": "Marine PPF",
-    "servicesSurface": "Surface Protection",
     "authenticity": "Authenticity"
   },
   "chrome": {
@@ -350,7 +342,7 @@
         "h1": "TAKAI paint protection film (PPF)"
       },
       "heat-isolation": {
-        "name": "Heat Isolation",
+        "name": "Car Heat Isolation",
         "benefit": "A cooler cabin, interior protected from the sun",
         "problem": "Summer sun turns the cabin into an oven, works the AC to death, and slowly cooks the upholstery and dashboard.",
         "solutionIntro": "Japanese heat isolation that works without darkening your view:",
