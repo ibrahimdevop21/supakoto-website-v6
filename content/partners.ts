@@ -16,6 +16,13 @@
  * call). Still forbidden: fabricated marks of any kind (SK-BLD class
  * error). Logos were re-rendered to trimmed transparent WebPs from
  * V2's public/partners/ files.
+ *
+ * LEGIBILITY ON THE DARK BAND (2026-08-21, Hussein's round): logos render
+ * in original colours on ink-950, so a black wordmark vanishes. Bentley
+ * and Porsche were re-rendered with their wordmarks white (crests
+ * untouched — Porsche's wordmark path had no fill, Bentley's traced
+ * greys were inverted below the emblem). Every other mark was audited on
+ * the band colour and reads; Changan's navy V is the dimmest but legible.
  */
 
 export type PartnerId =
@@ -38,6 +45,7 @@ export type PartnerId =
   | "kia"
   | "lamborghini"
   | "lexus"
+  | "maserati"
   | "mercedes-benz"
   | "nissan"
   | "peugeot"
@@ -103,6 +111,9 @@ export const partners: Partner[] = [
   brand("kia", "Kia"),
   brand("lamborghini", "Lamborghini"),
   brand("lexus", "Lexus"),
+  // Supplied by Ibrahim 2026-08-21 (maserati-4.svg, white plate removed,
+  // rendered to the same 240px transparent WebP as the V2 set).
+  brand("maserati", "Maserati"),
   brand("mercedes-benz", "Mercedes-Benz"),
   brand("nissan", "Nissan"),
   brand("peugeot", "Peugeot"),
