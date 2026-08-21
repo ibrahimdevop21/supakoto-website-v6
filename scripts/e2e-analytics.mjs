@@ -170,33 +170,42 @@ for (const slug of ["ppf", "marine-ppf", "building-heat-isolation"]) {
   await ctx.close();
 }
 
-/* 4. Booking wizard end-to-end: start / steps / complete / ref / whatsapp / intent log */
+/* 4. Booking wizard end-to-end — vehicle flow: start / steps / complete / ref / whatsapp / intent log */
+const WIZ = {
+  en: { next: "Next", egypt: "Egypt", confirm: "Confirm booking", confirmQuote: "Send quote request", confirmEnquiry: "Send enquiry", refLabel: "Request ref", building: "Building heat isolation", marine: "Marine PPF", residential: "Residential", heat: "Heat", quoteTitle: "Quotation request — building heat isolation", enquiryTitle: "Enquiry — Marine PPF" },
+  ar: { next: "التالي", egypt: "مصر", confirm: "أكد الحجز", confirmQuote: "أرسل طلب عرض السعر", confirmEnquiry: "أرسل الاستفسار", refLabel: "رقم الطلب", building: "عزل حراري للمباني", marine: "حماية القوارب", residential: "سكني", heat: "الحرارة", quoteTitle: "طلب عرض سعر — عزل حراري للمباني", enquiryTitle: "استفسار — حماية القوارب" },
+};
 for (const locale of ["en", "ar"]) {
-  const L = locale === "en"
-    ? { next: "Next", egypt: "Egypt", confirm: "Confirm booking", refLabel: "Request ref" }
-    : { next: "التالي", egypt: "مصر", confirm: "أكد الحجز", refLabel: "رقم الطلب" };
+  const L = WIZ[locale];
   const { ctx, page, beacons } = await fresh(`${locale === "en" ? "/en" : ""}/booking?utm_source=meta&utm_campaign=summer&fbclid=XYZ`, { locale });
   const clickText = (txt) => page.locator(`main button:text-is("${txt}")`).first().click();
+  let ev = await log(page);
+  ok(!has(ev, "booking_start") && !has(ev, "quote_start") && !has(ev, "enquiry_start"), `[${locale}] no funnel-top event before a service is picked`);
+  await page.locator("main button[aria-pressed]").first().click(); // first card = PPF (cars group first)
+  await wait(200);
+  ev = await log(page);
+  ok(has(ev, "booking_start", (e) => e.region === "egypt" && e.service === "ppf"), `[${locale}] booking_start on picking a vehicle service`);
+  await clickText(L.next);
   await clickText(L.egypt); await clickText(L.next);
   await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
-  await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
   await page.fill("#bk-make", "Toyota"); await page.fill("#bk-model", "Prado"); await clickText(L.next);
-  await page.fill("#bk-date", "2026-09-01"); await clickText(L.next);
+  await page.locator("main button.sk-day:not([disabled])").first().click(); await clickText(L.next); // first selectable day = tomorrow
   await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
   await page.fill("#bk-name", "E2E Tester"); await page.fill("#bk-phone", "0100000000"); await clickText(L.next);
   await page.locator('button[data-track="booking:confirm"]').click();
   await wait(2500);
-  const ev = await log(page);
-  ok(has(ev, "booking_start", (e) => e.region === "egypt"), `[${locale}] booking_start`);
-  const steps = ev.filter((e) => e.event === "booking_step").map((e) => `${e.step}:${e.step_name}`);
-  ok(steps.join(",") === "1:region,2:branch,3:service,4:car,5:date,6:time,7:contact,8:confirm", `[${locale}] booking_step ×8 in order (${steps.join(",")})`);
+  ev = await log(page);
+  ok(ev.filter((e) => e.event === "booking_start").length === 1, `[${locale}] booking_start fired exactly once`);
+  const steps = ev.filter((e) => e.event === "booking_step").map((e) => `${e.step}:${e.step_name}${e.flow ? "/" + e.flow : ""}`);
+  ok(steps.join(",") === "1:service,2:region/vehicle,3:branch/vehicle,4:car/vehicle,5:date/vehicle,6:time/vehicle,7:contact/vehicle,8:confirm/vehicle", `[${locale}] booking_step ×8 in order with flow (${steps.join(",")})`);
   const done = ev.find((e) => e.event === "booking_complete");
-  ok(done && /^SK-[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{6}$/.test(done.ref) && done.region === "egypt" && done.branch && done.service, `[${locale}] booking_complete with SK-ref (${done?.ref})`);
+  ok(done && /^SK-[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{6}$/.test(done.ref) && done.region === "egypt" && done.branch && done.service === "ppf", `[${locale}] booking_complete with SK-ref (${done?.ref})`);
   ok(has(ev, "whatsapp_click", (e) => e.source === "booking" && e.ref === done?.ref), `[${locale}] whatsapp_click(booking) carries the same ref`);
   const opened = await page.evaluate(() => window.__opened);
   const msg = decodeURIComponent((opened[0] ?? "").split("text=")[1] ?? "");
   ok(opened.length === 1 && /wa\.me\/201103402446/.test(opened[0]), `[${locale}] window.open → wa.me egypt regional line`);
   ok(msg.split("\n")[1] === `${L.refLabel}: ${done?.ref}`, `[${locale}] ref is line 2 of the WhatsApp message, labelled «${L.refLabel}»`);
+  ok(!/Quotation|عرض سعر|Enquiry|استفسار/.test(msg.split("\n")[0]), `[${locale}] vehicle message is a booking, not a quote/enquiry`);
   ok(fbBeacons(beacons).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)) || (await fbCalls(page)).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)), `[${locale}] Meta: Lead with eventID=ref`);
   const gaq = await gaCalls(page);
   ok(gaq.some((b) => /^en=booking_complete&/.test(b) && new RegExp(`ref=${done?.ref}`).test(b)) && gaq.some((b) => /^en=generate_lead&/.test(b) && new RegExp(`transaction_id=${done?.ref}`).test(b)), `[${locale}] GA4: booking_complete + generate_lead issued with ref`);
@@ -214,12 +223,84 @@ for (const locale of ["en", "ar"]) {
   await ctx.close();
 }
 
+/* 4b. Wizard — building flow: quote_start(wizard) → measurements → quote_complete(wizard), same WhatsApp shape as the quote page */
+for (const locale of ["en", "ar"]) {
+  const L = WIZ[locale];
+  const { ctx, page, beacons } = await fresh(`${locale === "en" ? "/en" : ""}/booking`, { locale });
+  const clickText = (txt) => page.locator(`main button:text-is("${txt}")`).first().click();
+  await page.locator(`main button[aria-pressed]:has-text("${L.building}")`).first().click();
+  await wait(200);
+  let ev = await log(page);
+  ok(has(ev, "quote_start", (e) => e.region === "egypt" && e.service === "building-heat-isolation" && e.source === "wizard") && !has(ev, "booking_start"), `[${locale}] quote_start(wizard) on picking the building service, no booking_start`);
+  await clickText(L.next);
+  await clickText(L.egypt); await clickText(L.next);
+  await clickText(L.residential); await clickText(L.next);
+  await page.selectOption("#bk-area", { index: 1 }); await clickText(L.next);
+  await page.fill("#bk-glazing", "120"); await page.fill("#bk-floors", "3"); await clickText(L.next);
+  await clickText(L.heat); await clickText(L.next);
+  await page.fill("#bk-name", "E2E Tester"); await page.fill("#bk-phone", "0100000000"); await clickText(L.next);
+  ok(await page.locator('button[data-track="quote:confirm"]').innerText() === L.confirmQuote, `[${locale}] building CTA reads «${L.confirmQuote}»`);
+  await page.locator('button[data-track="quote:confirm"]').click();
+  await wait(2000);
+  ev = await log(page);
+  const steps = ev.filter((e) => e.event === "booking_step").map((e) => e.step_name);
+  ok(steps.join(",") === "service,region,property,location,measurements,problem,contact,confirm", `[${locale}] building steps in order, no branch/car/date/time (${steps.join(",")})`);
+  const done = ev.find((e) => e.event === "quote_complete");
+  ok(done && /^SK-[A-Z2-9]{6}$/.test(done.ref) && done.region === "egypt" && done.property_type === "residential" && done.service === "building-heat-isolation" && done.source === "wizard", `[${locale}] quote_complete(wizard) with SK-ref (${done?.ref})`);
+  ok(!has(ev, "booking_complete") && !has(ev, "enquiry_complete"), `[${locale}] building flow fires only quote_complete`);
+  ok(has(ev, "whatsapp_click", (e) => e.source === "quote" && e.ref === done?.ref && !e.branch), `[${locale}] whatsapp_click(quote) with ref, no branch`);
+  const opened = await page.evaluate(() => window.__opened);
+  const lines = decodeURIComponent((opened[0] ?? "").split("text=")[1] ?? "").split("\n");
+  ok(lines[0] === L.quoteTitle, `[${locale}] WhatsApp first line is the quote marker «${lines[0]}»`);
+  ok(lines[1] === `${L.refLabel}: ${done?.ref}`, `[${locale}] ref is line 2`);
+  ok(/120 m²/.test(lines[2]) && !/Toyota|Prado|2026-09-01/.test(lines.join(" ")), `[${locale}] measurements follow, no car/date fields`);
+  ok(fbBeacons(beacons).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)) || (await fbCalls(page)).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)), `[${locale}] Meta: Lead with eventID=ref (quote via wizard)`);
+  const intents = await page.evaluate(() => JSON.parse(localStorage.getItem("sk-building-quote-intents") ?? "[]"));
+  const last = intents[intents.length - 1];
+  ok(last && last.ref === done?.ref && last.kind === "quote" && last.branch === null && last.service === "building-heat-isolation", `[${locale}] intent log (quote key): ref, kind quote, no branch`);
+  await ctx.close();
+}
+
+/* 4c. Wizard — enquiry flow (marine): enquiry_start → details → enquiry_complete as a primary conversion */
+for (const locale of ["en", "ar"]) {
+  const L = WIZ[locale];
+  const { ctx, page, beacons } = await fresh(`${locale === "en" ? "/en" : ""}/booking`, { locale });
+  const clickText = (txt) => page.locator(`main button:text-is("${txt}")`).first().click();
+  await page.locator(`main button[aria-pressed]:has-text("${L.marine}")`).first().click();
+  await wait(200);
+  let ev = await log(page);
+  ok(has(ev, "enquiry_start", (e) => e.region === "egypt" && e.service === "marine-ppf") && !has(ev, "booking_start") && !has(ev, "quote_start"), `[${locale}] enquiry_start on picking marine, no booking/quote start`);
+  await clickText(L.next);
+  await clickText(L.egypt); await clickText(L.next);
+  await page.fill("#bk-details", "12m yacht, hull sides"); await clickText(L.next);
+  await page.fill("#bk-name", "E2E Tester"); await page.fill("#bk-phone", "0100000000"); await clickText(L.next);
+  ok(await page.locator('button[data-track="enquiry:confirm"]').innerText() === L.confirmEnquiry, `[${locale}] enquiry CTA reads «${L.confirmEnquiry}»`);
+  await page.locator('button[data-track="enquiry:confirm"]').click();
+  await wait(2000);
+  ev = await log(page);
+  const steps = ev.filter((e) => e.event === "booking_step").map((e) => e.step_name);
+  ok(steps.join(",") === "service,region,details,contact,confirm", `[${locale}] enquiry steps: service,region,details,contact,confirm (${steps.join(",")})`);
+  const done = ev.find((e) => e.event === "enquiry_complete");
+  ok(done && /^SK-[A-Z2-9]{6}$/.test(done.ref) && done.region === "egypt" && done.service === "marine-ppf", `[${locale}] enquiry_complete with SK-ref (${done?.ref})`);
+  ok(has(ev, "whatsapp_click", (e) => e.source === "enquiry" && e.ref === done?.ref), `[${locale}] whatsapp_click(enquiry) with ref`);
+  const opened = await page.evaluate(() => window.__opened);
+  const lines = decodeURIComponent((opened[0] ?? "").split("text=")[1] ?? "").split("\n");
+  ok(lines[0] === L.enquiryTitle && lines[1] === `${L.refLabel}: ${done?.ref}` && lines.some((l) => /12m yacht/.test(l)), `[${locale}] enquiry message: «${lines[0]}», ref line 2, details present`);
+  const gaq = await gaCalls(page);
+  ok(gaq.some((b) => /^en=enquiry_complete&/.test(b)) && gaq.some((b) => /^en=generate_lead&/.test(b) && new RegExp(`transaction_id=${done?.ref}`).test(b)), `[${locale}] GA4: enquiry_complete + generate_lead (primary conversion)`);
+  ok(fbBeacons(beacons).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)) || (await fbCalls(page)).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)), `[${locale}] Meta: Lead with eventID=ref (enquiry)`);
+  const intents = await page.evaluate(() => JSON.parse(localStorage.getItem("sk-enquiry-intents") ?? "[]"));
+  const last = intents[intents.length - 1];
+  ok(last && last.ref === done?.ref && last.kind === "enquiry" && last.service === "marine-ppf", `[${locale}] intent log (enquiry key)`);
+  await ctx.close();
+}
+
 /* 5. Building quote end-to-end */
 {
   const { ctx, page, beacons } = await fresh("/en/services/building-heat-isolation/quote?gclid=GQ1");
   await wait(500);
   let ev = await log(page);
-  ok(has(ev, "quote_start"), "quote_start on mount");
+  ok(has(ev, "quote_start", (e) => e.source === "page" && e.service === "building-heat-isolation"), "quote_start(page) on mount");
   ok(has(ev, "service_view") === false, "quote page does not fire service_view (not a service page)");
   const clickText = (txt) => page.locator(`main button:text-is("${txt}")`).first().click();
   await clickText("Residential");
@@ -239,7 +320,7 @@ for (const locale of ["en", "ar"]) {
   await wait(2500);
   ev = await log(page);
   const done = ev.find((e) => e.event === "quote_complete");
-  ok(done && /^SK-[A-Z2-9]{6}$/.test(done.ref) && done.region === "egypt" && done.property_type === "residential", `quote_complete with SK-ref (${done?.ref})`);
+  ok(done && /^SK-[A-Z2-9]{6}$/.test(done.ref) && done.region === "egypt" && done.property_type === "residential" && done.source === "page", `quote_complete(page) with SK-ref (${done?.ref})`);
   ok(has(ev, "whatsapp_click", (e) => e.source === "quote" && e.ref === done?.ref), "whatsapp_click(quote) carries ref");
   const opened = await page.evaluate(() => window.__opened);
   const msg = decodeURIComponent((opened[0] ?? "").split("text=")[1] ?? "");

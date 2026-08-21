@@ -13,9 +13,12 @@ export type ServiceId =
   | "surface-protection";
 
 /**
- * What the film goes on. Automotive-only surfaces (BookingWizard, package
- * tiers, before/after) must filter on "vehicle" — non-vehicle substrates
- * can never appear in the car booking flow.
+ * What the film goes on. The booking wizard offers EVERY service and
+ * branches on this: "vehicle" books a branch slot, "building" requests a
+ * quote from measurements, "marine" / "interior" send an enquiry (Phase
+ * 19). Adding a substrate fails the build until the wizard routes it
+ * (FLOW_OF + scripts/check-wizard-services.mjs). Car-only UI (package
+ * tiers, before/after) still filters on "vehicle".
  */
 export type Substrate = "vehicle" | "building" | "marine" | "interior";
 
@@ -140,11 +143,6 @@ export const RELATED_SERVICES: Record<ServiceId, ServiceId[]> = {
 export function servicePath(s: Pick<Service, "slug">): string {
   return `/services/${s.slug}`;
 }
-
-/** The four automotive treatments — what the booking flow and car-only UI use. */
-export const vehicleServices = services.filter(
-  (s) => s.substrate === "vehicle",
-);
 
 export function getService(slug: string): Service | undefined {
   return services.find((s) => s.slug === slug);

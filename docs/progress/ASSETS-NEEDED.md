@@ -119,7 +119,13 @@ one thermometer/AC-display shot would support the bills claim.
   separate lines; all V2-derived numbers of unknown ownership purged.
   `content/regions.ts` is the single source. Branch numbers confirmed
   available as seeded.
-- Branch working hours — ops.
+- Branch working hours — ops. **Interim default in code since 2026-08-21
+  (Phase 19):** `DEFAULT_HOURS = 10:00–20:00` in `content/branches.ts`
+  (V2's published figure, approved by Ibrahim as a placeholder) drives the
+  booking wizard's hourly slot buttons for every branch. Real per-branch
+  hours go into each branch's `hours` field; closure days / weekends are
+  not modelled at all yet, so the calendar shades no days — supply them
+  and the wizard can grey them out.
 - ~~Maps coordinates~~ **RESOLVED 2026-08-06** — all six pins
   ops-confirmed by Ibrahim on-site.
 - RH-Zak web-embedding licence — Ibrahim.

@@ -30,12 +30,14 @@ first, then the code.*
 |---|---|---|---|---|---|---|
 | `page_view` | first paint + every App Router pathname change (`<Analytics />`) | `path`, `title` | `page_view` (auto pageview disabled) | `PageView` | `page()` | `page_view` (send_to AW) |
 | `service_view` | service detail page mount (`<ServiceViewTracker />`) | `service` (slug) | `view_item` items[{item_id}] | `ViewContent` {content_name, content_category:"service"} | `ViewContent` | — |
-| `booking_start` | BookingWizard mounted (step 1 shown) | `region` | custom | `trackCustom` | custom | — |
-| `booking_step` | every wizard step shown | `step` (1-based), `step_name` (region/branch/service/car/date/time/contact/confirm), `region` | custom | `trackCustom` | custom | — |
-| **`booking_complete`** | confirm button, BEFORE `window.open(wa.me)` | `ref`, `region`, `branch`, `service` | `booking_complete` + `generate_lead` (transaction_id=ref) | **`Lead`** {content_name:"booking_complete", content_category:service, ref} **eventID=ref** | `SubmitForm` {content_id:ref} event_id=ref | — |
-| `quote_start` | BuildingQuoteForm mounted | `region` | custom | `trackCustom` | custom | — |
-| **`quote_complete`** | quote submit, BEFORE `window.open(wa.me)` | `ref`, `region`, `property_type` | `quote_complete` + `generate_lead` | **`Lead`** eventID=ref | `SubmitForm` event_id=ref | — |
-| `whatsapp_click` | any wa.me link | `source` ∈ booking · quote · fab · footer · branch_card · branch_map · service_page · contact; `region?`, `branch?`, `ref?` | `whatsapp_click` | `Contact` | `Contact` | — |
+| `booking_start` | wizard: a **vehicle** service picked on step 1 (once per flow per visit) | `region`, `service` | custom | `trackCustom` | custom | — |
+| `quote_start` | wizard: a **building** service picked on step 1 (`source:"wizard"`); BuildingQuoteForm mounted (`source:"page"`) | `region`, `service`, `source` | custom | `trackCustom` | custom | — |
+| `enquiry_start` | wizard: a **marine / interior** service picked on step 1 | `region`, `service` | custom | `trackCustom` | custom | — |
+| `booking_step` | every wizard step shown | `step` (1-based), `step_name` (service/region/branch/car/date/time/property/location/measurements/problem/details/contact/confirm), `region`, `flow?` ∈ vehicle · building · enquiry (absent on step 1) | custom | `trackCustom` | custom | — |
+| **`booking_complete`** | vehicle confirm, BEFORE `window.open(wa.me)` | `ref`, `region`, `branch`, `service` | `booking_complete` + `generate_lead` (transaction_id=ref) | **`Lead`** {content_name:"booking_complete", content_category:service, ref} **eventID=ref** | `SubmitForm` {content_id:ref} event_id=ref | — |
+| **`quote_complete`** | building confirm (wizard) or quote page submit, BEFORE `window.open(wa.me)` | `ref`, `region`, `property_type`, `service`, `source` ∈ wizard · page | `quote_complete` + `generate_lead` | **`Lead`** eventID=ref | `SubmitForm` event_id=ref | — |
+| **`enquiry_complete`** | marine / interior confirm, BEFORE `window.open(wa.me)` | `ref`, `region`, `service` | `enquiry_complete` + `generate_lead` | **`Lead`** eventID=ref | `SubmitForm` event_id=ref | — |
+| `whatsapp_click` | any wa.me link | `source` ∈ booking · quote · enquiry · fab · footer · branch_card · branch_map · service_page · contact; `region?`, `branch?`, `ref?` | `whatsapp_click` | `Contact` | `Contact` | — |
 | `call_click` | any tel: link | `branch` (branch id or `<region>-regional`), `source` | `call_click` | `Contact` | `Contact` | — |
 | `branch_view` | branch card / map pin interaction | `branch`, `action` ∈ call · whatsapp · directions · map_popup | custom | `trackCustom` | custom | — |
 | `form_submit` | stub forms submit | `form` ∈ contact · careers · franchise · business · warranty_claim | `form_submit` | `Lead` (careers → `SubmitApplication`) | `SubmitForm` | — |
@@ -43,8 +45,10 @@ first, then the code.*
 "custom" = same event name on every platform (`gtag('event', name)`,
 `fbq('trackCustom', name)`, `ttq.track(name)`).
 
-Primary conversions are **`booking_complete`** and **`quote_complete`**.
-Both carry the ref so the browser-side `Lead` and the Phase-3 server-side
+Primary conversions are **`booking_complete`**, **`quote_complete`** and
+**`enquiry_complete`** (Phase 19). Funnel tops are flow-specific — there is
+deliberately no shared "wizard opened" event, so drop-off reads per flow
+(Ibrahim, 2026-08-21). All carry the ref so the browser-side `Lead` and the Phase-3 server-side
 copy deduplicate (`event_id` / `eventID` = ref).
 
 ### Where each element is wired
@@ -58,13 +62,13 @@ copy deduplicate (`event_id` / `eventID` = ref).
 | Branch map pins / popups | `components/sections/BranchMap.tsx` (delegated) | branch_view(map_popup), call_click / whatsapp_click(branch_map), branch_view(directions) |
 | Pending-service WhatsApp CTA | `components/sections/services/PendingServiceCta.tsx` | whatsapp_click(service_page) |
 | Service pages | `components/providers/ServiceViewTracker.tsx` | service_view |
-| Booking wizard | `components/forms/BookingWizard.tsx` | booking_start, booking_step, booking_complete, whatsapp_click(booking) |
-| Building quote form | `components/forms/BuildingQuoteForm.tsx` | quote_start, quote_complete, whatsapp_click(quote) |
+| Booking wizard (all seven services) | `components/forms/BookingWizard.tsx` | booking_start / quote_start / enquiry_start (on service pick), booking_step, booking_complete / quote_complete / enquiry_complete, whatsapp_click(booking · quote · enquiry) |
+| Building quote page | `components/forms/BuildingQuoteForm.tsx` (fieldsets shared with the wizard: `components/forms/building/`) | quote_start(page), quote_complete(page), whatsapp_click(quote) |
 | Stub forms | `components/forms/StubForm.tsx` (`formId`) | form_submit |
 
 ## 3. Ref ID — `SK-XXXXXX`
 
-- Generated client-side (`lib/ref.ts`) at `booking_complete` / `quote_complete`.
+- Generated client-side (`lib/ref.ts`) at `booking_complete` / `quote_complete` / `enquiry_complete`.
 - Format: `SK-` + 6 characters from `ABCDEFGHJKLMNPQRSTUVWXYZ23456789`
   (uppercase, no O/0/I/1). Regex: `^SK-[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{6}$`.
   ~1.07 × 10⁹ combinations; collisions are handled by the receiver
@@ -89,7 +93,7 @@ copy deduplicate (`event_id` / `eventID` = ref).
 
 ## 4. Stored payload (client-side intent log)
 
-`localStorage["sk-booking-intents"]` and `localStorage["sk-building-quote-intents"]`
+`localStorage["sk-booking-intents"]`, `localStorage["sk-building-quote-intents"]` and `localStorage["sk-enquiry-intents"]` (writer: `lib/intent.ts`)
 — arrays, last 20 entries each:
 
 ```ts

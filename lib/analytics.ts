@@ -30,12 +30,18 @@
 export type WhatsAppSource =
   | "booking"
   | "quote"
+  | "enquiry"
   | "fab"
   | "footer"
   | "branch_card"
   | "branch_map"
   | "service_page"
   | "contact";
+
+/** Which wizard branch a customer is in. */
+export type Flow = "vehicle" | "building" | "enquiry";
+/** Where a quote came in: the wizard or the standalone /quote page. */
+export type LeadSource = "wizard" | "page";
 
 export type FormId =
   | "contact"
@@ -49,9 +55,17 @@ export type EventMap = {
   page_view: { path: string; title?: string };
   /** Service detail pages. */
   service_view: { service: string };
-  /** Booking wizard step 1 shown. */
-  booking_start: { region: string };
-  booking_step: { step: number; step_name: string; region: string };
+  /**
+   * Funnel tops — one per flow, fired when the customer picks a service
+   * on the wizard's first step (where the flows diverge), so per-flow
+   * drop-off reads cleanly (Ibrahim, 2026-08-21). quote_start also fires
+   * on mount of the standalone quote page (source: "page").
+   */
+  booking_start: { region: string; service: string };
+  quote_start: { region: string; service: string; source: LeadSource };
+  enquiry_start: { region: string; service: string };
+  /** Every wizard step shown. `flow` is known from step 2 on. */
+  booking_step: { step: number; step_name: string; region: string; flow?: Flow };
   /** PRIMARY conversion — fired BEFORE the WhatsApp handoff. */
   booking_complete: {
     ref: string;
@@ -59,10 +73,16 @@ export type EventMap = {
     branch: string;
     service: string;
   };
-  /** Building quote form shown. */
-  quote_start: { region: string };
   /** PRIMARY conversion — fired BEFORE the WhatsApp handoff. */
-  quote_complete: { ref: string; region: string; property_type: string };
+  quote_complete: {
+    ref: string;
+    region: string;
+    property_type: string;
+    service: string;
+    source: LeadSource;
+  };
+  /** PRIMARY conversion (marine / interior enquiry) — BEFORE the WhatsApp handoff. */
+  enquiry_complete: { ref: string; region: string; service: string };
   /** Any wa.me link. */
   whatsapp_click: {
     source: WhatsAppSource;
@@ -269,7 +289,8 @@ export function track<E extends EventName>(event: E, params: EventMap[E]): void 
       return;
     }
     case "booking_complete":
-    case "quote_complete": {
+    case "quote_complete":
+    case "enquiry_complete": {
       // PRIMARY conversions → platform "Lead". event_id = ref so the Phase-3
       // server-side (CAPI / Ads) copy deduplicates against this browser hit.
       const ref = String(p.ref);
@@ -298,7 +319,7 @@ export function track<E extends EventName>(event: E, params: EventMap[E]): void 
       return;
     }
     default: {
-      // booking_start / booking_step / quote_start / branch_view — custom on every platform
+      // booking_start / quote_start / enquiry_start / booking_step / branch_view — custom on every platform
       if (ga && ANALYTICS_IDS.ga4) gtag!("event", event, { send_to: ANALYTICS_IDS.ga4, ...p });
       if (fbq && ANALYTICS_IDS.meta) fbq("trackCustom", event, p);
       if (ttq && ANALYTICS_IDS.tiktok) ttq.track(event, p);

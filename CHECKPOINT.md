@@ -1,3 +1,36 @@
+# CHECKPOINT — 2026-08-21
+
+## TL;DR (2026-08-21 evening, Phase 19 done + verified, awaiting Ibrahim's word)
+
+**Phase 19 (feedback round 2 + booking wizard rebuild) is complete and
+end-gate-verified on `feat/phase-19-feedback-round-2` — 9 commits on top of
+`main` 463831e, NOT merged, NOT pushed.** (Phase 18 IS merged and pushed;
+`main` = `origin/main` = 463831e — the 2026-08-19 section below is stale on
+that point.) Full brief + approval + shipped table:
+`docs/progress/19-feedback-round-2.md`. Shipped: one wizard for all seven
+services branching on substrate (building fieldsets shared with the untouched
+`/quote` page, enquiry flow for marine/interior, flow-specific
+`booking_start`/`quote_start`/`enquiry_start` on service selection,
+`enquiry_complete` primary), react-day-picker calendar + branch-hour slots
+(10:00–20:00 interim, ops-unconfirmed), heat-isolation renamed «عزل حراري
+للسيارات» everywhere, gallery unified 16:9 with 2 duplicates dropped, Maserati
+added + Bentley/Porsche white wordmarks, Japan flag fixed + `check-image-refs`
+guard, `check-wizard-services` guard, hero-copy crossfade (Hussein's "text not
+showing"). A power outage cut the first end-gate attempt; re-run clean:
+build (5 guards), lint 0/0, typecheck, i18n parity 1036=1036, smoke 196/196,
+e2e-whatsapp 32/32 (after `5a4a20e` harness fix: networkidle → domcontentloaded),
+e2e-analytics 130/130 (initial-beacon checks flaked once on third-party SDK
+timing, clean on re-run), crawl 72 URLs clean, JSON-LD clean. No local servers.
+
+## Exact next action
+Ibrahim reads the Phase 19 report → his word on push/merge of
+`feat/phase-19-feedback-round-2`. Still open from Phase 18: the four
+`NEXT_PUBLIC_*` env vars on Vercel + post-deploy pixel sanity check + domain
+cutover (`docs/progress/CUTOVER.md`). HELD list unchanged (bdm-flow counter,
+Supabase V6, marine/surface content+indexing).
+
+---
+
 # CHECKPOINT — 2026-08-19
 
 ## TL;DR (2026-08-19, Phase 18 done, awaiting Ibrahim's approval)

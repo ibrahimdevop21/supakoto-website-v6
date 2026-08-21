@@ -125,6 +125,9 @@
         "lexus": {
           "name": "Lexus"
         },
+        "maserati": {
+          "name": "Maserati"
+        },
         "mercedes-benz": {
           "name": "Mercedes-Benz"
         },
@@ -195,14 +198,6 @@
     "closeMenu": "Close menu",
     "logoAlt": "SupaKoto",
     "services": "Services",
-    "servicesAll": "All services",
-    "servicesPpf": "Paint Protection Film",
-    "servicesHeatCars": "Heat isolation — cars",
-    "servicesBuildings": "Building heat isolation",
-    "servicesColour": "Colour change",
-    "servicesNano": "Nano ceramic",
-    "servicesMarine": "Marine PPF",
-    "servicesSurface": "Surface Protection",
     "authenticity": "Authenticity"
   },
   "chrome": {
@@ -350,7 +345,7 @@
         "h1": "TAKAI paint protection film (PPF)"
       },
       "heat-isolation": {
-        "name": "Heat Isolation",
+        "name": "Car Heat Isolation",
         "benefit": "A cooler cabin, interior protected from the sun",
         "problem": "Summer sun turns the cabin into an oven, works the AC to death, and slowly cooks the upholstery and dashboard.",
         "solutionIntro": "Japanese heat isolation that works without darkening your view:",
@@ -959,23 +954,23 @@
     "seoDescription": "File a warranty claim for your protection film: plate number, branch, invoice date, issue description and photos — inspection steps within two working days."
   },
   "booking": {
-    "title": "Book your appointment",
+    "title": "Book or request a quote",
     "sub": "One question per step — two minutes and you're done",
     "progress": "Step {current} of {total}",
     "next": "Next",
     "back": "Back",
     "steps": {
       "region": {
-        "title": "Where is your car?",
-        "hint": "Choose the country"
+        "title": "Which country?",
+        "hint": "Sets the branch and the line we answer from"
       },
       "branch": {
         "title": "Nearest branch?",
         "hint": "Branches for your region"
       },
       "service": {
-        "title": "What do you need?",
-        "hint": "Pick the main service"
+        "title": "Start your request",
+        "hint": "Pick a service — the next steps follow from it"
       },
       "car": {
         "title": "What's your car?",
@@ -985,11 +980,13 @@
       },
       "date": {
         "title": "Which day suits you?",
-        "hint": "Availability follows branch capacity"
+        "hint": "Today and past days are off — pick a day in the next 60. The team confirms the slot."
       },
       "time": {
         "title": "What time?",
-        "hint": "Choose from available slots"
+        "hint": "Hourly start times within branch hours",
+        "hours": "Branch hours:",
+        "request": "Slots are requests — the branch confirms on WhatsApp"
       },
       "contact": {
         "title": "Your details",
@@ -1000,7 +997,30 @@
       "confirm": {
         "title": "Review & confirm",
         "hint": "Check the details before confirming",
-        "confirmButton": "Confirm booking"
+        "confirmButton": "Confirm booking",
+        "confirmQuote": "Send quote request",
+        "confirmEnquiry": "Send enquiry"
+      },
+      "property": {
+        "title": "Property type",
+        "hint": "Residential or commercial"
+      },
+      "location": {
+        "title": "Where is the property?",
+        "hint": "Governorate or emirate"
+      },
+      "measurements": {
+        "title": "Glass measurements",
+        "hint": "Approximate is fine — the technician re-checks on installation day"
+      },
+      "problem": {
+        "title": "What bothers you most?",
+        "hint": "Helps us recommend the right solution"
+      },
+      "details": {
+        "title": "Tell us about it",
+        "hint": "Optional — a line or two is enough",
+        "label": "Brief description"
       }
     },
     "summary": {
@@ -1008,15 +1028,39 @@
       "branch": "Branch",
       "service": "Service",
       "car": "Car",
-      "datetime": "Slot"
+      "datetime": "Slot",
+      "details": "Details",
+      "property": "Property",
+      "location": "Location",
+      "measurements": "Measurements",
+      "problem": "Main problem"
     },
     "success": "We've prepared a WhatsApp message with your booking details — send it and we'll confirm your slot.",
     "reopenWhatsApp": "Open WhatsApp again",
     "stub": "Direct online booking is coming soon — for now confirmation happens over WhatsApp.",
     "waTitle": "New booking from the website:",
     "seoTitle": "Book Car Protection — PPF, Heat Isolation, Ceramic | SupaKoto",
-    "seoDescription": "Book at your nearest SupaKoto branch in two minutes: region, branch, service and day, confirmed on WhatsApp. PPF, heat isolation, ceramic, colour change.",
-    "waRef": "Request ref"
+    "seoDescription": "Start in two minutes: pick the service, then country, branch and day — confirmed on WhatsApp. PPF, heat isolation, ceramic, colour change.",
+    "waRef": "Request ref",
+    "serviceGroups": {
+      "vehicle": "Cars",
+      "building": "Buildings",
+      "pending": "Pending confirmation"
+    },
+    "serviceKinds": {
+      "vehicle": "Book at a branch",
+      "building": "Quote from your measurements",
+      "enquiry": "Enquiry — product confirmation pending"
+    },
+    "successQuote": "We've prepared a WhatsApp message with your measurements — send it and we'll reply with a quote and a proposed date.",
+    "successEnquiry": "We've prepared a WhatsApp message with your enquiry — send it and we'll get back to you with what's available.",
+    "waEnquiryTitle": "Enquiry — {service}",
+    "teamConfirms": "team confirms",
+    "calendar": {
+      "prev": "Previous month",
+      "next": "Next month",
+      "selected": "Selected"
+    }
   },
   "franchise": {
     "title": "Become a SupaKoto partner",
@@ -1239,12 +1283,6 @@
       },
       "sk-230": {
         "alt": "Glossy green sports car after treatment"
-      },
-      "sk-232": {
-        "alt": "Gloss green wrap on a sports car"
-      },
-      "sk-234": {
-        "alt": "White luxury car in the workshop"
       },
       "showreel": {
         "alt": "Video from inside the SupaKoto workshops"

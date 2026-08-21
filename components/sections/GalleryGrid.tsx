@@ -13,11 +13,13 @@ import { Lightbox } from "@/components/ui/Lightbox";
 import { RevealStagger, RevealItem } from "@/components/ui/Reveal";
 import { cn } from "@/lib/cn";
 
-const ASPECTS = {
-  square: "aspect-square",
-  portrait: "aspect-3/4",
-  landscape: "aspect-4/3",
-} as const;
+/**
+ * One ratio for every tile, photo or video — mixed per-image ratios made
+ * the grid ragged (Hussein, 2026-08-21). 16:9 is Ibrahim's call: car
+ * photography is shot wide. Images cover the box; the lightbox shows the
+ * full frame. Change the ratio here and nowhere else.
+ */
+const TILE_ASPECT = "aspect-video";
 
 export function GalleryGrid() {
   const t = useTranslations("gallery");
@@ -80,7 +82,7 @@ export function GalleryGrid() {
               aria-label={t(`items.${item.id}.alt`)}
               className={cn(
                 "relative block w-full overflow-hidden rounded-card border border-ink-700 transition-colors hover:border-fg-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red",
-                item.kind === "video" ? "aspect-video" : ASPECTS[item.aspect],
+                TILE_ASPECT,
               )}
             >
               {item.kind === "image" ? (
