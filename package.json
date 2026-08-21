@@ -13,11 +13,13 @@
     "guards": "node scripts/check-phone-literals.mjs && node scripts/check-claims.mjs && node scripts/check-analytics-calls.mjs && node scripts/check-image-refs.mjs && node scripts/check-wizard-services.mjs"
   },
   "dependencies": {
+    "date-fns": "^4.4.0",
     "framer-motion": "^12.43.0",
     "leaflet": "^1.9.4",
     "next": "^15.5.22",
     "next-intl": "^4.13.5",
     "react": "^19.2.8",
+    "react-day-picker": "^10.0.1",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {

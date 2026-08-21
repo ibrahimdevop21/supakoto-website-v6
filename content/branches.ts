@@ -1,5 +1,14 @@
 import type { RegionId } from "./regions";
 
+export type BranchHours = { open: string; close: string };
+
+/**
+ * INTERIM DEFAULT — ops unconfirmed. V2 published «السبت–الجمعة: 10ص–8م»
+ * for every branch; Ibrahim approved it as the placeholder on 2026-08-21
+ * (Phase 19, Q5). Replace per branch via `hours` as real figures arrive.
+ */
+export const DEFAULT_HOURS: BranchHours = { open: "10:00", close: "20:00" };
+
 export type Branch = {
   /** Also the message key: branches.items.<id>.{name,address} */
   id: string;
@@ -20,6 +29,14 @@ export type Branch = {
   franchise?: boolean;
   /** Server-enforced daily capacity where known (bdm-flow). */
   capacity?: number;
+  /**
+   * Opening hours, "HH:MM" 24h, local branch time. Drives the booking
+   * wizard's slot buttons (hourly, open → close − 1h). NOT SET on any
+   * branch yet: every branch falls back to DEFAULT_HOURS below until ops
+   * confirms real per-branch hours (ASSETS-NEEDED). Closure days are not
+   * modelled — the wizard shades nothing until ops supplies them.
+   */
+  hours?: BranchHours;
   /**
    * Public Google Business Profile rating for the branch listing. The
    * testimonials section shows the COUNT-WEIGHTED average across every
@@ -88,6 +105,25 @@ export const branches: Branch[] = [
     whatsapp: "971552054478",
   },
 ];
+
+export function branchHours(branch: Branch): BranchHours {
+  return branch.hours ?? DEFAULT_HOURS;
+}
+
+/**
+ * Hourly start times a customer may request at a branch: open … close − 1h
+ * (a 10:00–20:00 day offers 10:00 … 19:00). These are REQUESTS, not
+ * reservations — capacity lives in bdm-flow and the form does not talk to
+ * it yet; the team confirms every slot.
+ */
+export function timeSlotsFor(branch: Branch): string[] {
+  const { open, close } = branchHours(branch);
+  const [oh] = open.split(":").map(Number);
+  const [ch] = close.split(":").map(Number);
+  const slots: string[] = [];
+  for (let h = oh; h < ch; h++) slots.push(`${String(h).padStart(2, "0")}:00`);
+  return slots;
+}
 
 export function branchesForRegion(region: RegionId): Branch[] {
   return branches.filter((b) => b.region === region);

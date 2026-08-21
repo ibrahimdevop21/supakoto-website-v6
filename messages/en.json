@@ -980,11 +980,13 @@
       },
       "date": {
         "title": "Which day suits you?",
-        "hint": "Availability follows branch capacity"
+        "hint": "Today and past days are off — pick a day in the next 60. The team confirms the slot."
       },
       "time": {
         "title": "What time?",
-        "hint": "Choose from available slots"
+        "hint": "Hourly start times within branch hours",
+        "hours": "Branch hours:",
+        "request": "Slots are requests — the branch confirms on WhatsApp"
       },
       "contact": {
         "title": "Your details",
@@ -1053,7 +1055,12 @@
     "successQuote": "We've prepared a WhatsApp message with your measurements — send it and we'll reply with a quote and a proposed date.",
     "successEnquiry": "We've prepared a WhatsApp message with your enquiry — send it and we'll get back to you with what's available.",
     "waEnquiryTitle": "Enquiry — {service}",
-    "teamConfirms": "team confirms"
+    "teamConfirms": "team confirms",
+    "calendar": {
+      "prev": "Previous month",
+      "next": "Next month",
+      "selected": "Selected"
+    }
   },
   "franchise": {
     "title": "Become a SupaKoto partner",

@@ -189,7 +189,7 @@ for (const locale of ["en", "ar"]) {
   await clickText(L.egypt); await clickText(L.next);
   await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
   await page.fill("#bk-make", "Toyota"); await page.fill("#bk-model", "Prado"); await clickText(L.next);
-  await page.fill("#bk-date", "2026-09-01"); await clickText(L.next);
+  await page.locator("main button.sk-day:not([disabled])").first().click(); await clickText(L.next); // first selectable day = tomorrow
   await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
   await page.fill("#bk-name", "E2E Tester"); await page.fill("#bk-phone", "0100000000"); await clickText(L.next);
   await page.locator('button[data-track="booking:confirm"]').click();

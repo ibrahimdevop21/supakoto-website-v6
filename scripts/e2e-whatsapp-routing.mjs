@@ -42,7 +42,7 @@ async function booking(locale, cookieRegion, formRegion) {
   await clickText(page, L.next);
   await page.fill("#bk-make", "Toyota"); await page.fill("#bk-model", "Prado");
   await clickText(page, L.next);
-  await page.fill("#bk-date", "2026-09-01");
+  await page.locator("main button.sk-day:not([disabled])").first().click(); // first selectable day = tomorrow
   await clickText(page, L.next);
   await page.locator("main button[aria-pressed]").first().click(); // time
   await clickText(page, L.next);

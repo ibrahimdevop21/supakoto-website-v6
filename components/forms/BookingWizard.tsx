@@ -3,13 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { branchesForRegion } from "@/content/branches";
+import { branchesForRegion, branchHours, timeSlotsFor } from "@/content/branches";
 import { services, type ServiceId, type Substrate } from "@/content/services";
 import { regions, type RegionId } from "@/content/regions";
 import { useRegion } from "@/components/providers/RegionProvider";
 import { Button } from "@/components/ui/Button";
 import { Label, Input, PhoneInput, Textarea } from "@/components/ui/Field";
 import { choiceClass } from "@/components/forms/choice";
+import { DatePicker } from "@/components/forms/DatePicker";
 import { cn } from "@/lib/cn";
 import { EASE_OUT } from "@/lib/motion";
 import { track, type Flow } from "@/lib/analytics";
@@ -63,8 +64,6 @@ const GROUPS: Array<{ key: "vehicle" | "building" | "pending"; substrates: Subst
   { key: "building", substrates: ["building"] },
   { key: "pending", substrates: ["marine", "interior"] },
 ];
-
-const TIME_SLOTS = ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
 
 type Draft = {
   serviceId: ServiceId | "";
@@ -219,6 +218,13 @@ export function BookingWizard() {
   const back = () => setStepIndex((i) => Math.max(i - 1, 0));
 
   const regionBranches = branchesForRegion(draft.region);
+  const branch = regionBranches.find((b) => b.id === draft.branchId);
+  // Hourly requests within the branch's hours (DEFAULT_HOURS until ops
+  // confirms). Nothing is unavailable yet — capacity lives in bdm-flow and
+  // the form does not talk to it; when it does, mark slots disabled here
+  // rather than hiding them so the customer still sees the shape of the day.
+  const slots = branch ? timeSlotsFor(branch) : [];
+  const unavailable = new Set<string>(); // bdm-flow capacity, when it arrives
 
   // Per-flow wording: the sale is different, so the CTA and the success line are.
   const waSource = flow === "building" ? "quote" : flow === "enquiry" ? "enquiry" : "booking";
@@ -463,31 +469,36 @@ export function BookingWizard() {
             )}
 
             {step === "date" && (
-              <div>
-                <Label htmlFor="bk-date">{t("steps.date.title")}</Label>
-                <Input
-                  id="bk-date"
-                  type="date"
-                  value={draft.date}
-                  onChange={(e) => patch({ date: e.target.value })}
-                />
-              </div>
+              <DatePicker id="bk-date" value={draft.date} onChange={(iso) => patch({ date: iso, time: "" })} />
             )}
 
-            {step === "time" && (
-              <div className="grid grid-cols-4 gap-3">
-                {TIME_SLOTS.map((slot) => (
-                  <button
-                    key={slot}
-                    type="button"
-                    onClick={() => patch({ time: slot })}
-                    aria-pressed={draft.time === slot}
-                    className={cn(choiceClass(draft.time === slot), "text-center")}
-                    dir="ltr"
-                  >
-                    {slot}
-                  </button>
-                ))}
+            {step === "time" && branch && (
+              <div>
+                <p className="mb-3 text-small text-fg-subtle">
+                  {t("steps.time.hours")}{" "}
+                  <span dir="ltr" className="tabular-nums">
+                    {branchHours(branch).open}–{branchHours(branch).close}
+                  </span>
+                </p>
+                <div className="grid grid-cols-4 gap-3">
+                  {slots.map((slot) => (
+                    <button
+                      key={slot}
+                      type="button"
+                      disabled={unavailable.has(slot)}
+                      onClick={() => patch({ time: slot })}
+                      aria-pressed={draft.time === slot}
+                      className={cn(
+                        choiceClass(draft.time === slot),
+                        "text-center tabular-nums disabled:cursor-not-allowed disabled:opacity-40",
+                      )}
+                      dir="ltr"
+                    >
+                      {slot}
+                    </button>
+                  ))}
+                </div>
+                <p className="mt-4 text-small text-fg-subtle">{t("steps.time.request")}</p>
               </div>
             )}
 
