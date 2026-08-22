@@ -24,7 +24,8 @@ const SECTIONS = [
   "contact",
 ] as const;
 const ITEM_SECTIONS = new Set(["cookies", "thirdParties", "rights"]);
-const LAST_UPDATED = "2026-08-22";
+/** One constant drives BOTH the effective-from and last-updated lines. */
+const POLICY_DATE = "2026-08-22";
 
 export async function generateMetadata({
   params,
@@ -52,7 +53,10 @@ export default async function PrivacyPage({
 
   return (
     <main>
-      <PageHero title={t("title")} sub={t("updated", { date: LAST_UPDATED })} />
+      <PageHero
+        title={t("title")}
+        sub={`${t("effective", { date: POLICY_DATE })} · ${t("updated", { date: POLICY_DATE })}`}
+      />
       <Section>
         <Container className="max-w-3xl space-y-12">
           {SECTIONS.map((key) => (

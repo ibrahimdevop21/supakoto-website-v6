@@ -85,6 +85,15 @@ Estimate: ~1 day including e2e, no dependencies.
 | B | Soft notice bar: visible, accept/decline, pixels load only after accept (or: load by default, stop on decline) | ~10–30% | good-faith consent story in both countries |
 | C | Prior-consent blocking gate + Consent Mode v2 | ~20–50% (GA4 partially modeled) | strongest, GDPR-grade |
 
+## OPEN ITEM (recorded 2026-08-22, Ibrahim — not to be acted on yet)
+
+The published privacy policy grants a right to "object to processing or
+withdraw consent for advertising measurement", but the site has **no
+mechanism** to exercise it — no banner, no toggle, no opt-out path beyond
+emailing privacy@supakoto.com. The stated right is currently serviceable
+only manually. This gap closes automatically with Option B/C below; until
+then any withdrawal request must be handled by hand.
+
 **Recommendation:** stay on A while campaigns are paused; ship B in the
 same change as Meta Advanced Matching if AM is approved (AM materially
 strengthens the case for asking first), and before any serious UAE spend.

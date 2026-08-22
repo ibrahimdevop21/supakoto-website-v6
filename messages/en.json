@@ -2051,6 +2051,7 @@
   "privacy": {
     "title": "Privacy Policy",
     "updated": "Last updated: {date}",
+    "effective": "Effective from: {date}",
     "sections": {
       "collect": {
         "title": "What we collect",
@@ -2075,12 +2076,13 @@
       },
       "thirdParties": {
         "title": "Who receives data",
-        "body": "Analytics and advertising tracking runs on this site. Three companies receive data:",
+        "body": "Analytics and advertising tracking runs on this site. The companies below receive data. These companies process data on servers outside Egypt and the UAE:",
         "items": [
           "Google (Google Analytics and Google Ads): the pages you visit, site actions — including completed booking, quote and enquiry requests with their request ref — device and browser data, and ad click IDs.",
           "Meta (Facebook and Instagram): page views, contact clicks, and completed requests with their request ref, to measure and improve our ads.",
-          "TikTok: the same events. TikTok's tool may also capture a hashed (scrambled) copy of the phone number you type into a form and use it for ad matching — the hash cannot be read back as your number.",
-          "We do not ourselves send your name or phone number to any of these companies; your request is identified by its ref (SK-XXXXXX). We never sell your data."
+          "TikTok: the same events.",
+          "WhatsApp (Meta): the booking, quote and enquiry details you choose to send us over WhatsApp — name, phone number and your car, building or boat details — travel through WhatsApp's messaging service.",
+          "When you complete a request, we may send a scrambled (hashed) copy of your phone number and name to these companies so they can match your request to the ad you saw. The scrambled copy cannot be read back as your details. Your request is also identified by its ref (SK-XXXXXX). We never sell your data."
         ]
       },
       "retention": {
@@ -2099,7 +2101,7 @@
       },
       "contact": {
         "title": "Privacy questions",
-        "body": "Any question or request about your data? Reach us through the contact page and we'll answer."
+        "body": "The data controller is [TODO: registered legal entity name — confirm with Ibrahim]. Any question or request about your data? Write to privacy@supakoto.com or reach us through the contact page and we'll answer."
       }
     },
     "seoTitle": "Privacy Policy | SupaKoto",
