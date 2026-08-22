@@ -15,8 +15,15 @@ docs/progress/22-privacy-truth.md.** Gate: build 7 guards, lint,
 typecheck, parity, smoke 196/196.
 
 ## Exact next action
-URGENT: Ibrahim's word to push/merge phase-22 — the live /privacy stays
-false until it deploys. Also his side: TikTok Events Manager → pixel
+DONE 2026-08-22 afternoon: six copy corrections applied (future-proofed
+hashed-data wording, controller + privacy@supakoto.com, cross-border,
+WhatsApp recipient, effective date; cookie-name "typo" was a chat-render
+artifact — files were correct), one real RTL bidi defect fixed
+(SK-XXXXXX isolate), then MERGED + DEPLOYED (main 89bf839) and verified
+serving on both live URLs. OPEN: Ibrahim supplies the registered legal
+entity name (a marked TODO renders on /privacy until then); TikTok AAM
+toggle; GA4 form-interactions toggle; consent-withdrawal mechanism gap
+recorded in CONSENT-DECISION.md. Also his side: TikTok Events Manager → pixel
 settings → Advanced Matching → OFF; GA4 form-interactions toggle (Phase
 21 fix #3); read CONSENT-DECISION.md + META-ADVANCED-MATCHING.md.
 
