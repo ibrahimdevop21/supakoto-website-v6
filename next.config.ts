@@ -7,6 +7,14 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  // The OG routes read these with fs at request time; Vercel's output
+  // tracing doesn't follow process.cwd()-joined paths, so without this
+  // the files are absent from the function bundle and every
+  // opengraph-image 500s with ENOENT (2026-08-22 incident, ~2k/24h).
+  outputFileTracingIncludes: {
+    "/[locale]/opengraph-image": ["./assets/og/**", "./public/brand/logo-white.png"],
+    "/[locale]/**/opengraph-image": ["./assets/og/**", "./public/brand/logo-white.png"],
+  },
   // V2 → V6 permanent redirects. Source of truth: docs/REDIRECTS.md.
   // V2 served EN at root and AR under /ar — V6 inverts that, so every
   // indexed /ar/* URL must be remapped or it lands on the wrong language.
