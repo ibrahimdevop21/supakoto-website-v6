@@ -80,5 +80,17 @@ carrying `auto_phone_number` (or stop appearing entirely).
   → build fails; new copy → passes. Negative-test both directions.
 - Full gate: build (7 guards) · lint · typecheck · parity · smoke.
 
-## SHIPPED
-(fill at end)
+## SHIPPED — 2026-08-22
+- `da35a02` — /privacy rewritten (7 sections, cookie table with measured
+  lifetimes, Google/Meta/TikTok named, TikTok hashed-phone capture
+  disclosed, retention, PDPL rights EG+UAE, both locales); /terms +
+  data-and-measurement section; guard #7 `check-privacy-claims.mjs`
+  (negative-tested both directions); `CONSENT-DECISION.md` (report only).
+- Verified: build (7 guards) · lint 0/0 · typecheck · parity (incl. item
+  arrays) · smoke 196/196 · both pages render disclosure in ar + en.
+- **Ibrahim's side:** (1) TikTok Events Manager → pixel
+  `D32GSIRC77U649U91T50` → Settings → Advanced Matching → turn OFF
+  "Automatic Advanced Matching"; verify with
+  `scratchpad/enricham-capture.mjs` (auto_phone_number must disappear).
+  (2) Read CONSENT-DECISION.md → decide. (3) Word on push/merge — the
+  live /privacy stays factually wrong until this branch deploys.

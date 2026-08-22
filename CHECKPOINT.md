@@ -1,3 +1,27 @@
+# CHECKPOINT — 2026-08-22 (night)
+
+## TL;DR (Phase 21 LIVE; Phase 22 privacy-truth ready, awaiting word)
+
+**Phase 21 merged + pushed (main `bd57ddf`, Vercel deployed):** stub forms
+GA4-only, 30-day first-touch attribution cookie live in production.
+**Phase 22 on `feat/phase-22-privacy-truth` (3 commits, LOCAL):** /privacy
+rewritten to describe the real tracking (cookie table with lifetimes
+measured on prod, Google/Meta/TikTok named, PDPL rights EG+UAE), /terms
+data section, guard #7 check-privacy-claims (build fails on
+no-tracking claims while pixels are set), CONSENT-DECISION.md (not
+built). **Captured evidence: TikTok EnrichAM sends a SHA-256 of the phone
+typed into the wizard — disable instructions + verify script in
+docs/progress/22-privacy-truth.md.** Gate: build 7 guards, lint,
+typecheck, parity, smoke 196/196.
+
+## Exact next action
+URGENT: Ibrahim's word to push/merge phase-22 — the live /privacy stays
+false until it deploys. Also his side: TikTok Events Manager → pixel
+settings → Advanced Matching → OFF; GA4 form-interactions toggle (Phase
+21 fix #3); read CONSENT-DECISION.md + META-ADVANCED-MATCHING.md.
+
+---
+
 # CHECKPOINT — 2026-08-22 (evening)
 
 ## TL;DR (Phase 21 tracking fixes done, awaiting Ibrahim)
