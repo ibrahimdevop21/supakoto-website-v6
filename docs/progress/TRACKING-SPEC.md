@@ -40,7 +40,15 @@ first, then the code.*
 | `whatsapp_click` | any wa.me link | `source` ∈ booking · quote · enquiry · fab · footer · branch_card · branch_map · service_page · contact; `region?`, `branch?`, `ref?` | `whatsapp_click` | `Contact` | `Contact` | — |
 | `call_click` | any tel: link | `branch` (branch id or `<region>-regional`), `source` | `call_click` | `Contact` | `Contact` | — |
 | `branch_view` | branch card / map pin interaction | `branch`, `action` ∈ call · whatsapp · directions · map_popup | custom | `trackCustom` | custom | — |
-| `form_submit` | stub forms submit | `form` ∈ contact · careers · franchise · business · warranty_claim | `form_submit` | `Lead` (careers → `SubmitApplication`) | `SubmitForm` | — |
+| `form_submit` | stub forms submit | `form` ∈ contact · careers · franchise · business · warranty_claim | `form_submit` | — | — | — |
+
+**`form_submit` is GA4-only while the forms are stubs** (Phase 21, audit
+defect #1): submissions are discarded locally, so no platform may receive a
+conversion for them. **Requirement:** when a form is wired to a real
+destination, its submit gets an SK-ref and fires with a dedup key
+(`eventID` / `event_id` = ref) exactly like the three completions — only
+then do Meta (`Lead`; careers `SubmitApplication`) and TikTok
+(`SubmitForm`) come back.
 
 "custom" = same event name on every platform (`gtag('event', name)`,
 `fbq('trackCustom', name)`, `ttq.track(name)`).
@@ -99,7 +107,7 @@ copy deduplicate (`event_id` / `eventID` = ref).
 ```ts
 type IntentEntry = {
   ref: string;                 // "SK-A7F3K2"
-  kind: "booking" | "quote";
+  kind: "booking" | "quote" | "enquiry";
   at: string;                  // ISO-8601, client clock
   region: "egypt" | "uae";
   branch: string | null;       // content/branches.ts id (booking) — null for quotes
@@ -109,7 +117,7 @@ type IntentEntry = {
   draft: BookingDraft | QuoteDraft;   // the raw form state (name/phone included)
 };
 
-type Attribution = {           // sessionStorage["sk-attribution"], captured on landing
+type Attribution = {           // cookie "sk-attribution" (30 days), captured on first landing
   landed_at: string;           // ISO-8601
   landing_page: string;        // pathname + search
   referrer: string;
@@ -119,8 +127,11 @@ type Attribution = {           // sessionStorage["sk-attribution"], captured on 
 };
 ```
 
-Attribution is first-touch per browser session; a later landing that carries
-new UTMs or a click-id overwrites it.
+Attribution is **first-touch with a 30-day window** (Phase 21, audit fix
+#2): stored in a first-party cookie (`Max-Age` 30 days, `Path=/`,
+`SameSite=Lax`, `Secure` on https). A later landing NEVER overwrites — not
+even with new UTMs or click-ids; the cookie expiring starts the next first
+touch. (Supersedes the Phase 18 per-session rule.)
 
 ## 5. Phase 3 contract (not built in Phase 1)
 

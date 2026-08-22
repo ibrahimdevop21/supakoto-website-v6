@@ -87,8 +87,9 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   const fbNet = fbBeacons(beacons);
   ok(fbNet.some((b) => /ev=PageView/.test(b) && /id=\d{15,16}/.test(b)) || (await fbCalls(page)).some((b) => /ev=PageView/.test(b)), `Meta: PageView (${fbNet.length ? "network beacon" : "fbq call"})`);
   ok(ttBeacons(beacons).some((b) => /"event":"Pageview"/.test(b) || /Pageview|page/i.test(b)), "TikTok beacon: page");
-  const attr = await page.evaluate(() => JSON.parse(sessionStorage.getItem("sk-attribution") ?? "null"));
-  ok(attr && attr.utm_source === "e2e" && attr.fbclid === "FB123" && attr.gclid === "GC456" && attr.landing_page.startsWith("/en"), "attribution captured (utm/fbclid/gclid/landing)");
+  const attrCookie = (await ctx.cookies()).find((c) => c.name === "sk-attribution");
+  const attr = attrCookie ? JSON.parse(decodeURIComponent(attrCookie.value)) : null;
+  ok(attr && attr.utm_source === "e2e" && attr.fbclid === "FB123" && attr.gclid === "GC456" && attr.landing_page.startsWith("/en"), "attribution captured in cookie (utm/fbclid/gclid/landing)");
   // client-side navigation via header link
   beacons.length = 0;
   await page.click('header a[href="/en/services"]');
@@ -332,6 +333,23 @@ for (const locale of ["en", "ar"]) {
   await ctx.close();
 }
 
+/* 5c. Attribution: first-party cookie, 30-day window, first touch wins (Phase 21) */
+{
+  const { ctx, page } = await fresh("/en?utm_source=first&utm_campaign=alpha&fbclid=F1");
+  await wait(800);
+  const cookie = (await ctx.cookies()).find((c) => c.name === "sk-attribution");
+  const now = Date.now() / 1000;
+  ok(Boolean(cookie), "sk-attribution stored as a first-party cookie");
+  ok(cookie && cookie.expires > now + 29 * 86400 && cookie.expires < now + 31 * 86400, `cookie expiry ≈ 30 days (${cookie ? Math.round((cookie.expires - now) / 86400) : "?"}d)`);
+  // Second landing in the SAME browser with fresh campaign params must NOT overwrite.
+  await page.goto(`${BASE}/en/services/ppf?utm_source=second&gclid=G2`, { waitUntil: "domcontentloaded" });
+  await wait(800);
+  const after = (await ctx.cookies()).find((c) => c.name === "sk-attribution");
+  const attr = after ? JSON.parse(decodeURIComponent(after.value)) : null;
+  ok(attr && attr.utm_source === "first" && attr.utm_campaign === "alpha" && attr.fbclid === "F1" && !attr.gclid && !attr.utm_source?.includes("second"), "first touch wins — later landing with new UTMs/gclid does not overwrite");
+  await ctx.close();
+}
+
 /* 6. Stub forms + contact info */
 for (const [path, form] of [["/en/contact", "contact"], ["/en/careers", "careers"], ["/en/franchise", "franchise"], ["/en/business", "business"], ["/en/warranty/claim", "warranty_claim"]]) {
   const { ctx, page, beacons } = await fresh(path);
@@ -353,7 +371,11 @@ for (const [path, form] of [["/en/contact", "contact"], ["/en/careers", "careers
   await wait(500);
   const ev = await log(page);
   ok(has(ev, "form_submit", (e) => e.form === form), `form_submit(${form}) on ${path}`);
-  ok([...fbBeacons(beacons), ...(await fbCalls(page))].some((b) => form === "careers" ? /ev=SubmitApplication/.test(b) : /ev=Lead/.test(b)), `Meta ${form === "careers" ? "SubmitApplication" : "Lead"} for form_submit(${form})`);
+  // Phase 21: stub submissions are GA4-only — a platform Lead for a form
+  // that is discarded locally is a fabricated conversion (audit defect #1).
+  ok((await gaCalls(page)).some((b) => /^en=form_submit&/.test(b)), `GA4 form_submit(${form}) issued`);
+  ok(![...fbBeacons(beacons), ...(await fbCalls(page))].some((b) => /ev=Lead|ev=SubmitApplication/.test(b)), `Meta receives NOTHING for stub form_submit(${form})`);
+  ok(!ttBeacons(beacons).some((b) => /SubmitForm|"Lead"/.test(b)), `TikTok receives NOTHING for stub form_submit(${form})`);
   if (form === "contact") {
     await page.locator('a[data-track="call:contact"]').click();
     await page.locator('a[data-track="whatsapp:contact"]').click();

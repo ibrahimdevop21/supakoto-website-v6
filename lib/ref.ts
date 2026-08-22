@@ -3,7 +3,7 @@
  * (Phase 18 item 6). Format `SK-XXXXXX`: six uppercase alphanumerics from an
  * alphabet without the ambiguous O/0 and I/1 (32 symbols → ~1.07 × 10⁹
  * combinations). Generated client-side at booking_complete /
- * quote_complete; contract in docs/progress/TRACKING-SPEC.md.
+ * quote_complete / enquiry_complete; contract in docs/progress/TRACKING-SPEC.md.
  */
 export const REF_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 export const REF_PATTERN = /^SK-[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{6}$/;

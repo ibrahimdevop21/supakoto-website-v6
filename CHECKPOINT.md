@@ -1,3 +1,26 @@
+# CHECKPOINT — 2026-08-22 (evening)
+
+## TL;DR (Phase 21 tracking fixes done, awaiting Ibrahim)
+
+**Tracking audit ran (read-only, prod-verified: `TRACKING-AUDIT-V6.md` —
+install trustworthy, all Phase 19 events live with eventID=ref; 6 audit
+test refs listed there for Events Manager discounting). Phase 21 fixes on
+`feat/phase-21-tracking-fixes` (3 commits off main 27866bf, LOCAL only):**
+stub forms no longer send Meta/TikTok conversions (GA4-only until forms
+persist + get refs — rule in TRACKING-SPEC.md); attribution now a 30-day
+first-touch first-party cookie (never overwritten; supersedes the session
+rule); spec drift fixed; `META-ADVANCED-MATCHING.md` = requirements report
+(NOT built — Ibrahim decides). e2e-analytics extended to 143/143; build/
+lint/typecheck/guards green. Gallery stays untracked by Ibrahim's word.
+
+## Exact next action
+Ibrahim: (1) GA4 Admin → Data streams → web stream → Enhanced measurement
+→ turn OFF "Form interactions" (fix #3, property-side). (2) Read the AM
+report → decide. (3) Word on push/merge of phase-21. Then the standing
+items: pixel sanity check in Events Managers, domain cutover.
+
+---
+
 # CHECKPOINT — 2026-08-22
 
 ## TL;DR (2026-08-22, Phase 20 done + verified, awaiting Ibrahim's word)
