@@ -6,8 +6,8 @@ import { Section } from "@/components/ui/Section";
 import { Heading } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 
-const SECTIONS = ["scope", "booking", "warranty", "liability"] as const;
-const LAST_UPDATED = "2026-08-05";
+const SECTIONS = ["scope", "booking", "warranty", "liability", "data"] as const;
+const LAST_UPDATED = "2026-08-22";
 
 export async function generateMetadata({
   params,

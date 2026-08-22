@@ -2051,26 +2051,61 @@
   "privacy": {
     "title": "Privacy Policy",
     "updated": "Last updated: {date}",
+    "effective": "Effective from: {date}",
     "sections": {
       "collect": {
         "title": "What we collect",
-        "body": "The contact details you enter in booking and contact forms: name, phone number, email, and the car details you share with us."
+        "body": "The details you enter in our booking, quote and enquiry forms: name, phone number, email on the contact form, and the car, building or boat details you share. We also collect technical data through measurement tools — the pages you visit, your device and browser type, and the campaign that brought you here (campaign parameters and ad click IDs such as fbclid and gclid)."
       },
       "use": {
         "title": "How we use it",
-        "body": "Confirming bookings, answering enquiries, warranty follow-up, and improving our service. We do not sell your data to any third party."
+        "body": "Confirming bookings, answering enquiries, warranty follow-up, improving the service, and measuring which ads and campaigns actually bring requests. We never sell your data."
       },
       "cookies": {
-        "title": "Cookies",
-        "body": "We use a single cookie to remember your region choice (Egypt / UAE). No advertising trackers."
+        "title": "Cookies and on-device storage",
+        "body": "We use analytics and advertising measurement, so the site stores more than one cookie. Set by us:",
+        "items": [
+          "sk-region — remembers your region choice (Egypt / UAE). One year.",
+          "sk-attribution — remembers the campaign or link that first brought you to the site, including ad click IDs (fbclid, gclid). 30 days.",
+          "NEXT_LOCALE — remembers your browsing language. Deleted when the browser closes.",
+          "Google cookies (_ga, _ga_*, _gcl_au) — analytics and advertising measurement. Up to 13 months.",
+          "Meta cookie (_fbp) — advertising measurement. 3 months.",
+          "TikTok cookies (_ttp, _tt_enable_cookie, ttcsid) — advertising measurement. Up to 13 months.",
+          "Your request log (request ref, name, phone, form entries — last 20 requests) is kept in your browser's local storage on your device only; we never receive it from there, and you can clear it from your browser at any time."
+        ]
+      },
+      "thirdParties": {
+        "title": "Who receives data",
+        "body": "Analytics and advertising tracking runs on this site. The companies below receive data. These companies process data on servers outside Egypt and the UAE:",
+        "items": [
+          "Google (Google Analytics and Google Ads): the pages you visit, site actions — including completed booking, quote and enquiry requests with their request ref — device and browser data, and ad click IDs.",
+          "Meta (Facebook and Instagram): page views, contact clicks, and completed requests with their request ref, to measure and improve our ads.",
+          "TikTok: the same events.",
+          "WhatsApp (Meta): the booking, quote and enquiry details you choose to send us over WhatsApp — name, phone number and your car, building or boat details — travel through WhatsApp's messaging service.",
+          "When you complete a request, we may send a scrambled (hashed) copy of your phone number and name to these companies so they can match your request to the ad you saw. The scrambled copy cannot be read back as your details. Your request is also identified by its ref (SK-XXXXXX). We never sell your data."
+        ]
+      },
+      "retention": {
+        "title": "How long we keep data",
+        "body": "Request details you send us over WhatsApp live in that conversation and in our booking records for as long as service and warranty follow-up needs them. Cookies expire on the schedules listed above. The request log in your browser stays on your device until you clear it."
+      },
+      "rights": {
+        "title": "Your rights",
+        "body": "Under Egypt's Personal Data Protection Law (151/2020) and the UAE's Personal Data Protection Law (Federal Decree-Law 45/2021), you can:",
+        "items": [
+          "Ask what data we hold about you and receive a copy.",
+          "Ask us to correct or delete it.",
+          "Object to processing or withdraw consent for advertising measurement.",
+          "Complain to the data protection authority in your country."
+        ]
       },
       "contact": {
         "title": "Privacy questions",
-        "body": "Any question about your data? Reach us through the contact page and we'll answer."
+        "body": "The data controller is [TODO: registered legal entity name — confirm with Ibrahim]. Any question or request about your data? Write to privacy@supakoto.com or reach us through the contact page and we'll answer."
       }
     },
     "seoTitle": "Privacy Policy | SupaKoto",
-    "seoDescription": "What we collect in booking and contact forms, how we use it to confirm bookings and follow up warranties, and the one cookie that stores your region. Never sold."
+    "seoDescription": "What SupaKoto collects and why: booking details, the cookies we and our measurement partners set, what Google, Meta and TikTok receive, retention, and your rights under Egypt and UAE data protection law."
   },
   "terms": {
     "title": "Terms & Conditions",
@@ -2091,6 +2126,10 @@
       "liability": {
         "title": "Liability",
         "body": "We stand by our documented installation standards. Any service concern is reviewed by management and handled under the warranty policy."
+      },
+      "data": {
+        "title": "Data & measurement",
+        "body": "Using the site runs the analytics and advertising measurement described in the Privacy Policy, including cookies from Google, Meta and TikTok. Submitting a booking, quote or enquiry means we contact you on the number you provide, and your request is identified by its ref (SK-XXXXXX)."
       }
     },
     "seoTitle": "Terms & Conditions | SupaKoto",
