@@ -1,3 +1,26 @@
+# CHECKPOINT — 2026-08-22 (late night)
+
+## TL;DR (Phase 23 forms destination built, awaiting env + mapping word)
+
+**Since the last checkpoint, all on main and LIVE:** phase 22 privacy
+rewrite + six corrections + controller trade name + CR 141558; OG-image
+ENOENT fixed (outputFileTracingIncludes) with hero background + can't-500
+fallback, verified on prod. **Phase 23 on `feat/phase-23-forms-destination`
+(ec9d5ca, LOCAL):** the five forms now really deliver — /api/forms →
+Resend → info@supakoto.com, SK-ref in subject, honeypot + rate limit,
+claim form gained name/phone, FormShell replaced StubForm. e2e 163/163.
+**Deploy blocked on: RESEND_API_KEY (+FORMS_TO/FROM) in Vercel env AND
+Ibrahim's approval of the per-form event mapping (doc 23 LD-3 — careers/
+claims never Lead).** PHASE1-RECON.md committed with this phase.
+
+## Exact next action
+Ibrahim: confirm Resend env vars are set on Vercel + approve/adjust the
+mapping table in docs/progress/23-forms-destination.md → then merge,
+deploy, live smoke (submit all five forms, confirm tagged emails with
+refs at info@), wire the approved mapping in the same window.
+
+---
+
 # CHECKPOINT — 2026-08-22 (night)
 
 ## TL;DR (Phase 21 LIVE; Phase 22 privacy-truth ready, awaiting word)

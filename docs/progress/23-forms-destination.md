@@ -51,5 +51,17 @@ treatment like the three wizard completions. Contact is mixed intent
 optimization. Careers + claims are not acquisition and stay out of ad
 platforms entirely per Ibrahim's instruction.
 
-## SHIPPED
-(fill at end)
+## SHIPPED — 2026-08-22 (`ec9d5ca`, LOCAL — not merged)
+- `/api/forms` + FormShell (StubForm deleted), claim form name+phone,
+  intent kind `form`, stub copy removed (booking.stub restored — wizard
+  copy, not a form stub), env names in .env.example.
+- Verified: e2e-analytics **163/163** (forms POST with ref, honeypot,
+  success-ref, Meta/TikTok still silent), route failure modes
+  curl-verified (503 / honeypot-accept / 400 / 400), build 7 guards,
+  lint 0/0, typecheck, parity. GA4 SPA-nav beacon assert hardened to a
+  6s poll (flush-timing flake, queue check already proved issuance).
+- **Deploy blocked on:** (1) RESEND_API_KEY + FORMS_TO_EMAIL /
+  FORMS_FROM_EMAIL set in Vercel env (from must be on the verified
+  domain), (2) Ibrahim's word on the event mapping above (LD-3), then
+  merge → live smoke: submit each form once, confirm five tagged emails
+  with refs arrive at info@supakoto.com.
