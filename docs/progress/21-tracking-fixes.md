@@ -47,5 +47,17 @@ Gallery tracking (Ibrahim decides separately). CAPI. Any AM code.
 - Completions still send Meta Lead + eventID=ref (untouched path).
 - Guards, build, lint, typecheck, e2e-analytics green.
 
-## SHIPPED
-(fill at end)
+## SHIPPED — 2026-08-22
+- `5108cff` — fixes #1 + #2 (form_submit GA4-only + re-arm rule in spec;
+  30-day first-touch cookie; spec/e2e/docstring updates).
+- `docs/progress/META-ADVANCED-MATCHING.md` — AM requirements report
+  (fields, normalisation, hook point, EG/UAE privacy) — NOT built.
+- Fix #3 is Ibrahim's GA4 property setting: Admin → Data streams →
+  supakoto web stream → Enhanced measurement (gear) → toggle OFF
+  **“Form interactions”**. Leave “Page views” ON (its history-events
+  sub-option was observed not double-counting our SPA page_view);
+  “Scroll” optional — it's noise, not a conflict.
+- Verified: build (6 guards) · lint 0/0 · typecheck · e2e-analytics
+  **143/143** (was 130; new assertions: zero Meta/TikTok beacons on stub
+  submits, cookie expiry ≈30d, first-touch no-overwrite).
+- Local only on `feat/phase-21-tracking-fixes`; no push/merge.
