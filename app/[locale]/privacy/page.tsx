@@ -27,10 +27,11 @@ const ITEM_SECTIONS = new Set(["cookies", "thirdParties", "rights"]);
 /** One constant drives BOTH the effective-from and last-updated lines. */
 const POLICY_DATE = "2026-08-22";
 /**
- * Controller name in sections.contact (messages/{en,ar}.json) is the
- * TRADE name — «سوبا كوتو لتجارة مواد العزل الحراري والحماية» / "Supa
- * Koto" — interim until Ibrahim supplies the full registered legal
- * entity name and legal form (2026-08-22).
+ * Controller line in sections.contact (messages/{en,ar}.json) carries the
+ * TRADE name «سوبا كوتو لتجارة مواد العزل الحراري والحماية» / "Supa Koto"
+ * + commercial register no. 141558 (Ibrahim, 2026-08-22). Still
+ * outstanding: the legal form (ش.ذ.م.م / ش.م.م / …) and whether a separate
+ * UAE entity must be named for the Emirates operation.
  */
 
 export async function generateMetadata({
