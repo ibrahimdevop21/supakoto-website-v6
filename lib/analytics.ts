@@ -97,8 +97,8 @@ export type EventMap = {
     branch: string;
     action: "call" | "whatsapp" | "directions" | "map_popup";
   };
-  /** Stub forms (contact / careers / franchise / business / warranty claim). */
-  form_submit: { form: FormId };
+  /** Site forms (contact / careers / franchise / business / warranty claim) — real destination since Phase 23. */
+  form_submit: { form: FormId; ref?: string };
 };
 
 export type EventName = keyof EventMap;

@@ -939,6 +939,8 @@
     "title": "Warranty claim",
     "sub": "Fill this in and we'll come back with inspection steps",
     "fields": {
+      "name": "Full name",
+      "phone": "Phone number",
       "plate": "Plate number",
       "branch": "Installing branch",
       "invoiceDate": "Invoice date",
@@ -949,7 +951,6 @@
       "submit": "Submit claim"
     },
     "success": "Received. We'll contact you within two working days.",
-    "stub": "[Claim submission activates with system integration — this form is temporary]",
     "seoTitle": "TAKAI Warranty Claim — File a Request | SupaKoto",
     "seoDescription": "File a warranty claim for your protection film: plate number, branch, invoice date, issue description and photos — inspection steps within two working days."
   },
@@ -2136,7 +2137,9 @@
     "seoDescription": "Terms for using the SupaKoto website and booking car protection services in Egypt and the UAE: bookings and appointments, warranty by tier, and liability."
   },
   "common": {
-    "formStub": "[Submission activates with system integration — this form is a stub for now]"
+    "formError": "Sending failed. Please try again — or message us on WhatsApp.",
+    "formRef": "Request ref:",
+    "formSending": "Sending…"
   },
   "notFound": {
     "title": "This page doesn't exist",

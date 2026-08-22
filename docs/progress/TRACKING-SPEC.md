@@ -72,7 +72,7 @@ copy deduplicate (`event_id` / `eventID` = ref).
 | Service pages | `components/providers/ServiceViewTracker.tsx` | service_view |
 | Booking wizard (all seven services) | `components/forms/BookingWizard.tsx` | booking_start / quote_start / enquiry_start (on service pick), booking_step, booking_complete / quote_complete / enquiry_complete, whatsapp_click(booking · quote · enquiry) |
 | Building quote page | `components/forms/BuildingQuoteForm.tsx` (fieldsets shared with the wizard: `components/forms/building/`) | quote_start(page), quote_complete(page), whatsapp_click(quote) |
-| Stub forms | `components/forms/StubForm.tsx` (`formId`) | form_submit |
+| Site forms ×5 (real destination since Phase 23: POST `/api/forms` → Resend → info@supakoto.com, SK-ref in subject) | `components/forms/FormShell.tsx` (`formId`) | form_submit (+ref) — platform mapping pending Ibrahim (doc 23) |
 
 ## 3. Ref ID — `SK-XXXXXX`
 
@@ -101,7 +101,7 @@ copy deduplicate (`event_id` / `eventID` = ref).
 
 ## 4. Stored payload (client-side intent log)
 
-`localStorage["sk-booking-intents"]`, `localStorage["sk-building-quote-intents"]` and `localStorage["sk-enquiry-intents"]` (writer: `lib/intent.ts`)
+`localStorage["sk-booking-intents"]`, `localStorage["sk-building-quote-intents"]`, `localStorage["sk-enquiry-intents"]` and `localStorage["sk-form-intents"]` (Phase 23; writer: `lib/intent.ts`)
 — arrays, last 20 entries each:
 
 ```ts

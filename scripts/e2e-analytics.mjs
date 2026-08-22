@@ -99,6 +99,10 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   ok(has(ev, "page_view", (e) => e.path === "/en/services"), "page_view on client-side route change (/en/services)");
   ok(ev.filter((e) => e.event === "page_view").length === 2, `exactly 2 page_views after one navigation (${ev.filter((e) => e.event === "page_view").length})`);
   ok((await gaCalls(page)).filter((b) => /^en=page_view&/.test(b)).length === 2 && (await gaCalls(page)).some((b) => /^en=page_view&/.test(b) && /page_path=\/en\/services/.test(b)), "GA4: second page_view issued for /en/services after SPA nav");
+  // gtag batches /g/collect flushes — the queue check above proves the event
+  // was issued; poll up to 6s for the wire beacon instead of a fixed 1.2s
+  // (failed twice on 2026-08-22 purely on flush timing).
+  for (let i = 0; i < 12 && gaNet(beacons).length === 0; i++) await wait(500);
   ok(gaNet(beacons).length >= 1, "GA4: /g/collect beacon sent after SPA nav");
   // Meta reports the in-page PageView count too (one per route)
   ok((await fbCalls(page)).filter((b) => /ev=PageView/.test(b)).length === 2, "Meta: exactly 2 PageView calls after one navigation");
@@ -350,9 +354,14 @@ for (const locale of ["en", "ar"]) {
   await ctx.close();
 }
 
-/* 6. Stub forms + contact info */
+/* 6. Site forms (real destination since Phase 23 — /api/forms intercepted) + contact info */
 for (const [path, form] of [["/en/contact", "contact"], ["/en/careers", "careers"], ["/en/franchise", "franchise"], ["/en/business", "business"], ["/en/warranty/claim", "warranty_claim"]]) {
   const { ctx, page, beacons } = await fresh(path);
+  let posted = null;
+  await page.route("**/api/forms", (route) => {
+    posted = route.request().postData() ?? "";
+    route.fulfill({ contentType: "application/json", body: JSON.stringify({ ok: true, id: "e2e" }) });
+  });
   // fill required fields generically
   for (const sel of ["input[required]", "textarea[required]", "select[required]"]) {
     const els = page.locator(`form[data-track="form:${form}"] ${sel}`);
@@ -368,14 +377,20 @@ for (const [path, form] of [["/en/contact", "contact"], ["/en/careers", "careers
     }
   }
   await page.locator(`form[data-track="form:${form}"] button[type="submit"]`).click();
-  await wait(500);
+  await wait(800);
   const ev = await log(page);
-  ok(has(ev, "form_submit", (e) => e.form === form), `form_submit(${form}) on ${path}`);
-  // Phase 21: stub submissions are GA4-only — a platform Lead for a form
-  // that is discarded locally is a fabricated conversion (audit defect #1).
+  const sub = ev.find((e) => e.event === "form_submit" && e.form === form);
+  ok(Boolean(sub), `form_submit(${form}) on ${path}`);
+  // Phase 23: submission POSTs to /api/forms with the SK-ref; success shows it.
+  const refMatch = (posted ?? "").match(/name="ref"\r?\n\r?\n(SK-[A-Z2-9]{6})/);
+  ok(Boolean(refMatch), `[${form}] POST /api/forms carries an SK-ref`);
+  ok(sub?.ref === refMatch?.[1], `[${form}] form_submit event carries the same ref (${sub?.ref})`);
+  ok(/name="website"/.test(posted ?? ""), `[${form}] honeypot field present in the POST`);
+  ok((await page.locator("main").innerText()).includes(refMatch?.[1] ?? "?"), `[${form}] success screen shows the ref`);
+  // Platform mapping still PENDING Ibrahim (doc 23 LD-3): GA4-only until approved.
   ok((await gaCalls(page)).some((b) => /^en=form_submit&/.test(b)), `GA4 form_submit(${form}) issued`);
-  ok(![...fbBeacons(beacons), ...(await fbCalls(page))].some((b) => /ev=Lead|ev=SubmitApplication/.test(b)), `Meta receives NOTHING for stub form_submit(${form})`);
-  ok(!ttBeacons(beacons).some((b) => /SubmitForm|"Lead"/.test(b)), `TikTok receives NOTHING for stub form_submit(${form})`);
+  ok(![...fbBeacons(beacons), ...(await fbCalls(page))].some((b) => /ev=Lead|ev=SubmitApplication/.test(b)), `Meta receives NOTHING for form_submit(${form})`);
+  ok(!ttBeacons(beacons).some((b) => /SubmitForm|"Lead"/.test(b)), `TikTok receives NOTHING for form_submit(${form})`);
   if (form === "contact") {
     await page.locator('a[data-track="call:contact"]').click();
     await page.locator('a[data-track="whatsapp:contact"]').click();

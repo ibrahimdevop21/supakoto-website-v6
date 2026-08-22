@@ -1,19 +1,17 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { StubForm } from "@/components/forms/StubForm";
+import { FormShell } from "@/components/forms/FormShell";
 import { Label, Input, Textarea, Select, PhoneInput } from "@/components/ui/Field";
 
 export function BusinessForm() {
   const t = useTranslations("business");
-  const tCommon = useTranslations("common");
 
   return (
-    <StubForm
+    <FormShell
       formId="business"
       submitLabel={t("fields.submit")}
       successText={t("success")}
-      stubText={tCommon("formStub")}
       className="grid max-w-2xl gap-6"
     >
       <div className="grid gap-6 sm:grid-cols-2">
@@ -54,6 +52,6 @@ export function BusinessForm() {
         <Label htmlFor="bz-message">{t("fields.message")}</Label>
         <Textarea id="bz-message" name="message" />
       </div>
-    </StubForm>
+    </FormShell>
   );
 }
