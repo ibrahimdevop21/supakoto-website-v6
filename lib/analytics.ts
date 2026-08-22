@@ -312,10 +312,13 @@ export function track<E extends EventName>(event: E, params: EventMap[E]): void 
       return;
     }
     case "form_submit": {
+      // GA4-ONLY while the five forms are stubs (submissions discarded
+      // locally — audit 2026-08-22 defect #1): a platform Lead for a form
+      // that goes nowhere is a fabricated conversion Meta would optimize
+      // toward. Re-arm Meta/TikTok here ONLY when form submissions are
+      // persisted to a real destination AND carry an SK-ref + eventID
+      // dedup key like the three completions (TRACKING-SPEC.md §2).
       if (ga && ANALYTICS_IDS.ga4) gtag!("event", "form_submit", { send_to: ANALYTICS_IDS.ga4, ...p });
-      if (fbq && ANALYTICS_IDS.meta)
-        fbq("track", p.form === "careers" ? "SubmitApplication" : "Lead", { content_name: `form_${p.form}` });
-      if (ttq && ANALYTICS_IDS.tiktok) ttq.track("SubmitForm", { content_name: `form_${p.form}` });
       return;
     }
     default: {

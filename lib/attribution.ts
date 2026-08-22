@@ -1,8 +1,16 @@
 /**
- * Landing-session attribution — captured once per browser session on the
- * first page load and attached to booking / quote intents (Phase 18 item 6)
- * so the SK-ref that travels into WhatsApp can later be joined back to the
- * campaign that produced it. Contract: docs/progress/TRACKING-SPEC.md.
+ * First-touch attribution — captured on the first landing and attached to
+ * booking / quote / enquiry intents so the SK-ref that travels into
+ * WhatsApp can be joined back to the campaign that produced it. Contract:
+ * docs/progress/TRACKING-SPEC.md.
+ *
+ * Phase 21 (audit fix #2): stored in a FIRST-PARTY COOKIE with a 30-day
+ * window, not sessionStorage — PPF is a considered purchase and the
+ * ad-click-today-book-in-two-days visitor is exactly the one worth
+ * attributing. FIRST TOUCH WINS: a later visit never overwrites, even
+ * with fresh UTMs or click-ids (Ibrahim, 2026-08-22 — supersedes the
+ * Phase 18 "new campaign overwrites" rule). The cookie simply expires
+ * after 30 days and the next landing starts a new first touch.
  */
 
 export type Attribution = {
@@ -23,40 +31,46 @@ export type Attribution = {
 };
 
 const KEY = "sk-attribution";
+const MAX_AGE_SECONDS = 30 * 24 * 60 * 60; // 30 days
 const CLICK_IDS = ["fbclid", "gclid", "gbraid", "wbraid", "ttclid"] as const;
 const UTMS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "utm_id"] as const;
 
-/** Store the landing context for this session (first page load wins, except a new click-id/UTM set overwrites). */
+/** Store the first-touch landing context for 30 days. Never overwrites. */
 export function captureAttribution(): Attribution | null {
   if (typeof window === "undefined") return null;
   try {
+    const existing = readAttribution();
+    if (existing) return existing; // first touch wins — no overwrite
     const url = new URL(window.location.href);
     const incoming: Partial<Attribution> = {};
     for (const k of [...UTMS, ...CLICK_IDS]) {
       const v = url.searchParams.get(k);
       if (v) incoming[k] = v;
     }
-    const existing = readAttribution();
-    const hasNewCampaign = Object.keys(incoming).length > 0;
-    if (existing && !hasNewCampaign) return existing;
     const entry: Attribution = {
       landed_at: new Date().toISOString(),
       landing_page: url.pathname + url.search,
       referrer: document.referrer || "",
       ...incoming,
     };
-    sessionStorage.setItem(KEY, JSON.stringify(entry));
+    const secure = window.location.protocol === "https:" ? "; Secure" : "";
+    document.cookie =
+      `${KEY}=${encodeURIComponent(JSON.stringify(entry))}` +
+      `; Max-Age=${MAX_AGE_SECONDS}; Path=/; SameSite=Lax${secure}`;
     return entry;
   } catch {
-    return null; // storage unavailable (private mode)
+    return null; // cookies blocked — attribution simply absent
   }
 }
 
 export function readAttribution(): Attribution | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = sessionStorage.getItem(KEY);
-    return raw ? (JSON.parse(raw) as Attribution) : null;
+    const match = document.cookie
+      .split("; ")
+      .find((c) => c.startsWith(`${KEY}=`));
+    if (!match) return null;
+    return JSON.parse(decodeURIComponent(match.slice(KEY.length + 1))) as Attribution;
   } catch {
     return null;
   }
