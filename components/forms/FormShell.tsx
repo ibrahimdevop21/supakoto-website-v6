@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { track, type FormId } from "@/lib/analytics";
 import { generateRef } from "@/lib/ref";
 import { logIntent } from "@/lib/intent";
-import { submitForm } from "@/lib/forms/submit";
+import { submitForm, SubmitError } from "@/lib/forms/submit";
 import { refOnlyWhatsAppUrl } from "@/lib/forms/whatsapp";
 import { useRegion } from "@/components/providers/RegionProvider";
 
@@ -37,6 +37,7 @@ export function FormShell({
   const locale = useLocale();
   const { region } = useRegion();
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorKey, setErrorKey] = useState<"formError" | "formFileError" | "formRateLimited">("formError");
   const [ref] = useState<string>(() => generateRef());
 
   const whatsappUrl = refOnlyWhatsAppUrl(region.id, ref, locale);
@@ -66,7 +67,9 @@ export function FormShell({
         const fd = new FormData(e.currentTarget);
         try {
           await submitForm({ form: formId, ref, fields: {}, formData: fd });
-        } catch {
+        } catch (error: unknown) {
+          const code = error instanceof SubmitError ? error.code : undefined;
+          setErrorKey(code === "bad_file" ? "formFileError" : code === "rate_limited" ? "formRateLimited" : "formError");
           setState("error");
           return;
         }
@@ -105,7 +108,7 @@ export function FormShell({
             {state === "error" && (
               <div className="space-y-3">
                 <p role="alert" className="rounded-card border border-ink-700 bg-ink-900 px-4 py-3 text-fg-muted">
-                  {tCommon("formError")}
+                  {tCommon(errorKey)}
                 </p>
                 {whatsappLink(tCommon("sendOnWhatsApp"))}
               </div>

@@ -110,3 +110,18 @@ Next: `/code-review` fresh-context → Ibrahim pushes → **Step 4**: submit all
 nine surfaces on the Preview URL and confirm nine emails LAND at
 info@supakoto.org (not API 200 — inbox). Then production.
 Follow-up scoped, not built: `docs/progress/DELIVERY-WEBHOOK.md`.
+
+**Code review (fresh context, /code-review high, 13 verifiers — 10 findings, 0 refuted) → fixed same day:**
+Vercel 4.5 MB body cap vs 4×5 MB photos (now 4 MB total, client-side gate
+with a clear message + accept list); honeypot no longer fakes success
+(400 → error state + WhatsApp fallback, so an autofilled human is never
+silently lost); idempotent retry by ref (per instance) so a client timeout
+during a slow upload can't produce two emails; rate limiter counts only
+validated attempts (a 503/400 never burns it); origin rejections logged;
+subject name slot capped at 60 chars so the ref never folds off; careers
+`cv` is a URL field — labelled, `maxFiles` 0; `bad_file` / `rate_limited`
+now render specific copy (both locales). By design, not changed:
+surface-protection files under 🛥️ [MARINE] (Ibrahim's tag definition);
+ref is per mount, not per browser session (reload → new ref) — sessionStorage
+would fix it, Ibrahim's call. Re-verified: build, e2e-analytics 177/177,
+whatsapp-routing 32/32, smoke 196/196, honeypot 400, 6× no-key → 503 never 429.

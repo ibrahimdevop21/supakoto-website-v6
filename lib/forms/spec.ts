@@ -114,8 +114,8 @@ export const FORM_SPECS: Record<FormKey, FormSpec> = {
     serviceFrom: "role",
     serviceLabel: "Application",
     serviceMap: CAREERS_ROLES,
-    fields: ["name", "phone", "email", "role", "message"],
-    maxFiles: 1,
+    fields: ["name", "phone", "email", "role", "cv", "message"],
+    maxFiles: 0,
   },
   franchise: {
     emoji: "🤝",
@@ -172,6 +172,7 @@ export const FIELD_LABELS: Record<string, string> = {
   invoiceDate: "Invoice date",
   issue: "Issue",
   role: "Role",
+  cv: "CV link",
   message: "Message",
   city: "City",
   budget: "Budget",

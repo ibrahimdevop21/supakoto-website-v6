@@ -947,9 +947,10 @@
       "issue": "Issue description",
       "issuePlaceholder": "Describe the issue — where it is and when you noticed it",
       "photos": "Photos",
-      "photosHint": "Upload clear photos of the affected area",
+      "photosHint": "Up to 4 photos, JPG/PNG/WebP/HEIC, 4 MB in total",
       "submit": "Submit claim",
-      "email": "Email (optional)"
+      "email": "Email (optional)",
+      "photosTooLarge": "Choose up to 4 photos with a total size under 4 MB."
     },
     "success": "Received. We'll contact you within two working days.",
     "seoTitle": "TAKAI Warranty Claim — File a Request | SupaKoto",
@@ -2142,7 +2143,9 @@
     "keepRef": "Keep this reference for any follow-up.",
     "whatsappOptional": "Want a faster reply? Continue on WhatsApp.",
     "continueOnWhatsApp": "Continue on WhatsApp",
-    "sendOnWhatsApp": "Send it on WhatsApp"
+    "sendOnWhatsApp": "Send it on WhatsApp",
+    "formFileError": "One of the files is too large or not a supported type. Photos: JPG, PNG, WebP or HEIC, 4 MB in total.",
+    "formRateLimited": "Too many attempts from this connection. Wait a few minutes, or send it on WhatsApp."
   },
   "notFound": {
     "title": "This page doesn't exist",

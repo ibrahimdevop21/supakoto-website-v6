@@ -19,8 +19,10 @@ export class SubmitError extends Error {
   constructor(
     public readonly kind: SubmitFailure,
     public readonly status?: number,
+    /** The route's error code (bad_file, rate_limited, send_failed, …) when it sent one. */
+    public readonly code?: string,
   ) {
-    super(`form submit failed: ${kind}${status ? ` (${status})` : ""}`);
+    super(`form submit failed: ${kind}${status ? ` (${status})` : ""}${code ? ` ${code}` : ""}`);
   }
 }
 
@@ -58,7 +60,10 @@ export async function submitForm({ form, ref, fields, formData }: SubmitInput): 
   } finally {
     clearTimeout(timer);
   }
-  if (!res.ok) throw new SubmitError("rejected", res.status);
+  if (!res.ok) {
+    const body = (await res.json().catch(() => null)) as { error?: string } | null;
+    throw new SubmitError("rejected", res.status, body?.error);
+  }
 
   const body = (await res.json().catch(() => null)) as { ok?: boolean; id?: string } | null;
   if (!body || body.ok !== true || !body.id) throw new SubmitError("malformed", res.status);

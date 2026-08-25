@@ -26,7 +26,11 @@ export const runtime = "nodejs";
 const FALLBACK_TO = "info@supakoto.org";
 const FALLBACK_FROM = "SupaKoto Website <noreply@send.supakoto.org>";
 
-const MAX_FILE_BYTES = 5 * 1024 * 1024;
+// Vercel caps a Node function's request body at 4.5 MB — anything larger 413s
+// before this code runs. Keep the whole multipart under that: 4 MB of files
+// total, and ClaimForm enforces the same total client-side with a clear message.
+const MAX_FILE_BYTES = 4 * 1024 * 1024;
+const MAX_TOTAL_FILE_BYTES = 4 * 1024 * 1024;
 const ALLOWED_FILE_TYPES =
   /^(image\/(jpeg|png|webp|heic|heif)|application\/pdf|application\/msword|application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document)$/;
 const MAX_FIELD_CHARS = 4000;
@@ -34,7 +38,16 @@ const MAX_FIELDS = 40;
 const RESERVED = new Set(["form", "ref", "locale", "website"]);
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/** Per-IP: max 5 submissions per 10 minutes (per warm instance). */
+/**
+ * Idempotency by SK-ref (per warm instance): a client whose 15 s timeout
+ * fired while Resend was still accepting would otherwise resend the same
+ * request and the inbox would get two emails with one ref. A repeat of a
+ * ref this instance already delivered answers with the original id.
+ */
+const sentRefs = new Map<string, string>();
+
+/** Per-IP: max 5 REAL attempts per 10 minutes (per warm instance) — counted
+ * only once a request has passed validation, so a 400/503 never burns it. */
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_MAX = 5;
 const hits = new Map<string, number[]>();
@@ -105,6 +118,13 @@ function serviceSlot(spec: (typeof FORM_SPECS)[FormKey], fields: Map<string, str
 
 export async function POST(req: NextRequest) {
   if (!sameSite(req)) {
+    // Logged: a proxy rewriting Host, or a browser stripping Origin, would
+    // otherwise be a silent whole-site lead outage.
+    console.error("[forms] origin rejected", {
+      host: req.headers.get("x-forwarded-host") ?? req.headers.get("host"),
+      origin: req.headers.get("origin"),
+      referer: req.headers.get("referer"),
+    });
     return NextResponse.json({ ok: false, error: "forbidden" }, { status: 403 });
   }
 
@@ -123,14 +143,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "bad_request" }, { status: 400 });
   }
 
-  // Honeypot: bots fill it; humans never see it. Answer ok so the bot moves on.
+  // Honeypot: bots fill it; humans never see it. Answer with an ERROR, not a
+  // fake success: a password manager that autofills the hidden field would
+  // otherwise show a real visitor a success screen for a lead that never
+  // sent. The error state offers the WhatsApp fallback, so nothing is lost.
   if (String(data.get("website") ?? "") !== "") {
-    return NextResponse.json({ ok: true, id: "accepted" });
-  }
-
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
-  if (rateLimited(ip)) {
-    return NextResponse.json({ ok: false, error: "rate_limited" }, { status: 429 });
+    return NextResponse.json({ ok: false, error: "rejected" }, { status: 400 });
   }
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -144,6 +162,7 @@ export async function POST(req: NextRequest) {
   const attribution = new Map<string, string>();
   const attachments: Array<{ filename: string; content: string }> = [];
   let fieldCount = 0;
+  let totalFileBytes = 0;
   for (const [key, value] of data.entries()) {
     if (RESERVED.has(key)) continue;
     if (typeof value === "string") {
@@ -158,7 +177,8 @@ export async function POST(req: NextRequest) {
     } else {
       if (value.size === 0) continue;
       if (attachments.length >= spec.maxFiles) continue;
-      if (value.size > MAX_FILE_BYTES || !ALLOWED_FILE_TYPES.test(value.type)) {
+      totalFileBytes += value.size;
+      if (value.size > MAX_FILE_BYTES || totalFileBytes > MAX_TOTAL_FILE_BYTES || !ALLOWED_FILE_TYPES.test(value.type)) {
         return NextResponse.json({ ok: false, error: "bad_file" }, { status: 400 });
       }
       attachments.push({
@@ -168,7 +188,18 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const name = fields.get("name") || fields.get("company") || fields.get("plate") || "";
+  // Validation passed: this is a real attempt — now it counts against the limit.
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
+  if (rateLimited(ip)) {
+    return NextResponse.json({ ok: false, error: "rate_limited" }, { status: 429 });
+  }
+  const already = sentRefs.get(ref);
+  if (already) {
+    return NextResponse.json({ ok: true, id: already });
+  }
+
+  // Subject slot for the name: short, so the SK-ref at the end never folds off.
+  const name = (fields.get("name") || fields.get("company") || fields.get("plate") || "").slice(0, 60);
   const visitorEmail = fields.get("email") ?? "";
   const replyTo = EMAIL_RE.test(visitorEmail) ? visitorEmail : "";
 
@@ -233,5 +264,7 @@ export async function POST(req: NextRequest) {
     console.error("[forms] resend accepted without id", { ref, form });
     return NextResponse.json({ ok: false, error: "send_failed" }, { status: 502 });
   }
+  sentRefs.set(ref, id);
+  if (sentRefs.size > 5000) sentRefs.clear(); // unbounded-growth backstop
   return NextResponse.json({ ok: true, id });
 }
