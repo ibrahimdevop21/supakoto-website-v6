@@ -92,6 +92,10 @@ export const FORM_SPECS: Record<FormKey, FormSpec> = {
     ],
     maxFiles: 0,
   },
+  // Oddity to revisit if this line grows (Ibrahim, 2026-08-25): the wizard
+  // routes BOTH the marine (marine-ppf) and interior (surface-protection)
+  // substrates into this flow, so surface-protection enquiries file under
+  // [MARINE]. The subject's <service> slot keeps them legible.
   enquiry: {
     emoji: "🛥️",
     tag: "MARINE",

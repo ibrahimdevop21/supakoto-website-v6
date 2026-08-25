@@ -16,10 +16,12 @@ class of failure; only the delivery events can.
 1. Resend → `POST /api/resend-webhook` with events `email.delivered`,
    `email.bounced`, `email.delivery_delayed`, `email.complained`.
 2. Verify the Svix signature (`RESEND_WEBHOOK_SECRET`) — reject anything unsigned.
-3. On `bounced` / `delivery_delayed` (> 1 h) / `complained`: alert. The alert
-   channel must be **independent of supakoto.org mail** or it fails with the
-   same root cause. Candidates: WhatsApp to the ops line via a provider API,
-   a Telegram/Slack bot, or SMS. Decision for Ibrahim.
+3. On `bounced` / `delivery_delayed` (> 1 h) / `complained`: alert by
+   **WhatsApp to the Egypt line 201103402446** (Ibrahim, 2026-08-25) via a
+   WhatsApp Business / provider API — independent of supakoto.org mail, so
+   it cannot fail with the same root cause. Message: tag, SK-ref, event,
+   bounce reason. (Number must be read from `content/regions.ts`, never
+   hard-coded — the phone-literal guard.)
 4. Log every event with the SK-ref (Resend supports a `tags` array on send —
    add `tags: [{ name: "ref", value }]` in the route so the webhook can name
    the lead that bounced).
@@ -40,7 +42,8 @@ class of failure; only the delivery events can.
 ~3 h including the alert channel wiring and a forced-bounce test
 (send to `bounced@resend.dev`, Resend's test address).
 
-## Open decision
+## Decided
 
-Alert channel (must not depend on supakoto.org mail): WhatsApp API / Telegram
-/ Slack / SMS — Ibrahim picks.
+Alert channel: WhatsApp, Egypt line (`regions.egypt.whatsapp`). Remaining
+choice at build time: which WhatsApp API provider (Meta Cloud API needs a
+Business account; a relay like Twilio is faster to stand up).

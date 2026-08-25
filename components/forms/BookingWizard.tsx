@@ -14,7 +14,7 @@ import { DatePicker } from "@/components/forms/DatePicker";
 import { cn } from "@/lib/cn";
 import { EASE_OUT } from "@/lib/motion";
 import { track, type Flow } from "@/lib/analytics";
-import { generateRef } from "@/lib/ref";
+import { takeSessionRef, clearSessionRef } from "@/lib/forms/session-ref";
 import { logIntent } from "@/lib/intent";
 import { submitForm } from "@/lib/forms/submit";
 import { refOnlyWhatsAppUrl } from "@/lib/forms/whatsapp";
@@ -132,9 +132,10 @@ export function BookingWizard() {
   const patchBuilding = (p: Partial<BuildingDetails>) =>
     setDraft((d) => ({ ...d, building: { ...d.building, ...p } }));
 
-  // One ref per visitor session, reused across retries so the inbox never
-  // sees two refs for one customer (Ibrahim, 2026-08-25).
-  const [ref] = useState<string>(() => generateRef());
+  // One ref per browser session for the wizard — survives reload and locale
+  // switch, reused across retries, cleared on a confirmed send (Ibrahim,
+  // 2026-08-25: the ref links email, WhatsApp and Meta eventID).
+  const [ref] = useState<string>(() => takeSessionRef("booking"));
 
   // Funnel top per flow, once, at the moment the flow is chosen.
   const startedFlows = useRef(new Set<Flow>());
@@ -319,6 +320,7 @@ export function BookingWizard() {
       service: draft.serviceId,
       draft,
     });
+    clearSessionRef("booking");
     setStatus("sent");
   };
 

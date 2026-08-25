@@ -7,7 +7,7 @@ rewrite + six corrections + controller trade name + CR 141558; OG-image
 ENOENT fixed (outputFileTracingIncludes) with hero background + can't-500
 fallback, verified on prod. **Phase 23 on `feat/phase-23-forms-destination`
 (ec9d5ca, LOCAL):** the five forms now really deliver — /api/forms →
-Resend → info@supakoto.com, SK-ref in subject, honeypot + rate limit,
+Resend → info@supakoto.org (was .com — that mailbox never existed; fixed 2026-08-25), SK-ref in subject, honeypot + rate limit,
 claim form gained name/phone, FormShell replaced StubForm. e2e 163/163.
 **Deploy blocked on: RESEND_API_KEY (+FORMS_TO/FROM) in Vercel env AND
 Ibrahim's approval of the per-form event mapping (doc 23 LD-3 — careers/
@@ -39,7 +39,7 @@ typecheck, parity, smoke 196/196.
 
 ## Exact next action
 DONE 2026-08-22 afternoon: six copy corrections applied (future-proofed
-hashed-data wording, controller + privacy@supakoto.com, cross-border,
+hashed-data wording, controller + info@supakoto.org (privacy@ was never a real mailbox; fixed 2026-08-25), cross-border,
 WhatsApp recipient, effective date; cookie-name "typo" was a chat-render
 artifact — files were correct), one real RTL bidi defect fixed
 (SK-XXXXXX isolate), then MERGED + DEPLOYED (main 89bf839) and verified
@@ -153,7 +153,7 @@ translations, carousel with expand) landed 2026-08-19 afternoon. Report + harves
 `docs/progress/18-pre-cutover-tracking.md`. Contract for Phase 3:
 `docs/progress/TRACKING-SPEC.md`. Shipped: V2 testimonials (29, JSON-LD
 Review/AggregateRating), footer payment strip (region-aware, V2 logos), five
-live social URLs + info@supakoto.com + sameAs, direct pixels through
+live social URLs + info@supakoto.org + sameAs, direct pixels through
 `lib/analytics.ts` (GA4 / Meta / TikTok / Ads base, env IDs, route-change
 pageviews, build guard), full event taxonomy on every tel:/wa.me/form,
 `SK-XXXXXX` ref in the WhatsApp message + intent log + attribution.

@@ -272,12 +272,24 @@ for (const locale of ["en", "ar"]) {
   ok(await page.locator('button[data-track="booking:confirm"]').isEnabled(), "502: confirm re-enabled, draft kept");
   const fb = await waLink(page, 'main [role=alert] ~ a[data-track="whatsapp:booking"]');
   ok(fb.text.split("\n")[1] === `${L.refLabel}: ${firstRef}` && /Toyota/.test(fb.text), "502: WhatsApp fallback carries the FULL request with the ref");
+  // The ref must survive a RELOAD (sessionStorage, Ibrahim 2026-08-25): the
+  // customer who got the fallback with SK-A and comes back must send SK-A.
   fail500 = false;
+  await page.reload({ waitUntil: "load" });
+  await page.waitForTimeout(1200);
+  await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
+  await clickText(L.egypt); await clickText(L.next);
+  await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
+  await page.fill("#bk-make", "Toyota"); await page.fill("#bk-model", "Prado"); await clickText(L.next);
+  await page.locator("main button.sk-day:not([disabled])").first().click(); await clickText(L.next);
+  await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
+  await page.fill("#bk-name", "E2E Tester"); await page.fill("#bk-phone", "0100000000"); await clickText(L.next);
   await page.locator('button[data-track="booking:confirm"]').click();
   await wait(2500);
   ev = await log(page);
   const done = ev.find((e) => e.event === "booking_complete");
-  ok(done?.ref === firstRef && field(posts[posts.length - 1] ?? "", "ref") === firstRef, `retry: same ref reused (${firstRef}), booking_complete fires only now`);
+  ok(done?.ref === firstRef && field(posts[posts.length - 1] ?? "", "ref") === firstRef, `after reload: same ref reused (${firstRef}), booking_complete fires only now`);
+  ok((await page.evaluate(() => sessionStorage.getItem("sk-ref:booking"))) === null, "after a confirmed send the session ref is cleared (next request gets a fresh one)");
   ok(fbBeacons(beacons).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${firstRef}`).test(b)) || (await fbCalls(page)).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${firstRef}`).test(b)), "retry: Meta Lead with eventID=ref after the confirmed send");
   await ctx.close();
 }

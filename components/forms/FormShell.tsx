@@ -4,16 +4,16 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/Button";
 import { track, type FormId } from "@/lib/analytics";
-import { generateRef } from "@/lib/ref";
+import { takeSessionRef, clearSessionRef } from "@/lib/forms/session-ref";
 import { logIntent } from "@/lib/intent";
 import { submitForm, SubmitError } from "@/lib/forms/submit";
 import { refOnlyWhatsAppUrl } from "@/lib/forms/whatsapp";
 import { useRegion } from "@/components/providers/RegionProvider";
 
 /**
- * Submitting shell for the five standalone forms. One SK-ref per visitor
- * session (reused across retries so the inbox never sees two refs for one
- * person), multipart POST via submitForm() (attribution appended, 15 s
+ * Submitting shell for the five standalone forms. One SK-ref per form per
+ * browser session — survives reload/locale switch, reused across retries,
+ * cleared on a confirmed send (lib/forms/session-ref.ts) — multipart POST via submitForm() (attribution appended, 15 s
  * timeout), success ONLY on a confirmed accept. On failure the input is
  * kept and a WhatsApp fallback carrying the ref is offered — the lead is
  * never stranded. The hidden "website" input is the honeypot the API route
@@ -38,7 +38,7 @@ export function FormShell({
   const { region } = useRegion();
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [errorKey, setErrorKey] = useState<"formError" | "formFileError" | "formRateLimited">("formError");
-  const [ref] = useState<string>(() => generateRef());
+  const [ref] = useState<string>(() => takeSessionRef(formId));
 
   const whatsappUrl = refOnlyWhatsAppUrl(region.id, ref, locale);
   const whatsappLink = (label: string) => (
@@ -73,6 +73,7 @@ export function FormShell({
           setState("error");
           return;
         }
+        clearSessionRef(formId);
         setState("sent");
         track("form_submit", { form: formId, ref });
         logIntent("form", {

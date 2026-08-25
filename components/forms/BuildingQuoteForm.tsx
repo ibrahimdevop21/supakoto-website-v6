@@ -6,7 +6,7 @@ import { regions, type RegionId } from "@/content/regions";
 import { Button } from "@/components/ui/Button";
 import { Label, Input, PhoneInput } from "@/components/ui/Field";
 import { track } from "@/lib/analytics";
-import { generateRef } from "@/lib/ref";
+import { takeSessionRef, clearSessionRef } from "@/lib/forms/session-ref";
 import { logIntent } from "@/lib/intent";
 import { submitForm } from "@/lib/forms/submit";
 import { refOnlyWhatsAppUrl } from "@/lib/forms/whatsapp";
@@ -48,8 +48,8 @@ export function BuildingQuoteForm() {
 
   const patchDetails = (p: Partial<BuildingDetails>) => setDetails((d) => ({ ...d, ...p }));
 
-  // One ref per visitor session, reused across retries.
-  const [ref] = useState<string>(() => generateRef());
+  // One ref per browser session for this surface — survives reload, cleared on send.
+  const [ref] = useState<string>(() => takeSessionRef("quote"));
   const started = useRef(false);
   useEffect(() => {
     if (started.current) return;
@@ -134,6 +134,7 @@ export function BuildingQuoteForm() {
           service: SERVICE_ID,
           draft: { region, ...details, ...contact },
         });
+        clearSessionRef("quote");
         setStatus("sent");
       }}
     >

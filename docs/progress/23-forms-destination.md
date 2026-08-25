@@ -125,3 +125,15 @@ surface-protection files under 🛥️ [MARINE] (Ibrahim's tag definition);
 ref is per mount, not per browser session (reload → new ref) — sessionStorage
 would fix it, Ibrahim's call. Re-verified: build, e2e-analytics 177/177,
 whatsapp-routing 32/32, smoke 196/196, honeypot 400, 6× no-key → 503 never 429.
+
+**2026-08-25 late — Ibrahim's answers applied:** info@supakoto.com never existed
+(bounced publicly) → every mail address is now info@supakoto.org: `lib/nav.ts`
+CONTACT_EMAIL (footer, /contact, Organization JSON-LD `email`), privacy-policy
+body both locales (privacy@ also never existed), CHECKPOINT.md history
+annotated. Guard `check-email-fallbacks.mjs` now fails on ANY `<x>@supakoto.com`
+mail address anywhere in code/messages/scripts/CHECKPOINT (URLs unaffected —
+regex needs a local part). SK-ref moved to sessionStorage per surface
+(`lib/forms/session-ref.ts`): survives reload/locale switch, cleared on a
+confirmed send; e2e proves the same ref is sent after a reload (178/178).
+[MARINE]/surface-protection oddity noted in `lib/forms/spec.ts`. Webhook
+alert channel decided: WhatsApp, Egypt line (doc DELIVERY-WEBHOOK.md).

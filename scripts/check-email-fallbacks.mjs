@@ -12,9 +12,11 @@
  *     address inside <…>).
  *  2. FORMS_FROM_EMAIL is on send.supakoto.org (the SPF-authorised subdomain;
  *     the root domain runs cPanel mail and must not send).
- *  3. No "@supakoto.com" literal in the sending code (app/api, lib/forms). The
- *     PUBLIC contact address shown in the footer/contact page is a separate
- *     decision and is not checked here.
+ *  3. No "<anything>@supakoto.com" mail address ANYWHERE in the codebase
+ *     (Ibrahim, 2026-08-25: no mailbox exists on the .com domain — the
+ *     address the site displayed bounced publicly). supakoto.com is correct as a URL and wrong as a mail
+ *     domain — the regex requires a local part so URLs never trip it.
+ *     Historical docs under docs/ are not scanned.
  */
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
@@ -46,8 +48,10 @@ if (fallbackFrom && addr(fallbackFrom) !== addr(env.FORMS_FROM_EMAIL ?? ""))
 if (!/@send\.supakoto\.org$/.test(addr(env.FORMS_FROM_EMAIL ?? "")))
   failures.push(`FORMS_FROM_EMAIL must be on send.supakoto.org (SPF-authorised), got "${env.FORMS_FROM_EMAIL}"`);
 
-const SCAN_DIRS = ["app/api", "lib/forms"];
-const EXT = new Set([".ts", ".tsx", ".json"]);
+const SCAN_DIRS = ["app", "components", "lib", "content", "messages", "i18n", "scripts"];
+const SCAN_FILES = [".env.example", "next.config.ts", "middleware.ts", "CHECKPOINT.md"];
+const EXT = new Set([".ts", ".tsx", ".json", ".mjs", ".md"]);
+const MAIL_RE = /[A-Za-z0-9._%+-]+@supakoto\.com\b/;
 function* walk(dir) {
   for (const name of readdirSync(dir)) {
     const full = path.join(dir, name);
@@ -55,14 +59,17 @@ function* walk(dir) {
     else if (EXT.has(path.extname(full))) yield full;
   }
 }
-for (const dir of SCAN_DIRS) {
-  for (const file of walk(path.join(ROOT, dir))) {
-    const lines = readFileSync(file, "utf8").split("\n");
-    lines.forEach((line, i) => {
-      if (/@supakoto\.com\b/.test(line))
-        failures.push(`${path.relative(ROOT, file)}:${i + 1}: supakoto.com mailbox literal — use the .org env defaults`);
-    });
-  }
+const { existsSync } = await import("node:fs");
+const targets = [
+  ...SCAN_DIRS.filter((d) => existsSync(path.join(ROOT, d))).flatMap((d) => [...walk(path.join(ROOT, d))]),
+  ...SCAN_FILES.map((f) => path.join(ROOT, f)).filter((f) => existsSync(f)),
+];
+for (const file of targets) {
+  const lines = readFileSync(file, "utf8").split("\n");
+  lines.forEach((line, i) => {
+    const m = line.match(MAIL_RE);
+    if (m) failures.push(`${path.relative(ROOT, file)}:${i + 1}: "${m[0]}" — no mailbox exists on supakoto.com; use @supakoto.org`);
+  });
 }
 
 if (failures.length) {
