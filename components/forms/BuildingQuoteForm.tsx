@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { regions, type RegionId } from "@/content/regions";
 import { Button } from "@/components/ui/Button";
 import { Label, Input, PhoneInput } from "@/components/ui/Field";
 import { track } from "@/lib/analytics";
 import { generateRef } from "@/lib/ref";
 import { logIntent } from "@/lib/intent";
+import { submitForm } from "@/lib/forms/submit";
+import { refOnlyWhatsAppUrl } from "@/lib/forms/whatsapp";
 import {
   PropertyStep,
   LocationStep,
@@ -25,27 +27,29 @@ const SERVICE_ID = "building-heat-isolation";
  *
  * Phase 19: the question groups live in ./building/steps.tsx and are the
  * same components the booking wizard pages through one screen at a time —
- * this page stacks them in one form, exactly as before. Both paths build
- * the WhatsApp body with buildingQuoteLines(), so the inbox sees one
- * message shape whichever door the customer came in by.
+ * this page stacks them in one form, exactly as before.
  *
- * Submit opens a prefilled wa.me deeplink. The body is built from the
- * ACTIVE locale's messages (/en sends English, / sends Arabic). The line
- * is picked by the property's region (form selection), overriding the
- * RegionPicker.
+ * 2026-08-25: submit emails the request (🏢 [BUILDING], identical body to
+ * the wizard's building flow) and shows the SK-ref. quote_complete fires
+ * only after a confirmed send. WhatsApp is an optional ref-only button on
+ * success; on failure the full-body WhatsApp message (buildingQuoteLines)
+ * is the fallback so the lead is never stranded.
  */
 export function BuildingQuoteForm() {
   const t = useTranslations("buildingQuote");
+  const tCommon = useTranslations("common");
   const tChrome = useTranslations("chrome.region");
+  const locale = useLocale();
 
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [region, setRegion] = useState<RegionId>("egypt");
   const [details, setDetails] = useState<BuildingDetails>(emptyBuildingDetails);
   const [contact, setContact] = useState({ name: "", phone: "", whatsapp: "" });
 
   const patchDetails = (p: Partial<BuildingDetails>) => setDetails((d) => ({ ...d, ...p }));
 
-  const [ref, setRef] = useState<string | null>(null);
+  // One ref per visitor session, reused across retries.
+  const [ref] = useState<string>(() => generateRef());
   const started = useRef(false);
   useEffect(() => {
     if (started.current) return;
@@ -57,32 +61,37 @@ export function BuildingQuoteForm() {
   const canSubmit =
     buildingDetailsOk(details) && contact.name.trim().length > 1 && contact.phone.trim().length >= 10;
 
-  const buildWhatsAppUrl = (currentRef: string | null = ref) => {
-    const lines = buildingQuoteLines({ t, tChrome, details, region, ref: currentRef, ...contact });
+  /** Full-body WhatsApp message — the ERROR fallback (the email did not go). */
+  const fullWhatsAppUrl = () => {
+    const lines = buildingQuoteLines({ t, tChrome, details, region, ref, ...contact });
     return `https://wa.me/${regions[region].whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`;
   };
 
-  if (submitted) {
+  const whatsappLink = (href: string, label: string) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-track="whatsapp:quote"
+      onClick={() => track("whatsapp_click", { source: "quote", region, ref })}
+      className="inline-flex items-center justify-center gap-2 rounded-card border border-ink-700 px-6 py-3 text-body font-medium text-fg transition-colors hover:border-fg-subtle hover:bg-ink-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
+    >
+      {label}
+    </a>
+  );
+
+  if (status === "sent") {
     return (
       <div className="max-w-xl space-y-4">
         <p role="status" className="rounded-card border border-sk-red bg-sk-red-muted px-4 py-4">
           {t("success")}
         </p>
-        <a
-          href={buildWhatsAppUrl()}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-track="whatsapp:quote"
-          onClick={() => track("whatsapp_click", { source: "quote", region, ref: ref ?? undefined })}
-          className="inline-flex items-center justify-center gap-2 rounded-card border border-ink-700 px-6 py-3 text-body font-medium text-fg transition-colors hover:border-fg-subtle hover:bg-ink-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
-        >
-          {t("reopenWhatsApp")}
-        </a>
-        {ref && (
-          <p className="text-small text-fg-muted" dir="auto">
-            {t("wa.ref")}: <span className="font-medium text-fg" dir="ltr">{ref}</span>
-          </p>
-        )}
+        <p className="text-small text-fg-muted" dir="auto">
+          {t("wa.ref")}: <span className="font-medium text-fg" dir="ltr">{ref}</span>
+        </p>
+        <p className="text-small text-fg-muted">{tCommon("keepRef")}</p>
+        <p className="text-small text-fg-muted">{tCommon("whatsappOptional")}</p>
+        {whatsappLink(refOnlyWhatsAppUrl(region, ref, locale), tCommon("continueOnWhatsApp"))}
       </div>
     );
   }
@@ -90,29 +99,42 @@ export function BuildingQuoteForm() {
   return (
     <form
       className="max-w-xl space-y-8"
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
-        if (!canSubmit) return;
-        const newRef = generateRef();
-        setRef(newRef);
-        // PRIMARY conversion — fired BEFORE the WhatsApp handoff.
+        if (!canSubmit || status === "sending") return;
+        setStatus("sending");
+        try {
+          await submitForm({
+            form: "quote",
+            ref,
+            fields: {
+              service: SERVICE_ID,
+              region,
+              ...details,
+              ...contact,
+              source: "page",
+            },
+          });
+        } catch {
+          setStatus("error");
+          return;
+        }
+        // PRIMARY conversion — fired only after a confirmed send.
         track("quote_complete", {
-          ref: newRef,
+          ref,
           region,
           property_type: details.propertyType,
           service: SERVICE_ID,
           source: "page",
         });
-        track("whatsapp_click", { source: "quote", region, ref: newRef });
         logIntent("quote", {
-          ref: newRef,
+          ref,
           region,
           branch: null,
           service: SERVICE_ID,
           draft: { region, ...details, ...contact },
         });
-        window.open(buildWhatsAppUrl(newRef), "_blank", "noopener,noreferrer");
-        setSubmitted(true);
+        setStatus("sent");
       }}
     >
       <PropertyStep details={details} onChange={patchDetails} />
@@ -155,9 +177,19 @@ export function BuildingQuoteForm() {
         </div>
       </fieldset>
 
-      <Button type="submit" disabled={!canSubmit}>
-        {t("submit")}
-      </Button>
+      <div className="space-y-3">
+        <Button type="submit" disabled={!canSubmit || status === "sending"}>
+          {status === "sending" ? tCommon("formSending") : t("submit")}
+        </Button>
+        {status === "error" && (
+          <div className="space-y-3">
+            <p role="alert" className="rounded-card border border-ink-700 bg-ink-900 px-4 py-3 text-fg-muted">
+              {tCommon("formError")}
+            </p>
+            {whatsappLink(fullWhatsAppUrl(), tCommon("sendOnWhatsApp"))}
+          </div>
+        )}
+      </div>
     </form>
   );
 }

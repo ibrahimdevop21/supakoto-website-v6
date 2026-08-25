@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { branchesForRegion, branchHours, timeSlotsFor } from "@/content/branches";
 import { services, type ServiceId, type Substrate } from "@/content/services";
 import { regions, type RegionId } from "@/content/regions";
@@ -16,6 +16,8 @@ import { EASE_OUT } from "@/lib/motion";
 import { track, type Flow } from "@/lib/analytics";
 import { generateRef } from "@/lib/ref";
 import { logIntent } from "@/lib/intent";
+import { submitForm } from "@/lib/forms/submit";
+import { refOnlyWhatsAppUrl } from "@/lib/forms/whatsapp";
 import {
   PropertyStep,
   LocationStep,
@@ -101,11 +103,13 @@ export function BookingWizard() {
   const tChrome = useTranslations("chrome.region");
   const tBranches = useTranslations("branches");
   const tServices = useTranslations("services.items");
+  const tCommon = useTranslations("common");
+  const locale = useLocale();
   const { region } = useRegion();
   const reduce = useReducedMotion();
 
   const [stepIndex, setStepIndex] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [draft, setDraft] = useState<Draft>({
     serviceId: "",
     region: region.id,
@@ -128,8 +132,9 @@ export function BookingWizard() {
   const patchBuilding = (p: Partial<BuildingDetails>) =>
     setDraft((d) => ({ ...d, building: { ...d.building, ...p } }));
 
-  // One ref per completed request; generated at confirm, kept for "open again".
-  const [ref, setRef] = useState<string | null>(null);
+  // One ref per visitor session, reused across retries so the inbox never
+  // sees two refs for one customer (Ibrahim, 2026-08-25).
+  const [ref] = useState<string>(() => generateRef());
 
   // Funnel top per flow, once, at the moment the flow is chosen.
   const startedFlows = useRef(new Set<Flow>());
@@ -237,75 +242,99 @@ export function BookingWizard() {
   const successText =
     flow === "building" ? t("successQuote") : flow === "enquiry" ? t("successEnquiry") : t("success");
 
-  const submit = () => {
-    if (!flow || !draft.serviceId) return;
-    const newRef = generateRef();
-    setRef(newRef);
-    // PRIMARY conversion — fired BEFORE the WhatsApp handoff.
+  /** The email body's fields — stable keys the API route labels in English. */
+  const submissionFields = (): Record<string, string> => {
+    const base = { service: draft.serviceId, region: draft.region, name: draft.name, phone: draft.phone };
+    if (flow === "building") return { ...base, ...draft.building, source: "wizard" };
+    if (flow === "enquiry") return { ...base, details: draft.details };
+    return {
+      ...base,
+      branch: draft.branchId,
+      make: draft.make,
+      model: draft.model,
+      date: draft.date,
+      time: draft.time,
+    };
+  };
+
+  const whatsappLink = (href: string, label: string) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-track={`whatsapp:${waSource}`}
+      onClick={() =>
+        track("whatsapp_click", {
+          source: waSource,
+          region: draft.region,
+          ...(flow === "vehicle" ? { branch: draft.branchId } : {}),
+          ref,
+        })
+      }
+      className="inline-flex items-center justify-center gap-2 rounded-card border border-ink-700 px-6 py-3 text-body font-medium text-fg transition-colors hover:border-fg-subtle hover:bg-ink-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
+    >
+      {label}
+    </a>
+  );
+
+  const submit = async () => {
+    if (!flow || !draft.serviceId || status === "sending") return;
+    setStatus("sending");
+    // Email is the record. Nothing below runs unless the send is confirmed —
+    // a failed send must never count as a Lead (Phase 21 lesson, re-locked
+    // 2026-08-25).
+    try {
+      await submitForm({
+        form: flow === "vehicle" ? "booking" : flow === "building" ? "quote" : "enquiry",
+        ref,
+        fields: submissionFields(),
+      });
+    } catch {
+      setStatus("error");
+      return;
+    }
+    // PRIMARY conversion — fired only after a confirmed send. eventID = ref.
     if (flow === "vehicle") {
       track("booking_complete", {
-        ref: newRef,
+        ref,
         region: draft.region,
         branch: draft.branchId,
         service: draft.serviceId,
       });
     } else if (flow === "building") {
       track("quote_complete", {
-        ref: newRef,
+        ref,
         region: draft.region,
         property_type: draft.building.propertyType,
         service: draft.serviceId,
         source: "wizard",
       });
     } else {
-      track("enquiry_complete", { ref: newRef, region: draft.region, service: draft.serviceId });
+      track("enquiry_complete", { ref, region: draft.region, service: draft.serviceId });
     }
-    track("whatsapp_click", {
-      source: waSource,
-      region: draft.region,
-      ...(flow === "vehicle" ? { branch: draft.branchId } : {}),
-      ref: newRef,
-    });
     logIntent(waSource, {
-      ref: newRef,
+      ref,
       region: draft.region,
       branch: flow === "vehicle" ? draft.branchId : null,
       service: draft.serviceId,
       draft,
     });
-    window.open(buildWhatsAppUrl(newRef), "_blank", "noopener,noreferrer");
-    setSubmitted(true);
+    setStatus("sent");
   };
 
-  if (submitted) {
+  if (status === "sent") {
     return (
       <div className="max-w-xl space-y-4">
         <p role="status" className="rounded-card border border-sk-red bg-sk-red-muted px-4 py-4">
           {successText}
         </p>
-        <a
-          href={buildWhatsAppUrl()}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-track={`whatsapp:${waSource}`}
-          onClick={() =>
-            track("whatsapp_click", {
-              source: waSource,
-              region: draft.region,
-              ...(flow === "vehicle" ? { branch: draft.branchId } : {}),
-              ref: ref ?? undefined,
-            })
-          }
-          className="inline-flex items-center justify-center gap-2 rounded-card border border-ink-700 px-6 py-3 text-body font-medium text-fg transition-colors hover:border-fg-subtle hover:bg-ink-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-red"
-        >
-          {t("reopenWhatsApp")}
-        </a>
-        {ref && (
-          <p className="text-small text-fg-muted" dir="auto">
-            {t("waRef")}: <span className="font-medium text-fg" dir="ltr">{ref}</span>
-          </p>
-        )}
-        {flow === "vehicle" && <p className="text-small text-fg-subtle">{t("stub")}</p>}
+        <p className="text-small text-fg-muted" dir="auto">
+          {t("waRef")}: <span className="font-medium text-fg" dir="ltr">{ref}</span>
+        </p>
+        <p className="text-small text-fg-muted">{tCommon("keepRef")}</p>
+        <p className="text-small text-fg-muted">{tCommon("whatsappOptional")}</p>
+        {/* Optional acceleration, ref-only: both channels reconcile on one identifier. */}
+        {whatsappLink(refOnlyWhatsAppUrl(draft.region, ref, locale), tCommon("continueOnWhatsApp"))}
       </div>
     );
   }
@@ -582,8 +611,8 @@ export function BookingWizard() {
               </Button>
             )}
             {step === "confirm" ? (
-              <Button data-track={`${waSource}:confirm`} onClick={submit}>
-                {confirmLabel}
+              <Button data-track={`${waSource}:confirm`} onClick={submit} disabled={status === "sending"}>
+                {status === "sending" ? tCommon("formSending") : confirmLabel}
               </Button>
             ) : (
               <Button onClick={next} disabled={!canContinue[step]}>
@@ -591,6 +620,15 @@ export function BookingWizard() {
               </Button>
             )}
           </div>
+          {step === "confirm" && status === "error" && (
+            <div className="mt-4 space-y-3">
+              <p role="alert" className="rounded-card border border-ink-700 bg-ink-900 px-4 py-3 text-fg-muted">
+                {tCommon("formError")}
+              </p>
+              {/* The email did not go, so the fallback carries the FULL request. */}
+              {whatsappLink(buildWhatsAppUrl(ref), tCommon("sendOnWhatsApp"))}
+            </div>
+          )}
         </motion.div>
       </AnimatePresence>
     </div>

@@ -27,6 +27,12 @@ export function ClaimForm() {
           <PhoneInput id="claim-phone" name="phone" required />
         </div>
       </div>
+      {/* Optional (Ibrahim, 2026-08-25): a claim is a multi-day process where
+          email is the natural channel; it becomes the Reply-To of the email. */}
+      <div>
+        <Label htmlFor="claim-email">{t("fields.email")}</Label>
+        <Input id="claim-email" name="email" type="email" autoComplete="email" />
+      </div>
       <div>
         <Label htmlFor="claim-plate">{t("fields.plate")}</Label>
         <Input id="claim-plate" name="plate" required />

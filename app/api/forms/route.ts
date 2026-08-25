@@ -1,32 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isRef } from "@/lib/ref";
+import { FORM_SPECS, FIELD_LABELS, ATTRIBUTION_KEYS, type FormKey } from "@/lib/forms/spec";
+import en from "@/messages/en.json";
 
 export const runtime = "nodejs";
 
 /**
- * The five site forms' destination (Phase 23): one route → Resend →
- * info@supakoto.com with a per-form subject tag (recipient/from
- * overridable via env when per-team inboxes exist). SK-ref in the
- * subject, reply-to the visitor. Spam gates: honeypot field ("website")
- * and a per-IP in-memory rate limit — per serverless instance, a basic
- * gate rather than a fortress; the honeypot does most of the work.
- * Without RESEND_API_KEY the route answers 503 and the form shows its
- * error state — it never fakes success (LD-2).
+ * The single destination for everything the site collects (master prompt
+ * 2026-08-25): nine surfaces — five standalone forms, three booking-wizard
+ * flows, the building quote page — POST here → Resend → info@supakoto.org.
+ * One recipient, no per-form routing. Subject is sortable by hand:
+ *   <emoji> [TAG] — <service EN> — <name> — <SK-ref>
+ * Body is plain text: ref first, every field, then the attribution the
+ * sk-attribution cookie carried (appended client-side — this route never
+ * touches the tracking layer). Reply-To = visitor email where collected.
+ *
+ * Never fakes success: no key → 503, Resend rejects → 502, Resend accepts
+ * without an id → 502. Spam gates: same-site Origin, honeypot ("website"),
+ * per-IP in-memory rate limit (per warm instance — a gate, not a fortress).
  */
 
-const FORMS: Record<string, { tag: string; maxFiles: number }> = {
-  contact: { tag: "Contact", maxFiles: 0 },
-  careers: { tag: "Careers", maxFiles: 1 },
-  franchise: { tag: "Franchise", maxFiles: 0 },
-  business: { tag: "Business", maxFiles: 0 },
-  warranty_claim: { tag: "Warranty claim", maxFiles: 4 },
-};
+// Env fallbacks MUST match .env.example — scripts/check-email-fallbacks.mjs
+// fails the build otherwise. A missing env var must never route mail to a
+// dead address again (that is how nine leads were lost in August 2026).
+const FALLBACK_TO = "info@supakoto.org";
+const FALLBACK_FROM = "SupaKoto Website <noreply@send.supakoto.org>";
 
 const MAX_FILE_BYTES = 5 * 1024 * 1024;
 const ALLOWED_FILE_TYPES =
   /^(image\/(jpeg|png|webp|heic|heif)|application\/pdf|application\/msword|application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document)$/;
 const MAX_FIELD_CHARS = 4000;
-const MAX_FIELDS = 24;
+const MAX_FIELDS = 40;
+const RESERVED = new Set(["form", "ref", "locale", "website"]);
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Per-IP: max 5 submissions per 10 minutes (per warm instance). */
 const RATE_WINDOW_MS = 10 * 60 * 1000;
@@ -41,7 +47,67 @@ function rateLimited(ip: string): boolean {
   return list.length > RATE_MAX;
 }
 
+/**
+ * Same-site check: the Origin (or Referer) host must be the request's own
+ * host. Covers supakoto.com, every Vercel preview URL, and localhost alike
+ * without a hard-coded allow-list. Requests with neither header are
+ * rejected — browsers always send Origin on a same-site or cross-site POST.
+ */
+function sameSite(req: NextRequest): boolean {
+  const own = req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? "";
+  const source = req.headers.get("origin") ?? req.headers.get("referer") ?? "";
+  if (!own || !source) return false;
+  try {
+    return new URL(source).host === own;
+  } catch {
+    return false;
+  }
+}
+
+/** One line, no control characters — a name must not inject headers. */
+function clean(value: string): string {
+  return value.replace(/[\u0000-\u001f\u007f]+/g, " ").trim();
+}
+
+const EN = en as {
+  services: { items: Record<string, { name: string }> };
+  branches: { items: Record<string, { name: string }> };
+  buildingQuote: { governorates: Record<string, string>; emirates: Record<string, string> };
+};
+
+/** English display value for the fields whose raw value is an id. */
+function display(key: string, value: string): string {
+  switch (key) {
+    case "service":
+      return EN.services.items[value]?.name ?? value;
+    case "branch":
+      return EN.branches.items[value]?.name ?? value;
+    case "region":
+      return value === "egypt" ? "Egypt" : value === "uae" ? "UAE" : value;
+    case "area":
+      return EN.buildingQuote.governorates[value] ?? EN.buildingQuote.emirates[value] ?? value;
+    default:
+      return value;
+  }
+}
+
+/** The "<service>" slot of the subject, per form spec. */
+function serviceSlot(spec: (typeof FORM_SPECS)[FormKey], fields: Map<string, string>): string {
+  if (spec.serviceFrom === null) return spec.serviceLabel;
+  const raw = fields.get(spec.serviceFrom) ?? "";
+  const named = raw
+    .split(",")
+    .map((v) => v.trim())
+    .filter(Boolean)
+    .map((v) => spec.serviceMap?.[v] ?? display("service", v));
+  return named.length ? named.join(", ") : spec.serviceLabel;
+}
+
 export async function POST(req: NextRequest) {
+  if (!sameSite(req)) {
+    return NextResponse.json({ ok: false, error: "forbidden" }, { status: 403 });
+  }
+
   let data: FormData;
   try {
     data = await req.formData();
@@ -49,10 +115,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "bad_request" }, { status: 400 });
   }
 
-  const form = String(data.get("form") ?? "");
+  const form = String(data.get("form") ?? "") as FormKey;
   const ref = String(data.get("ref") ?? "");
   const locale = String(data.get("locale") ?? "");
-  const spec = FORMS[form];
+  const spec = FORM_SPECS[form];
   if (!spec || !isRef(ref)) {
     return NextResponse.json({ ok: false, error: "bad_request" }, { status: 400 });
   }
@@ -69,24 +135,26 @@ export async function POST(req: NextRequest) {
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    console.error("[forms] RESEND_API_KEY unset — refusing to fake success");
+    console.error("[forms] RESEND_API_KEY unset — refusing to fake success", { ref, form });
     return NextResponse.json({ ok: false, error: "email_unconfigured" }, { status: 503 });
   }
 
-  // Collect fields + files.
-  const lines: string[] = [];
+  // Collect fields + files. Attribution keys are split out into their own block.
+  const fields = new Map<string, string>();
+  const attribution = new Map<string, string>();
   const attachments: Array<{ filename: string; content: string }> = [];
-  let visitorEmail = "";
-  let subjectName = "";
   let fieldCount = 0;
   for (const [key, value] of data.entries()) {
-    if (["form", "ref", "locale", "website"].includes(key)) continue;
+    if (RESERVED.has(key)) continue;
     if (typeof value === "string") {
       if (++fieldCount > MAX_FIELDS) break;
-      const v = value.slice(0, MAX_FIELD_CHARS);
-      if (key === "email") visitorEmail = v;
-      if (key === "name" || (form === "warranty_claim" && key === "plate" && !subjectName)) subjectName = v;
-      lines.push(`${key}: ${v}`);
+      const v = clean(value.slice(0, MAX_FIELD_CHARS));
+      if (key.startsWith("attr_")) {
+        const attrKey = key.slice(5);
+        if ((ATTRIBUTION_KEYS as readonly string[]).includes(attrKey) && v) attribution.set(attrKey, v);
+      } else {
+        fields.set(key, v);
+      }
     } else {
       if (value.size === 0) continue;
       if (attachments.length >= spec.maxFiles) continue;
@@ -94,36 +162,76 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ ok: false, error: "bad_file" }, { status: 400 });
       }
       attachments.push({
-        filename: value.name || `${key}-${attachments.length + 1}`,
+        filename: clean(value.name) || `${key}-${attachments.length + 1}`,
         content: Buffer.from(await value.arrayBuffer()).toString("base64"),
       });
     }
   }
 
-  const to = process.env.FORMS_TO_EMAIL ?? "info@supakoto.com";
-  const from = process.env.FORMS_FROM_EMAIL ?? "SupaKoto Website <forms@supakoto.com>";
-  const subject = `[${spec.tag}] ${ref}${subjectName ? ` — ${subjectName}` : ""}`;
-  const text =
-    `${spec.tag} form submission from supakoto.com\n` +
-    `Ref: ${ref}\nLocale: ${locale || "?"}\n\n${lines.join("\n")}\n`;
+  const name = fields.get("name") || fields.get("company") || fields.get("plate") || "";
+  const visitorEmail = fields.get("email") ?? "";
+  const replyTo = EMAIL_RE.test(visitorEmail) ? visitorEmail : "";
 
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from,
-      to: [to],
-      subject,
-      text,
-      ...(visitorEmail ? { reply_to: [visitorEmail] } : {}),
-      ...(attachments.length ? { attachments } : {}),
-    }),
-  });
+  const subject = [`${spec.emoji} [${spec.tag}]`, serviceSlot(spec, fields), name || null, ref]
+    .filter(Boolean)
+    .join(" — ");
 
-  if (!res.ok) {
-    console.error("[forms] resend error", res.status, (await res.text()).slice(0, 300));
+  // Body: ref first, then fields in the spec's order (unknown extras last),
+  // then attribution. Plain and scannable.
+  const ordered = [
+    ...spec.fields.filter((k) => fields.has(k)),
+    ...[...fields.keys()].filter((k) => !spec.fields.includes(k)),
+  ];
+  const lines = ordered.map((k) => `${FIELD_LABELS[k] ?? k}: ${display(k, fields.get(k) ?? "")}`);
+  const attributionLines = attribution.size
+    ? [...attribution.entries()].map(([k, v]) => `${k}: ${v}`)
+    : ["(none — direct visit or cookies blocked)"];
+  const text = [
+    `Ref: ${ref}`,
+    `Form: ${spec.tag} (${form}) · Locale: ${locale || "?"} · ${new Date().toISOString()}`,
+    "",
+    ...lines,
+    "",
+    "Attribution",
+    ...attributionLines,
+    "",
+  ].join("\n");
+
+  const to = process.env.FORMS_TO_EMAIL ?? FALLBACK_TO;
+  const from = process.env.FORMS_FROM_EMAIL ?? FALLBACK_FROM;
+
+  let res: Response;
+  try {
+    res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from,
+        to: [to],
+        subject,
+        text,
+        ...(replyTo ? { reply_to: [replyTo] } : {}),
+        ...(attachments.length ? { attachments } : {}),
+      }),
+    });
+  } catch (error: unknown) {
+    console.error("[forms] resend unreachable", {
+      ref,
+      form,
+      error: error instanceof Error ? error.message : String(error),
+    });
     return NextResponse.json({ ok: false, error: "send_failed" }, { status: 502 });
   }
-  const { id } = (await res.json()) as { id?: string };
-  return NextResponse.json({ ok: true, id: id ?? "sent" });
+
+  if (!res.ok) {
+    console.error("[forms] resend error", { ref, form, status: res.status, body: (await res.text()).slice(0, 300) });
+    return NextResponse.json({ ok: false, error: "send_failed" }, { status: 502 });
+  }
+  const { id } = (await res.json().catch(() => ({}))) as { id?: string };
+  if (!id) {
+    // 2xx without an id is not a confirmed accept — treat as failure rather than guess.
+    console.error("[forms] resend accepted without id", { ref, form });
+    return NextResponse.json({ ok: false, error: "send_failed" }, { status: 502 });
+  }
+  return NextResponse.json({ ok: true, id });
 }

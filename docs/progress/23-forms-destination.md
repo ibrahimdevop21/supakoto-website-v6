@@ -65,3 +65,48 @@ platforms entirely per Ibrahim's instruction.
   domain), (2) Ibrahim's word on the event mapping above (LD-3), then
   merge → live smoke: submit each form once, confirm five tagged emails
   with refs arrive at info@supakoto.com.
+
+## SHIPPED — 2026-08-25 — FORM DESTINATIONS master prompt (LOCAL, not merged)
+Root cause of the "Resend failure" was `supakoto.org` expiring on Aug 3 —
+DNS gone, mail bounced silently ~2 weeks, nine leads lost. Domain reactivated,
+Resend verified (DKIM/MX/SPF), env set on Production + Preview:
+`RESEND_API_KEY`, `FORMS_TO_EMAIL=info@supakoto.org`,
+`FORMS_FROM_EMAIL=noreply@send.supakoto.org` (SPF subdomain; root runs cPanel).
+
+**Everything the site collects now goes to email — nine surfaces, one inbox:**
+5 standalone forms (contact, careers, franchise, business, warranty claim),
+3 wizard flows (vehicle → 🚗 [CAR], building → 🏢 [BUILDING], marine/interior
+→ 🛥️ [MARINE]), and the standalone building quote page (🏢 [BUILDING],
+identical body). Eighth tag 🏭 [BUSINESS] added for fleet/dealer enquiries.
+Subject `<emoji> [TAG] — <service EN> — <name> — <SK-ref>`; body = ref
+first, every field (English labels, ids resolved to names), then the
+`sk-attribution` fields (utm_*, fbclid, gclid, …) appended client-side.
+Reply-To = visitor email where collected; claim form gained an optional
+email field. Wizard flows collect no email by decision (conversion cost).
+
+Locked behaviour: WhatsApp is an **opt-in button** on the success screen with
+a ref-only message (`مرحبا، أرسلت طلب رقم SK-… من الموقع`); on send failure
+the fallback button carries the FULL request. `booking_complete` /
+`quote_complete` / `enquiry_complete` fire **only after a confirmed send**
+(same payload, `eventID = ref`); `whatsapp_click` is now a true click count.
+One SK-ref per session, reused across retries. 15 s timeout; success only on
+`{ok:true,id}`. Route: same-site Origin check (403), `.org` fallbacks +
+`scripts/check-email-fallbacks.mjs` guard (build fails on a `.com` sender/
+recipient or a fallback ≠ `.env.example`), Resend 2xx-without-id = failure.
+
+Files: `app/api/forms/route.ts`, `lib/forms/{spec,submit,whatsapp}.ts`,
+`FormShell`, `BookingWizard`, `BuildingQuoteForm`, `ClaimForm`, messages
+(approved white-Arabic copy; `booking.stub`/`reopenWhatsApp` removed),
+`scripts/e2e-analytics.mjs` (+ failure-path test: 502 → no Lead, alert,
+full-body fallback, same ref on retry → Lead).
+
+Verified: typecheck, lint 0/0, 8 guards, build, e2e-analytics **177/177**,
+smoke 196/196, route curl (cross-site 403 / no-origin 403 / no-key 503 /
+bad form 400). Tracking layer untouched (`whatsapp_click` from standalone
+forms uses the existing `contact` source — adding a `form` source is a
+tracking-branch item). Event mapping (LD-3) still unwired.
+
+Next: `/code-review` fresh-context → Ibrahim pushes → **Step 4**: submit all
+nine surfaces on the Preview URL and confirm nine emails LAND at
+info@supakoto.org (not API 200 — inbox). Then production.
+Follow-up scoped, not built: `docs/progress/DELIVERY-WEBHOOK.md`.

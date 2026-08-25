@@ -948,7 +948,8 @@
       "issuePlaceholder": "Describe the issue — where it is and when you noticed it",
       "photos": "Photos",
       "photosHint": "Upload clear photos of the affected area",
-      "submit": "Submit claim"
+      "submit": "Submit claim",
+      "email": "Email (optional)"
     },
     "success": "Received. We'll contact you within two working days.",
     "seoTitle": "TAKAI Warranty Claim — File a Request | SupaKoto",
@@ -1036,12 +1037,10 @@
       "measurements": "Measurements",
       "problem": "Main problem"
     },
-    "success": "We've prepared a WhatsApp message with your booking details — send it and we'll confirm your slot.",
-    "reopenWhatsApp": "Open WhatsApp again",
-    "stub": "Direct online booking is coming soon — for now confirmation happens over WhatsApp.",
+    "success": "Your booking request has been sent. We'll call you to confirm the slot.",
     "waTitle": "New booking from the website:",
     "seoTitle": "Book Car Protection — PPF, Heat Isolation, Ceramic | SupaKoto",
-    "seoDescription": "Start in two minutes: pick the service, then country, branch and day — confirmed on WhatsApp. PPF, heat isolation, ceramic, colour change.",
+    "seoDescription": "Start in two minutes: pick the service, then country, branch and day — we call you to confirm. PPF, heat isolation, ceramic, colour change.",
     "waRef": "Request ref",
     "serviceGroups": {
       "vehicle": "Cars",
@@ -1053,8 +1052,8 @@
       "building": "Quote from your measurements",
       "enquiry": "Enquiry — product confirmation pending"
     },
-    "successQuote": "We've prepared a WhatsApp message with your measurements — send it and we'll reply with a quote and a proposed date.",
-    "successEnquiry": "We've prepared a WhatsApp message with your enquiry — send it and we'll get back to you with what's available.",
+    "successQuote": "Your measurements have been sent. We'll reply with a quote and a proposed date.",
+    "successEnquiry": "Your enquiry has been sent. We'll get back to you with what's available.",
     "waEnquiryTitle": "Enquiry — {service}",
     "teamConfirms": "team confirms",
     "calendar": {
@@ -2137,9 +2136,13 @@
     "seoDescription": "Terms for using the SupaKoto website and booking car protection services in Egypt and the UAE: bookings and appointments, warranty by tier, and liability."
   },
   "common": {
-    "formError": "Sending failed. Please try again — or message us on WhatsApp.",
+    "formError": "We couldn't send your request. Try again, or send it on WhatsApp.",
     "formRef": "Request ref:",
-    "formSending": "Sending…"
+    "formSending": "Sending…",
+    "keepRef": "Keep this reference for any follow-up.",
+    "whatsappOptional": "Want a faster reply? Continue on WhatsApp.",
+    "continueOnWhatsApp": "Continue on WhatsApp",
+    "sendOnWhatsApp": "Send it on WhatsApp"
   },
   "notFound": {
     "title": "This page doesn't exist",
@@ -2236,9 +2239,8 @@
       "phoneLabel": "Phone number",
       "whatsappLabel": "WhatsApp number"
     },
-    "submit": "Send via WhatsApp",
-    "success": "Done — WhatsApp should open with your details. If it didn't, use the button below.",
-    "reopenWhatsApp": "Reopen WhatsApp",
+    "submit": "Send quote request",
+    "success": "Your quote request has been sent. We'll reply with a quote and a proposed date.",
     "wa": {
       "title": "Quotation request — building heat isolation",
       "area": "Area",
