@@ -1,3 +1,67 @@
+# CHECKPOINT — 2026-08-27
+
+## TL;DR (Phase 23 complete + verified on branch; deploy gated on env + mapping approval)
+
+**Note:** the 2026-08-22 entry below went stale — it describes "five forms,
+ec9d5ca". Git is truth: Phase 23 grew three more commits on
+`feat/phase-23-forms-destination` (now `3e56ebe`, 6 over main).
+**What actually shipped on the branch (2026-08-25 sessions):**
+- `09b1b22` — **nine submission surfaces** (5 standalone forms + 3 wizard
+  flows + quote page) → `/api/forms` → Resend → **info@supakoto.org**.
+  SK-ref in subject, per-form tags incl. new 🏭 BUSINESS (fleet/dealership
+  never sits behind CONTACT). WhatsApp demoted to optional ref-only button
+  on the success screen (Option B); email is the record.
+- `277d5c2` — fresh-context code-review fixes: upload cap (Vercel 4.5MB
+  body limit), honest honeypot (no fake success on autofill), idempotent
+  retry (no duplicate emails on client timeout).
+- `3e56ebe` — **info@supakoto.com never existed**; replaced with
+  info@supakoto.org everywhere (footer, /contact, JSON-LD, privacy both
+  locales), build guard fails on any `@supakoto.com` address. SK-ref made
+  session-scoped (sessionStorage `sk-ref:booking`, survives reload +
+  locale switch, cleared after confirmed send).
+
+**Gate (all green, 2026-08-25):** build ✓ typecheck ✓ lint ✓ 8 guards ✓
+e2e-analytics 178/178 ✓ e2e-whatsapp-routing 32/32 ✓ smoke 196/196 ✓.
+
+**Branch state:** origin has through `277d5c2`; `3e56ebe` is unpushed
+(plus this checkpoint commit).
+
+## Phase ledger
+- DONE + LIVE on main: phases ≤22 (privacy truth, CR 141558, OG fix).
+- DONE on branch: Phase 23 forms destination — built, reviewed, verified.
+- NEXT: push branch → Preview URL → manually submit all 9 surfaces →
+  confirm 9 tagged emails at info@supakoto.org → merge + deploy.
+- Queued after: audit fix-order Phase A items 2–4 (testimonials,
+  placeholders, TAKAI attribution guard — answers needed OQ-3/4/5).
+
+## Decisions this cycle (2026-08-25, so they don't get re-litigated)
+- Email is the system of record; WhatsApp is optional acceleration
+  (ref-only shortened message), tracking fires after email success.
+- Eighth tag added: 🏭 BUSINESS for fleet/dealership enquiries.
+- Only valid mailbox is **info@supakoto.org**; guard enforces it.
+- Resend delivery webhook: scoped (~3h) but **deferred — do not build**.
+
+## Gated on Ibrahim
+- `RESEND_API_KEY` + `FORMS_TO_EMAIL`/`FORMS_FROM_EMAIL` in Vercel env
+  (exact names read by `app/api/forms/route.ts`).
+- Approval of per-form event mapping table in
+  `docs/progress/23-forms-destination.md` (careers/claims never Lead).
+- The word "push" (branch stays local-ahead until then).
+- Still owed from earlier phases: legal entity name (/privacy TODO),
+  TikTok AAM toggle, GA4 form-interactions toggle.
+
+## HELD (approved-to-wait — never auto-resume)
+Delivery webhook build; bdm-flow counter; Supabase; marine/surface
+service pages; gallery tracking; consent banner.
+
+## Exact next action
+Ibrahim says push → `git push` the branch, open Vercel Preview, submit
+all nine surfaces by hand, verify nine subject lines with SK-refs arrive
+at info@supakoto.org. Then, with env vars confirmed + mapping approved,
+merge to main and deploy.
+
+---
+
 # CHECKPOINT — 2026-08-22 (late night)
 
 ## TL;DR (Phase 23 forms destination built, awaiting env + mapping word)
