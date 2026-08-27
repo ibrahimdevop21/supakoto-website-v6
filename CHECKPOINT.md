@@ -14,9 +14,9 @@ ec9d5ca". Git is truth: Phase 23 grew three more commits on
 - `277d5c2` — fresh-context code-review fixes: upload cap (Vercel 4.5MB
   body limit), honest honeypot (no fake success on autofill), idempotent
   retry (no duplicate emails on client timeout).
-- `3e56ebe` — **info@supakoto.com never existed**; replaced with
+- `3e56ebe` — the **.com mailbox never existed**; replaced with
   info@supakoto.org everywhere (footer, /contact, JSON-LD, privacy both
-  locales), build guard fails on any `@supakoto.com` address. SK-ref made
+  locales), build guard fails on any .com-domain address. SK-ref made
   session-scoped (sessionStorage `sk-ref:booking`, survives reload +
   locale switch, cleared after confirmed send).
 
