@@ -24,7 +24,7 @@ export const runtime = "nodejs";
 // fails the build otherwise. A missing env var must never route mail to a
 // dead address again (that is how nine leads were lost in August 2026).
 const FALLBACK_TO = "info@supakoto.org";
-const FALLBACK_FROM = "SupaKoto Website <noreply@send.supakoto.org>";
+const FALLBACK_FROM = "SupaKoto Website <noreply@supakoto.org>";
 
 // Vercel caps a Node function's request body at 4.5 MB — anything larger 413s
 // before this code runs. Keep the whole multipart under that: 4 MB of files

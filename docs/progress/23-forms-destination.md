@@ -72,6 +72,9 @@ DNS gone, mail bounced silently ~2 weeks, nine leads lost. Domain reactivated,
 Resend verified (DKIM/MX/SPF), env set on Production + Preview:
 `RESEND_API_KEY`, `FORMS_TO_EMAIL=info@supakoto.org`,
 `FORMS_FROM_EMAIL=noreply@send.supakoto.org` (SPF subdomain; root runs cPanel).
+> Corrected 2026-08-27: the Resend key is domain-scoped to `supakoto.org` and
+> 403'd on the send. subdomain FROM. `FORMS_FROM_EMAIL` is now
+> `noreply@supakoto.org` on Production + Preview; code fallback + guard match.
 
 **Everything the site collects now goes to email — nine surfaces, one inbox:**
 5 standalone forms (contact, careers, franchise, business, warranty claim),

@@ -10,8 +10,10 @@
  *  1. FALLBACK_TO / FALLBACK_FROM in app/api/forms/route.ts == FORMS_TO_EMAIL /
  *     FORMS_FROM_EMAIL in .env.example (the FROM comparison is on the
  *     address inside <…>).
- *  2. FORMS_FROM_EMAIL is on send.supakoto.org (the SPF-authorised subdomain;
- *     the root domain runs cPanel mail and must not send).
+ *  2. FORMS_FROM_EMAIL is exactly noreply@supakoto.org — the Resend API key
+ *     is domain-scoped to supakoto.org and 403s on any other FROM domain
+ *     (measured 2026-08-27: "This API key is not authorized to send emails
+ *     from send.supakoto.org"). Via check 1 this pins the code fallback too.
  *  3. No "<anything>@supakoto.com" mail address ANYWHERE in the codebase
  *     (Ibrahim, 2026-08-25: no mailbox exists on the .com domain — the
  *     address the site displayed bounced publicly). supakoto.com is correct as a URL and wrong as a mail
@@ -45,8 +47,11 @@ if (fallbackTo && fallbackTo !== env.FORMS_TO_EMAIL)
   failures.push(`FALLBACK_TO "${fallbackTo}" != .env.example FORMS_TO_EMAIL "${env.FORMS_TO_EMAIL}"`);
 if (fallbackFrom && addr(fallbackFrom) !== addr(env.FORMS_FROM_EMAIL ?? ""))
   failures.push(`FALLBACK_FROM "${addr(fallbackFrom)}" != .env.example FORMS_FROM_EMAIL "${addr(env.FORMS_FROM_EMAIL ?? "")}"`);
-if (!/@send\.supakoto\.org$/.test(addr(env.FORMS_FROM_EMAIL ?? "")))
-  failures.push(`FORMS_FROM_EMAIL must be on send.supakoto.org (SPF-authorised), got "${env.FORMS_FROM_EMAIL}"`);
+const AUTHORIZED_FROM = "noreply@supakoto.org"; // Resend key's domain scope
+if (addr(env.FORMS_FROM_EMAIL ?? "") !== AUTHORIZED_FROM)
+  failures.push(`FORMS_FROM_EMAIL must be ${AUTHORIZED_FROM} (Resend key is scoped to supakoto.org), got "${env.FORMS_FROM_EMAIL}"`);
+if (fallbackFrom && addr(fallbackFrom) !== AUTHORIZED_FROM)
+  failures.push(`FALLBACK_FROM must be ${AUTHORIZED_FROM} (Resend key is scoped to supakoto.org), got "${addr(fallbackFrom)}"`);
 
 const SCAN_DIRS = ["app", "components", "lib", "content", "messages", "i18n", "scripts"];
 const SCAN_FILES = [".env.example", "next.config.ts", "middleware.ts", "CHECKPOINT.md"];
