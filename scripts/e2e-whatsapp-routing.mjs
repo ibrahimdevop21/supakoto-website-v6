@@ -16,10 +16,10 @@ const browser = await chromium.launch();
 async function fresh(cookieRegion, locale) {
   const ctx = await browser.newContext({ locale: locale === "ar" ? "ar-EG" : "en-US" });
   await ctx.addCookies([{ name: "sk-region", value: cookieRegion, url: BASE }]);
-  await ctx.addInitScript(() => {
-    window.__wa = null;
-    window.open = (u) => { window.__wa = String(u); return null; };
-  });
+  // Every surface POSTs to /api/forms first (2026-08-25) — mock a confirmed accept.
+  await ctx.route("**/api/forms", (route) =>
+    route.fulfill({ contentType: "application/json", body: JSON.stringify({ ok: true, id: "e2e" }) }),
+  );
   const page = await ctx.newPage();
   page.on("pageerror", (e) => console.log("PAGEERROR", e.message));
   return { ctx, page };
@@ -49,9 +49,10 @@ async function booking(locale, cookieRegion, formRegion) {
   await page.fill("#bk-name", "Test User"); await page.fill("#bk-phone", "0100000000");
   await clickText(page, L.next);
   await clickText(page, L.confirm);
-  await page.waitForFunction(() => window.__wa !== null);
-  const url = await page.evaluate(() => window.__wa);
-  const reopen = await page.locator('a[href^="https://wa.me/"]').first().getAttribute("href");
+  // 2026-08-25: email is the record — no auto-open; the regional line lives on the success-screen button.
+  await page.locator('main [role="status"]').waitFor({ timeout: 10000 });
+  const url = await page.locator('main a[href^="https://wa.me/"]').first().getAttribute("href");
+  const reopen = url;
   results.push({ form: "booking", locale, cookieRegion, formRegion, got: waNumber(url), reopen: waNumber(reopen), expect: EXPECT[formRegion] });
   await ctx.close();
 }
@@ -70,11 +71,13 @@ async function wizardQuote(locale, cookieRegion, formRegion) {
   await clickText(page, L.heat); await clickText(page, L.next);
   await page.fill("#bk-name", "Test User"); await page.fill("#bk-phone", "0100000000"); await clickText(page, L.next);
   await clickText(page, L.confirmQuote);
-  await page.waitForFunction(() => window.__wa !== null);
-  const url = await page.evaluate(() => window.__wa);
+  // 2026-08-25: email is the record — no auto-open; the regional line lives on the success-screen button.
+  await page.locator('main [role="status"]').waitFor({ timeout: 10000 });
+  const url = await page.locator('main a[href^="https://wa.me/"]').first().getAttribute("href");
   const firstLine = decodeURIComponent((url ?? "").split("text=")[1] ?? "").split("\n")[0];
-  const reopen = await page.locator('a[href^="https://wa.me/"]').first().getAttribute("href");
-  results.push({ form: "wizquote", locale, cookieRegion, formRegion, got: waNumber(url), reopen: waNumber(reopen), expect: EXPECT[formRegion], error: firstLine === L.quoteTitle ? undefined : `first line «${firstLine}»` });
+  const reopen = url;
+  results.push({ form: "wizquote", locale, cookieRegion, formRegion, got: waNumber(url), reopen: waNumber(reopen), expect: EXPECT[formRegion], // 2026-08-25: the success-screen message is ref-only (the email carries the quote); assert the ref is there.
+  error: /SK-[A-Z2-9]{6}/.test(firstLine) ? undefined : `first line «${firstLine}»` });
   await ctx.close();
 }
 
@@ -89,9 +92,10 @@ async function enquiry(locale, cookieRegion, formRegion) {
   await clickText(page, L.next); // details optional
   await page.fill("#bk-name", "Test User"); await page.fill("#bk-phone", "0100000000"); await clickText(page, L.next);
   await clickText(page, L.confirmEnquiry);
-  await page.waitForFunction(() => window.__wa !== null);
-  const url = await page.evaluate(() => window.__wa);
-  const reopen = await page.locator('a[href^="https://wa.me/"]').first().getAttribute("href");
+  // 2026-08-25: email is the record — no auto-open; the regional line lives on the success-screen button.
+  await page.locator('main [role="status"]').waitFor({ timeout: 10000 });
+  const url = await page.locator('main a[href^="https://wa.me/"]').first().getAttribute("href");
+  const reopen = url;
   results.push({ form: "enquiry", locale, cookieRegion, formRegion, got: waNumber(url), reopen: waNumber(reopen), expect: EXPECT[formRegion] });
   await ctx.close();
 }
@@ -109,9 +113,10 @@ async function quote(locale, cookieRegion, formRegion) {
   await page.locator(`form button:text-is("${L.heat}")`).first().click();
   await page.fill("#bq-name", "Test User"); await page.fill("#bq-phone", "0100000000");
   await page.locator('form button[type="submit"]').click();
-  await page.waitForFunction(() => window.__wa !== null);
-  const url = await page.evaluate(() => window.__wa);
-  const reopen = await page.locator('a[href^="https://wa.me/"]').first().getAttribute("href");
+  // 2026-08-25: email is the record — no auto-open; the regional line lives on the success-screen button.
+  await page.locator('main [role="status"]').waitFor({ timeout: 10000 });
+  const url = await page.locator('main a[href^="https://wa.me/"]').first().getAttribute("href");
+  const reopen = url;
   results.push({ form: "quote", locale, cookieRegion, formRegion, got: waNumber(url), reopen: waNumber(reopen), expect: EXPECT[formRegion] });
   await ctx.close();
 }

@@ -25,6 +25,14 @@ async function fresh(path, { region = "egypt", locale = "en" } = {}) {
     }
     return route.continue();
   });
+  // Every surface now emails via /api/forms (2026-08-25). Mock a confirmed
+  // accept and keep the multipart bodies so tests can assert the fields.
+  // Sections that need a failure register their own page.route (wins).
+  const posts = [];
+  await ctx.route("**/api/forms", (route) => {
+    posts.push(route.request().postData() ?? "");
+    return route.fulfill({ contentType: "application/json", body: JSON.stringify({ ok: true, id: "e2e" }) });
+  });
   await ctx.addInitScript(() => {
     window.__opened = [];
     window.open = (u) => { window.__opened.push(String(u)); return null; };
@@ -51,8 +59,12 @@ async function fresh(path, { region = "egypt", locale = "en" } = {}) {
   page.on("pageerror", (e) => console.log("PAGEERROR", e.message));
   await page.goto(BASE + path, { waitUntil: "load" });
   await page.waitForTimeout(1500);
-  return { ctx, page, beacons };
+  return { ctx, page, beacons, posts };
 }
+/** Value of one multipart field in a recorded /api/forms body. */
+const field = (post, name) => (post.match(new RegExp(`name="${name}"\\r?\\n\\r?\\n([^\\r\\n]*)`)) ?? [])[1];
+/** The ref-only WhatsApp link on a success screen: href + decoded text. */
+const waLink = async (page, sel) => { const href = (await page.locator(sel).getAttribute("href")) ?? ""; return { href, text: decodeURIComponent(href.split("text=")[1] ?? "") }; };
 const log = (page) => page.evaluate(() => (window.__skAnalytics?.log ?? []).map((e) => ({ event: e.event, ...e.params })));
 const has = (events, name, pred = () => true) => events.some((e) => e.event === name && pred(e));
 // GA4 ships events via navigator.sendBeacon — the POST body is invisible to
@@ -99,6 +111,10 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   ok(has(ev, "page_view", (e) => e.path === "/en/services"), "page_view on client-side route change (/en/services)");
   ok(ev.filter((e) => e.event === "page_view").length === 2, `exactly 2 page_views after one navigation (${ev.filter((e) => e.event === "page_view").length})`);
   ok((await gaCalls(page)).filter((b) => /^en=page_view&/.test(b)).length === 2 && (await gaCalls(page)).some((b) => /^en=page_view&/.test(b) && /page_path=\/en\/services/.test(b)), "GA4: second page_view issued for /en/services after SPA nav");
+  // gtag batches /g/collect flushes — the queue check above proves the event
+  // was issued; poll up to 6s for the wire beacon instead of a fixed 1.2s
+  // (failed twice on 2026-08-22 purely on flush timing).
+  for (let i = 0; i < 12 && gaNet(beacons).length === 0; i++) await wait(500);
   ok(gaNet(beacons).length >= 1, "GA4: /g/collect beacon sent after SPA nav");
   // Meta reports the in-page PageView count too (one per route)
   ok((await fbCalls(page)).filter((b) => /ev=PageView/.test(b)).length === 2, "Meta: exactly 2 PageView calls after one navigation");
@@ -178,7 +194,7 @@ const WIZ = {
 };
 for (const locale of ["en", "ar"]) {
   const L = WIZ[locale];
-  const { ctx, page, beacons } = await fresh(`${locale === "en" ? "/en" : ""}/booking?utm_source=meta&utm_campaign=summer&fbclid=XYZ`, { locale });
+  const { ctx, page, beacons, posts } = await fresh(`${locale === "en" ? "/en" : ""}/booking?utm_source=meta&utm_campaign=summer&fbclid=XYZ`, { locale });
   const clickText = (txt) => page.locator(`main button:text-is("${txt}")`).first().click();
   let ev = await log(page);
   ok(!has(ev, "booking_start") && !has(ev, "quote_start") && !has(ev, "enquiry_start"), `[${locale}] no funnel-top event before a service is picked`);
@@ -201,12 +217,15 @@ for (const locale of ["en", "ar"]) {
   ok(steps.join(",") === "1:service,2:region/vehicle,3:branch/vehicle,4:car/vehicle,5:date/vehicle,6:time/vehicle,7:contact/vehicle,8:confirm/vehicle", `[${locale}] booking_step ×8 in order with flow (${steps.join(",")})`);
   const done = ev.find((e) => e.event === "booking_complete");
   ok(done && /^SK-[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{6}$/.test(done.ref) && done.region === "egypt" && done.branch && done.service === "ppf", `[${locale}] booking_complete with SK-ref (${done?.ref})`);
-  ok(has(ev, "whatsapp_click", (e) => e.source === "booking" && e.ref === done?.ref), `[${locale}] whatsapp_click(booking) carries the same ref`);
-  const opened = await page.evaluate(() => window.__opened);
-  const msg = decodeURIComponent((opened[0] ?? "").split("text=")[1] ?? "");
-  ok(opened.length === 1 && /wa\.me\/201103402446/.test(opened[0]), `[${locale}] window.open → wa.me egypt regional line`);
-  ok(msg.split("\n")[1] === `${L.refLabel}: ${done?.ref}`, `[${locale}] ref is line 2 of the WhatsApp message, labelled «${L.refLabel}»`);
-  ok(!/Quotation|عرض سعر|Enquiry|استفسار/.test(msg.split("\n")[0]), `[${locale}] vehicle message is a booking, not a quote/enquiry`);
+  // 2026-08-25: email is the record. No auto-open, no auto whatsapp_click.
+  ok(!has(ev, "whatsapp_click"), `[${locale}] no whatsapp_click at submit — WhatsApp is opt-in`);
+  ok((await page.evaluate(() => window.__opened)).length === 0, `[${locale}] no window.open at submit`);
+  const post = posts[posts.length - 1] ?? "";
+  ok(field(post, "form") === "booking" && field(post, "ref") === done?.ref, `[${locale}] POST /api/forms form=booking with the same ref`);
+  ok(field(post, "service") === "ppf" && field(post, "make") === "Toyota" && field(post, "model") === "Prado" && Boolean(field(post, "branch")) && Boolean(field(post, "date")) && Boolean(field(post, "time")), `[${locale}] booking fields in the POST`);
+  ok(field(post, "attr_utm_source") === "meta" && field(post, "attr_fbclid") === "XYZ", `[${locale}] attribution appended to the POST`);
+  const wa = await waLink(page, 'a[data-track="whatsapp:booking"]');
+  ok(/wa\.me\/201103402446/.test(wa.href) && wa.text.includes(done?.ref ?? "?") && !wa.text.includes("\n"), `[${locale}] success WhatsApp button: egypt line, ref-only text «${wa.text}»`);
   ok(fbBeacons(beacons).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)) || (await fbCalls(page)).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)), `[${locale}] Meta: Lead with eventID=ref`);
   const gaq = await gaCalls(page);
   ok(gaq.some((b) => /^en=booking_complete&/.test(b) && new RegExp(`ref=${done?.ref}`).test(b)) && gaq.some((b) => /^en=generate_lead&/.test(b) && new RegExp(`transaction_id=${done?.ref}`).test(b)), `[${locale}] GA4: booking_complete + generate_lead issued with ref`);
@@ -215,19 +234,70 @@ for (const locale of ["en", "ar"]) {
   const intents = await page.evaluate(() => JSON.parse(localStorage.getItem("sk-booking-intents") ?? "[]"));
   const last = intents[intents.length - 1];
   ok(last && last.ref === done?.ref && last.kind === "booking" && last.region === "egypt" && last.branch && last.service && last.at && last.attribution?.utm_source === "meta" && last.attribution?.fbclid === "XYZ" && last.attribution?.utm_campaign === "summer", `[${locale}] intent log: ref + region/branch/service + attribution (utm/fbclid)`);
-  // success-screen "open again" link fires whatsapp_click(booking) with the ref
+  // the opt-in button is the ONLY whatsapp_click — a true click count now
   await page.locator('a[data-track="whatsapp:booking"]').click();
   await wait(300);
-  ok((await log(page)).filter((e) => e.event === "whatsapp_click" && e.source === "booking" && e.ref === done?.ref).length === 2, `[${locale}] reopen link fires whatsapp_click(booking) with ref`);
+  ok((await log(page)).filter((e) => e.event === "whatsapp_click" && e.source === "booking" && e.ref === done?.ref).length === 1, `[${locale}] WhatsApp button fires whatsapp_click(booking) with ref, exactly once`);
   const shown = await page.locator("main").innerText();
   ok(shown.includes(done?.ref ?? "x"), `[${locale}] ref shown on the success screen`);
+  await ctx.close();
+}
+
+/* 4a. Failure path (2026-08-25): a failed send must never show success or fire Lead; the ref survives the retry */
+{
+  const L = WIZ.en;
+  const { ctx, page, beacons, posts } = await fresh("/en/booking");
+  const clickText = (txt) => page.locator(`main button:text-is("${txt}")`).first().click();
+  let fail500 = true;
+  await page.route("**/api/forms", (route) => {
+    posts.push(route.request().postData() ?? "");
+    return fail500
+      ? route.fulfill({ status: 502, contentType: "application/json", body: JSON.stringify({ ok: false, error: "send_failed" }) })
+      : route.fulfill({ contentType: "application/json", body: JSON.stringify({ ok: true, id: "e2e-retry" }) });
+  });
+  await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
+  await clickText(L.egypt); await clickText(L.next);
+  await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
+  await page.fill("#bk-make", "Toyota"); await page.fill("#bk-model", "Prado"); await clickText(L.next);
+  await page.locator("main button.sk-day:not([disabled])").first().click(); await clickText(L.next);
+  await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
+  await page.fill("#bk-name", "E2E Tester"); await page.fill("#bk-phone", "0100000000"); await clickText(L.next);
+  await page.locator('button[data-track="booking:confirm"]').click();
+  await wait(1500);
+  let ev = await log(page);
+  const firstRef = field(posts[posts.length - 1] ?? "", "ref");
+  ok(!has(ev, "booking_complete") && !has(ev, "whatsapp_click"), "502: no booking_complete, no whatsapp_click");
+  ok(![...fbBeacons(beacons), ...(await fbCalls(page))].some((b) => /ev=Lead/.test(b)), "502: Meta receives NO Lead");
+  ok(await page.locator("main [role=alert]").isVisible(), "502: error alert shown, no success screen");
+  ok(await page.locator('button[data-track="booking:confirm"]').isEnabled(), "502: confirm re-enabled, draft kept");
+  const fb = await waLink(page, 'main [role=alert] ~ a[data-track="whatsapp:booking"]');
+  ok(fb.text.split("\n")[1] === `${L.refLabel}: ${firstRef}` && /Toyota/.test(fb.text), "502: WhatsApp fallback carries the FULL request with the ref");
+  // The ref must survive a RELOAD (sessionStorage, Ibrahim 2026-08-25): the
+  // customer who got the fallback with SK-A and comes back must send SK-A.
+  fail500 = false;
+  await page.reload({ waitUntil: "load" });
+  await page.waitForTimeout(1200);
+  await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
+  await clickText(L.egypt); await clickText(L.next);
+  await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
+  await page.fill("#bk-make", "Toyota"); await page.fill("#bk-model", "Prado"); await clickText(L.next);
+  await page.locator("main button.sk-day:not([disabled])").first().click(); await clickText(L.next);
+  await page.locator("main button[aria-pressed]").first().click(); await clickText(L.next);
+  await page.fill("#bk-name", "E2E Tester"); await page.fill("#bk-phone", "0100000000"); await clickText(L.next);
+  await page.locator('button[data-track="booking:confirm"]').click();
+  await wait(2500);
+  ev = await log(page);
+  const done = ev.find((e) => e.event === "booking_complete");
+  ok(done?.ref === firstRef && field(posts[posts.length - 1] ?? "", "ref") === firstRef, `after reload: same ref reused (${firstRef}), booking_complete fires only now`);
+  ok((await page.evaluate(() => sessionStorage.getItem("sk-ref:booking"))) === null, "after a confirmed send the session ref is cleared (next request gets a fresh one)");
+  ok(fbBeacons(beacons).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${firstRef}`).test(b)) || (await fbCalls(page)).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${firstRef}`).test(b)), "retry: Meta Lead with eventID=ref after the confirmed send");
   await ctx.close();
 }
 
 /* 4b. Wizard — building flow: quote_start(wizard) → measurements → quote_complete(wizard), same WhatsApp shape as the quote page */
 for (const locale of ["en", "ar"]) {
   const L = WIZ[locale];
-  const { ctx, page, beacons } = await fresh(`${locale === "en" ? "/en" : ""}/booking`, { locale });
+  const { ctx, page, beacons, posts } = await fresh(`${locale === "en" ? "/en" : ""}/booking`, { locale });
   const clickText = (txt) => page.locator(`main button:text-is("${txt}")`).first().click();
   await page.locator(`main button[aria-pressed]:has-text("${L.building}")`).first().click();
   await wait(200);
@@ -249,12 +319,12 @@ for (const locale of ["en", "ar"]) {
   const done = ev.find((e) => e.event === "quote_complete");
   ok(done && /^SK-[A-Z2-9]{6}$/.test(done.ref) && done.region === "egypt" && done.property_type === "residential" && done.service === "building-heat-isolation" && done.source === "wizard", `[${locale}] quote_complete(wizard) with SK-ref (${done?.ref})`);
   ok(!has(ev, "booking_complete") && !has(ev, "enquiry_complete"), `[${locale}] building flow fires only quote_complete`);
-  ok(has(ev, "whatsapp_click", (e) => e.source === "quote" && e.ref === done?.ref && !e.branch), `[${locale}] whatsapp_click(quote) with ref, no branch`);
-  const opened = await page.evaluate(() => window.__opened);
-  const lines = decodeURIComponent((opened[0] ?? "").split("text=")[1] ?? "").split("\n");
-  ok(lines[0] === L.quoteTitle, `[${locale}] WhatsApp first line is the quote marker «${lines[0]}»`);
-  ok(lines[1] === `${L.refLabel}: ${done?.ref}`, `[${locale}] ref is line 2`);
-  ok(/120 m²/.test(lines[2]) && !/Toyota|Prado|2026-09-01/.test(lines.join(" ")), `[${locale}] measurements follow, no car/date fields`);
+  ok(!has(ev, "whatsapp_click"), `[${locale}] no auto whatsapp_click (email is the record)`);
+  const post = posts[posts.length - 1] ?? "";
+  ok(field(post, "form") === "quote" && field(post, "ref") === done?.ref && field(post, "source") === "wizard", `[${locale}] POST form=quote, source=wizard, same ref`);
+  ok(field(post, "propertyType") === "residential" && field(post, "glazingArea") === "120" && field(post, "floors") === "3" && field(post, "make") === undefined, `[${locale}] measurements in the POST, no car fields`);
+  const wa = await waLink(page, 'a[data-track="whatsapp:quote"]');
+  ok(wa.text.includes(done?.ref ?? "?") && !wa.text.includes("\n"), `[${locale}] success WhatsApp button is ref-only`);
   ok(fbBeacons(beacons).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)) || (await fbCalls(page)).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)), `[${locale}] Meta: Lead with eventID=ref (quote via wizard)`);
   const intents = await page.evaluate(() => JSON.parse(localStorage.getItem("sk-building-quote-intents") ?? "[]"));
   const last = intents[intents.length - 1];
@@ -265,7 +335,7 @@ for (const locale of ["en", "ar"]) {
 /* 4c. Wizard — enquiry flow (marine): enquiry_start → details → enquiry_complete as a primary conversion */
 for (const locale of ["en", "ar"]) {
   const L = WIZ[locale];
-  const { ctx, page, beacons } = await fresh(`${locale === "en" ? "/en" : ""}/booking`, { locale });
+  const { ctx, page, beacons, posts } = await fresh(`${locale === "en" ? "/en" : ""}/booking`, { locale });
   const clickText = (txt) => page.locator(`main button:text-is("${txt}")`).first().click();
   await page.locator(`main button[aria-pressed]:has-text("${L.marine}")`).first().click();
   await wait(200);
@@ -283,10 +353,11 @@ for (const locale of ["en", "ar"]) {
   ok(steps.join(",") === "service,region,details,contact,confirm", `[${locale}] enquiry steps: service,region,details,contact,confirm (${steps.join(",")})`);
   const done = ev.find((e) => e.event === "enquiry_complete");
   ok(done && /^SK-[A-Z2-9]{6}$/.test(done.ref) && done.region === "egypt" && done.service === "marine-ppf", `[${locale}] enquiry_complete with SK-ref (${done?.ref})`);
-  ok(has(ev, "whatsapp_click", (e) => e.source === "enquiry" && e.ref === done?.ref), `[${locale}] whatsapp_click(enquiry) with ref`);
-  const opened = await page.evaluate(() => window.__opened);
-  const lines = decodeURIComponent((opened[0] ?? "").split("text=")[1] ?? "").split("\n");
-  ok(lines[0] === L.enquiryTitle && lines[1] === `${L.refLabel}: ${done?.ref}` && lines.some((l) => /12m yacht/.test(l)), `[${locale}] enquiry message: «${lines[0]}», ref line 2, details present`);
+  ok(!has(ev, "whatsapp_click"), `[${locale}] no auto whatsapp_click (email is the record)`);
+  const post = posts[posts.length - 1] ?? "";
+  ok(field(post, "form") === "enquiry" && field(post, "ref") === done?.ref && field(post, "service") === "marine-ppf" && /12m yacht/.test(field(post, "details") ?? ""), `[${locale}] POST form=enquiry with details + same ref`);
+  const wa = await waLink(page, 'a[data-track="whatsapp:enquiry"]');
+  ok(wa.text.includes(done?.ref ?? "?") && !wa.text.includes("\n"), `[${locale}] success WhatsApp button is ref-only`);
   const gaq = await gaCalls(page);
   ok(gaq.some((b) => /^en=enquiry_complete&/.test(b)) && gaq.some((b) => /^en=generate_lead&/.test(b) && new RegExp(`transaction_id=${done?.ref}`).test(b)), `[${locale}] GA4: enquiry_complete + generate_lead (primary conversion)`);
   ok(fbBeacons(beacons).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)) || (await fbCalls(page)).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)), `[${locale}] Meta: Lead with eventID=ref (enquiry)`);
@@ -298,7 +369,7 @@ for (const locale of ["en", "ar"]) {
 
 /* 5. Building quote end-to-end */
 {
-  const { ctx, page, beacons } = await fresh("/en/services/building-heat-isolation/quote?gclid=GQ1");
+  const { ctx, page, beacons, posts } = await fresh("/en/services/building-heat-isolation/quote?gclid=GQ1");
   await wait(500);
   let ev = await log(page);
   ok(has(ev, "quote_start", (e) => e.source === "page" && e.service === "building-heat-isolation"), "quote_start(page) on mount");
@@ -322,10 +393,11 @@ for (const locale of ["en", "ar"]) {
   ev = await log(page);
   const done = ev.find((e) => e.event === "quote_complete");
   ok(done && /^SK-[A-Z2-9]{6}$/.test(done.ref) && done.region === "egypt" && done.property_type === "residential" && done.source === "page", `quote_complete(page) with SK-ref (${done?.ref})`);
-  ok(has(ev, "whatsapp_click", (e) => e.source === "quote" && e.ref === done?.ref), "whatsapp_click(quote) carries ref");
-  const opened = await page.evaluate(() => window.__opened);
-  const msg = decodeURIComponent((opened[0] ?? "").split("text=")[1] ?? "");
-  ok(msg.split("\n")[1] === `Request ref: ${done?.ref}`, "quote: ref is line 2 of the WhatsApp message");
+  ok(!has(ev, "whatsapp_click"), "quote page: no auto whatsapp_click (email is the record)");
+  const post = posts[posts.length - 1] ?? "";
+  ok(field(post, "form") === "quote" && field(post, "ref") === done?.ref && field(post, "source") === "page" && field(post, "attr_gclid") === "GQ1", "quote page: POST form=quote source=page with ref + gclid attribution");
+  const wa = await waLink(page, 'a[data-track="whatsapp:quote"]');
+  ok(wa.text.includes(done?.ref ?? "?") && !wa.text.includes("\n"), "quote page: success WhatsApp button is ref-only");
   ok(fbBeacons(beacons).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)) || (await fbCalls(page)).some((b) => /ev=Lead/.test(b) && new RegExp(`eid=${done?.ref}`).test(b)), "quote: Meta Lead with eventID=ref");
   const intents = await page.evaluate(() => JSON.parse(localStorage.getItem("sk-building-quote-intents") ?? "[]"));
   const last = intents[intents.length - 1];
@@ -350,9 +422,14 @@ for (const locale of ["en", "ar"]) {
   await ctx.close();
 }
 
-/* 6. Stub forms + contact info */
+/* 6. Site forms (real destination since Phase 23 — /api/forms intercepted) + contact info */
 for (const [path, form] of [["/en/contact", "contact"], ["/en/careers", "careers"], ["/en/franchise", "franchise"], ["/en/business", "business"], ["/en/warranty/claim", "warranty_claim"]]) {
   const { ctx, page, beacons } = await fresh(path);
+  let posted = null;
+  await page.route("**/api/forms", (route) => {
+    posted = route.request().postData() ?? "";
+    route.fulfill({ contentType: "application/json", body: JSON.stringify({ ok: true, id: "e2e" }) });
+  });
   // fill required fields generically
   for (const sel of ["input[required]", "textarea[required]", "select[required]"]) {
     const els = page.locator(`form[data-track="form:${form}"] ${sel}`);
@@ -368,14 +445,20 @@ for (const [path, form] of [["/en/contact", "contact"], ["/en/careers", "careers
     }
   }
   await page.locator(`form[data-track="form:${form}"] button[type="submit"]`).click();
-  await wait(500);
+  await wait(800);
   const ev = await log(page);
-  ok(has(ev, "form_submit", (e) => e.form === form), `form_submit(${form}) on ${path}`);
-  // Phase 21: stub submissions are GA4-only — a platform Lead for a form
-  // that is discarded locally is a fabricated conversion (audit defect #1).
+  const sub = ev.find((e) => e.event === "form_submit" && e.form === form);
+  ok(Boolean(sub), `form_submit(${form}) on ${path}`);
+  // Phase 23: submission POSTs to /api/forms with the SK-ref; success shows it.
+  const refMatch = (posted ?? "").match(/name="ref"\r?\n\r?\n(SK-[A-Z2-9]{6})/);
+  ok(Boolean(refMatch), `[${form}] POST /api/forms carries an SK-ref`);
+  ok(sub?.ref === refMatch?.[1], `[${form}] form_submit event carries the same ref (${sub?.ref})`);
+  ok(/name="website"/.test(posted ?? ""), `[${form}] honeypot field present in the POST`);
+  ok((await page.locator("main").innerText()).includes(refMatch?.[1] ?? "?"), `[${form}] success screen shows the ref`);
+  // Platform mapping still PENDING Ibrahim (doc 23 LD-3): GA4-only until approved.
   ok((await gaCalls(page)).some((b) => /^en=form_submit&/.test(b)), `GA4 form_submit(${form}) issued`);
-  ok(![...fbBeacons(beacons), ...(await fbCalls(page))].some((b) => /ev=Lead|ev=SubmitApplication/.test(b)), `Meta receives NOTHING for stub form_submit(${form})`);
-  ok(!ttBeacons(beacons).some((b) => /SubmitForm|"Lead"/.test(b)), `TikTok receives NOTHING for stub form_submit(${form})`);
+  ok(![...fbBeacons(beacons), ...(await fbCalls(page))].some((b) => /ev=Lead|ev=SubmitApplication/.test(b)), `Meta receives NOTHING for form_submit(${form})`);
+  ok(!ttBeacons(beacons).some((b) => /SubmitForm|"Lead"/.test(b)), `TikTok receives NOTHING for form_submit(${form})`);
   if (form === "contact") {
     await page.locator('a[data-track="call:contact"]').click();
     await page.locator('a[data-track="whatsapp:contact"]').click();

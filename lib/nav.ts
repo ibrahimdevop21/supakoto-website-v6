@@ -59,4 +59,6 @@ export const SOCIAL_LINKS = [
 ] as const;
 
 /** Business / franchise enquiries. Rendered in the footer and on /contact. */
-export const CONTACT_EMAIL = "info@supakoto.com";
+// The only mailbox that exists (Ibrahim, 2026-08-25). supakoto.com is a
+// URL domain, never a mail domain — scripts/check-email-fallbacks.mjs enforces it.
+export const CONTACT_EMAIL = "info@supakoto.org";

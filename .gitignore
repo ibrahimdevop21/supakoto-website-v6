@@ -7,3 +7,7 @@ tsconfig.tsbuildinfo
 .claude/
 .spec-workflow/
 assets/source/
+
+# Audit raw data (31 MB of Lighthouse/HTML/screens) — reports are committed, data is not (Ibrahim 2026-08-25)
+docs/audit/data/
+.vercel

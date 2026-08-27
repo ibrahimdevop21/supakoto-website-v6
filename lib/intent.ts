@@ -7,12 +7,14 @@ import { readAttribution } from "./attribution";
  * key per kind, last 20 entries each. Phase 19 moved it here so the
  * wizard's three flows and the standalone quote page share one writer.
  */
-export type IntentKind = "booking" | "quote" | "enquiry";
+export type IntentKind = "booking" | "quote" | "enquiry" | "form";
 
 const KEYS: Record<IntentKind, string> = {
   booking: "sk-booking-intents",
   quote: "sk-building-quote-intents",
   enquiry: "sk-enquiry-intents",
+  // Phase 23: the five site forms (service = the FormId).
+  form: "sk-form-intents",
 };
 
 export function logIntent(
